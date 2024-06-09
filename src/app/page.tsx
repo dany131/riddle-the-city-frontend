@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col gap-40">
-        <div className="h-[100vh] relative">
+        <div className="min-h-[100vh] relative">
           <Image
             className="absolute top-0 h-full w-full"
             style={{ opacity: "0.2" }}
@@ -115,7 +115,7 @@ export default function Home() {
               Featured Packages
             </p>
           </div>
-          <div className="flex gap-8 mb-16">
+          <div className="flex flex-wrap gap-8 mb-16">
             <div
               className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
               style={{
