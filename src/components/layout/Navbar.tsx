@@ -9,7 +9,7 @@ export default function Navbar() {
       >
         <div
           style={{ background: 'url("/images/layout/navbar.png")' }}
-          className="flex gap-16 px-8 w-[85%] py-4 m-auto items-center justify-center"
+          className="flex gap-16 px-8 min-w-[85%] py-4 m-auto items-center justify-center"
         >
           <div className="flex gap-16 items-center">
             <p>Home</p>
