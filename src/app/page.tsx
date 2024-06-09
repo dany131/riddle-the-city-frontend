@@ -2,112 +2,201 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <div className="flex flex-col gap-40">
+        <div className="h-[100vh] relative">
+          <Image
+            className="absolute top-0 h-full w-full"
+            style={{ opacity: "0.2" }}
+            src={"/images/home/home-banner.png"}
+            alt="home-banner"
+            width={1000}
+            height={500}
+          />
+          <div className="pt-56 flex gap-4 px-28 justify-center">
+            <div className="flex flex-col gap-4 w-1/2 justify-center">
+              <p style={{ fontFamily: "VoiganteDisplay" }} className="text-5xl">
+                Treasure Hunt through Nashville Breweries
+              </p>
+              <p className="text-sm font-extralight">
+                That is the inspiration for my Treasure Hunts.  I want to bring
+                joy to others while experiencing joy myself.  I trust your
+                experience is everything you hoped it would be, and then some.
+              </p>
+              <button className="relative h-[3rem] self-start flex justify-center items-center p-8">
+                <Image
+                  className="w-full h-full absolute top-0 w-full h-full z-[-1]"
+                  src={"/images/button/Frame.svg"}
+                  alt="button Frame 1"
+                  width={50}
+                  height={50}
+                />
+                <p>Explore Packages</p>
+              </button>
+            </div>
+            <div className="w-1/2">
+              <div className="h-[28rem] w-full">
+                <Image
+                  className="w-full h-full"
+                  src={"/images/home/home-img1.svg"}
+                  alt="home img1"
+                  width={150}
+                  height={150}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-4 px-28">
+          <div className="w-1/2 flex flex-col gap-4 items-center justify-center">
+            <div className="flex items-center gap-4 self-start">
+              <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
+              <p>About Us</p>
+              <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <p className="text-6xl" style={{ fontFamily: "VoiganteDisplay" }}>
+                Riddle the City
+              </p>
+              <p className="text-sm">
+                I remember having treasure hunts as a child and how much fun it
+                was to figure out all of the clues.  Some were simple, while
+                others took a bit to puzzle out.  I can honestly say I don't
+                remember any prizes.  The journey on the way was the real
+                adventure.
+              </p>
+              <p className="text-sm">
+                That is the inspiration for my Treasure Hunts.  I want to bring
+                joy to others while experiencing joy myself.  I trust your
+                experience is everything you hoped it would be, and then some. ​
+              </p>
+              <button className="relative h-[3rem] self-start flex justify-center items-center mt-4 p-8">
+                <Image
+                  className="w-full h-full absolute top-0 w-full h-full z-[-1]"
+                  src={"/images/button/Frame.svg"}
+                  alt="button Frame 1"
+                  width={50}
+                  height={50}
+                />
+                <p>Explore Packages</p>
+              </button>
+            </div>
+          </div>
+          <div className="w-1/2">
+            <div className="h-[25rem]">
+              <Image
+                className="w-full h-full"
+                src={"/images/home/aboutus.svg"}
+                alt="about us"
+                width={200}
+                height={300}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="px-28 flex flex-col items-center gap-8 relative">
+          <Image
+            className="absolute w-full h-full z-[-1]"
+            style={{ opacity: "0.2" }}
+            src={"/images/home/featured-package.png"}
+            alt="featured package"
+            width={400}
+            height={500}
+          />
+          <div className="pt-8">
+            <div className="flex items-center gap-4 ">
+              <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
+              <p style={{ fontFamily: "VoiganteDisplay" }}>Packages</p>
+              <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
+            </div>
+          </div>
+          <div>
+            <p className="text-5xl" style={{ fontFamily: "VoiganteDisplay" }}>
+              Featured Packages
+            </p>
+          </div>
+          <div className="flex gap-8 mb-16">
+            <div
+              className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
+              style={{
+                background: "url('/images/home/featured-frame.svg')",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                fontFamily: "VoiganteDisplay",
+              }}
+            >
+              <div className="bg-[#1413135e] min-w-[50%] p-4">
+                <p className="w-full text-center text-xl">Day Pass</p>
+              </div>
+              <div className="flex flex-col gap-4 mt-16">
+                <div>
+                  <p className="text-center text-lg">$29 per person</p>
+                </div>
+                <div>
+                  <p className="text-center text-lg">$29 per week</p>
+                </div>
+                <div>
+                  <p className="text-center text-lg">
+                    Unlimited Brewery Visits
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
+              style={{
+                background: "url('/images/home/featured-frame.svg')",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                fontFamily: "VoiganteDisplay",
+              }}
+            >
+              <div className="bg-[#1413135e] min-w-[50%] p-4">
+                <p className="w-full text-center text-xl">
+                  Single Brewery Pass
+                </p>
+              </div>
+              <div className="flex flex-col gap-4 mt-16">
+                <div>
+                  <p className="text-center text-lg">$10 per person</p>
+                </div>
+                <div>
+                  <p className="text-center text-lg">$20 for a family with 2</p>
+                </div>
+                <div>
+                  <p className="text-center text-lg">adults, for one brewery</p>
+                </div>
+              </div>
+            </div>
+            <div
+              className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
+              style={{
+                background: "url('/images/home/featured-frame.svg')",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                fontFamily: "VoiganteDisplay",
+              }}
+            >
+              <div className="bg-[#1413135e] min-w-[50%] p-4">
+                <p className="w-full text-center text-xl">
+                  Single Person Membership
+                </p>
+              </div>
+              <div className="flex flex-col gap-4 mt-16">
+                <div>
+                  <p className="text-center text-lg">$79 per year</p>
+                </div>
+                <div>
+                  <p className="text-center text-lg">Unlimited Hunts for</p>
+                </div>
+                <div>
+                  <p className="text-center text-lg">One Person</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }
