@@ -224,8 +224,8 @@ export default function Home() {
                   height={300}
                 />
                 <div className="flex flex-col w-full p-16">
-                  <div className="flex justify-between gap-8 mb-4">
-                    <div className="w-[3rem] h-[3rem]">
+                  <div className="flex justify-between items-center gap-4 mb-4">
+                    <div className="w-[5rem] h-[3rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/person.png"}
@@ -234,11 +234,11 @@ export default function Home() {
                         height={50}
                       />
                     </div>
-                    <div>
+                    <div className="w-full">
                       <p>Sarah Thompson</p>
                       <p>Customer</p>
                     </div>
-                    <div className="w-[6rem] h-[4rem]">
+                    <div className="w-[9rem] h-[4rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/stars.png"}
@@ -260,8 +260,8 @@ export default function Home() {
                   height={300}
                 />
                 <div className="flex flex-col w-full p-16">
-                  <div className="flex justify-between gap-8 mb-4">
-                    <div className="w-[3rem] h-[3rem]">
+                  <div className="flex justify-between items-center gap-4 mb-4">
+                    <div className="w-[5rem] h-[3rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/person.png"}
@@ -270,11 +270,11 @@ export default function Home() {
                         height={50}
                       />
                     </div>
-                    <div>
+                    <div className="w-full">
                       <p>Sarah Thompson</p>
                       <p>Customer</p>
                     </div>
-                    <div className="w-[6rem] h-[4rem]">
+                    <div className="w-[9rem] h-[4rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/stars.png"}
@@ -296,8 +296,8 @@ export default function Home() {
                   height={300}
                 />
                 <div className="flex flex-col w-full p-16">
-                  <div className="flex justify-between gap-8 mb-4">
-                    <div className="w-[3rem] h-[3rem]">
+                  <div className="flex justify-between items-center gap-4 mb-4">
+                    <div className="w-[5rem] h-[3rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/person.png"}
@@ -306,11 +306,11 @@ export default function Home() {
                         height={50}
                       />
                     </div>
-                    <div>
+                    <div className="w-full">
                       <p>Sarah Thompson</p>
                       <p>Customer</p>
                     </div>
-                    <div className="w-[6rem] h-[4rem]">
+                    <div className="w-[9rem] h-[4rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/stars.png"}
@@ -332,8 +332,8 @@ export default function Home() {
                   height={300}
                 />
                 <div className="flex flex-col w-full p-16">
-                  <div className="flex justify-between gap-8 mb-4">
-                    <div className="w-[3rem] h-[3rem]">
+                  <div className="flex justify-between items-center gap-4 mb-4">
+                    <div className="w-[5rem] h-[3rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/person.png"}
@@ -342,11 +342,11 @@ export default function Home() {
                         height={50}
                       />
                     </div>
-                    <div>
+                    <div className="w-full">
                       <p>Sarah Thompson</p>
                       <p>Customer</p>
                     </div>
-                    <div className="w-[6rem] h-[4rem]">
+                    <div className="w-[9rem] h-[4rem]">
                       <Image
                         className="w-full h-full"
                         src={"/images/layout/stars.png"}
