@@ -18,13 +18,13 @@ export default function Navbar() {
             />
           </div>
           <div className="flex gap-4 flex-wrap justify-center ">
-            <div className="flex gap-16 items-center">
+            <div className="flex gap-[1.5rem] sm:gap-16 items-center">
               <p>Home</p>
               <p>Packages</p>
               <p>Breweries</p>
               <p>Treasure Hunt</p>
             </div>
-            <div className="flex gap-16 items-center">
+            <div className="flex gap-[1.5rem] sm:gap-16 items-center">
               <p>Riddles</p>
               <p>Booking</p>
               <p>About</p>
