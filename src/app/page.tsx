@@ -50,7 +50,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="px-8 sm:px-28 flex flex-col items-center gap-8 relative">
+        <div className="px-8 sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
           <Image 
           priority
             className="absolute w-full h-full z-[-1]"
@@ -74,15 +74,13 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap gap-8 mb-16">
             <div
-              className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
+              className="h-[25rem] relative min-w-[22rem] flex flex-col items-center pt-16"
               style={{
-                background: "url('/images/home/featured-frame.svg')",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
                 fontFamily: "VoiganteDisplay",
               }}
             >
-              <div className="bg-[#1413135e] min-w-[50%] p-4">
+              <Image className="w-full object-contain h-full absolute z-[-1]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300}/>
+              <div className="bg-[#1413135e] min-w-[50%] p-4 mt-16">
                 <p className="w-full text-center text-xl">Day Pass</p>
               </div>
               <div className="flex flex-col gap-4 mt-16">
@@ -100,15 +98,13 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
+              className="h-[25rem] relative min-w-[22rem] flex flex-col items-center pt-16"
               style={{
-                background: "url('/images/home/featured-frame.svg')",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
                 fontFamily: "VoiganteDisplay",
               }}
             >
-              <div className="bg-[#1413135e] min-w-[50%] p-4">
+              <Image className="w-full object-contain h-full absolute z-[-1]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
+              <div className="bg-[#1413135e] min-w-[50%] p-4 mt-16">
                 <p className="w-full text-center text-xl">
                   Single Brewery Pass
                 </p>
@@ -126,15 +122,13 @@ export default function Home() {
               </div>
             </div>
             <div
-              className="h-[30rem] w-[28rem] flex flex-col items-center pt-16"
+              className="h-[25rem] relative min-w-[22rem] flex flex-col items-center pt-16"
               style={{
-                background: "url('/images/home/featured-frame.svg')",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
                 fontFamily: "VoiganteDisplay",
               }}
             >
-              <div className="bg-[#1413135e] min-w-[50%] p-4">
+              <Image className="w-full object-contain h-full absolute z-[-1]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
+              <div className="bg-[#1413135e] min-w-[50%] p-4 mt-16">
                 <p className="w-full text-center text-xl">
                   Single Person Membership
                 </p>
