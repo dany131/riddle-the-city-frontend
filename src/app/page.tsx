@@ -226,7 +226,7 @@ export default function Home() {
                   width={200}
                   height={300}
                 />
-                <div className="flex flex-col w-full p-16">
+                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                   <div className="flex justify-between items-center gap-4 mb-4">
                     <div className="w-[5rem] h-[3rem]">
                       <Image 
@@ -265,7 +265,7 @@ export default function Home() {
                   width={200}
                   height={300}
                 />
-                <div className="flex flex-col w-full p-16">
+                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                   <div className="flex justify-between items-center gap-4 mb-4">
                     <div className="w-[5rem] h-[3rem]">
                       <Image 
@@ -304,7 +304,7 @@ export default function Home() {
                   width={200}
                   height={300}
                 />
-                <div className="flex flex-col w-full p-16">
+                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                   <div className="flex justify-between items-center gap-4 mb-4">
                     <div className="w-[5rem] h-[3rem]">
                       <Image 
@@ -343,7 +343,7 @@ export default function Home() {
                   width={200}
                   height={300}
                 />
-                <div className="flex flex-col w-full p-16">
+                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                   <div className="flex justify-between items-center gap-4 mb-4">
                     <div className="w-[5rem] h-[3rem]">
                       <Image 
@@ -406,7 +406,7 @@ export default function Home() {
               </div>
             </div>
            
-            <div className="p-8 flex flex-wrap sm:flex-nowrap justify-between sm:justify-start gap-8 justify-center">
+            <div className="pt-8 px-0 sm:p-8 flex flex-wrap sm:flex-nowrap justify-between sm:justify-start  sm:gap-8 justify-center">
               <div className="w-1/2 flex flex-col gap-4">
                 <div className="min-h-[5rem] w-[5rem]">
                   <Image 
@@ -419,7 +419,7 @@ export default function Home() {
                   <FaInstagram className="text-xl"/>
                 </div>
               </div>
-              <div className="w-1/4 flex flex-col gap-4">
+              <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
                 <p>Quick Links</p>
                 <p>Home</p>
                 <p>About Us</p>
@@ -427,11 +427,11 @@ export default function Home() {
                 <p>Booking</p>
                 <p>Riddles</p>
               </div>
-              <div className="w-1/4 flex flex-col gap-4">
+              <div className="w-1/2 sm:w-1/4 flex flex-col gap-4">
                 <p className="mt-[2.75rem]">Treasure Hunt</p>
                 <p>Packages</p>
               </div>
-              <div className="w-1/4 flex flex-col gap-4">
+              <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
                 <p>Support</p>
                 <p>Feedback</p>
                 <p>FAQ</p>
