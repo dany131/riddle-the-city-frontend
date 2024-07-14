@@ -20,7 +20,7 @@ export default function AboutUs() {
                         width={1000}
                         height={500}
                     />
-                    <div className="pt-72 sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
+                    <div className="pt-[23rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
                         <p>Home <span className="mx-2">/</span> About Us</p>
                         <h1  className="text-[4rem]">About Us</h1>
                     </div>

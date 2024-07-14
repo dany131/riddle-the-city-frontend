@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-[#160704] text-white overflow-x-hidden`}>
         <Navbar />
-        {children}
+          {children}
         <Footer/>
       </body>
     </html>
