@@ -22,7 +22,7 @@ export default function Navbar() {
             />
           </div>
           <div className="flex gap-4 flex-wrap justify-center ">
-            <div className="flex gap-[1.5rem] flex-wrap justify-center sm:gap-16 items-center">
+            <div className="flex gap-[1.5rem] flex-wrap  sm:gap-16 items-center">
               {pathname == '/' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
@@ -47,8 +47,6 @@ export default function Navbar() {
                   <Link className="px-4" href={'/treasure-hunt'}>Treasure Hunt</Link>
                 </div> :
                 <Link className=" px-4 " href={'/treasure-hunt'}>Treasure Hunt</Link>}
-            </div>
-            <div className="flex gap-[1.5rem] flex-wrap justify-center sm:gap-16 items-center">
               {pathname == '/riddles' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
@@ -74,6 +72,7 @@ export default function Navbar() {
                 </div> :
                 <Link className=" px-4 " href={'/contact'}>Contact</Link>}
             </div>
+            
           </div>
         </div>
         <div
