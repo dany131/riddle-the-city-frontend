@@ -9,7 +9,7 @@ export default function Navbar() {
         style={{ fontFamily: "VoiganteDisplay" }}
       >
         <div style={{ background: 'url("/images/layout/navbar.png")',backgroundRepeat:'no-repeat',backgroundSize:'cover' }}
-          className="flex flex-col xl:hidden gap-4 z-[99999999999999999999999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
+          className="flex flex-col xl:hidden gap-4 z-[9999999999999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
           <div className="flex justify-center">
             <Image
               src={"/images/layout/riddleNavbar.png"}
@@ -35,7 +35,7 @@ export default function Navbar() {
         </div>
         <div
           style={{ background: 'url("/images/layout/navbar.png")' }}
-          className="hidden gap-16 px-8 xl:flex z-[99999999999999999999999] relative min-w-[85%] py-4 m-auto items-center justify-center"
+          className="hidden gap-16 px-8 xl:flex z-[9999999999999] relative min-w-[85%] py-4 m-auto items-center justify-center"
         >
           <div className="flex gap-16 items-center">
             <Link className="cursor-pointer" href={'/'}>Home</Link>
