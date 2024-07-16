@@ -18,7 +18,7 @@ export default function Sidebar() {
             <div className="h-max !sm:h-[20rem] text-white flex flex-col gap-8 sm:h-full w-full p-4 sm:w-[20%] bg-[#160704]">
                 <div className="h-[5rem] flex justify-between w-full">
                     <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={400} height={1000} />
-                    <button className="text-3xl" onClick={()=>{setDisplay(!display)}}>
+                    <button className="block sm:hidden text-3xl" onClick={()=>{setDisplay(!display)}}>
                         <GiHamburgerMenu />
                     </button>
                 </div>
