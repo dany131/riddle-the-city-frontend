@@ -29,8 +29,8 @@ export default function Contact() {
                     <div className="flex flex-wrap w-full gap-4 justify-center">
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%] min-w-[100%]  items-center bg-[#2A1B15] p-8">
                             <div className="relative">
-                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >beer products</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]" src={'/images/aboutus/world.svg'} width={80} height={80} alt="strawberry icon" />
+                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >address</p>
+                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (4).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1>ADDRESS</h1>
                             <div>
@@ -41,7 +41,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%]  items-center bg-[#2A1B15] p-8">
                             <div className="relative">
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >phone</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]" src={'/images/aboutus/world.svg'} width={80} height={80} alt="strawberry icon" />
+                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (5).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1>PHONE</h1>
                             <div>
@@ -52,7 +52,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%] items-center bg-[#2A1B15] p-8">
                             <div className="relative">
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >mail</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]" src={'/images/aboutus/world.svg'} width={80} height={80} alt="strawberry icon" />
+                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (6).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1>MAIL</h1>
                             <div>
@@ -63,7 +63,7 @@ export default function Contact() {
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%] items-center bg-[#2A1B15] p-8">
                             <div className="relative">
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >hours</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]" src={'/images/aboutus/world.svg'} width={80} height={80} alt="strawberry icon" />
+                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (7).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1>HOURS</h1>
                             <div className="flex flex-col items-center">
