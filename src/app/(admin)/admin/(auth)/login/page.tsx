@@ -1,5 +1,5 @@
 'use client';
-import { Input, Radio, RadioGroup } from "@nextui-org/react"
+import { Checkbox, Input, Radio, RadioGroup } from "@nextui-org/react"
 import Image from "next/image"
 import { useState } from "react";
 import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
@@ -43,11 +43,7 @@ export default function Login() {
                 />
 
                 <div className="flex w-full justify-between">
-                    <RadioGroup
-                        orientation="horizontal"
-                    >
-                        <Radio value="buenos-aires">Remember Me</Radio>
-                    </RadioGroup>
+                    <Checkbox>Remember Me</Checkbox>
                     <p className="text-blue-600 underline">Forgot Password?</p>
                 </div>
                 <button className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
