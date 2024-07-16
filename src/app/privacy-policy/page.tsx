@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
                         priority
                         className="absolute top-0 h-full w-full"
                         style={{ opacity: "1" }}
-                        src={"/images/aboutus/about-us-banner.png"}
+                        src={"/images/privacy-policy/image 16.png"}
                         alt="home-banner"
                         width={1000}
                         height={500}

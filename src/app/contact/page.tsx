@@ -15,7 +15,7 @@ export default function Contact() {
                         priority
                         className="absolute top-0 h-full w-full"
                         style={{ opacity: "1" }}
-                        src={"/images/aboutus/about-us-banner.png"}
+                        src={"/images/contact/image 14.png"}
                         alt="home-banner"
                         width={1000}
                         height={500}
