@@ -3,6 +3,7 @@ import { GoBell } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
+import Link from "next/link";
 export default function UserTopBar() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const [changePassword,setChangePassword]=useState(false)
@@ -17,10 +18,10 @@ export default function UserTopBar() {
                     <p className="text-xs text-gray-400">22 September 2024</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <div className="p-2 relative border-[0.1rem] rounded-full">
+                    <Link href={'/admin/notifications'} className="p-2 relative border-[0.1rem] rounded-full">
                         <GoBell />
                         <div className="w-[0.5rem] absolute top-[0.4rem] right-1/4 h-[0.5rem] bg-red-600 rounded-full"></div>
-                    </div>
+                    </Link>
                     <div onClick={onOpen2} className="flex items-center gap-2 cursor-pointer ">
                         <FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full" />
                         <p>John Marshall</p>
