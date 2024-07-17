@@ -50,7 +50,7 @@ export default function Sidebar() {
                     </div>
                 </div>
                 {display &&
-                    <div onClick={()=>setDisplay(!display)} className="flex sm:hidden w-full absolute left-0 bg-[#000206d6] top-0 h-full justify-end">
+                    <div onClick={()=>setDisplay(!display)} className="flex sm:hidden w-full absolute z-[9999999] left-0 bg-[#000206d6] top-0 h-full justify-end">
                         <div className="bg-[#160704] flex h-full w-1/2 p-4 flex-col text-sm gap-4">
                             <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                                 <RxDashboard className="w-1/4" />
