@@ -9,13 +9,15 @@ import { BiSolidBookContent } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
 export default function Sidebar() {
     const pathname = usePathname()
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const [display,setDisplay]=useState(false)
     return (
         <>
-            <div className="h-max !sm:h-[20rem] text-white flex flex-col gap-8 sm:h-full w-full p-4 sm:w-[20%] bg-[#160704]">
+            <div className=" text-white flex flex-col gap-8 h-[10rem] sm:h-full w-full p-4 sm:w-[20%] bg-[#160704]">
                 <div className="h-[5rem] flex justify-between w-full">
                     <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={400} height={1000} />
                     <button className="block sm:hidden text-3xl" onClick={()=>{setDisplay(!display)}}>
@@ -46,7 +48,7 @@ export default function Sidebar() {
                     </div>
                     <div className="flex mt-auto gap-4 items-center">
                         <CiLogout />
-                        <button>Logout</button>
+                        <button onClick={onOpen2}>Logout</button>
                     </div>
                 </div>
                 {display &&
@@ -74,12 +76,33 @@ export default function Sidebar() {
                             </div>
                             <div className="flex mt-auto gap-4 items-center">
                                 <CiLogout />
-                                <button>Logout</button>
+                                <button onClick={onOpen2}>Logout</button>
                             </div>
                         </div> 
                     </div>
                 }
             </div>
+            <Modal
+                size={"xl"}
+                isOpen={isOpen2}
+                backdrop="blur"
+                onOpenChange={onOpenChange2}
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Logout</ModalHeader>
+                            <ModalBody className="flex flex-col gap-4 pb-8">
+                                <p className="text-sm text-gray-400">Are you sure you want to Logout?</p>
+                                <div className="flex w-full gap-4">
+                                    <button className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
+                                    <button className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>
+                                </div>
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </>
     )
 }
