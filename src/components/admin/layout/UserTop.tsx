@@ -33,6 +33,7 @@ export default function UserTopBar() {
                 isOpen={isOpen2}
                 backdrop="blur"
                 onOpenChange={onOpenChange2}
+                placement="center"
             >
                 <ModalContent>
                     {(onClose) => (
