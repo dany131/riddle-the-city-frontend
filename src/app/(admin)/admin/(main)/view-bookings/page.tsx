@@ -47,6 +47,7 @@ export default function Bookings() {
                 isOpen={isOpen2}
                 backdrop="blur"
                 onOpenChange={onOpenChange2}
+                placement="center"
             >
                 <ModalContent>
                     {(onClose) => (

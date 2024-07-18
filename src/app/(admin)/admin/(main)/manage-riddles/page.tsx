@@ -124,7 +124,7 @@ export default function ManageRiddles() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((e) => <tr>
+                        {data.map((e) => <tr >
                             <td className="p-2 text-sm">01</td>
                             <td className="p-2 text-sm">Brewery A</td>
                             <td className="p-2 text-sm">Lorem Ipsum Dolor Erum</td>
@@ -215,6 +215,7 @@ export default function ManageRiddles() {
                 isOpen={isOpen2}
                 backdrop="blur"
                 onOpenChange={onOpenChange2}
+                placement="center"
             >
                 <ModalContent>
                     {(onClose) => (
@@ -236,6 +237,7 @@ export default function ManageRiddles() {
                 isOpen={isOpen1}
                 backdrop="blur"
                 onOpenChange={onOpenChange1}
+                placement="center"
             >
                 <ModalContent>
                     {(onClose) => (
