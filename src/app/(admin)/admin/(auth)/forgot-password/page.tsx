@@ -1,4 +1,5 @@
 import { Input } from "@nextui-org/react"
+import Link from "next/link"
 import { CiMail } from "react-icons/ci"
 export default function ForgotPassword() {
     return (
@@ -16,7 +17,7 @@ export default function ForgotPassword() {
                         <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
                 />
-                <button className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Continue</button>
+                <Link href={'/admin/login'} className="bg-[#A92223] rounded-lg p-4 text-center text-white w-[80%]">Continue</Link>
             </div>
         </>
     )
