@@ -1,5 +1,8 @@
+'use client'
 import Image from "next/image";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, useDisclosure } from "@nextui-org/react";
 export default function Home() {
+    const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
     return (
         <>
             <div className="flex flex-col ">
@@ -94,6 +97,19 @@ export default function Home() {
                                         Unlimited Brewery Visits
                                     </p>
                                 </div>
+                                <div className="absolute top-[105%] left-[15%]">
+                                    <button onClick={() => { onOpen1() }} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
+                                        <Image
+                                            priority
+                                            className="w-full h-full absolute top-0 w-full h-full z-[-1] sm:object-contain object-cover"
+                                            src={"/images/button/Frame.svg"}
+                                            alt="button Frame 1"
+                                            width={50}
+                                            height={50}
+                                        />
+                                        <p className="w-max">Book Now</p>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div
@@ -119,6 +135,19 @@ export default function Home() {
                                     <p className="text-center text-lg">adults, for one brewery</p>
                                 </div>
                             </div>
+                            <div className="absolute top-[105%] left-[15%]">
+                                <button onClick={() => { onOpen1() }} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
+                                    <Image
+                                        priority
+                                        className="w-full h-full absolute top-0 w-full h-full z-[1] sm:object-contain object-cover"
+                                        src={"/images/button/Frame.svg"}
+                                        alt="button Frame 1"
+                                        width={50}
+                                        height={50}
+                                    />
+                                    <p className="w-max relative z-[2]">Book Now</p>
+                                </button>
+                            </div>
                         </div>
                         <div
                             className="h-[25rem] relative min-w-[22rem] flex flex-col items-center pt-16"
@@ -142,6 +171,19 @@ export default function Home() {
                                 <div>
                                     <p className="text-center text-lg">One Person</p>
                                 </div>
+                            </div>
+                            <div className="absolute top-[105%] left-[15%]">
+                                <button onClick={()=>{onOpen1()}} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
+                                    <Image
+                                        priority
+                                        className="w-full h-full absolute top-0 w-full h-full z-[1] sm:object-contain object-cover"
+                                        src={"/images/button/Frame.svg"}
+                                        alt="button Frame 1"
+                                        width={50}
+                                        height={50}
+                                    />
+                                    <p className="w-max relative z-[2]">Book Now</p>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -376,6 +418,25 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+            <Modal
+                size={"xl"}
+                isOpen={isOpen1}
+                backdrop="blur"
+                onOpenChange={onOpenChange1}
+                placement="center"
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Register Yourself!</ModalHeader>
+                            <ModalBody className="flex flex-col gap-4 pb-8">
+                                <p className="text-sm text-gray-400">Please register yourself before booking.</p>
+                                <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </>
     );
 }
