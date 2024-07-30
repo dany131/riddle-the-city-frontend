@@ -52,7 +52,7 @@ export default function Home() {
                 <div className="px-8 sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <Image
                         priority
-                        className="absolute w-full h-full z-[-1]"
+                        className="absolute w-full h-full z-[0]"
                         style={{ opacity: "0.2" }}
                         src={"/images/home/featured-package.png"}
                         alt="featured package"
@@ -78,11 +78,11 @@ export default function Home() {
                                 fontFamily: "VoiganteDisplay",
                             }}
                         >
-                            <Image className="w-full object-contain h-full absolute z-[-1]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
-                            <div className="bg-[#1413135e] min-w-[50%] p-4 mt-16">
+                            <Image className="w-full object-contain h-full absolute z-[0]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
+                            <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
                                 <p className="w-full text-center text-xl">Day Pass</p>
                             </div>
-                            <div className="flex flex-col gap-4 mt-16">
+                            <div className="flex z-[1] flex-col gap-4 mt-16">
                                 <div>
                                     <p className="text-center text-lg">$29 per person</p>
                                 </div>
@@ -102,13 +102,13 @@ export default function Home() {
                                 fontFamily: "VoiganteDisplay",
                             }}
                         >
-                            <Image className="w-full object-contain h-full absolute z-[-1]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
-                            <div className="bg-[#1413135e] min-w-[50%] p-4 mt-16">
+                            <Image className="w-full object-contain h-full absolute z-[0]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
+                            <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
                                 <p className="w-full text-center text-xl">
                                     Single Brewery Pass
                                 </p>
                             </div>
-                            <div className="flex flex-col gap-4 mt-16">
+                            <div className="flex flex-col z-[1] gap-4 mt-16">
                                 <div>
                                     <p className="text-center text-lg">$10 per person</p>
                                 </div>
@@ -126,13 +126,13 @@ export default function Home() {
                                 fontFamily: "VoiganteDisplay",
                             }}
                         >
-                            <Image className="w-full object-contain h-full absolute z-[-1]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
-                            <div className="bg-[#1413135e] min-w-[50%] p-4 mt-16">
+                            <Image className="w-full object-contain h-full absolute z-[0]" src={'/images/home/featured-frame-box.png'} alt="frame box" width={300} height={300} />
+                            <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
                                 <p className="w-full text-center text-xl">
                                     Single Person Membership
                                 </p>
                             </div>
-                            <div className="flex flex-col gap-4 mt-16">
+                            <div className="flex flex-col z-[1] gap-4 mt-16">
                                 <div>
                                     <p className="text-center text-lg">$79 per year</p>
                                 </div>
@@ -186,7 +186,7 @@ export default function Home() {
                         <div className="h-[25rem]">
                             <Image
                                 priority
-                                className="w-full h-full"
+                                className="w-full  h-full"
                                 src={"/images/home/aboutus.svg"}
                                 alt="about us"
                                 width={200}
@@ -219,13 +219,52 @@ export default function Home() {
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
                                     priority
-                                    className="w-full h-full absolute top-0 z-[-1]"
+                                    className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
                                     width={200}
                                     height={300}
                                 />
-                                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                <div className="flex flex-col relative z-[1] w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                    <div className="flex  justify-between items-center gap-4 mb-4">
+                                        <div className="w-[5rem] h-[3rem]">
+                                            <Image
+                                                priority
+                                                className="w-full h-full"
+                                                src={"/images/layout/person.png"}
+                                                alt="client"
+                                                width={50}
+                                                height={50}
+                                            />
+                                        </div>
+                                        <div className="w-full">
+                                            <p>Sarah Thompson</p>
+                                            <p>Customer</p>
+                                        </div>
+                                        <div className="w-[9rem] h-[4rem]">
+                                            <Image
+                                                priority
+                                                className="w-full h-full"
+                                                src={"/images/layout/stars.png"}
+                                                alt="client"
+                                                width={50}
+                                                height={50}
+                                            />
+                                        </div>
+                                    </div>
+                                    <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
+                                </div>
+                            </div>
+                            <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
+                                <Image
+                                    priority
+                                    className="w-full h-full absolute top-0 z-[0]"
+                                    src={"/images/layout/testimonialBox.png"}
+                                    alt="about us"
+                                    width={200}
+                                    height={300}
+                                />
+                                <div className="flex relative z-[1] flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
@@ -258,13 +297,13 @@ export default function Home() {
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
                                     priority
-                                    className="w-full h-full absolute top-0 z-[-1]"
+                                    className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
                                     width={200}
                                     height={300}
                                 />
-                                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                <div className="flex relative z-[1] flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
@@ -297,52 +336,13 @@ export default function Home() {
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
                                     priority
-                                    className="w-full h-full absolute top-0 z-[-1]"
+                                    className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
                                     width={200}
                                     height={300}
                                 />
-                                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
-                                    <div className="flex justify-between items-center gap-4 mb-4">
-                                        <div className="w-[5rem] h-[3rem]">
-                                            <Image
-                                                priority
-                                                className="w-full h-full"
-                                                src={"/images/layout/person.png"}
-                                                alt="client"
-                                                width={50}
-                                                height={50}
-                                            />
-                                        </div>
-                                        <div className="w-full">
-                                            <p>Sarah Thompson</p>
-                                            <p>Customer</p>
-                                        </div>
-                                        <div className="w-[9rem] h-[4rem]">
-                                            <Image
-                                                priority
-                                                className="w-full h-full"
-                                                src={"/images/layout/stars.png"}
-                                                alt="client"
-                                                width={50}
-                                                height={50}
-                                            />
-                                        </div>
-                                    </div>
-                                    <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
-                                </div>
-                            </div>
-                            <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
-                                <Image
-                                    priority
-                                    className="w-full h-full absolute top-0 z-[-1]"
-                                    src={"/images/layout/testimonialBox.png"}
-                                    alt="about us"
-                                    width={200}
-                                    height={300}
-                                />
-                                <div className="flex flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                <div className="flex relative z-[1] flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
