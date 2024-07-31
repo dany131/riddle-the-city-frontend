@@ -5,6 +5,7 @@ import { useRef } from "react";
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Link from "next/link";
 export default function Home() {
     const settings = {
         dots: true,
@@ -74,7 +75,7 @@ export default function Home() {
                                 joy to others while experiencing joy myself.  I trust your
                                 experience is everything you hoped it would be, and then some.
                             </p>
-                            <button className="relative h-[3rem] self-start flex justify-center items-center p-8">
+                            <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`} className="relative h-[3rem] self-start flex justify-center items-center p-8">
                                 <Image
                                     priority
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
@@ -84,7 +85,7 @@ export default function Home() {
                                     height={50}
                                 />
                                 <p>Explore Packages</p>
-                            </button>
+                            </Link>
                         </div>
                         <div className="w-full md:w-1/2">
                             <div className="h-[28rem] w-full">
@@ -259,7 +260,7 @@ export default function Home() {
                                 joy to others while experiencing joy myself.  I trust your
                                 experience is everything you hoped it would be, and then some.
                             </p>
-                            <button className="relative z-[1] h-[3rem] self-start flex justify-center items-center mt-4 p-8">
+                            <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`} className="relative z-[1] h-[3rem] self-start flex justify-center items-center mt-4 p-8">
                                 <Image
                                     priority
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
@@ -269,7 +270,7 @@ export default function Home() {
                                     height={50}
                                 />
                                 <p>Explore Packages</p>
-                            </button>
+                            </Link>
                         </div>
                     </div>
                     <div className="w-full lg:w-[40%] ">
