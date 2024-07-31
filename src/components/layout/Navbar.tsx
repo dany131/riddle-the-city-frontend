@@ -95,7 +95,7 @@ export default function Navbar() {
               </div> :
               <Link className=" px-4 " href={'#packages'}>Packages</Link>}
             {pathname == '/listings' ?
-              <div className="w-max h-max relative">
+              <div className=" h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                 <Link className="px-4" href={'/listings'}>Breweries</Link>
               </div> :

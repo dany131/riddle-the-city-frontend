@@ -1,3 +1,4 @@
+import { Checkbox } from "@nextui-org/react"
 import { Vujahday_Script } from "next/font/google"
 import Image from "next/image"
 const Vujahday = Vujahday_Script(
@@ -87,8 +88,9 @@ export default function Contact() {
                         </div>
                         <input type="text" name="message" id="" className=" w-full h-[10rem] rounded bg-[#2A1B15]" placeholder="message" />
                         <div className="flex gap-4 items-center ">
-                            <div className="p-[0.3rem] border-[#867460] max-h-[0.3rem] border-2"></div>
-                            <p>I agree that my submitted data is being collected and stored.</p>
+                            <Checkbox><p className="text-gray-400">I agree that my submitted data is being collected and stored.</p></Checkbox>
+                            {/* <div className="p-[0.3rem] border-[#867460] max-h-[0.3rem] border-2"></div>
+                            <p>I agree that my submitted data is being collected and stored.</p> */}
                         </div>
                     </div>
                 </div>
