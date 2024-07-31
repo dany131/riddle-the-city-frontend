@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const pathname=usePathname()
+  const pathname = usePathname()
+  console.log(pathname)
   return (
     <>
       <div
@@ -29,48 +30,49 @@ export default function Navbar() {
                   <Link className="px-4" href={'/'}>Home</Link>
                 </div> :
                 <Link className=" px-4 " href={'/'}>Home</Link>}
-              {pathname == '/packages' ?
+              {pathname == '#packages' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                  <Link className="px-4" href={'/packages'}>Packages</Link>
+                  <Link className="px-4" href={'#packages'}>Packages</Link>
                 </div> :
-                <Link className=" px-4 " href={'/packages'}>Packages</Link>}
-              {pathname == '/breweries' ?
+                <Link className=" px-4 " href={'#packages'}>Packages</Link>}
+              {pathname == '/listings' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                  <Link className="px-4" href={'/breweries'}>Breweries</Link>
+                  <Link className="px-4" href={'/listings'}>Breweries</Link>
                 </div> :
-                <Link className=" px-4 " href={'/breweries'}>Breweries</Link>}
-              {pathname == '/treasure-hunt' ?
+                <Link className=" px-4 " href={'/listings'}>Breweries</Link>}
+              {/* {pathname == '/treasure-hunt' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                   <Link className="px-4" href={'/treasure-hunt'}>Treasure Hunt</Link>
                 </div> :
-                <Link className=" px-4 " href={'/treasure-hunt'}>Treasure Hunt</Link>}
-              {pathname == '/riddles' ?
+                <Link className=" px-4 " href={'/treasure-hunt'}>Treasure Hunt</Link>} */}
+              {/* {pathname == '/riddles' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                   <Link className="px-4" href={'/riddles'}>Riddles</Link>
                 </div> :
-                <Link className=" px-4 " href={'/riddles'}>Riddles</Link>}
-              {pathname == '/booking' ?
+                <Link className=" px-4 " href={'/riddles'}>Riddles</Link>} */}
+              {/* {pathname == '/booking' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                   <Link className="px-4" href={'/booking'}>Booking</Link>
                 </div> :
-                <Link className=" px-4 " href={'/booking'}>Booking</Link>}
-              {pathname == '/about' ?
+                <Link className=" px-4 " href={'/booking'}>Booking</Link>} */}
+              {pathname == '#about' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                  <Link className="px-4" href={'/about'}>About</Link>
+                  <Link className="px-4" href={'#about'}>About</Link>
                 </div> :
-                <Link className=" px-4 " href={'/about'}>About</Link>}
+                <Link className=" px-4 " href={'#about'}>About</Link>}
               {pathname == '/contact' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                   <Link className="px-4" href={'/contact'}>Contact</Link>
                 </div> :
                 <Link className=" px-4 " href={'/contact'}>Contact</Link>}
+              <Link className=" px-4 " href={'/auth/login'}>Login</Link>
             </div>
             
           </div>
@@ -86,24 +88,24 @@ export default function Navbar() {
                 <Link className="px-4" href={'/'}>Home</Link>
               </div> :
               <Link className=" px-4 " href={'/'}>Home</Link>}
-            {pathname == '/packages' ?
+            {pathname == '#packages' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                <Link className="px-4" href={'/packages'}>Packages</Link>
+                <Link className="px-4" href={'#packages'}>Packages</Link>
               </div> :
-              <Link className=" px-4 " href={'/packages'}>Packages</Link>}
-            {pathname == '/breweries' ?
+              <Link className=" px-4 " href={'#packages'}>Packages</Link>}
+            {pathname == '/listings' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                <Link className="px-4" href={'/breweries'}>Breweries</Link>
+                <Link className="px-4" href={'/listings'}>Breweries</Link>
               </div> :
-              <Link className=" px-4 " href={'/breweries'}>Breweries</Link>}
-            {pathname == '/treasure-hunt' ?
+              <Link className=" px-4 " href={'/listings'}>Breweries</Link>}
+            {/* {pathname == '/treasure-hunt' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                 <Link className="px-4" href={'/treasure-hunt'}>Treasure Hunt</Link>
               </div> :
-              <Link className=" px-4 " href={'/treasure-hunt'}>Treasure Hunt</Link>}
+              <Link className=" px-4 " href={'/treasure-hunt'}>Treasure Hunt</Link>} */}
           </div>
           <div>
             <Image
@@ -114,30 +116,31 @@ export default function Navbar() {
             />
           </div>
           <div className="flex gap-8 items-center">
-            {pathname == '/riddles' ?
+            {/* {pathname == '/riddles' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                 <Link className="px-4" href={'/riddles'}>Riddles</Link>
               </div> :
-              <Link className=" px-4 " href={'/riddles'}>Riddles</Link>}
-            {pathname == '/booking' ?
+              <Link className=" px-4 " href={'/riddles'}>Riddles</Link>} */}
+            {/* {pathname == '/booking' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                 <Link className="px-4" href={'/booking'}>Booking</Link>
               </div> :
-              <Link className=" px-4 " href={'/booking'}>Booking</Link>}
-            {pathname == '/about' ?
+              <Link className=" px-4 " href={'/booking'}>Booking</Link>} */}
+            {pathname == '#about' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                <Link className="px-4" href={'/about'}>About</Link>
+                <Link className="px-4" href={'#about'}>About</Link>
               </div> :
-              <Link className=" px-4 " href={'/about'}>About</Link>}
+              <Link className=" px-4 " href={'#about'}>About</Link>}
             {pathname == '/contact' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
                 <Link className="px-4" href={'/contact'}>Contact</Link>
               </div> :
               <Link className=" px-4 " href={'/contact'}>Contact</Link>}
+            <Link className=" px-4 " href={'/auth/login'}>Login</Link>
           </div>
         </div>
       </div>

@@ -1,8 +1,56 @@
 'use client'
 import Image from "next/image";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, useDisclosure } from "@nextui-org/react";
+import { useRef } from "react";
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 export default function Home() {
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
+    const sliderRef = useRef(null);
+    const nextSlide = () => {
+        const sliderr:any = sliderRef.current!
+        sliderr.slickNext();
+    };
+
+    const prevSlide = () => {
+        const sliderr: any = sliderRef.current!
+        sliderr.slickPrev();
+    };
     return (
         <>
             <div className="flex flex-col ">
@@ -70,11 +118,11 @@ export default function Home() {
                         </div>
                     </div>
                     <div>
-                        <p className="text-5xl" style={{ fontFamily: "VoiganteDisplay" }}>
+                        <p className="text-5xl" id="packages" style={{ fontFamily: "VoiganteDisplay" }}>
                             Featured Packages
                         </p>
                     </div>
-                    <div className="flex flex-wrap gap-8 mb-16">
+                    <div className="flex flex-wrap justify-center gap-8 mb-16">
                         <div
                             className="h-[25rem] relative min-w-[22rem] flex flex-col items-center pt-16"
                             style={{
@@ -97,7 +145,7 @@ export default function Home() {
                                         Unlimited Brewery Visits
                                     </p>
                                 </div>
-                                <div className="absolute top-[105%] left-[15%]">
+                                <div className="absolute top-[105%] sm:left-[15%] left-[30%]">
                                     <button onClick={() => { onOpen1() }} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                         <Image
                                             priority
@@ -135,7 +183,7 @@ export default function Home() {
                                     <p className="text-center text-lg">adults, for one brewery</p>
                                 </div>
                             </div>
-                            <div className="absolute top-[105%] left-[15%]">
+                            <div className="absolute top-[105%] sm:left-[15%] left-[30%]">
                                 <button onClick={() => { onOpen1() }} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                     <Image
                                         priority
@@ -172,7 +220,7 @@ export default function Home() {
                                     <p className="text-center text-lg">One Person</p>
                                 </div>
                             </div>
-                            <div className="absolute top-[105%] left-[15%]">
+                            <div className="absolute top-[105%] sm:left-[16.5%] left-[30%]">
                                 <button onClick={()=>{onOpen1()}} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                     <Image
                                         priority
@@ -192,7 +240,7 @@ export default function Home() {
                     <div className="w-full lg:w-[40%]  flex flex-col gap-4 items-center justify-center">
                         <div className="flex items-center gap-4 self-start">
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
-                            <p>About Us</p>
+                            <p id="about">About Us</p>
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                         </div>
                         <div className="flex flex-col gap-4">
@@ -211,7 +259,7 @@ export default function Home() {
                                 joy to others while experiencing joy myself.  I trust your
                                 experience is everything you hoped it would be, and then some.
                             </p>
-                            <button className="relative h-[3rem] self-start flex justify-center items-center mt-4 p-8">
+                            <button className="relative z-[1] h-[3rem] self-start flex justify-center items-center mt-4 p-8">
                                 <Image
                                     priority
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
@@ -247,17 +295,203 @@ export default function Home() {
                         <div className="px-8 sm:px-28 flex gap-8 justify-between">
                             <h1 className={`text-4xl `} style={{ fontFamily: "VoiganteDisplay" }}>What Client Say About Us</h1>
                             <div className="flex gap-4">
-                                <button className="min-h-[3rem] w-[3rem]">
+                                <button onClick={prevSlide} className="min-h-[3rem] w-[3rem]">
                                     <Image
                                         priority className="w-full h-full" src={'/images/layout/forwardButton.svg'} alt="back button" width={100} height={100} />
                                 </button>
-                                <button className="min-h-[3rem] w-[3rem]">
+                                <button onClick={nextSlide} className="min-h-[3rem] w-[3rem]">
                                     <Image
                                         priority className="w-full h-full" src={'/images/layout/backButton.svg'} alt="back button" width={100} height={100} />
                                 </button>
                             </div>
                         </div>
-                        <div className="flex  overflow-x-hidden gap-16 ">
+                        <div className="slider-container">
+                            <Slider className="px-4 " ref={sliderRef} {...settings}>
+                                <div className=" min-h-[20rem] max-h-[55rem] relative" >
+                                    <Image
+                                        priority
+                                        className="w-full h-full absolute top-0 z-[0]"
+                                        src={"/images/layout/testimonialBox.png"}
+                                        alt="about us"
+                                        width={200}
+                                        height={300}
+                                    />
+                                    <div className="flex flex-col relative z-[1] w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                        <div className="flex  justify-between items-center gap-4 mb-4">
+                                            <div className="w-[5rem] h-[3rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/person.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                            <div className="w-full">
+                                                <p>Sarah Thompson</p>
+                                                <p>Customer</p>
+                                            </div>
+                                            <div className="w-[9rem] h-[4rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/stars.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                        </div>
+                                        <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
+                                    </div>
+                                </div>
+                                <div className=" min-h-[20rem] max-h-[55rem] relative" >
+                                    <Image
+                                        priority
+                                        className="w-full h-full absolute top-0 z-[0]"
+                                        src={"/images/layout/testimonialBox.png"}
+                                        alt="about us"
+                                        width={200}
+                                        height={300}
+                                    />
+                                    <div className="flex relative z-[1] flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                        <div className="flex justify-between items-center gap-4 mb-4">
+                                            <div className="w-[5rem] h-[3rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/person.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                            <div className="w-full">
+                                                <p>Sarah Thompson</p>
+                                                <p>Customer</p>
+                                            </div>
+                                            <div className="w-[9rem] h-[4rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/stars.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                        </div>
+                                        <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
+                                    </div>
+                                </div>
+                                <div className=" min-h-[20rem] max-h-[55rem] relative" >
+                                    <Image
+                                        priority
+                                        className="w-full h-full absolute top-0 z-[0]"
+                                        src={"/images/layout/testimonialBox.png"}
+                                        alt="about us"
+                                        width={200}
+                                        height={300}
+                                    />
+                                    <div className="flex relative z-[1] flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                        <div className="flex justify-between items-center gap-4 mb-4">
+                                            <div className="w-[5rem] h-[3rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/person.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                            <div className="w-full">
+                                                <p>Sarah Thompson</p>
+                                                <p>Customer</p>
+                                            </div>
+                                            <div className="w-[9rem] h-[4rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/stars.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                        </div>
+                                        <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
+                                    </div>
+                                </div>
+                                <div className=" min-h-[20rem] max-h-[55rem] relative" >
+                                    <Image
+                                        priority
+                                        className="w-full h-full absolute top-0 z-[0]"
+                                        src={"/images/layout/testimonialBox.png"}
+                                        alt="about us"
+                                        width={200}
+                                        height={300}
+                                    />
+                                    <div className="flex relative z-[1] flex-col w-full p-8 mt-[0.5rem] mb-[1.5rem] sm:mt-0 sm:p-16">
+                                        <div className="flex justify-between items-center gap-4 mb-4">
+                                            <div className="w-[5rem] h-[3rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/person.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                            <div className="w-full">
+                                                <p>Sarah Thompson</p>
+                                                <p>Customer</p>
+                                            </div>
+                                            <div className="w-[9rem] h-[4rem]">
+                                                <Image
+                                                    priority
+                                                    className="w-full h-full"
+                                                    src={"/images/layout/stars.png"}
+                                                    alt="client"
+                                                    width={50}
+                                                    height={50}
+                                                />
+                                            </div>
+                                        </div>
+                                        <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
+                                    </div>
+                                </div>
+                            </Slider>
+                        </div>
+                        {/* <Slider ref={sliderRef} {...settings}>
+                            <div>
+                                <h3>1</h3>
+                            </div>
+                            <div>
+                                <h3>2</h3>
+                            </div>
+                            <div>
+                                <h3>3</h3>
+                            </div>
+                            <div>
+                                <h3>4</h3>
+                            </div>
+                            <div>
+                                <h3>5</h3>
+                            </div>
+                            <div>
+                                <h3>6</h3>
+                            </div>
+                            <div>
+                                <h3>7</h3>
+                            </div>
+                            <div>
+                                <h3>8</h3>
+                            </div>
+                        </Slider> */}
+                        {/* <div className="flex  overflow-x-hidden gap-16 ">
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
                                     priority
@@ -414,7 +648,7 @@ export default function Home() {
                                     <p className="w-full">I remember having treasure hunts as a child and how much fun it was to figure out all of the clues.  Some were simple, while others took a bit to puzzle out.  I can honestly say I don't remember any prizes.  The journey on the way was the real adventure.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
