@@ -2,6 +2,7 @@
 import Image from "next/image"
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, useDisclosure } from "@nextui-org/react";
+import Link from "next/link";
 export default function Footer() {
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
     return (
@@ -36,7 +37,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    <div className="pt-8 px-0 sm:p-8 flex flex-wrap sm:flex-nowrap justify-between sm:justify-start  sm:gap-8 justify-center">
+                    <div className="pt-8 px-0 sm:p-8 relative z-[1] flex flex-wrap sm:flex-nowrap justify-between sm:justify-start  sm:gap-8 justify-center">
                         <div className="w-1/2 flex flex-col gap-4">
                             <div className="min-h-[5rem] w-[5rem]">
                                 <Image
@@ -51,19 +52,19 @@ export default function Footer() {
                         </div>
                         <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
                             <p>Quick Links</p>
-                            <p>Home</p>
-                            <p>About Us</p>
-                            <p>Breweries</p>
+                            <Link href={'/'}>Home</Link>
+                            <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#about`}>About Us</Link>
+                            <Link href={'/listings'}>Breweries</Link>
                             
                         </div>
                         <div className="w-1/2 pt-4 sm:w-1/4 flex flex-col gap-4">
-                            <p>Packages</p>
+                            <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}>Packages</Link>
                         </div>
                         <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
                             <p>Support</p>
                             <p>Feedback</p>
                             <p>FAQ</p>
-                            <p>Contact US</p>
+                            <Link href={'/contact'}>Contact US</Link>
                         </div>
                     </div>
 
