@@ -8,11 +8,11 @@ const montesserat = Montserrat({
 export default function UserAuthLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <div className={`min-h-[100vh]  flex sm:flex-row flex-col `}>
-                <div className="h-auto sm:block hidden w-full sm:w-[40%]">
+            <div className={`h-[100vh]   flex sm:flex-row flex-col `}>
+                <div className="h-full sm:block hidden w-full sm:w-[50%]">
                     <Image className="w-full h-full" src={'/images/admin/auth/left-image.png'} alt="auth" width={400} height={1000} />
                 </div>
-                <div className="h-full w-full sm:w-[60%]">
+                <div className="h-auto overflow-auto w-full sm:w-[50%]">
                     {children}
                 </div>
             </div>

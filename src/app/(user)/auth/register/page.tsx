@@ -15,7 +15,7 @@ export default function Register() {
     const router = useRouter()
     return (
         <>
-            <form className="h-full hidden w-full items-center  sm:flex flex-col gap-4 p-8 sm:p-24">
+            <form className="h-full hidden w-full items-center  sm:flex flex-col gap-4 p-8 sm:p-8">
                 <h1 className="text-2xl font-bold">Registration</h1>
                 <Input
                     required

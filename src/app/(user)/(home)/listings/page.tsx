@@ -28,11 +28,11 @@ export default function Listings() {
                     </div>
                 </div>
                 <div className="px-8 mt-24  sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
-                    <div className="flex flex-wrap sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className=" w-full sm:w-[70%]">
+                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                        <div className=" w-full sm:w-[40%]">
                             <Image className="w-full h-full" src={'/images/listings/store-1.png'} width={200} height={300} alt="store-1"/>
                         </div>
-                        <div className="w-full px-4 sm:px-16 py-8 gap-4 flex flex-col">
+                        <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col">
                             <h1 className="text-2xl">Brewery Store 1</h1>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                             <div className="flex items-center gap-8">
@@ -56,8 +56,8 @@ export default function Listings() {
                         </div>
                         
                     </div>
-                    <div className="flex flex-wrap sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className="w-full px-4 sm:px-16 py-8 gap-4 flex flex-col ">
+                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                        <div className="w-full sm:w-[60%] px-4 sm:px-16 py-8 gap-4 flex flex-col ">
                             <h1 className="text-2xl">Brewery Store 2</h1>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                             <div className="flex items-center gap-8">
@@ -79,15 +79,15 @@ export default function Listings() {
                                 </button>
                             </div>
                         </div>
-                        <div className="w-full sm:w-[70%]">
+                        <div className="w-full sm:w-[40%]">
                             <Image className="w-full h-full" src={'/images/listings/store-2.png'} width={200} height={300} alt="store-1" />
                         </div>
                     </div>
-                    <div className="flex flex-wrap sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className="w-full sm:w-[70%]">
+                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                        <div className="w-full sm:w-[40%]">
                             <Image className="w-full h-full" src={'/images/listings/store-3.png'} width={200} height={300} alt="store-1" />
                         </div>
-                        <div className="w-full px-4 sm:px-16 py-8 gap-4 flex flex-col ">
+                        <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col ">
                             <h1 className="text-2xl">Brewery Store 3</h1>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                             <div className="flex items-center gap-8">
