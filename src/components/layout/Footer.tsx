@@ -53,7 +53,7 @@ export default function Footer() {
                         <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
                             <p>Quick Links</p>
                             <Link href={'/'}>Home</Link>
-                            <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#about`}>About Us</Link>
+                            <Link href={`/about`}>About Us</Link>
                             <Link href={'/listings'}>Breweries</Link>
                             
                         </div>

@@ -60,12 +60,12 @@ export default function Navbar() {
                   <Link className="px-4" href={'/booking'}>Booking</Link>
                 </div> :
                 <Link className=" px-4 " href={'/booking'}>Booking</Link>} */}
-              {pathname == `${process.env.NEXT_PUBLIC_BASEURL}/#about` ?
+              {pathname == `/about` ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                  <Link className="px-4" href={`${process.env.NEXT_PUBLIC_BASEURL}/#about`}>About</Link>
+                  <Link className="px-4" href={`/about`}>About</Link>
                 </div> :
-                <Link className=" px-4 " href={`${process.env.NEXT_PUBLIC_BASEURL}/#about`}>About</Link>}
+                <Link className=" px-4 " href={`/about`}>About</Link>}
               {pathname == '/contact' ?
                 <div className="w-max h-max relative">
                   <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
@@ -128,12 +128,12 @@ export default function Navbar() {
                 <Link className="px-4" href={'/booking'}>Booking</Link>
               </div> :
               <Link className=" px-4 " href={'/booking'}>Booking</Link>} */}
-            {pathname == `${process.env.NEXT_PUBLIC_BASEURL}/#about` ?
+            {pathname == `/about` ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
-                <Link className="px-4" href={`${process.env.NEXT_PUBLIC_BASEURL}/#about`}>About</Link>
+                <Link className="px-4" href={`/about`}>About</Link>
               </div> :
-              <Link className=" px-4 " href={`${process.env.NEXT_PUBLIC_BASEURL}/#about`}>About</Link>}
+              <Link className=" px-4 " href={`/about`}>About</Link>}
             {pathname == '/contact' ?
               <div className="w-max h-max relative">
                 <Image src={'/images/layout/Group 10.svg'} className="w-full h-full object-contain absolute z-[-1]" alt="link" width={100} height={100} />
