@@ -21,7 +21,7 @@ export default function Footer() {
                             </div>
                             <div className="z-[4] relative flex flex-wrap gap-8 sm:gap-0 sm:justify-between">
                                 <p className="text-[1.5rem] sm:text-[2.2rem]" style={{ fontFamily: 'VoiganteDisplay' }}>Join the Ultimate Treasure Hunt Adventure!</p>
-                                <button onClick={()=>{onOpen1()}} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
+                                {/* <button onClick={()=>{onOpen1()}} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                     <Image
                                         priority
                                         className="w-full h-full absolute top-0 w-full h-full z-[-1] sm:object-contain object-cover"
@@ -31,7 +31,7 @@ export default function Footer() {
                                         height={50}
                                     />
                                     <p className="w-max">Book Now</p>
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                     </div>
