@@ -8,10 +8,16 @@ const Vujahday = Vujahday_Script(
         subsets: ['latin']
     }
 )
+
+import { Montserrat } from "next/font/google";
+const montesserat = Montserrat({
+    weight: '400',
+    subsets: ['cyrillic']
+})
 export default function Listings() {
     return (
         <>
-            <div className="flex flex-col" style={{ fontFamily: "VoiganteDisplay" }}>
+            <div className="flex flex-col Voigante" >
                 <div className="min-h-[70vh] relative">
                     <Image
                         priority
@@ -34,12 +40,12 @@ export default function Listings() {
                         </div>
                         <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col">
                             <h1 className="text-2xl">Brewery Store 1</h1>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                            <div className="flex items-center gap-8">
+                            <p className={`${montesserat.className}`}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                            <div className={`flex items-center gap-8 ${montesserat.className}`}>
                                 <SiGooglemaps className="text-4xl text-black bg-white p-2 rounded-full "/>
                                 <div><p>8500, Lorem Dummy Street,</p><p>Chicago,IL, 55030</p></div>
                             </div>
-                            <div className="flex items-center gap-8">
+                            <div className={`flex items-center gap-8 ${montesserat.className}`}>
                                 <IoTime className="text-4xl text-black bg-white p-2 rounded-full " />
                                 <div>
                                     <p>Monday – Thursday: 6:00 PM – 1:00 AM </p>
@@ -59,12 +65,12 @@ export default function Listings() {
                     <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className="w-full sm:w-[60%] px-4 sm:px-16 py-8 gap-4 flex flex-col ">
                             <h1 className="text-2xl">Brewery Store 2</h1>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                            <div className="flex items-center gap-8">
+                            <p className={`${montesserat.className}`}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                            <div className={`flex items-center gap-8 ${montesserat.className}`}>
                                 <SiGooglemaps className="text-4xl text-black bg-white p-2 rounded-full " />
                                 <div><p>8500, Lorem Dummy Street,</p><p>Chicago,IL, 55030</p></div>
                             </div>
-                            <div className="flex items-center gap-8">
+                            <div className={`flex items-center gap-8 ${montesserat.className}` }>
                                 <IoTime className="text-4xl text-black bg-white p-2 rounded-full " />
                                 <div>
                                     <p>Monday – Thursday: 6:00 PM – 1:00 AM </p>
@@ -89,12 +95,12 @@ export default function Listings() {
                         </div>
                         <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col ">
                             <h1 className="text-2xl">Brewery Store 3</h1>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                            <div className="flex items-center gap-8">
+                            <p className={`${montesserat.className}`}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                            <div className={`flex items-center gap-8 ${montesserat.className}`}>
                                 <SiGooglemaps className="text-4xl text-black bg-white p-2 rounded-full " />
                                 <div><p>8500, Lorem Dummy Street,</p><p>Chicago,IL, 55030</p></div>
                             </div>
-                            <div className="flex items-center gap-8">
+                            <div className={`flex items-center gap-8 ${montesserat.className}`}>
                                 <IoTime className="text-4xl text-black bg-white p-2 rounded-full " />
                                 <div>
                                     <p>Monday – Thursday: 6:00 PM – 1:00 AM </p>

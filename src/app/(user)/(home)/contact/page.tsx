@@ -1,4 +1,4 @@
-import { Checkbox } from "@nextui-org/react"
+import { Checkbox, Textarea } from "@nextui-org/react"
 import { Vujahday_Script } from "next/font/google"
 import Image from "next/image"
 const Vujahday = Vujahday_Script(
@@ -33,7 +33,7 @@ export default function Contact() {
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >address</p>
                                 <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (4).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
-                            <h1>ADDRESS</h1>
+                            <h1 className="text-lg">ADDRESS</h1>
                             <div>
                                 <p>8500, Lorem Street,</p>
                                 <p>Chicago,IL, 55030</p>
@@ -44,7 +44,7 @@ export default function Contact() {
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >phone</p>
                                 <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (5).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
-                            <h1>PHONE</h1>
+                            <h1 className="text-lg">PHONE</h1>
                             <div>
                                 <p>1 (200) 123-4567</p>
                                 <p>1 (200) 123-4567</p>
@@ -55,7 +55,7 @@ export default function Contact() {
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >mail</p>
                                 <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (6).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
-                            <h1>MAIL</h1>
+                            <h1 className="text-lg">MAIL</h1>
                             <div>
                                 <p>info@yoursite.com,</p>
                                 <p>hr@yoursite.com</p>
@@ -80,18 +80,45 @@ export default function Contact() {
                         <p style={{ fontFamily: "VoiganteDisplay" }}>Contact Us</p>
                         <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                     </div>
-                    <h1 style={{ fontWeight: 400 }} className="text-[3rem]">Get in Touch</h1>
+                    <h1 style={{ fontWeight: 400 }} className="text-[3rem] Voigante">Get in Touch</h1>
                     <div className="w-[70%] flex flex-wrap  gap-2">
                         <div className="flex w-full gap-4">
-                            <input className="w-full p-2 bg-[#2A1B15] rounded" type="text" name="" id="" placeholder="Name"/>
-                            <input className="w-full p-2 bg-[#2A1B15] rounded" type="text" name="" id="" placeholder="Email"/>
+                            <input className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="" id="" placeholder="Name"/>
+                            <input className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="" id="" placeholder="E-mail"/>
                         </div>
-                        <input type="text" name="message" id="" className=" w-full h-[10rem] rounded bg-[#2A1B15]" placeholder="message" />
-                        <div className="flex gap-4 items-center ">
+                        <Textarea
+                            variant={'bordered'}
+                            minRows={100}
+                            // label="Description"
+                            // labelPlacement="outside"
+                            placeholder="Message"
+                            className="w-full "
+                            classNames={{
+                                // base: "!bg-[#2A1B15]",
+                                // description:"!bg-[#2A1B15]",
+                                input: "!bg-[#2A1B15] !border-none !outline-none !border-2 !rounded !border-[#867460]",
+                                inputWrapper: "!border-none !outline-none !border-2 !p-0 !rounded !border-[#867460] ",
+                                innerWrapper:"!rounded !border-2 !border-[#867460] "
+
+                            }}
+                        />
+                        <div className="flex flex-col gap-4 items-start">
                             <Checkbox><p className="text-gray-400">I agree that my submitted data is being collected and stored.</p></Checkbox>
+                            <button className="relative h-[3rem]  z-[1]  flex justify-center items-center px-8 py-4 sm:px-8 sm:py-2 box-border">
+                                <Image
+                                    priority
+                                    className="w-full h-full absolute top-0 w-full h-full z-[-1] sm:object-contain object-cover"
+                                    src={"/images/button/Frame.svg"}
+                                    alt="button Frame 1"
+                                    width={50}
+                                    height={50}
+                                />
+                                <p className="w-max">Submit Now</p>
+                            </button>
                             {/* <div className="p-[0.3rem] border-[#867460] max-h-[0.3rem] border-2"></div>
                             <p>I agree that my submitted data is being collected and stored.</p> */}
                         </div>
+                        
                     </div>
                 </div>
             </div>

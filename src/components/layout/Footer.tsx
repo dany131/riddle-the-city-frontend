@@ -7,22 +7,22 @@ export default function Footer() {
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
     return (
         <>
-            <div className="relative min-h-[30rem] mt-16 ">
+            <div className="relative min-h-[30rem] Voigante mt-16 ">
                 <Image
-                    priority className="w-full h-full absolute" style={{ opacity: '0.3' }} src={'/images/home/mystery.png'} alt="mystery" width={500} height={700} />
+                    priority className="w-full h-full absolute" style={{ opacity: '0.1' }} src={'/images/home/mystery.png'} alt="mystery" width={500} height={700} />
                 <div className="px-8 sm:px-32 py-8 mt-16">
-                    <div className="relative min-h-[6rem] p-2">
+                    <div className="relative min-h-[6rem]  p-2" >
                         <Image
-                            priority className="w-full h-full absolute z-[1]" src={'/images/home/mystery-nav.png'} alt="mystery nav" width={300} height={300} />
+                            priority className="w-full h-full absolute z-[1]" src={'/images/home/check.png'} alt="mystery nav" width={300} height={300} />
                         <div className="mt-8 flex flex-col px-16 pb-4 gap-4">
                             <div className="flex items-center gap-4  relative z-[4]">
                                 <div className="min-h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
-                                <p style={{ fontFamily: "VoiganteDisplay" }}>Packages</p>
+                                <p style={{ fontFamily: "VoiganteDisplay" }}>🗺️ Embark on an Exciting Journey!</p>
                                 <div className="min-h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                             </div>
                             <div className="z-[4] relative flex flex-wrap gap-8 sm:gap-0 sm:justify-between">
-                                <p className="text-[1.5rem] sm:text-[2.2rem]" style={{ fontFamily: 'VoiganteDisplay' }}>Join the Ultimate Treasure Hunt Adventure!</p>
-                                {/* <button onClick={()=>{onOpen1()}} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
+                                <p className="text-[1.5rem] sm:text-[2.2rem] Voigante">Join the Ultimate Treasure Hunt Adventure!</p>
+                                <button onClick={()=>{onOpen1()}} className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                     <Image
                                         priority
                                         className="w-full h-full absolute top-0 w-full h-full z-[-1] sm:object-contain object-cover"
@@ -32,7 +32,7 @@ export default function Footer() {
                                         height={50}
                                     />
                                     <p className="w-max">Book Now</p>
-                                </button> */}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@ export default function Footer() {
                             </div>
                         </div>
                         <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
-                            <p>Quick Links</p>
+                            <p className="text-xl">Quick Links</p>
                             <Link href={'/'}>Home</Link>
                             <Link href={`/about`}>About Us</Link>
                             <Link href={'/listings'}>Breweries</Link>

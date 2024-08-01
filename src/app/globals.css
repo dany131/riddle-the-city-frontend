@@ -8,8 +8,8 @@
     src: url('/voigantedisplay.regular.ttf');
 }
 
-*{
-    font-family:myFirstFont !important ;
+.Voigante{
+    font-family: myFirstFont;
 }
 html {
     scroll-behavior: smooth;
@@ -18,4 +18,15 @@ html {
 .slick-active > div{
     display:flex;
     justify-content: center;
+}
+
+.slick-track{
+    display: flex !important;
+    gap: 1rem !important; 
+}
+
+#placeholder::placeholder{
+    text-align: start;
+    display: flex;
+    align-items: self-start;
 }

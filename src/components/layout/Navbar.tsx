@@ -2,6 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IoCall } from "react-icons/io5";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaFacebookF } from "react-icons/fa";
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -9,11 +12,21 @@ export default function Navbar() {
   return (
     <>
       <div
-        className="absolute flex justify-center w-full top-[2rem]  "
-        style={{ fontFamily: "VoiganteDisplay" }}
+        className="absolute Voigante flex justify-center flex flex-col gap-2 w-full top-[2rem]  "
       >
+        <div className="flex justify-between sm:px-24 px-4 sm:w-[95%] ">
+          <div className="flex gap-2 items-center">
+            <IoCall className="text-2xl bg-[#E2CEAB] p-1 text-[#241411] rounded-full"/>
+            <p>Call Us: 615-380-1111</p>
+          </div>
+          <div className="flex gap-4">
+            <FaFacebookF className="  rounded-full text-black p-1  text-2xl bg-[#E2CEAB]" />
+            <FaTwitter className="  rounded-full text-black p-1  text-2xl bg-[#E2CEAB]" />
+            <FaInstagram className=" rounded-full text-black p-1  text-2xl bg-[#E2CEAB]" />
+          </div>
+        </div>
         <div style={{ background: 'url("/images/layout/navbar.png")',backgroundRepeat:'no-repeat',backgroundSize:'cover' }}
-          className="flex flex-col xl:hidden gap-4 z-[9999999999999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
+          className="flex Voigante flex-col xl:hidden gap-4 z-[9999999999999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
           <div className="flex justify-center">
             <Image
               src={"/images/layout/riddleNavbar.png"}
@@ -78,8 +91,8 @@ export default function Navbar() {
           </div>
         </div>
         <div
-          style={{ background: 'url("/images/layout/navbar.png")' }}
-          className="hidden gap-16 px-8 xl:flex z-[9999999999999] relative min-w-[85%] py-4 m-auto items-center justify-center"
+          style={{ background: 'url("/images/layout/navbar.png")', backgroundRepeat: 'no-repeat' ,backgroundSize:'contain'}}
+          className="hidden Voigante gap-16 px-0 xl:flex z-[9999999999999] relative min-w-[85%] py-1 m-auto items-center justify-center"
         >
           <div className="flex gap-8 items-center">
             {pathname == '/' ?
@@ -111,8 +124,8 @@ export default function Navbar() {
             <Image
               src={"/images/layout/riddleNavbar.png"}
               alt="riddle logo"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           </div>
           <div className="flex gap-8 items-center">
