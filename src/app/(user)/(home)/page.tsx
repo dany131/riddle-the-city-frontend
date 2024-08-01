@@ -286,7 +286,7 @@ export default function Home() {
                 <div className="flex flex-col relative  mt-16" >
                     <Image
                         priority className="w-full h-full absolute" style={{ opacity: '0.1' }} src={'/images/layout/clientBanner.svg'} alt="mystery" width={500} height={700} />
-                    <div className="flex flex-col relative z-[2] pt-36 gap-8">
+                    <div className="flex flex-col relative z-[2] sm:pt-36 gap-8">
                         <div className="px-8 sm:px-28 flex items-center gap-4 self-start">
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                             <p>Testimonials</p>
