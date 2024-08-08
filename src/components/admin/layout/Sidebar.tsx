@@ -7,14 +7,28 @@ import { FaListCheck } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
 import { BiSolidBookContent } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import axiosInstance from "@/app/utils/axiosInstance";
+import Cookies from 'js-cookie'
+
 export default function Sidebar() {
     const pathname = usePathname()
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
-    const [display,setDisplay]=useState(false)
+    const navigate=useRouter()
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2} = useDisclosure();
+    const [display, setDisplay] = useState(false)
+    const logoutMutation = useMutation(() => axiosInstance.post('/riddle/api/auth/logout'), {
+        onSuccess(data) {
+            Cookies.remove('accessToken')
+            Cookies.remove('refreshToken')
+            Cookies.remove('userData')
+            onClose2()
+            navigate.push('/admin/login')
+        },
+    })
     return (
         <>
             <div className=" text-white flex flex-col gap-8 h-[10rem] sm:h-full w-full p-4 sm:w-[20%] bg-[#160704]">
@@ -48,7 +62,10 @@ export default function Sidebar() {
                     </div>
                     <div className="flex mt-auto gap-4 items-center">
                         <CiLogout />
-                        <button onClick={onOpen2}>Logout</button>
+                        <button onClick={() => {
+                            onOpen2()
+                        }
+                        }>Logout</button>
                     </div>
                 </div>
                 {display &&
@@ -97,7 +114,9 @@ export default function Sidebar() {
                                 <p className="text-sm text-gray-400">Are you sure you want to Logout?</p>
                                 <div className="flex w-full gap-4">
                                     <button className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
-                                    <button className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>
+                                    <button onClick={() => {
+                                        logoutMutation.mutate()
+                                    }} className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>
                                 </div>
                             </ModalBody>
                         </>

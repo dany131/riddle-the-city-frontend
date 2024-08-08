@@ -6,6 +6,9 @@ import Image from "next/image";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 
 import { AiOutlineStock } from "react-icons/ai";
+import { useQuery } from "react-query";
+import axiosInstance from "@/app/utils/axiosInstance";
+import { useState } from "react";
 Chart.register(RadialLinearScale);
 Chart.register(CategoryScale);
 Chart.register(LinearScale);
@@ -33,6 +36,19 @@ const selections = [
 ]
 
 export default function Dashboard() {
+    const [line, setLine] = useState<any>()
+    const [lineDays, setLineDays]=useState<any>()
+    const chartsQuery = useQuery(['charts'], () => axiosInstance.get('/riddle/api/admin/stats'), {
+        onSuccess(data) {
+            console.log(data.data.data)
+            const month = data.data.data.graph.userSignup.map((e: any) => e.month)
+            const lineData = data.data.data.graph.userSignup.map((e: any) => e.userSignedUp)
+            setLine(lineData)
+            setLineDays(month)
+            // const lineData=data.data.
+            // setLine
+        },
+    })
     return (
         <>
             <div className="flex justify-between">
@@ -43,8 +59,8 @@ export default function Dashboard() {
                 <div className="flex gap-4 p-4 w-full justify-between items-center border-[0.15rem] rounded-lg">
                     <div className="flex flex-col gap-2">
                         <p className="font-semibold">Active Hunts</p>
-                        <p className="font-bold text-3xl">110</p>
-                        <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p>
+                        <p className="font-bold text-3xl">{chartsQuery.data?.data.data.counts.activeHunts }</p>
+                        {/* <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p> */}
                     </div>
                     <div className="h-[5rem] w-[5rem] bg-gray-200 p-4 rounded-full">
                         <Image className="w-full h-full object-contain" src={'/images/admin/main/dashboard/drink.svg'} alt="drink" width={100} height={100}/>
@@ -52,9 +68,9 @@ export default function Dashboard() {
                 </div>
                 <div className="flex gap-4 p-4 w-full justify-between items-center border-[0.15rem] rounded-lg">
                     <div className="flex flex-col gap-2">
-                        <p className="font-semibold">User Engagement</p>
-                        <p className="font-bold text-3xl">1.2K</p>
-                        <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p>
+                        <p className="font-semibold">Total Breweries</p>
+                        <p className="font-bold text-3xl">{chartsQuery.data?.data.data.counts.totalBreweries}</p>
+                        {/* <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p> */}
                     </div>
                     <div className="h-[5rem] w-[5rem] bg-gray-200 p-4 rounded-full">
                         <Image className="w-full h-full object-contain" src={'/images/admin/main/dashboard/drink.svg'} alt="drink" width={100} height={100} />
@@ -62,9 +78,9 @@ export default function Dashboard() {
                 </div>
                 <div className="flex gap-4 p-4 w-full justify-between items-center border-[0.15rem] rounded-lg">
                     <div className="flex flex-col gap-2">
-                        <p className="font-semibold">Brewery Participant</p>
-                        <p className="font-bold text-3xl">514</p>
-                        <p className="p-1 w-max bg-red-200 text-red-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p>
+                        <p className="font-semibold">Total Users</p>
+                        <p className="font-bold text-3xl">{chartsQuery.data?.data.data.counts.totalUsers}</p>
+                        {/* <p className="p-1 w-max bg-red-200 text-red-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p> */}
                     </div>
                     <div className="h-[5rem] w-[5rem] bg-gray-200 p-4 rounded-full">
                         <Image className="w-full h-full object-contain" src={'/images/admin/main/dashboard/drink.svg'} alt="drink" width={100} height={100} />
@@ -73,8 +89,8 @@ export default function Dashboard() {
                 <div className="flex gap-4 p-4 w-full justify-between items-center border-[0.15rem] rounded-lg">
                     <div className="flex flex-col gap-2">
                         <p className="font-semibold">Riddle Completion</p>
-                        <p className="font-bold text-3xl">13.2k</p>
-                        <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p>
+                        <p className="font-bold text-3xl">{chartsQuery.data?.data.data.counts.riddleCompletions}</p>
+                        {/* <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p> */}
                     </div>
                     <div className="h-[5rem] w-[5rem] bg-gray-200 p-4 rounded-full">
                         <Image className="w-full h-full object-contain" src={'/images/admin/main/dashboard/drink.svg'} alt="drink" width={100} height={100} />
@@ -87,7 +103,7 @@ export default function Dashboard() {
                     <div className="p-8 border-[0.15rem] rounded-lg">
                         <div className="flex justify-between">
                             <p className="font-bold">User Engagement Over Time</p>
-                            <Select
+                            {/* <Select
                                 size={'md'}
                                 variant="bordered"
                                 className="w-[10rem] self-start"
@@ -98,14 +114,14 @@ export default function Dashboard() {
                                         {animal.label}
                                     </SelectItem>
                                 ))}
-                            </Select>
+                            </Select> */}
                         </div>
                         <div className="flex gap-4">
                             <Line className="!h-[20rem] !w-full" options={options} data={{
-                                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                                labels: lineDays,
                                 datasets: [{
                                     label: 'My First Dataset',
-                                    data: [65, 59, 80, 81, 56, 55, 40],
+                                    data: line,
                                     fill: false,
                                     borderColor: '#FF3B3B',
                                     tension: 0.1

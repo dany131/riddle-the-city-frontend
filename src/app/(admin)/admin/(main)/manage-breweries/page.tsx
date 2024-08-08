@@ -9,7 +9,7 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import { TimeInput } from "@nextui-org/date-input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import {Time} from "@internationalized/date";
 const selections = [
     { label: 'Open', key: 1 },
     { label: 'Closed', key: 2 }
@@ -70,7 +70,7 @@ export default function ManageBreweries() {
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
     const [breweryToAdd, setBreweryToAdd] = useState<any>()
     const [breweryLocationToAdd, setBreweryLocationToAdd] = useState<any>()
-    const [breweryToAddDay, setBreweryToAddDay] = useState<string>()
+    const [breweryToAddDay, setBreweryToAddDay] = useState<any>()
     const [breweryToAddStartTime, setBreweryToAddStartTime] = useState<any>()
     const [breweryToAddEndTime, setBreweryToAddEndTime] = useState<any>()
     const [breweryToAddStatus, setBreweryToAddStatus] = useState<any>()
@@ -82,7 +82,7 @@ export default function ManageBreweries() {
     const [addBrewery, setAddBrewery] = useState(false)
     const [page, setPage] = useState(1)
     const [googleData, setGoogleData] = useState<any>()
-    const [breweryName, setBreweryName] = useState('')
+    const [breweryName, setBreweryName] = useState<any>()
     const queryClient=useQueryClient()
     const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({queryKey}) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&components=country:de&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
         onSuccess(data) {
@@ -104,7 +104,7 @@ export default function ManageBreweries() {
         },
     })
 
-    const breweryEditMutation = useMutation((data: BreweryEditData) => axiosInstance.put(`/riddle/api/brewery?breweryId=${breweryEditId}`, data), {
+    const breweryEditMutation = useMutation((data: BreweryEditData) => axiosInstance.put(`/riddle/api/brewery?breweryId=${breweryName._id}`, data), {
         onSuccess(data) {
             console.log('put data', data)
             queryClient.invalidateQueries('breweries')
@@ -116,6 +116,12 @@ export default function ManageBreweries() {
         onSuccess(data) {
             console.log(data)
             queryClient.invalidateQueries('breweries')
+            setBreweryToAdd(null)
+            setBreweryToAddDay(null)
+            setBreweryToAddEndTime(null)
+            setBreweryToAddStartTime(null)
+            setBreweryToAddStatus(null)
+            setBreweryLocationToAdd(null)
             onOpen3() 
         },
     })
@@ -146,7 +152,8 @@ export default function ManageBreweries() {
         }
     }
     // console.log('google',googleData)
-    console.log('edit selection',breweryToEdit)
+    console.log('edit selection', breweryToEdit)
+    console.log('brewery to edit',breweryName)
     return (
         <>
             {!addBrewery &&
@@ -174,12 +181,13 @@ export default function ManageBreweries() {
                             <td className="p-2 text-sm">
                                 <div className="flex gap-2">
                                     <CiEdit onClick={() => {
-                                        setBreweryName(e.name)
-                                        setBreweryEditId(e._id)
-                                        setStatus(`${e.schedule[0].status}` as '1' | '2')
+                                        setBreweryName(e)
+                                        // setBreweryName(e.name)
+                                        // setBreweryEditId(e._id)
+                                        // setStatus(`${e.schedule[0].status}` as '1' | '2')
                                         onOpen1()
                                     }} className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
-                                    <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " />
+                                    {/* <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " /> */}
                                 </div>
                             </td>
                         </tr>)}</tbody>
@@ -355,22 +363,119 @@ export default function ManageBreweries() {
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Edit Brewery Status</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <Input
-                                    onChange={(e) => {
-                                        setBreweryToEdit((prev) => {
-                                            return {
-                                                ...prev,name:e.target.value
+                                <div className="flex w-full flex-wrap gap-4">
+                                    {/* <div className="flex flex-">
+
+                                    </div> */}
+                                    <Input
+                                        classNames={{ label: "!font-semibold" }}
+                                        // onChange={(e) => {
+                                        //     setBreweryToEdit((prev) => {
+                                        //         return {
+                                        //             ...prev, name: e.target.value
+                                        //         }
+                                        //     })
+                                        // }}
+                                        className="w-full"
+                                        type="text"
+                                        label="Brewery Name"
+                                        defaultValue={`${breweryName.name}`}
+                                        placeholder="Enter Brewery Name"
+                                        labelPlacement="outside"
+                                    />
+                                    <Autocomplete
+                                        required
+                                        label="Location"
+                                        placeholder="Enter Location"
+                                        labelPlacement="outside"
+                                        variant="flat"
+                                        endContent={
+                                            <>
+                                                <SiGooglemaps />
+                                            </>
+                                        }
+                                        defaultInputValue={`${breweryName.address.text}`}
+                                        items={googleData && !!location ? googleData : [{ label: "" }]}
+                                        defaultItems={[{ label: "" }]}
+                                        className="w-full !font-semibold"
+                                        // allowsCustomValue={true}
+                                        onSelectionChange={(key) => {
+                                            const finding = googleData.find((e: any) => e.label == key)
+                                            console.log(finding)
+                                            setBreweryLocationToAdd({
+                                                latitude: `${finding.geometry.location.lat}`,
+                                                longitude: `${finding.geometry.location.lng}`,
+                                                text: key
                                             }
-                                        })
-                                    }}
-                                    className="w-full"
-                                    type="text"
-                                    label="Brewery Name"
-                                    defaultValue={`${breweryName}`}
-                                    placeholder="Enter Brewery Name"
-                                    labelPlacement="outside"
-                                />
-                                <Select
+                                            )
+                                        }}
+                                        onInputChange={(e) => {
+                                            setLocation(e)
+                                        }}
+                                    >
+                                        {(item) => <AutocompleteItem key={item.label}>{item.label}</AutocompleteItem>}
+                                    </Autocomplete>
+                                    <Select
+                                        required
+                                        items={users}
+                                        label="Select A Day"
+                                        labelPlacement="outside"
+                                        placeholder="Select A Day"
+                                        className="w-full"
+                                        defaultSelectedKeys={[`${users.find((e) => e.name == breweryName.schedule[0].day)?.id}`]}
+                                        // defaultSelectedKeys={new Set(['0'].entries()) as any}
+                                        classNames={{label:"!font-semibold"}}
+                                        onSelectionChange={(e: any): any => {
+                                            console.log(e)
+                                            const finding = users.find((k) => k.id == e.entries().next().value[0])
+                                            setBreweryToAddDay(finding?.name)
+                                        }}
+                                    >
+                                        {(user) => (
+                                            <SelectItem key={user.id} textValue={user.name}>
+                                                <div className="flex gap-2 items-center">
+                                                    <span className="text-small">{user.name}</span>
+                                                </div>
+                                            </SelectItem>
+                                        )}
+                                    </Select>
+                                    <TimeInput defaultValue={new Time(parseInt(breweryName.schedule[0].time.start.split(':')[0]), parseInt(breweryName.schedule[0].time.start.split(':')[1]))} label="Starting Time" labelPlacement="outside" classNames={{ label: "!font-semibold" }} isRequired onChange={(e) => {
+                                        const startHour = `${e.hour < 10 ? `0${e.hour}` : `${e.hour}`}`
+                                        const startMinute = `${e.minute < 10 ? `0${e.minute}` : `${e.minute}`}`
+                                        console.log(startHour, startMinute)
+                                        setBreweryToAddStartTime(`${startHour}:${startMinute}`)
+                                    }} />
+                                    <TimeInput defaultValue={new Time(parseInt(breweryName.schedule[0].time.end.split(':')[0]), parseInt(breweryName.schedule[0].time.end.split(':')[1]))} label="Ending Time" labelPlacement="outside" classNames={{ label: "!font-semibold" }} onChange={(e) => {
+                                        const startHour = `${e.hour < 10 ? `0${e.hour}` : `${e.hour}`}`
+                                        const startMinute = `${e.minute < 10 ? `0${e.minute}` : `${e.minute}`}`
+                                        setBreweryToAddEndTime(`${startHour}:${startMinute}`)
+                                    }} isRequired />
+                                    <Select
+                                        required
+                                        items={[
+                                            { label: 'Open', id: 1 },
+                                            { label: 'Closed', id: 2 }
+
+                                        ]}
+                                        defaultSelectedKeys={[`${breweryName.schedule[0].status}`]}
+                                        placeholder="Select Status"
+                                        className="w-full"
+                                        label="Select Status" labelPlacement="outside" classNames={{ label: "!font-semibold" }}
+                                        onSelectionChange={(e: any) => {
+                                            const status = e.entries().next().value[0]
+                                            setBreweryToAddStatus(status)
+                                        }}
+                                    >
+                                        {(user) => (
+                                            <SelectItem key={user.id} textValue={user.label}>
+                                                <div className="flex gap-2 items-center">
+                                                    <span className="text-small">{user.label}</span>
+                                                </div>
+                                            </SelectItem>
+                                        )}
+                                    </Select>
+                                </div>
+                                {/* <Select
                                     size={'md'}
                                     className="w-full"
                                     labelPlacement={"outside"}
@@ -398,12 +503,37 @@ export default function ManageBreweries() {
                                             {animal.label}
                                         </SelectItem>
                                     ))}
-                                </Select>
+                                </Select> */}
                                 <button onClick={() => {
-                                    if (breweryToEdit) {
-                                        breweryEditMutation.mutate(breweryToEdit)
-                                        setBreweryToEdit(null)
+                                    const addressNotAvailable = {
+                                        "latitude": breweryName.address.location.coordinates[0],
+                                        "longitude": breweryName.address.location.coordinates[1],
+                                        "text": breweryName.address.text
                                     }
+                                        const breweryData:BreweryEditData = {
+                                            "name": breweryToAdd ? breweryToAdd : breweryName.name,
+                                            "address": breweryLocationToAdd ? breweryLocationToAdd : addressNotAvailable,
+                                            "schedule": [
+                                                {
+                                                    "day": breweryToAddDay ? breweryToAddDay : breweryName.schedule[0].day,
+                                                    "time": {
+                                                        "start": breweryToAddStartTime ? breweryToAddStartTime : breweryName.schedule[0].time.start,
+                                                        "end": breweryToAddEndTime ? breweryToAddStartTime : breweryName.schedule[0].time.end
+                                                    },
+                                                    "status": breweryToAddStatus?breweryToAddStatus:breweryName.schedule[0].status
+                                                }
+                                            ]
+                                        }
+                                        console.log('breweryData',breweryData)
+                                        setMessage('')
+                                        breweryEditMutation.mutate(breweryData)
+                                        // addBreweryMutation.mutate(breweryData)
+                                    
+                                    
+                                    // if (breweryToEdit) {
+                                    //     breweryEditMutation.mutate(breweryToEdit)
+                                    //     setBreweryToEdit(null)
+                                    // }
                                 }} className="px-16 py-2 bg-[#A92223] w-max rounded text-white">Save Changes</button>
                             </ModalBody>
                         </>
