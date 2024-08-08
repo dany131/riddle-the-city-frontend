@@ -123,7 +123,7 @@ export default function Login() {
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                 </div>
                 <div className="flex gap-4">
-                    <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
+                    <button type="button" onClick={() => { login() }} className="flex items-center gap-2 px-4  text-black bg-white py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
                     {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                 </div>
                 <p className="mt-8">Don't have an account? <Link href={'/auth/register'} className="underline text-blue-600">Register Now</Link></p>
