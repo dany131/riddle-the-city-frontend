@@ -13,8 +13,10 @@ type UserData = {
     id: string
 }
 export default function UserTopBar() {
-    const userData: UserData = JSON.parse(Cookies.get('userData')!)
-    console.log(userData)
+    let userData: UserData = { name: '', email: '', id: '', phone: '', role: 'User' }
+    if (Cookies.get('userData')!) {
+        userData = JSON.parse(Cookies.get('userData')!)
+    }
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const [changePassword,setChangePassword]=useState(false)
     return (
