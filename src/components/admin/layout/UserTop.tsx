@@ -4,7 +4,17 @@ import { FaRegUser } from "react-icons/fa";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
 import Link from "next/link";
+import Cookies from "js-cookie";
+type UserData = {
+    name: string,
+    email: string,
+    phone: string,
+    role: string,
+    id: string
+}
 export default function UserTopBar() {
+    const userData: UserData = JSON.parse(Cookies.get('userData')!)
+    console.log(userData)
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const [changePassword,setChangePassword]=useState(false)
     return (
@@ -13,9 +23,9 @@ export default function UserTopBar() {
                 <div>
                     <div className="flex gap-2 items-center">
                         <h1>Welcome Back,</h1>
-                        <p className="text-xl font-semibold">John</p>
+                        <p className="text-xl font-semibold">{ userData.name}</p>
                     </div>
-                    <p className="text-xs text-gray-400">22 September 2024</p>
+                    <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
                 </div>
                 <div className="flex items-center gap-4">
                     <Link href={'/admin/notifications'} className="p-2 relative border-[0.1rem] rounded-full">
@@ -24,7 +34,7 @@ export default function UserTopBar() {
                     </Link>
                     <div onClick={onOpen2} className="flex items-center gap-2 cursor-pointer ">
                         <FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full" />
-                        <p>John Marshall</p>
+                        <p>{userData.name}</p>
                     </div>
                 </div>
             </div>
@@ -44,16 +54,16 @@ export default function UserTopBar() {
                                     <div className="flex justify-between w-full gap-4">
                                         <div className="flex w-1/2 flex-col gap-2">
                                             <p>User Name</p>
-                                            <p className="font-bold text-sm">John Doe</p>
+                                            <p className="font-bold text-sm">{userData.name}</p>
                                         </div>
                                         <div className="flex w-1/2 flex-col gap-2">
                                             <p>Email Address</p>
-                                            <p className="font-bold text-sm">johndoe@gmail.com</p>
+                                            <p className="font-bold text-sm">{userData.email}</p>
                                         </div>
-                                        <div className="flex w-1/2 flex-col gap-2">
+                                        {/* <div className="flex w-1/2 flex-col gap-2">
                                             <p>Password</p>
                                             <p className="font-bold text-sm">abcd1234</p>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <button onClick={()=>{setChangePassword(!changePassword)}} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Password</button>
                                 </ModalBody>

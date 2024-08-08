@@ -1,24 +1,86 @@
 'use client';
+import axiosInstance from "@/app/utils/axiosInstance";
 import { Checkbox, Input, Radio, RadioGroup } from "@nextui-org/react"
 import Image from "next/image"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, use, useState } from "react";
 import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
 import { CiMail } from "react-icons/ci";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosLock } from "react-icons/io";
+import { useMutation } from "react-query";
+import { useGoogleLogin } from '@react-oauth/google';
+import Cookies from "js-cookie";
+type LoginData = {
+    email?: string,
+    password?: string,
+    accessType: number,
+    accessToken: string
+}
 export default function Login() {
     const [isVisible, toggleVisibility] = useState(false)
     const router = useRouter()
+    const [invalid, setInvalid] = useState(false)
+    const [message,setMessage]=useState('')
+    const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
+        onSuccess(data: any) {
+            if (data.data.data.statusCode != 400) {
+                if (data.data.data.user.role == 'User') {
+                    setInvalid(false)
+                    Cookies.set('accessToken', data.data.data.tokens.access_token)
+                    Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
+                    Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture }))
+                    router.push('/dashboard')
+                }
+                else {
+                    setInvalid(true)
+                    setMessage('Invalid Credentials')
+                }
+            }
+            console.log(data)
+        },
+        onError(error:any) {
+            setInvalid(true)
+            setMessage(error.response.data.message)
+        },
+    })
+
+
+    const login = useGoogleLogin({
+        onSuccess: (codeResponse) => {
+            const { access_token } = codeResponse 
+            const loginData: LoginData = {
+                accessType: 2,
+                accessToken:access_token
+            }
+            loginMutation.mutate(loginData)
+        },
+        flow: 'implicit',
+    });
+
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+        const form = e.target as any as HTMLFormElement
+        const formData = new FormData(form)
+        const dataForLogin: LoginData = {
+            email: formData.get('email') as any as string,
+            password: formData.get('password') as any as string,
+            accessType: 1,
+            accessToken: ''
+        }
+        loginMutation.mutate(dataForLogin)
+    }
     return (
         <>
-            <form className="h-full sm:flex w-full items-center  hidden flex-col gap-4 p-8 !sm:px-16 !sm:py-8">
+            <form onSubmit={handleSubmit} className="h-auto sm:flex w-full items-center  hidden flex-col gap-4 p-8 !sm:px-16 !sm:py-8">
                 <h1 className="text-2xl font-bold">Login</h1>
+                {invalid && <p className="text-red-600">{message}</p>}
                 <p>Please use your email and password to login</p>
                 <Input
                     required
+                    name="email"
                     className="w-full"
                     type="email"
                     label="Email"
@@ -29,6 +91,7 @@ export default function Login() {
                     }
                 />
                 <Input
+                    name="password"
                     required
                     label="Password"
                     className={'w-full'}
@@ -51,11 +114,9 @@ export default function Login() {
 
                 <div className="flex w-full justify-between">
                     <Checkbox>Remember Me</Checkbox>
-                    <Link href={'/admin/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
+                    <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
                 </div>
-                <button onClick={() => {
-                    router.push('/dashboard')
-                }} type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
+                <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
                 <div className="flex w-full items-center justify-center gap-4 mt-4">
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                     <p>Or</p>
@@ -63,7 +124,7 @@ export default function Login() {
                 </div>
                 <div className="flex gap-4">
                     <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
-                    <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button>
+                    {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                 </div>
                 <p className="mt-8">Don't have an account? <Link href={'/auth/register'} className="underline text-blue-600">Register Now</Link></p>
             </form>
@@ -71,7 +132,7 @@ export default function Login() {
 
 
 
-            <form className="h-full bg-[#160704]  relative sm:hidden w-full ">
+            <form className="h-auto bg-[#160704]  relative sm:hidden w-full ">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -89,6 +150,7 @@ export default function Login() {
                         </div>
                     </div>
                     <h1 className="text-2xl font-bold">Login</h1>
+                    {invalid && <p className="text-red-600">{message}</p>}
                     <p className="text-gray-400">Please use your email and password to login</p>
                     <Input
                         required
@@ -126,7 +188,7 @@ export default function Login() {
 
                     <div className="flex w-full justify-between">
                         <Checkbox><p className="text-white">Remember Me</p></Checkbox>
-                        <Link href={'/admin/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
+                        <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
                     </div>
                     <button onClick={() => {
                         router.push('/dashboard')
@@ -137,8 +199,8 @@ export default function Login() {
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                     </div>
                     <div className="flex gap-4">
-                        <button className="flex items-center gap-2 px-4  text-black bg-white py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
-                        <button className="flex items-center gap-2 px-4 text-black bg-white  py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button>
+                        <button type="button" onClick={()=>{login()}} className="flex items-center gap-2 px-4  text-black bg-white py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
+                        {/* <button className="flex items-center gap-2 px-4 text-black bg-white  py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                     </div>
                     <p className="mt-8 text-gray-400">Don't have an account? <Link href={'/auth/register'} className="underline text-blue-600">Register Now</Link></p>
                 </div>

@@ -5,9 +5,11 @@ const montesserat = Montserrat({
     subsets: ['latin']
 
 })
+import { GoogleOAuthProvider } from '@react-oauth/google';
 export default function UserAuthLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
+            <GoogleOAuthProvider clientId={`${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}`}>
             <div className={`h-[100vh]   flex sm:flex-row flex-col `}>
                 <div className="h-full sm:block hidden w-full sm:w-[50%]">
                     <Image className="w-full h-full" src={'/images/admin/auth/left-image.png'} alt="auth" width={400} height={1000} />
@@ -16,6 +18,7 @@ export default function UserAuthLayout({ children }: { children: React.ReactNode
                     {children}
                 </div>
             </div>
+            </GoogleOAuthProvider>
         </>
     )
 }

@@ -30,3 +30,8 @@ html {
     display: flex;
     align-items: self-start;
 }
+
+.ReactInputVerificationCode__container{
+    flex-wrap: wrap;
+    width: 100% !important;
+}
