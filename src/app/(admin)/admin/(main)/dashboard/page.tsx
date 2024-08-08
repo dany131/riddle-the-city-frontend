@@ -83,7 +83,7 @@ export default function Dashboard() {
             </div>
 
             <div className="flex gap-4 sm:flex-nowrap flex-wrap">
-                <div className="flex flex-col sm:w-[60%] gap-4">
+                <div className="flex flex-col w-full gap-4">
                     <div className="p-8 border-[0.15rem] rounded-lg">
                         <div className="flex justify-between">
                             <p className="font-bold">User Engagement Over Time</p>
@@ -114,7 +114,7 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    <div className="p-8 border-[0.15rem] rounded-lg">
+                    {/* <div className="p-8 border-[0.15rem] rounded-lg">
                         <div className="flex justify-between">
                             <p className="font-bold">Riddle Completions</p>
                             <Select
@@ -159,9 +159,9 @@ export default function Dashboard() {
                             }}/>
                             
                         </div>
-                    </div>
+                    </div> */}
                 </div>
-                <div className="flex sm:w-[40%] w-full flex-col gap-8 p-8 border-[0.15rem] rounded-lg">
+                {/* <div className="flex sm:w-[40%] w-full flex-col gap-8 p-8 border-[0.15rem] rounded-lg">
                     <p className="font-bold">Brewery Status</p>
                     <PolarArea options={options} data={{
                         labels: [
@@ -183,7 +183,7 @@ export default function Dashboard() {
                             ]
                         }]
                     }} />
-                </div>
+                </div> */}
             </div>
         </>
     )

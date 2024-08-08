@@ -43,17 +43,17 @@ export default function Bookings() {
                         <tr className="bg-gray-200">
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
                             <th className="p-2 text-sm text-left">User Name</th>
-                            <th className="p-2 text-sm text-left">Brewery Booked</th>
+                            <th className="p-2 text-sm text-left">Package Booked</th>
                             <th className="p-2 text-sm text-left">Date Of Booking</th>
                             <th className="p-2 text-sm text-left rounded-r-md">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((e) => <tr>
-                            <td className="p-2 text-sm">01</td>
-                            <td className="p-2 text-sm">Brewery A</td>
-                            <td className="p-2 text-sm">Lorem Ipsum Dolor Erum</td>
-                            <td className="p-2 text-sm">12-02-2024</td>
+                        {bookingsQuery.data?.data.data.map((e: any, index: number) => <tr key={index + 1}>
+                            <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
+                            <td className="p-2 text-sm">{e.user.name}</td>
+                            <td className="p-2 text-sm">{e.package.name}</td>
+                            <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
                             <td className="p-2 text-sm">
                                 <div className="flex gap-2">
                                     <IoEyeOutline onClick={onOpen2} className=" cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " />
@@ -62,9 +62,9 @@ export default function Bookings() {
                         </tr>)}
                     </tbody>
                 </table>
-                 <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white m-auto" type="button" onClick={() => {
-                        setPage((prev) => prev + 1)
-                    }}>Next Page</button>
+                {bookingsQuery.data?.data.lastPage != page && !!bookingsQuery.data?.data.lastPage && <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white m-auto" type="button" onClick={() => {
+                    setPage((prev) => prev + 1)
+                }}>Next Page</button>}
                 </>
              }
 

@@ -6,24 +6,15 @@ import { FormEvent, useState } from "react";
 import { SiGooglemaps } from "react-icons/si";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
-import Cookies from "js-cookie";
 import { TimeInput } from "@nextui-org/date-input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+
 const selections = [
     { label: 'Open', key: 1 },
     { label: 'Closed', key: 2 }
 ]
 
-const data = [
-    { key: 1 },
-    { key: 1 },
-    { key: 1 },
-    { key: 1 },
-    { key: 1 },
-    { key: 1 },
-    { key: 1 }
-]
 
 type Status = '1' | '2'
 
@@ -53,26 +44,28 @@ const users = [
 ]
 
 
-const initialBrewery = {
-    "name": "",
-    "address": {
-        "latitude": 0,
-        "longitude": 0,
-        "text": ""
+type BreweryEditData = {
+    name?: string,
+    address?: {
+        latitude?: number,
+        longitude?: number,
+        text?: string
     },
-    "schedule": [
+    schedule?: [
         {
-            "day": "Monday",
-            "time": {
-                "start": "09:30",
-                "end": "10:30"
+            day?: 'Sunday'|'Monday'|'Tuesday'|'Wednesday'|'Thursday'|'Friday'|'Saturday',
+            time?: {
+                start?: string,
+                end?: string
             },
-            "status": 1
+            status?: 1|2
         }
     ]
 }
+
+
 export default function ManageBreweries() {
-    const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
+    const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 ,onClose:onClose1} = useDisclosure();
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
     const [breweryToAdd, setBreweryToAdd] = useState<any>()
@@ -81,32 +74,16 @@ export default function ManageBreweries() {
     const [breweryToAddStartTime, setBreweryToAddStartTime] = useState<any>()
     const [breweryToAddEndTime, setBreweryToAddEndTime] = useState<any>()
     const [breweryToAddStatus, setBreweryToAddStatus] = useState<any>()
+    const [breweryToEdit,setBreweryToEdit]=useState<null|BreweryEditData>()
     const [message,setMessage]=useState('')
     const [location,setLocation]=useState('')
-    const[status,setStatus]=useState<Status>()
+    const [status, setStatus] = useState<Status>()
+    const [breweryEditId,setBreweryEditId]=useState<null|string>()
     const [addBrewery, setAddBrewery] = useState(false)
     const [page, setPage] = useState(1)
     const [googleData, setGoogleData] = useState<any>()
     const [breweryName, setBreweryName] = useState('')
     const queryClient=useQueryClient()
-    // {
-        // "name": "string",
-        //     "address": {
-        //     "latitude": 91,
-        //         "longitude": 120,
-        //             "text": "string"
-        // },
-        // "schedule": [
-        //     {
-        //         "day": "Monday",
-        //         "time": {
-        //             "start": "09:30",
-        //             "end": "10:30"
-        //         },
-        //         "status": 1
-        //     }
-        // ]
-    // }
     const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({queryKey}) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&components=country:de&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
         onSuccess(data) {
             const datas=data.data.results.map((e: any) => {
@@ -124,6 +101,14 @@ export default function ManageBreweries() {
         },
         onError(err) {
             console.log(err)
+        },
+    })
+
+    const breweryEditMutation = useMutation((data: BreweryEditData) => axiosInstance.put(`/riddle/api/brewery?breweryId=${breweryEditId}`, data), {
+        onSuccess(data) {
+            console.log('put data', data)
+            queryClient.invalidateQueries('breweries')
+            onClose1()
         },
     })
 
@@ -160,7 +145,8 @@ export default function ManageBreweries() {
             setMessage('All Fields Must Be Filled')
         }
     }
-    console.log('google',googleData)
+    // console.log('google',googleData)
+    console.log('edit selection',breweryToEdit)
     return (
         <>
             {!addBrewery &&
@@ -189,6 +175,7 @@ export default function ManageBreweries() {
                                 <div className="flex gap-2">
                                     <CiEdit onClick={() => {
                                         setBreweryName(e.name)
+                                        setBreweryEditId(e._id)
                                         setStatus(`${e.schedule[0].status}` as '1' | '2')
                                         onOpen1()
                                     }} className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
@@ -197,9 +184,9 @@ export default function ManageBreweries() {
                             </td>
                         </tr>)}</tbody>
                     </table>
-                    <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white m-auto" type="button" onClick={() => {
+                    {breweryQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white m-auto" type="button" onClick={() => {
                         setPage((prev) => prev + 1)
-                    }}>Next Page</button>
+                    }}>Next Page</button>}
                 </>}
                 </>
             }
@@ -369,11 +356,17 @@ export default function ManageBreweries() {
                             <ModalHeader className="flex flex-col text-xl gap-1">Edit Brewery Status</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <Input
+                                    onChange={(e) => {
+                                        setBreweryToEdit((prev) => {
+                                            return {
+                                                ...prev,name:e.target.value
+                                            }
+                                        })
+                                    }}
                                     className="w-full"
                                     type="text"
                                     label="Brewery Name"
-                                    disabled
-                                    value={`${breweryName}`}
+                                    defaultValue={`${breweryName}`}
                                     placeholder="Enter Brewery Name"
                                     labelPlacement="outside"
                                 />
@@ -383,7 +376,21 @@ export default function ManageBreweries() {
                                     labelPlacement={"outside"}
                                     label="Select Status"
                                     placeholder="Open"
-                                    // onSelectionChange={setValue as any}
+                                    onSelectionChange={(e: any) => {
+                                        console.log(e.entries().next().value)
+                                        if (e.entries().next().value != undefined) {
+                                            setBreweryToEdit((prev:any) => {
+                                                return {
+                                                    ...prev,
+                                                    schedule: [
+                                                        {
+                                                            status: parseInt(e.entries().next().value[0])
+                                                        }
+                                                    ]
+                                                }
+                                            })
+                                        }
+                                    }}
                                     defaultSelectedKeys={[status as '1'|'2']}                            
                                 >
                                     {selections.map((animal) => (
@@ -392,7 +399,12 @@ export default function ManageBreweries() {
                                         </SelectItem>
                                     ))}
                                 </Select>
-                                <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white">Save Changes</button>
+                                <button onClick={() => {
+                                    if (breweryToEdit) {
+                                        breweryEditMutation.mutate(breweryToEdit)
+                                        setBreweryToEdit(null)
+                                    }
+                                }} className="px-16 py-2 bg-[#A92223] w-max rounded text-white">Save Changes</button>
                             </ModalBody>
                         </>
                     )}
