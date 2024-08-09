@@ -50,7 +50,7 @@ axiosInstance.interceptors.response.use((response:AxiosResponse) => {
             Cookies.remove('refreshToken')
         }
     }
-    console.log('interceptor error',error)
-    return error.response
+    console.log('interceptor error', error)
+    return Promise.reject(error);
 })
 export default axiosInstance
