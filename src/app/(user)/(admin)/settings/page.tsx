@@ -16,22 +16,24 @@ export default function Settings() {
     const [newPass, setNewPass] = useState<string>('')
     const [confirmPass, setConfirmPass] = useState<string>('')
     const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.put('/riddle/api/user/password', data), {
-        onSuccess(data) {
-            console.log(data)
-            setNotMatch(false)
-            onClose2()
-        },
-        onError(error: any) {
-            console.log('error', error)
-            setNotMatch(true)
-            setMessage(error.response.data.message)
-        },
+        onSuccess(data:any) {
+            console.log('data', data)
+            console.log('data', data.status)
+            if (data.status == 400) {
+                setNotMatch(true)
+                setMessage(data.response.data.message)
+            }
+            else {
+                setNotMatch(false)
+                onClose2()  
+            }
+        }
     })
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
         const form = e.target as any as HTMLFormElement
         const formData=new FormData(form)
-        console.log('check', newPass, confirmPass)
+        // console.log('check', newPass, confirmPass)
         if (formData.get('new-password') == formData.get('confirm-password')) {
             setNotMatch(false)
             const passwordData: NewPasswordData = {

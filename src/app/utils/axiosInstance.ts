@@ -51,5 +51,6 @@ axiosInstance.interceptors.response.use((response:AxiosResponse) => {
         }
     }
     console.log('interceptor error',error)
+    return error.response
 })
 export default axiosInstance
