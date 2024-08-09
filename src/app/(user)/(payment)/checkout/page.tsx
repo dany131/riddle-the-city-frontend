@@ -64,7 +64,7 @@ export default function Checkout() {
                         <div className="sm:w-[40%] w-full order-first sm:order-last flex flex-col gap-8">
                             <div className="flex flex-col gap-2">
                                 <p className="font-semibold">Choose Date</p>
-                                <RangeCalendar classNames={{base:"!w-full",content:"w-[21rem]"}} calendarWidth={3330000}  aria-label="Date (No Selection)" className="!w-full" />
+                                <RangeCalendar classNames={{base:"!w-full",content:"w-[21rem] sm:w-[28rem] "}} calendarWidth={3330000}  aria-label="Date (No Selection)" className="!w-full" />
                             </div>
                             <Input
                                 className="sm:w-1/2 w-full"
