@@ -46,6 +46,13 @@ export default function UserTopBar() {
             onClose2()
             navigate.push('/auth/login')
         },
+        onError(error, variables, context) {
+            Cookies.remove('accessToken')
+            Cookies.remove('refreshToken')
+            Cookies.remove('userData')
+            onClose2()
+            navigate.push('/auth/login')
+        },
     })
     return (
         <>

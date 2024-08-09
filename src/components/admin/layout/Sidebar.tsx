@@ -28,6 +28,13 @@ export default function Sidebar() {
             onClose2()
             navigate.push('/admin/login')
         },
+        onError(error, variables, context) {
+            Cookies.remove('accessToken')
+            Cookies.remove('refreshToken')
+            Cookies.remove('userData')
+            onClose2()
+            navigate.push('/admin/login')
+        },
     })
     return (
         <>

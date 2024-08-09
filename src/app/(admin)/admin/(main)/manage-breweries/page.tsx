@@ -84,7 +84,7 @@ export default function ManageBreweries() {
     const [googleData, setGoogleData] = useState<any>()
     const [breweryName, setBreweryName] = useState<any>()
     const queryClient=useQueryClient()
-    const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({queryKey}) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&components=country:de&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
+    const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({queryKey}) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
         onSuccess(data) {
             const datas=data.data.results.map((e: any) => {
                 return { label: e.formatted_address, geometry: e.geometry }
