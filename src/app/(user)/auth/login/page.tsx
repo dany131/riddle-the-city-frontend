@@ -133,7 +133,7 @@ export default function Login() {
 
 
 
-            <form className="h-auto bg-[#160704]  relative sm:hidden w-full ">
+            <form onSubmit={handleSubmit} className="h-auto bg-[#160704]  relative sm:hidden w-full ">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -156,6 +156,7 @@ export default function Login() {
                     <Input
                         required
                         className="w-full"
+                        name="email"
                         type="email"
                         label="Email"
                         placeholder="you@example.com"
@@ -167,6 +168,7 @@ export default function Login() {
                     />
                     <Input
                         required
+                        name="password"
                         label="Password"
                         className={'w-full'}
                         placeholder="Enter your password"
@@ -191,9 +193,7 @@ export default function Login() {
                         <Checkbox><p className="text-white">Remember Me</p></Checkbox>
                         <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
                     </div>
-                    <button onClick={() => {
-                        router.push('/dashboard')
-                    }} type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-full">Login</button>
+                    <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-full">Login</button>
                     <div className="flex w-full items-center justify-center gap-4 mt-4">
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                         <p>Or</p>

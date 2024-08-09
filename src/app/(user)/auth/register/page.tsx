@@ -75,6 +75,7 @@ export default function Register() {
             setNoMatch(true)
         }
     }
+    
     return (
         <>
             <form ref={formRef as any} onSubmit={handleSubmit} className="h-full hidden w-full items-center  sm:flex flex-col gap-4 p-8 sm:p-8">
@@ -169,20 +170,20 @@ export default function Register() {
                     </CheckboxGroup>
                 </div>
                 <button  type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">SignUp</button>
-                <div className="flex w-full items-center justify-center gap-4 mt-4">
+                {/* <div className="flex w-full items-center justify-center gap-4 mt-4">
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                     <p>Or</p>
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
-                </div>
+                </div> */}
                 <div className="flex gap-4">
-                    <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
+                    {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button> */}
                     {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                 </div>
             </form>
 
 
 
-            <form className="h-auto bg-[#160704]  relative sm:hidden w-full ">
+            <form onSubmit={handleSubmit} className="h-auto bg-[#160704]  relative sm:hidden w-full ">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -295,13 +296,13 @@ export default function Register() {
                         </CheckboxGroup>
                     </div>
                     <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">SignUp</button>
-                    <div className="flex w-full items-center justify-center gap-4 mt-4">
+                    {/* <div className="flex w-full items-center justify-center gap-4 mt-4">
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                         <p>Or</p>
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
-                    </div>
+                    </div> */}
                     <div className="flex gap-4">
-                        <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg bg-white text-black"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
+                        {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg bg-white text-black"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button> */}
                         {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                     </div>
                 </div>

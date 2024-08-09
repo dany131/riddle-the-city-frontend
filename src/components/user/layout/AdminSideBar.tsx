@@ -7,17 +7,30 @@ import { FaListCheck } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
 import { BiSolidBookContent } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineFeedback } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CiCircleInfo } from "react-icons/ci";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
+import Cookies from 'js-cookie'
+import axiosInstance from "@/app/utils/axiosInstance";
+import { useMutation } from "react-query";
 export default function Sidebar() {
+    const navigate=useRouter()
     const pathname = usePathname()
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
     const [display, setDisplay] = useState(false)
+    const logoutMutation = useMutation(() => axiosInstance.post('/riddle/api/auth/logout'), {
+        onSuccess(data) {
+            Cookies.remove('accessToken')
+            Cookies.remove('refreshToken')
+            Cookies.remove('userData')
+            onClose2()
+            navigate.push('/auth/login')
+        },
+    })
     return (
         <>
             <div className="px-4 h-[10rem] sm:h-full sm:block hidden w-full sm:w-[20%] ">
@@ -93,8 +106,12 @@ export default function Sidebar() {
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">Are you sure you want to Logout?</p>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
-                                    <button className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>
+                                    <button onClick={() => {
+                                        onClose2()
+                                    }} className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
+                                    <button onClick={() => {
+                                        logoutMutation.mutate()
+                                    }} className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>
                                 </div>
                             </ModalBody>
                         </>
