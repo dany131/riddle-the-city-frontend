@@ -2,8 +2,49 @@
 import Link from "next/link";
 import { IoIosArrowForward } from "react-icons/io";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import { FormEvent, useState } from "react";
+import axiosInstance from "@/app/utils/axiosInstance";
+import { useMutation } from "react-query";
+type NewPasswordData = {
+    oldPassword: string,
+    newPassword: string
+}
 export default function Settings() {
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
+    const [message, setMessage] = useState<string>('')
+    const [notMatch, setNotMatch] = useState(false)
+    const [newPass, setNewPass] = useState<string>('')
+    const [confirmPass, setConfirmPass] = useState<string>('')
+    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.put('/riddle/api/user/password', data), {
+        onSuccess(data) {
+            console.log(data)
+            setNotMatch(false)
+            onClose2()
+        },
+        onError(error: any) {
+            console.log('error', error)
+            setNotMatch(true)
+            setMessage(error.response.data.message)
+        },
+    })
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+        const form = e.target as any as HTMLFormElement
+        const formData=new FormData(form)
+        console.log('check', newPass, confirmPass)
+        if (formData.get('new-password') == formData.get('confirm-password')) {
+            setNotMatch(false)
+            const passwordData: NewPasswordData = {
+                oldPassword: formData.get('password') as string,
+                newPassword: formData.get('new-password') as string
+            }
+            newPasswordMutation.mutate(passwordData)
+        }
+        else {
+            setNotMatch(true)
+            setMessage('Passwords Do Not Match')
+        }
+    }
     return (
         <>
                 <div className="flex flex-col border-1 rounded-lg gap-4 p-4">
@@ -26,8 +67,12 @@ export default function Settings() {
                         <>
                             
                                 <ModalHeader className="flex flex-col text-xl gap-1">Update Password</ModalHeader>
-                                <ModalBody className="flex flex-col gap-4 pb-8">
+                            <ModalBody className="flex flex-col gap-4 pb-8">
+                                <form onSubmit={handleSubmit}>
+                                    {notMatch && <p className="text-red-600 text-center">{message}</p>}
                                     <Input
+                                        name="password"
+                                        required
                                         className="w-full"
                                         type="text"
                                         label="Current Password"
@@ -35,6 +80,8 @@ export default function Settings() {
                                         labelPlacement="outside"
                                     />
                                     <Input
+                                        name="new-password"
+                                        required
                                         className="w-full"
                                         type="text"
                                         label="New Password"
@@ -42,13 +89,16 @@ export default function Settings() {
                                         labelPlacement="outside"
                                     />
                                     <Input
+                                        required
+                                        name="confirm-password"
                                         className="w-full"
                                         type="text"
                                         label="Confirm Password"
                                         placeholder="Confirm New Password"
                                         labelPlacement="outside"
                                     />
-                                    <button  className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Password</button>
+                                    <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Password</button>
+                                </form>
                                 </ModalBody>
                             </>
                     )}
