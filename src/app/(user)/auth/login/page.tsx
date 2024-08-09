@@ -51,6 +51,7 @@ export default function Login() {
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
             const { access_token } = codeResponse 
+            console.log('google',access_token)
             const loginData: LoginData = {
                 accessType: 2,
                 accessToken:access_token

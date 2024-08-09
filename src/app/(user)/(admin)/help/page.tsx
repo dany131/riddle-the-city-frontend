@@ -11,7 +11,7 @@ export default function Help() {
                     <p className="font-semibold">Contact Us</p>
                     <p className="text-gray-400 text-sm">Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum.</p>
                     <Input
-                        className="w-1/2"
+                        className="sm:w-1/2 w-full"
                         type="text"
                         label="Title"
                         placeholder="Lorem Ipsum Odor"
@@ -21,7 +21,7 @@ export default function Help() {
                     <Textarea
                         label="Description"
                         placeholder="Lorem Ipsum Odor"
-                        className="w-1/2"
+                        className="sm:w-1/2 w-full"
                         labelPlacement="outside"
                         size="lg"
                         minRows={10}
@@ -29,13 +29,13 @@ export default function Help() {
                     />
                     <label htmlFor="media" className="flex relative flex-col gap-2">
                         <p className="font-semibold">Upload Media</p>
-                        <div className="bg-[#cdebf4] items-center rounded-lg border-[#29A4CB] border-dotted py-4 w-1/2 border-2 flex flex-col">
+                        <div className="bg-[#cdebf4] items-center rounded-lg border-[#29A4CB] border-dotted py-4 sm:w-1/2 w-full cursor-pointer border-2 flex flex-col">
                             <PiUploadSimpleFill className="text-[#29A4CB]" />
                             <p className="text-[#29A4CB] text-sm">Upload Images or Other Media</p>
                         </div>
                         <input type="file" className="invisible absolute" name="media" id="media" />
                     </label>
-                    <button onClick={() => { onOpen2() }} className="px-32 w-max py-2 bg-[#A92223]  rounded text-white">Submit</button>
+                    <button onClick={() => { onOpen2() }} className="px-32 sm:w-max w-full py-2 bg-[#A92223]  rounded text-white">Submit</button>
                 </div>
             </div>
             <Modal

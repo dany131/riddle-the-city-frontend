@@ -16,7 +16,8 @@ export default async function Middleware(request: NextRequest) {
     const cookiesInitialise = cookies()
     const accessToken = cookiesInitialise.get('accessToken')?.value
     const refreshToken = cookiesInitialise.get('refreshToken')?.value
-    let userData:UserData|any=cookiesInitialise.get('userData')?.value
+    let userData: UserData | any = cookiesInitialise.get('userData')?.value
+    console.log('pathname',request.nextUrl.pathname)
     if (accessToken) {
         userData = JSON.parse(userData!)
         try {
@@ -29,7 +30,7 @@ export default async function Middleware(request: NextRequest) {
             if (role == 'User' && request.nextUrl.pathname.includes('/admin')) {
                 return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
             }
-            else if (restrictedUserPaths.includes(request.nextUrl.pathname)) {
+            else if (role=='Admin' && restrictedUserPaths.includes(request.nextUrl.pathname)) {
                 return NextResponse.redirect(new URL('/admin/dashboard', request.nextUrl.origin))
             }
         }
@@ -48,7 +49,7 @@ export default async function Middleware(request: NextRequest) {
                 return response
             }
             catch (e) {
-                console.log('middleware refreshtoken error',e)
+                console.log('middleware refreshtoken error')
                 const { role } = userData
                 let response;
                 if (role == 'Admin') {
@@ -87,6 +88,6 @@ export const config = {
         '/feedback',
         '/help',
         '/profile',
-        '/settings'
+        '/settings/:path*'
     ]
 }

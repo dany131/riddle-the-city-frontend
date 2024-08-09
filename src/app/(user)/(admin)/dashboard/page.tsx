@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 export default function Dashboard() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
     const [nextRiddle,setNextRiddle]=useState(false)
     return (
         <>
@@ -24,7 +25,7 @@ export default function Dashboard() {
                     </div>
                     <div className="flex flex-col gap-4 ">
                         <p className="font-semibold">Location</p>
-                        <div className="h-[20rem] w-[60%]">
+                        <div className="h-[20rem] w-full sm:w-[60%]">
                             <Image className="h-full w-full" src={'/images/user/dashboard/maps.png'} width={200} height={200} alt="google maps" />
                         </div>
                     </div>
@@ -33,8 +34,8 @@ export default function Dashboard() {
                 {nextRiddle && <div className="flex flex-col border-1 rounded-lg gap-4 p-4 h-full ">
                     <p className="text-xl font-semibold">Riddle 01</p>
                     <p>Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing</p>
-                    <button onClick={() => { onOpen2() }} className="px-32 w-max py-2 bg-[#FFDADA] text-[#A92223] rounded font-semibold">Hint</button>
-                    <p className="mt-auto text-gray-400 text-sm">*** Please Scan QR Code for Next Riddle***</p>
+                    <button  onClick={() => { onOpen2() }} className="px-32 sm:w-max w-full py-2 bg-[#FFDADA] text-[#A92223] rounded font-semibold">Hint</button>
+                    <p className="mt-auto sm:mx-0 mx-auto text-gray-400 text-sm">*** Please Scan QR Code for Next Riddle***</p>
                 </div>}
             </div>
 
@@ -61,9 +62,9 @@ export default function Dashboard() {
             </Modal>
             <Modal
                 size={"xl"}
-                isOpen={isOpen2}
+                isOpen={isOpen3}
                 backdrop="blur"
-                onOpenChange={onOpenChange2}
+                onOpenChange={onOpenChange3}
                 placement="center"
             >
                 <ModalContent>

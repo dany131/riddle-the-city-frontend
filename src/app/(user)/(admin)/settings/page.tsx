@@ -1,16 +1,17 @@
 'use client'
 import Link from "next/link";
+import { IoIosArrowForward } from "react-icons/io";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 export default function Settings() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     return (
         <>
                 <div className="flex flex-col border-1 rounded-lg gap-4 p-4">
-                    <div className="flex flex-wrap gap-4">
-                        <button onClick={()=>{onOpen2()}} className="px-16 py-4 text-white bg-black rounded-lg" >Change Password</button>
-                        <Link className="px-16 py-4 text-white bg-black rounded-lg" href={'/settings/privacy-policy'}>Privacy Policy</Link>
-                        <Link className="px-16 py-4 text-white bg-black rounded-lg" href={'/settings/about-us'}>About Us</Link>
-                        <Link className="px-16 py-4 text-white bg-black rounded-lg" href={'/settings/terms-conditions'}>Terms & Conditions</Link>
+                    <div className="flex flex-wrap gap-4 w-full">
+                    <button onClick={() => { onOpen2() }} className=" sm:w-max w-full px-8 flex justify-between items-center  py-4 text-white bg-black rounded-lg" ><span className="pr-16">Change Password</span> <IoIosArrowForward /></button>
+                    <Link className="px-8 sm:w-max w-full flex justify-between items-center py-4 text-white bg-black rounded-lg" href={'/settings/privacy-policy'}><span className="pr-16">Privacy Policy</span> <IoIosArrowForward /></Link>
+                    <Link className="px-8 sm:w-max w-full flex justify-between items-center py-4 text-white bg-black rounded-lg" href={'/settings/about-us'}><span className="pr-16">About Us</span> <IoIosArrowForward /></Link>
+                    <Link className="px-8 sm:w-max w-full flex justify-between items-center py-4 text-white bg-black rounded-lg" href={'/settings/terms-conditions'}><span className="pr-16">Terms & Conditions</span> <IoIosArrowForward /></Link>
                     </div>
             </div>
             <Modal

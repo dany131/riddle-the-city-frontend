@@ -113,7 +113,9 @@ export default function Sidebar() {
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">Are you sure you want to Logout?</p>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
+                                    <button onClick={() => {
+                                        onClose2()
+                                    }} className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
                                     <button onClick={() => {
                                         logoutMutation.mutate()
                                     }} className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>

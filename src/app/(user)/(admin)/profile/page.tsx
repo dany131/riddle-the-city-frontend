@@ -13,9 +13,9 @@ export default function Profile() {
                         <div className="h-[7rem] w-[7rem]">
                             <Image className="h-full w-full" src={'/images/user/profile/profile.png'} width={200} height={200} alt="google maps" />
                         </div>
-                        <button onClick={() => { onOpen2()}} className="px-4 w-max py-2 h-max bg-[#A92223]  rounded text-white flex gap-2 items-center"><CiEdit className="text-lg"/> Edit Profile</button>
+                        <button onClick={() => { onOpen2() }} className="px-4 w-max py-2 h-max bg-[#A92223]  rounded text-white flex gap-2 items-center"><CiEdit className="text-lg" /> <span className="sm:inline hidden">Edit Profile</span></button>
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex sm:flex-row flex-col gap-4">
                         <div className="flex flex-col w-[40%]">
                             <p className="text-gray-400 text-sm">Full Name</p>
                             <p className="font-semibold">John Marshall</p>
@@ -31,8 +31,8 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="font-semibold">Past Hunts</p>
-                        <div className="flex gap-4">
-                            <div className="flex flex-col w-[40%] gap-2 rounded-lg shadow-md p-2">
+                        <div className="flex sm:flex-row flex-col gap-4">
+                            <div className="flex flex-col sm:w-[40%] w-full gap-2 rounded-lg shadow-md p-2">
                                 <div className="flex w-full items-center justify-between">
                                     <p className="font-semibold">Hunt 01</p>
                                     <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">24/02/2024</p>
@@ -43,7 +43,7 @@ export default function Profile() {
                                     <p>Reward: Free Drink</p>
                                 </div>
                             </div>
-                            <div className="flex flex-col w-[40%] gap-2 rounded-lg shadow-md p-2">
+                            <div className="flex flex-col sm:w-[40%] w-full gap-2 rounded-lg shadow-md p-2">
                                 <div className="flex w-full items-center justify-between">
                                     <p className="font-semibold">Hunt 01</p>
                                     <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">24/02/2024</p>
@@ -54,7 +54,7 @@ export default function Profile() {
                                     <p>Reward: Free Drink</p>
                                 </div>
                             </div>
-                            <div className="flex flex-col w-[40%] gap-2 rounded-lg shadow-md p-2">
+                            <div className="flex flex-col sm:w-[40%] w-full gap-2 rounded-lg shadow-md p-2">
                                 <div className="flex w-full items-center justify-between">
                                     <p className="font-semibold">Hunt 01</p>
                                     <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">24/02/2024</p>

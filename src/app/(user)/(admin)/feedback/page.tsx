@@ -35,7 +35,7 @@ export default function Feedback() {
                         <Textarea
                             // label="Riddle Description"
                             placeholder="Write Comment..."
-                            className="w-1/2"
+                            className="sm:w-1/2 w-full"
                             // labelPlacement="outside"
                             size="lg"
                             minRows={10}
