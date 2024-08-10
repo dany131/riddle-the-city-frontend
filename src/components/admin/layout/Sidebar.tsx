@@ -26,14 +26,14 @@ export default function Sidebar() {
             Cookies.remove('refreshToken')
             Cookies.remove('userData')
             onClose2()
-            navigate.push('/admin/login')
+            navigate.replace('/admin/login')
         },
         onError(error, variables, context) {
             Cookies.remove('accessToken')
             Cookies.remove('refreshToken')
             Cookies.remove('userData')
             onClose2()
-            navigate.push('/admin/login')
+            navigate.replace('/admin/login')
         },
     })
     return (
