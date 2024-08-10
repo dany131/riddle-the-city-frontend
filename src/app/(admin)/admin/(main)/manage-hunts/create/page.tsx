@@ -283,6 +283,19 @@ export default function CreateRiddle() {
                                 classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
                             />
                         </div>
+                        {index != 0 && <button onClick={() => {
+                            const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != index)
+                            setHuntToAdd((prev) => {
+                                return (
+                                    {
+                                        ...prev,
+                                        riddles: oldRiddles
+                                    }
+                                )
+                            })
+                            // setCreateRiddle(!createRiddle)
+                            // onOpen1()
+                        }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>}
                         {/* <button onClick={() => {
                             // setCreateRiddle(!createRiddle)
                             // onOpen1()
