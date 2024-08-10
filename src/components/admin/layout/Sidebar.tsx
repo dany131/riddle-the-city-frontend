@@ -55,18 +55,18 @@ export default function Sidebar() {
                         <ImNewspaper className="w-1/4" />
                         <Link className="w-full" href={'/admin/manage-breweries'}>Manage Breweries</Link>
                     </div>
-                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-riddles' ? 'bg-[#a922236e]' : ''}`}>
+                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
                         <FaListCheck className="w-1/4" />
-                        <Link className="w-full" href={'/admin/manage-riddles'}>Manage Riddles</Link>
+                        <Link className="w-full" href={'/admin/manage-hunts'}>Manage Hunts</Link>
                     </div>
                     <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/view-bookings' ? 'bg-[#a922236e]' : ''}`}>
                         <BiSolidBookContent className="w-1/4" />
                         <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                     </div>
-                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
+                    {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                         <TbSettings className="w-1/4" />
                         <Link className="w-full" href={'/admin/settings'}>Settings</Link>
-                    </div>
+                    </div> */}
                     <div className="flex mt-auto gap-4 items-center">
                         <CiLogout />
                         <button onClick={() => {
@@ -86,18 +86,18 @@ export default function Sidebar() {
                                 <ImNewspaper className="w-1/4" />
                                 <Link className="w-full" href={'/admin/manage-breweries'}>Manage Breweries</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-riddles' ? 'bg-[#a922236e]' : ''}`}>
+                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
                                 <FaListCheck className="w-1/4" />
-                                <Link className="w-full" href={'/admin/manage-riddles'}>Manage Riddles</Link>
+                                <Link className="w-full" href={'/admin/manage-hunts'}>Manage Hunts</Link>
                             </div>
                             <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/view-bookings' ? 'bg-[#a922236e]' : ''}`}>
                                 <BiSolidBookContent className="w-1/4" />
                                 <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
+                            {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                                 <TbSettings className="w-1/4" />
                                 <Link className="w-full" href={'/admin/settings'}>Settings</Link>
-                            </div>
+                            </div> */}
                             <div className="flex mt-auto gap-4 items-center">
                                 <CiLogout />
                                 <button onClick={onOpen2}>Logout</button>

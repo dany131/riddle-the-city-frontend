@@ -88,7 +88,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex gap-4 p-4 w-full justify-between items-center border-[0.15rem] rounded-lg">
                     <div className="flex flex-col gap-2">
-                        <p className="font-semibold">Riddle Completion</p>
+                        <p className="font-semibold">Hunt Completion</p>
                         <p className="font-bold text-3xl">{chartsQuery.data?.data.data.counts.riddleCompletions}</p>
                         {/* <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p> */}
                     </div>
@@ -102,7 +102,7 @@ export default function Dashboard() {
                 <div className="flex flex-col w-full gap-4">
                     <div className="p-8 border-[0.15rem] rounded-lg">
                         <div className="flex justify-between">
-                            <p className="font-bold">User Engagement Over Time</p>
+                            <p className="font-bold">User Signed Up Over Time</p>
                             {/* <Select
                                 size={'md'}
                                 variant="bordered"

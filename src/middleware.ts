@@ -79,8 +79,8 @@ export default async function Middleware(request: NextRequest) {
 export const config = {
     matcher: [
         '/admin/dashboard',
-        '/admin/manage-breweries',
-        '/admin/manage-riddles',
+        '/admin/manage-breweries/:path*',
+        '/admin/manage-riddles/:path*',
         '/admin/notifications',
         '/admin/settings',
         '/admin/view-bookings',
