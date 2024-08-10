@@ -139,7 +139,7 @@ export default function ManageRiddles() {
 
             {editRiddle &&
                 <>
-                <div className=" flex flex-col items-center gap-4 pb-4 border-[0.1rem] rounded-lg">
+                <div className=" flex flex-col items-start gap-4 pb-4 border-[0.1rem] rounded-lg">
                     {riddleToEdit.riddles.map((e:any) => {
                         return (<div className="w-[70%] self-start flex flex-col gap-4 p-4">
                             <h1 className="font-semibold">Edit Riddle</h1>
@@ -301,7 +301,7 @@ export default function ManageRiddles() {
                     })}
                     <button onClick={() => {
                         updateHunts.mutate(riddleToEdit)
-                    }} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Riddles</button>
+                    }} className="px-16  w-full py-2 bg-[#A92223]  rounded text-white">Update Riddles</button>
                     </div>
                 </>
             }

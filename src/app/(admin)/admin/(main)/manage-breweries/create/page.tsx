@@ -183,7 +183,7 @@ export default function CreateBrewery() {
                 <p className="text-xl font-semibold">Add Brewery</p>
             </div>
             {!!message && <p className="text-red-600 text-center">{message}</p>}
-            <form onSubmit={handleSubmit} className="mt-4 p-4">
+            <form onSubmit={handleSubmit} className="mt-4 p-4 border-[0.1rem] flex flex-col gap-4 rounded-lg">
                 <div className="sm:w-[80%] flex flex-col gap-4 w-full">
                     <div className="flex gap-4">
                         <Input
@@ -376,8 +376,8 @@ export default function CreateBrewery() {
                             </tbody>
                         </table>
                     </div>
-                    <button type="submit" className="px-16 py-2 bg-[#A92223] w-max rounded text-white">Add Brewery</button>
                 </div>
+                    <button type="submit" className="px-16 py-2 bg-[#A92223] w-full rounded text-white">Add Brewery</button>
             </form>
             <Modal
                 size={"xl"}
