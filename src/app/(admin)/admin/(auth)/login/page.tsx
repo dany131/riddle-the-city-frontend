@@ -95,9 +95,9 @@ export default function Login() {
                     type={isVisible ? "text" : "password"}
                 />
 
-                <div className="flex w-full justify-between">
-                    <Checkbox>Remember Me</Checkbox>
-                    <Link href={'/admin/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
+                <div className="flex w-full justify-end">
+                    {/* <Checkbox>Remember Me</Checkbox> */}
+                    {/* <Link href={'/admin/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link> */}
                 </div>
                 <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
             </form>
