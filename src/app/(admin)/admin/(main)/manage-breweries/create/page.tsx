@@ -249,7 +249,7 @@ export default function CreateBrewery() {
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="font-semibold">Schedule Hours</p>
-                        <table className="w-full">
+                        <table className="w-full block sm:table overflow-auto">
                             <thead>
                                 <tr>
                                     <td className="font-semibold">Day</td>
@@ -263,7 +263,7 @@ export default function CreateBrewery() {
                                     <tr>
                                         <td >
 
-                                            <div className="pt-4 pr-4">
+                                            <div className="pt-4 min-w-[8rem] pr-4">
                                                 <Input
                                                     // onChange={(e) => {
                                                     //     setBreweryToAdd(e.target.value)

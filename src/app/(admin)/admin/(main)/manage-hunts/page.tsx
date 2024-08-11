@@ -9,6 +9,7 @@ import { GrView } from "react-icons/gr";
 import Image from "next/image";
 import Link from "next/link";
 import { ImSpinner2 } from "react-icons/im";
+import { cookies } from "next/headers";
 
 
 const data = [
@@ -26,9 +27,13 @@ const selections = [
     { label: 'Open', key: 1 }
 ]
 
-
+import Cookies from 'js-cookie'
+import { useRouter } from "next/navigation";
 
 export default function ManageRiddles() {
+    console.log('hunts pageee')
+    // const navigate=useRouter()
+    // console.log('cookies',Cookies.get('accessToken'))
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();

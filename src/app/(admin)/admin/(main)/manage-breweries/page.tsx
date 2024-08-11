@@ -69,6 +69,7 @@ type BreweryEditData = {
 
 
 export default function ManageBreweries() {
+    console.log('brewery pageee')
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 ,onClose:onClose1} = useDisclosure();
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
 
