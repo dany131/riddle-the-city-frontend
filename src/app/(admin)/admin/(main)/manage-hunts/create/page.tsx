@@ -16,6 +16,7 @@ export default function CreateRiddle() {
     const navigate=useRouter()
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1,onClose:onClose1 } = useDisclosure();
     const [isOpen, setIsOpen] = useState(false);
+    const [searchQuery,setSearchQuery]=useState<any>('')
     const [page, setPage] = useState(1)
     const [hasMore, setHasMore] = useState(false)
     const [message,setMessage]=useState('')
@@ -33,8 +34,8 @@ export default function CreateRiddle() {
         ]
     })
     
-    const breweryQuery = useQuery(['breweries', page], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[1]}&limit=20`)
+    const breweryQuery = useQuery(['breweries', searchQuery], ({ queryKey }) => {
+        return axiosInstance.get(`/riddle/api/brewery/all?page=1&limit=20&searchQuery=${queryKey[1]}`)
     }, {
         onSuccess(data) {
             console.log(data)
@@ -141,6 +142,9 @@ export default function CreateRiddle() {
                         placeholder="Select a Brewery"
                         defaultSelectedKey={huntToAdd.brewery}
                         scrollRef={scrollerRef}
+                        onInputChange={(e) => {
+                            setSearchQuery(e)
+                        }}
                         onSelectionChange={(e) => {
                             setHuntToAdd((prev:any) => {
                                 // const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
@@ -184,146 +188,6 @@ export default function CreateRiddle() {
                                             {
                                                 ...prev,
                                                 riddles:newRiddles
-                                            }
-                                        )
-                                    })
-                                }}
-                                className="w-full"
-                                type="text"
-                                label="Title "
-                                placeholder="Enter Riddle Title"
-                                labelPlacement="outside"
-                                classNames={{ label: "!font-semibold" }}
-                            />
-                        </div>
-                        <Textarea
-                            value={e.description}
-                            label="Description"
-                            placeholder="Write description..."
-                            onChange={(j) => {
-                                const value = j.target.value
-                                const find = huntToAdd.riddles.find((e, index1) => index1 == index)
-                                find!.description = value
-                                const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                    if (index1 == index) {
-                                        return find
-                                    }
-                                    return k
-                                })
-                                setHuntToAdd((prev: any) => {
-                                    return (
-                                        {
-                                            ...prev,
-                                            riddles: newRiddles
-                                        }
-                                    )
-                                })
-                            }}
-                            className="w-full"
-                            labelPlacement="outside"
-                            size="lg"
-                            minRows={10}
-                            classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                        />
-                        <div className="flex gap-4">
-                            <Textarea
-                                onChange={(j) => {
-                                    const value = j.target.value
-                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index)
-                                    find!.reward = value
-                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                        if (index1 == index) {
-                                            return find
-                                        }
-                                        return k
-                                    })
-                                    setHuntToAdd((prev: any) => {
-                                        return (
-                                            {
-                                                ...prev,
-                                                riddles: newRiddles
-                                            }
-                                        )
-                                    })
-                                }}
-                                value={e.reward}
-                                label="Reward"
-                                placeholder="Write Reward..."
-                                className="w-full"
-                                labelPlacement="outside"
-                                size="lg"
-                                minRows={5}
-                                classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                            /> <Textarea
-                                value={e.hint}
-                                label="Hint"
-                                onChange={(j) => {
-                                    const value = j.target.value
-                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index)
-                                    find!.hint = value
-                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                        if (index1 == index) {
-                                            return find
-                                        }
-                                        return k
-                                    })
-                                    setHuntToAdd((prev: any) => {
-                                        return (
-                                            {
-                                                ...prev,
-                                                riddles: newRiddles
-                                            }
-                                        )
-                                    })
-                                }}
-                                placeholder="Write Hint..."
-                                className="w-full"
-                                labelPlacement="outside"
-                                size="lg"
-                                minRows={5}
-                                classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                            />
-                        </div>
-                        {index != 0 && <button onClick={() => {
-                            const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != index)
-                            setHuntToAdd((prev) => {
-                                return (
-                                    {
-                                        ...prev,
-                                        riddles: oldRiddles
-                                    }
-                                )
-                            })
-                            // setCreateRiddle(!createRiddle)
-                            // onOpen1()
-                        }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>}
-                        {/* <button onClick={() => {
-                            // setCreateRiddle(!createRiddle)
-                            // onOpen1()
-                        }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max">Save</button> */}
-                    </div>
-                )}
-                {huntToAdd.riddles.map((e, index: number) =>
-                    <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
-                        <div className="flex gap-4">
-
-                            <Input
-                                value={e.title}
-                                onChange={(j) => {
-                                    const value = j.target.value
-                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index)
-                                    find!.title = value
-                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                        if (index1 == index) {
-                                            return find
-                                        }
-                                        return k
-                                    })
-                                    setHuntToAdd((prev: any) => {
-                                        return (
-                                            {
-                                                ...prev,
-                                                riddles: newRiddles
                                             }
                                         )
                                     })

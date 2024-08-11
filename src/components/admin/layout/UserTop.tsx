@@ -182,7 +182,7 @@ export default function UserTopBar() {
                             <div className="flex mt-auto gap-4 items-center">
                                 <CiLogout />
                                 <button onClick={() => {
-                                    onOpen2()
+                                    onOpen1()
                                 }
                                 }>Logout</button>
                             </div>
@@ -302,7 +302,7 @@ export default function UserTopBar() {
                                 <p className="text-sm text-gray-400">Are you sure you want to Logout?</p>
                                 <div className="flex w-full gap-4">
                                     <button onClick={() => {
-                                        onClose2()
+                                        onClose1()
                                     }} className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
                                     <button onClick={() => {
                                         logoutMutation.mutate()
