@@ -7,6 +7,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useMutation } from "react-query"
 import ReactInputVerificationCode from 'react-input-verification-code';
 import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
 const montesserat = Montserrat({
     weight: "600",
     subsets: ['latin']
@@ -21,9 +22,31 @@ export default function Verify(datas: any) {
     const [isPlaying, setIsPlaying] = useState(0)
     const resendVerificationQuery = useMutation(() => axiosInstance.get(`/riddle/api/auth/resend-verification-code?userId=${datas.searchParams.userid}`))
     const emailVerificationMutation = useMutation((data: EmailVerification) => axiosInstance.post(`/riddle/api/auth/email-verification?userId=${datas.searchParams.userid}`, data), {
-        onError(error:any) {
-            setInvalid(true)
-            setMessage(error.response.data.message)
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
         onSuccess(data) {
             setInvalid(false)

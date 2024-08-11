@@ -65,10 +65,10 @@ export default function UserTopBar() {
                     <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Link href={'/admin/notifications'} className="p-2 relative border-[0.1rem] rounded-full">
+                    {/* <Link href={'/admin/notifications'} className="p-2 relative border-[0.1rem] rounded-full">
                         <GoBell />
                         <div className="w-[0.5rem] absolute top-[0.4rem] right-1/4 h-[0.5rem] bg-red-600 rounded-full"></div>
-                    </Link>
+                    </Link> */}
                     <div className="flex items-center gap-2 cursor-pointer ">
                         <Link href={'/profile'} className="flex gap-2 items-center">
                             <FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full" />

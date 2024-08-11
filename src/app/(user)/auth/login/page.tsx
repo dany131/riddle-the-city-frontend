@@ -13,6 +13,7 @@ import { IoIosLock } from "react-icons/io";
 import { useMutation } from "react-query";
 import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 type LoginData = {
     email?: string,
     password?: string,
@@ -35,15 +36,47 @@ export default function Login() {
                     router.push('/dashboard')
                 }
                 else {
-                    setInvalid(true)
-                    setMessage('Invalid Credentials')
+                    toast.error('Invalid Credentials', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
                 }
             }
             console.log(data)
         },
-        onError(error:any) {
-            setInvalid(true)
-            setMessage(error.response.data.message)
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            // setInvalid(true)
+            // setMessage(error.response.data.message)
         },
     })
 
@@ -113,10 +146,10 @@ export default function Login() {
                     type={isVisible ? "text" : "password"}
                 />
 
-                <div className="flex w-full justify-between">
+                {/* <div className="flex w-full justify-between">
                     <Checkbox>Remember Me</Checkbox>
                     <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
-                </div>
+                </div> */}
                 <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
                 <div className="flex w-full items-center justify-center gap-4 mt-4">
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
@@ -189,10 +222,10 @@ export default function Login() {
                         classNames={{ label: "!text-white" }}
                     />
 
-                    <div className="flex w-full justify-between">
+                    {/* <div className="flex w-full justify-between">
                         <Checkbox><p className="text-white">Remember Me</p></Checkbox>
                         <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
-                    </div>
+                    </div> */}
                     <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-full">Login</button>
                     <div className="flex w-full items-center justify-center gap-4 mt-4">
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>

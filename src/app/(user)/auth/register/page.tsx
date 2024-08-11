@@ -1,6 +1,7 @@
 'use client';
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Checkbox, CheckboxGroup, Input, Radio, RadioGroup } from "@nextui-org/react"
+import { useGoogleLogin } from "@react-oauth/google";
 import Image from "next/image"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,17 +13,19 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosLock } from "react-icons/io";
 import { useMutation } from "react-query";
-
+import Cookies from 'js-cookie'
+import { toast } from "react-toastify";
 type LoginData = {
     accessType: number,
     accessToken: string,
-    internal: {
+    internal?: {
         name: string,
         email: string,
         phone: string,
         password: string
     }
 }
+
 export default function Register() {
     const [isVisible1, toggleVisibility1] = useState(false)
     const [isVisible2, toggleVisibility2] = useState(false)
@@ -37,10 +40,31 @@ export default function Register() {
             console.log('success', data)
             router.push(`/auth/verify?userid=${data.data.data.user._id}`)
         },
-        onError(error:any) {
-            console.log('success', error)
-            setNoMatch(true)
-            setMessage(error.response.data.message)
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
     function handleSubmit(e:FormEvent) {
@@ -62,11 +86,21 @@ export default function Register() {
 
         if (password == confirmPass) {
             if (selected.length != 1) {
-                setMessage('The Terms & Conditions is not checked')
-                setNoMatch(true)
+                toast.error('The Terms & Conditions is not checked', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+                // setMessage('The Terms & Conditions is not checked')
+                // setNoMatch(true)
             }
             else {
-                setNoMatch(false)
+                // setNoMatch(false)
                 registerMutation.mutate(loginData)
             }
         }
@@ -75,6 +109,73 @@ export default function Register() {
             setNoMatch(true)
         }
     }
+    const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
+        onSuccess(data: any) {
+            if (data.data.data.statusCode != 400) {
+                if (data.data.data.user.role == 'User') {
+                    // setInvalid(false)
+                    
+                    Cookies.set('accessToken', data.data.data.tokens.access_token)
+                    Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
+                    Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture }))
+                    router.push('/dashboard')
+                }
+                else {
+                    toast.error('Invalid Credentials', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                    // setInvalid(true)
+                    // setMessage('Invalid Credentials')
+                }
+            }
+            console.log(data)
+        },
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+        },
+    })
+    const login = useGoogleLogin({
+        onSuccess: (codeResponse) => {
+            const { access_token } = codeResponse
+            console.log('google', access_token)
+            const loginData: LoginData = {
+                accessType: 2,
+                accessToken: access_token
+            }
+            loginMutation.mutate(loginData)
+        },
+        flow: 'implicit',
+    });
     
     return (
         <>
@@ -170,13 +271,13 @@ export default function Register() {
                     </CheckboxGroup>
                 </div>
                 <button  type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">SignUp</button>
-                {/* <div className="flex w-full items-center justify-center gap-4 mt-4">
+                <div className="flex w-full items-center justify-center gap-4 mt-4">
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                     <p>Or</p>
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
-                </div> */}
-                <div className="flex gap-4">
-                    {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button> */}
+                </div>
+                <div className="flex gap-4 pb-4">
+                    <button type="button" onClick={() => { login() }} className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
                     {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                 </div>
             </form>
@@ -296,13 +397,13 @@ export default function Register() {
                         </CheckboxGroup>
                     </div>
                     <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">SignUp</button>
-                    {/* <div className="flex w-full items-center justify-center gap-4 mt-4">
+                    <div className="flex w-full items-center justify-center gap-4 mt-4">
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
                         <p>Or</p>
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
-                    </div> */}
-                    <div className="flex gap-4">
-                        {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg bg-white text-black"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button> */}
+                    </div>
+                    <div className="flex gap-4 pb-4">
+                        <button type="button" onClick={() => { login() }} className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg bg-white text-black"><FcGoogle className="text-3xl" /><p className="text-lg">Google</p></button>
                         {/* <button className="flex items-center gap-2 px-4 py-2 shadow-lg rounded-lg"><FaFacebook className="text-3xl text-blue-600" /><p className="text-lg">Facebook</p></button> */}
                     </div>
                 </div>

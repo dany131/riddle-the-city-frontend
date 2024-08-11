@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
 import { CiMail } from "react-icons/ci"
 import { useMutation } from "react-query"
+import { toast } from "react-toastify"
 type ForgotPasswordData = {
     email: string
 }
@@ -22,9 +23,31 @@ export default function ForgotPassword() {
             setInvalid(false)
             navigate.replace(`/auth/new-password?email=${email}`)
         },
-        onError(error:any) {
-            setInvalid(true)
-            setMessage(error.response.data.message)
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
     function handleSubmit(e: FormEvent) {

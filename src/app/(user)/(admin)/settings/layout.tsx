@@ -19,12 +19,10 @@ export default function SettingsMainLayout({ children }: { children: React.React
     };
     return (
         <>
-            <Elements stripe={stripePromise} options={options}>
             <div className="flex flex-col gap-4 px-4 h-full">
                 <p className="font-semibold text-xl">Settings</p>
                 {children}
                 </div>
-            </Elements>
         </>
     )
 }

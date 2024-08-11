@@ -10,6 +10,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useRouter } from "next/navigation";
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
+import { toast } from "react-toastify";
 
 type NewPasswordData = {
     email: string,
@@ -37,9 +38,33 @@ export default function NewPassword(data: any) {
             onOpen1()
         },
         onError(error: any) {
-            console.log('error', error)
-            setNotMatch(true)
-            setMessage(error.response.data.message)
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            // console.log('error', error)
+            // setNotMatch(true)
+            // setMessage(error.response.data.message)
         },
     })
     function handleSubmit(e:FormEvent) {
@@ -55,8 +80,18 @@ export default function NewPassword(data: any) {
             newPasswordMutation.mutate(passwordData)
         }
         else {
-            setNotMatch(true)
-            setMessage('Passwords Do Not Match')
+            // setNotMatch(true)
+            toast.error('Passwords Do Not Match', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            // setMessage('Passwords Do Not Match')
         }
     }
     return (

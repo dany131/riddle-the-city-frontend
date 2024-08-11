@@ -13,7 +13,18 @@ axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
         config.headers.Authorization = `Bearer ${Cookies.get('refreshToken')}`
     }
     else {
-        config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}`
+        if (!config.url?.includes('/auth')) {
+            if (Cookies.get('accessToken')) {
+                config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}`
+            }
+            else {
+                window.location.href='/auth/login'
+            }
+        }
+        // console.log('token',Cookies.get('accessToken'))
+        // else {
+        //     window.location.href='/auth/login'
+        // }
     }
     return config
 })

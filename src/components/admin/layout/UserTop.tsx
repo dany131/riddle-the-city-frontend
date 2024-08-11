@@ -16,6 +16,7 @@ import { TbSettings } from "react-icons/tb";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
+import { toast } from "react-toastify";
 type UserData = {
     name: string,
     email: string,
@@ -49,9 +50,30 @@ export default function UserTopBar() {
             onClose2()
         },
         onError(error: any) {
-            console.log('error', error)
-            setNotMatch(true)
-            setMessage(error.response.data.message)
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
     function handleSubmit(e: FormEvent) {
@@ -68,8 +90,18 @@ export default function UserTopBar() {
             newPasswordMutation.mutate(passwordData)
         }
         else {
-            setNotMatch(true)
-            setMessage('Passwords Do Not Match')
+            toast.error('Passwords Do Not Match', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            // setNotMatch(true)
+            // setMessage('Passwords Do Not Match')
         }
     }
 
