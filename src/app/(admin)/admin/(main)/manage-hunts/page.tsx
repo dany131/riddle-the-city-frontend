@@ -79,7 +79,7 @@ export default function ManageRiddles() {
                     {/* {huntsQuery.data?.data.data.length == 0 && !huntsQuery.isFetching && <p className="text-center">No Data Exists</p>} */}
                     {!huntsQuery.isFetching &&
                         <>
-                        <table className="p-4 w-full sm:block overflow-auto mt-4">
+                        <table className="p-4 w-full block sm:table overflow-auto mt-4">
                                 <thead>
                                     <tr className="bg-gray-200">
                                         <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
