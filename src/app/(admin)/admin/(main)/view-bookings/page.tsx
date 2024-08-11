@@ -39,7 +39,7 @@ export default function Bookings() {
             {/* {bookingsQuery.data?.data.data.length == 0 && !bookingsQuery.isFetching && <p className="text-center">No Data Exists</p>} */}
             {!bookingsQuery.isFetching&&
                 <>
-                <table className="p-4 mt-4 w-full block overflow-auto">
+                <table className="p-4 mt-4 w-full block sm:table overflow-auto">
                     <thead>
                         <tr className="bg-gray-200">
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>

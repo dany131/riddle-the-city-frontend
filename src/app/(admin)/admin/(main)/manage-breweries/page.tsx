@@ -134,7 +134,7 @@ export default function ManageBreweries() {
                 {breweryQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
                 {/* {breweryQuery.data?.data.data.length == 0 && !breweryQuery.isFetching  && <p className="text-center">No Data Exists</p>} */}
                 {!breweryQuery.isFetching && <>
-                    <table className="p-4 w-full block  overflow-auto mt-4">
+                    <table className="p-4 w-full block sm:table  overflow-auto mt-4">
                         <thead><tr className="bg-gray-200">
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
                             <th className="p-2 text-sm text-left">Brewery Name</th>
