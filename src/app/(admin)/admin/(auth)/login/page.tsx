@@ -11,6 +11,7 @@ import { IoIosLock } from "react-icons/io";
 import { useMutation } from "react-query";
 import Cookies from 'js-cookie'
 import { ImSpinner2 } from "react-icons/im";
+import { toast } from "react-toastify";
 type LoginData = {
     email: string,
     password: string,
@@ -32,15 +33,49 @@ export default function Login() {
                 router.push('/admin/dashboard')
             }
             else {
-                setInvalid(true)
-                setMessage('Invalid Credentials')
+                toast.error('Invalid Credentials', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+                // setInvalid(true)
+                // setMessage('Invalid Credentials')
             }
             
             console.log(data)
         },
         onError(error:any) {
-            setInvalid(true)
-            setMessage(error.response.data.message)
+            // setInvalid(true)
+            // setMessage(error.response.data.message)
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
 

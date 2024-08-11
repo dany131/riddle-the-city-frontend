@@ -6,6 +6,7 @@ import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { toast } from "react-toastify";
 export default function EditHunts(data: any) {
     // console.log(data.searchParams.id)
     const [message,setMessage]=useState('')
@@ -22,6 +23,32 @@ export default function EditHunts(data: any) {
             console.log('update hunts', data.data)
             // setEditRiddle(!editRiddle)
             queryClient.invalidateQueries('hunts')
+        },
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
 
@@ -101,31 +128,33 @@ export default function EditHunts(data: any) {
         })
 
         console.log('findnew f')
-        if (!findRiddlesOld && !findRiddlesNew) {
-            if (!newRiddless) {
-                setMessage('')
-                const addHuntData = {
-                    ...huntToAdd,
-                    riddles: [
-                        ...filterRiddlesOld,
-                    ]
-                }
-                updateHunts.mutate(addHuntData)
+        // if (!findRiddlesOld && !findRiddlesNew) {
+            
+        // }
+        // else {
+        //     setMessage('Please Fill All The Info To Add A New Hunt')
+        // }
+
+        if (!newRiddless) {
+            // setMessage('')
+            const addHuntData = {
+                ...huntToAdd,
+                riddles: [
+                    ...filterRiddlesOld,
+                ]
             }
-            else {
-                setMessage('')
-                const addHuntData = {
-                    ...huntToAdd,
-                    riddles: [
-                        ...filterRiddlesOld,
-                        ...filterRiddlesNew
-                    ]
-                }
-                updateHunts.mutate(addHuntData)
-            }
+            updateHunts.mutate(addHuntData)
         }
         else {
-            setMessage('Please Fill All The Info To Add A New Hunt')
+            // setMessage('')
+            const addHuntData = {
+                ...huntToAdd,
+                riddles: [
+                    ...filterRiddlesOld,
+                    ...filterRiddlesNew
+                ]
+            }
+            updateHunts.mutate(addHuntData)
         }
     }
     return (

@@ -9,6 +9,7 @@ import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
+import { toast } from "react-toastify";
 const montesserat = Montserrat({
     weight: "600",
     subsets: ['latin']
@@ -38,8 +39,30 @@ export default function NewPassword(data: any) {
         },
         onError(error:any) {
             console.log('error', error)
-            setNotMatch(true)
-            setMessage(error.response.data.message)
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
     function handleSubmit(e:FormEvent) {

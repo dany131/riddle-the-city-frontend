@@ -8,7 +8,7 @@ import { SiGooglemaps } from "react-icons/si";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
-
+import { toast } from "react-toastify";
 const users = [
     {
         id: 0, name: 'Sunday'
@@ -119,11 +119,12 @@ export default function CreateBrewery() {
             "address": breweryLocationToAdd,
             "schedule": filterBrewery
         }
-        if (filterBrewery) {
-            console.log(breweryData)
-            setMessage('Add Schedules For The Breweries Before Submitting')
-            addBreweryMutation.mutate(breweryData)
-        }
+        addBreweryMutation.mutate(breweryData)
+        // if (filterBrewery) {
+        //     console.log(breweryData)
+        //     // setMessage('Add Schedules For The Breweries Before Submitting')
+        //     addBreweryMutation.mutate(breweryData)
+        // }
         // if (breweryToAdd && breweryLocationToAdd ) {
             // const breweryData = {
             //     "name": breweryToAdd,
@@ -171,6 +172,32 @@ export default function CreateBrewery() {
             // setBreweryToAddStatus(null)
             setBreweryLocationToAdd(null)
             onOpen3()
+        },
+        onError(error:any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         },
     })
 

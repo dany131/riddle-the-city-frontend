@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
+import { toast } from "react-toastify";
 
 const selections = [
     { label: 'Open', key: 1 }
@@ -65,6 +66,32 @@ export default function CreateRiddle() {
             setMessage('')
             onOpen1()
         },
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+        },
     })
 
 
@@ -74,16 +101,21 @@ export default function CreateRiddle() {
                 return e
             }
         })
-        if (filterRiddles) {
-            const addHuntData = {
-                ...huntToAdd,
-                riddles:filterRiddles
-            }
-            huntAddMutation.mutate(addHuntData)
+        const addHuntData = {
+            ...huntToAdd,
+            riddles: filterRiddles
         }
-        else {
-            setMessage('Please Fill All The Info To Add A New Hunt')
-        }
+        huntAddMutation.mutate(addHuntData)
+        // if (filterRiddles) {
+        //     const addHuntData = {
+        //         ...huntToAdd,
+        //         riddles:filterRiddles
+        //     }
+        //     huntAddMutation.mutate(addHuntData)
+        // }
+        // else {
+        //     setMessage('Please Fill All The Info To Add A New Hunt')
+        // }
     }
 
     console.log('hunt to add' ,huntToAdd)

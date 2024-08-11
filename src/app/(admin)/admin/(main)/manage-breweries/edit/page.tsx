@@ -9,6 +9,7 @@ import { ImSpinner2 } from "react-icons/im";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Time } from "@internationalized/date";
 import { time } from "console";
+import { toast } from "react-toastify";
 const users = [
     {
         id: 0, name: 'Sunday'
@@ -155,6 +156,32 @@ export default function EditBrewery(data: any) {
             queryClient.invalidateQueries('breweries')
             // onClose1()
         },
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+        },
     })
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
@@ -166,15 +193,15 @@ export default function EditBrewery(data: any) {
         })
         const name = breweryToAdd.name != ''
         const address = !`${breweryToAdd.address.latitude}` && !`${breweryToAdd.address.longitude}` && !`${breweryToAdd.address.text}`
-        console.log(breweryToAdd.address.latitude, breweryToAdd.address.longitude, breweryToAdd.address.text, breweryToAdd.name, filterBrewery)
-        console.log(name,address,filterBrewery)
-        if (!filterBrewery && name) {
-            setMessage('')
-            breweryEditMutation.mutate(breweryToAdd)
-        }
-        else {
-            setMessage('Enter Missing Days Info, Brewery Name and Location')
-        }
+        // console.log(breweryToAdd.address.latitude, breweryToAdd.address.longitude, breweryToAdd.address.text, breweryToAdd.name, filterBrewery)
+        // console.log(name,address,filterBrewery)
+        breweryEditMutation.mutate(breweryToAdd)
+        // if (!filterBrewery && name) {
+        //     setMessage('')
+        // }
+        // else {
+        //     setMessage('Enter Missing Days Info, Brewery Name and Location')
+        // }
         // console.log('filter', filterBrewery)
         // const breweryData = {
         //     "name": breweryToAdd,
