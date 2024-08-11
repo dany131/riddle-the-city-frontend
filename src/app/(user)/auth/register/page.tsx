@@ -105,8 +105,18 @@ export default function Register() {
             }
         }
         else {
-            setMessage('Passwords Do Not Match')
-            setNoMatch(true)
+            toast.error('Passwords Do Not Match', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            // setMessage('Passwords Do Not Match')
+            // setNoMatch(true)
         }
     }
     const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
