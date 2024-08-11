@@ -84,7 +84,7 @@ export default function EditHunts(data: any) {
                 return e
             }
         })
-        const filterRiddlesNew = newRiddless.filter((e: any) => {
+        const filterRiddlesNew = newRiddless?.filter((e: any) => {
             if (e.description && e.hint && e.reward && e.title) {
                 return e
             }
@@ -94,7 +94,7 @@ export default function EditHunts(data: any) {
                 return e
             }
         })
-        const findRiddlesNew = newRiddless.find((e: any) => {
+        const findRiddlesNew = newRiddless?.find((e: any) => {
             if (e.description == '' || e.hint == '' || e.reward == '' || e.title == '') {
                 return e
             }
@@ -102,15 +102,27 @@ export default function EditHunts(data: any) {
 
         console.log('findnew f')
         if (!findRiddlesOld && !findRiddlesNew) {
-            setMessage('')
-            const addHuntData = {
-                ...huntToAdd,
-                riddles: [
-                    ...filterRiddlesOld,
-                    ...filterRiddlesNew
-                ]
+            if (!newRiddless) {
+                setMessage('')
+                const addHuntData = {
+                    ...huntToAdd,
+                    riddles: [
+                        ...filterRiddlesOld,
+                    ]
+                }
+                updateHunts.mutate(addHuntData)
             }
-            updateHunts.mutate(addHuntData)
+            else {
+                setMessage('')
+                const addHuntData = {
+                    ...huntToAdd,
+                    riddles: [
+                        ...filterRiddlesOld,
+                        ...filterRiddlesNew
+                    ]
+                }
+                updateHunts.mutate(addHuntData)
+            }
         }
         else {
             setMessage('Please Fill All The Info To Add A New Hunt')
@@ -333,19 +345,19 @@ export default function EditHunts(data: any) {
                                     classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
                                 />
                             </div>
-                            {/* {index != 0 && <button onClick={() => {
-                                // const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != index)
-                                // setHuntToAdd((prev) => {
-                                //     return (
-                                //         {
-                                //             ...prev,
-                                //             riddles: oldRiddles
-                                //         }
-                                //     )
-                                // })
+                            {<button onClick={() => {
+                                const oldRiddles = huntToAdd.riddles.filter((j:any, index1:number) => index1 != index)
+                                setHuntToAdd((prev:any) => {
+                                    return (
+                                        {
+                                            ...prev,
+                                            riddles: oldRiddles
+                                        }
+                                    )
+                                })
                                 // setCreateRiddle(!createRiddle)
                                 // onOpen1()
-                            }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>} */}
+                            }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>}
                             {/* <button onClick={() => {
                             // setCreateRiddle(!createRiddle)
                             // onOpen1()
