@@ -7,6 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { SiGooglemaps } from "react-icons/si";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { ImSpinner2 } from "react-icons/im";
 
 const users = [
     {
@@ -377,7 +378,7 @@ export default function CreateBrewery() {
                         </table>
                     </div>
                 </div>
-                    <button type="submit" className="px-16 py-2 bg-[#A92223] w-full rounded text-white">Add Brewery</button>
+                <button type="submit" className="px-16 py-2 bg-[#A92223] w-full rounded flex justify-center text-white">{addBreweryMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : 'Add Brewery'}</button>
             </form>
             <Modal
                 size={"xl"}

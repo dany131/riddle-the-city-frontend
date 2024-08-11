@@ -107,7 +107,7 @@ export default function UserTopBar() {
             <div onClick={() => {
                 setDisplay(!display)
             }} className={`bg-[#000000bd] sm:hidden ${display?'block':'hidden'} w-full z-[888] absolute top-0 left-0 h-full`}>
-                <div className={`h-full sm:h-full sm:hidden block w-[50%] `}>
+                <div className={`h-full sm:h-full sm:hidden block w-[70%] `}>
                     <div className=" text-white flex flex-col rounded-lg p-4 gap-8 w-full h-full bg-[#160704]">
                         <div className="h-[5rem] flex justify-between w-full">
                             <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={400} height={1000} />

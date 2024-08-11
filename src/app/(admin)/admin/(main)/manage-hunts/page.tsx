@@ -8,7 +8,7 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import { GrView } from "react-icons/gr";
 import Image from "next/image";
 import Link from "next/link";
-
+import { ImSpinner2 } from "react-icons/im";
 
 
 const data = [
@@ -39,21 +39,13 @@ export default function ManageRiddles() {
     const [riddleToEdit, setRiddleToEdit] = useState<any>()
     const queryClient=useQueryClient()
     const huntsQuery = useQuery(['hunts', page], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/hunt/all?page=${queryKey[1]}&limit=20`)
+        return axiosInstance.get(`/riddle/api/hunt/all?page=${queryKey[1]}&limit=10`)
     }, {
         onSuccess(data) {
             console.log(data)
         },
         onError(err) {
             console.log(err)
-        },
-    })
-
-    const updateHunts = useMutation((data: any) => axiosInstance.put(`/riddle/api/hunt?huntId=${riddleToEdit._id}`, data), {
-        onSuccess(data) {
-            console.log('update hunts', data.data)
-            setEditRiddle(!editRiddle)
-            queryClient.invalidateQueries('hunts')
         },
     })
 
@@ -78,233 +70,76 @@ export default function ManageRiddles() {
             
             
             <>
-            <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                 <p className="text-xl font-semibold">Manage Hunts</p>
-                <Link href={'/admin/manage-hunts/create'} className="px-16 py-2 bg-[#A92223] rounded text-white">Create New Hunt</Link>
-            </div>
-            {!editRiddle &&
+                    <Link href={'/admin/manage-hunts/create'} className="sm:px-16 px-4 py-2 bg-[#A92223] rounded text-white">Create New Hunt</Link>
+                </div>
                 <>
-                {huntsQuery.isFetching && <p className="text-center">Fetching Data</p>}
-                {huntsQuery.data?.data.data.length == 0 && !huntsQuery.isFetching && <p className="text-center">No Data Exists</p>}
-                {huntsQuery.data?.data.data.length != 0 && !huntsQuery.isFetching &&
-                    <>
-                    <table className="p-4 mt-4">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
-                                <th className="p-2 text-sm text-left">Brewery Name</th>
-                                <th className="p-2 text-sm text-left">Riddle Description</th>
-                                <th className="p-2 text-sm text-left">Creation Date</th>
-                                {/* <th className="p-2 text-sm text-left ">QR Code Link</th> */}
-                                <th className="p-2 text-sm text-left rounded-r-md">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {huntsQuery.data?.data.data.map((e: any, index: number) => <tr key={index + 1} >
-                                <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
-                                <td className="p-2 text-sm">{e.name}</td>
-                                <td className="p-2 text-sm">{e.description}</td>
-                                <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
-                                <td className="p-2 text-sm">
-                                    <div className="flex gap-2">
-                                        {/* {downloadPdf.data?.data && 
+                    {huntsQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
+                    {/* {huntsQuery.data?.data.data.length == 0 && !huntsQuery.isFetching && <p className="text-center">No Data Exists</p>} */}
+                    {!huntsQuery.isFetching &&
+                        <>
+                        <table className="p-4 w-full block overflow-auto mt-4">
+                                <thead>
+                                    <tr className="bg-gray-200">
+                                        <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
+                                        <th className="p-2 text-sm text-left">Brewery Name</th>
+                                        <th className="p-2 text-sm text-left">Riddle Description</th>
+                                        <th className="p-2 text-sm text-left">Creation Date</th>
+                                        {/* <th className="p-2 text-sm text-left ">QR Code Link</th> */}
+                                        <th className="p-2 text-sm text-left rounded-r-md">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {huntsQuery.data?.data.data.map((e: any, index: number) => <tr className="border-b-2 border-solid border-gray-200" key={index + 1} >
+                                        <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
+                                        <td className="p-2 text-sm">{e.name}</td>
+                                        <td className="p-2 text-sm">{e.description}</td>
+                                        <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
+                                        <td className="p-2 text-sm">
+                                            <div className="flex gap-2">
+                                                {/* {downloadPdf.data?.data && 
                                             <a className="underline text-red-600" href={`${downloadPdf.data?.data}`}>Download PDF</a>
                                         } */}
-                                        
-                                        {/* <button onClick={() => {
+
+                                                {/* <button onClick={() => {
                                             downloadPdf.mutate(e._id)
                                         }} className="underline text-red-600">Download PDF</button> */}
-                                        <GrView onClick={() => {
-                                            downloadPdf.mutate(e._id)
-                                            // setRiddleToView(e)
-                                            // onOpen3()
-                                        }} className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
-                                        <CiEdit onClick={() => {
-                                            setEditRiddle(!editRiddle)
-                                            setRiddleToEdit(e)
-                                        }} className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
-                                        {/* <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " /> */}
-                                    </div>
-                                </td>
-                            </tr>)}
-                        </tbody>
-                    </table>
-                    {huntsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white m-auto" type="button" onClick={() => {
-                    setPage((prev) => prev + 1)
-                }}>Next Page</button>}
-                </> 
-                }
-                </>
-            }
+                                                <GrView onClick={() => {
+                                                    downloadPdf.mutate(e._id)
+                                                    // setRiddleToView(e)
+                                                    // onOpen3()
+                                                }} className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
+                                                <Link href={`/admin/manage-hunts/edit?id=${e._id}`}>
+                                                    <CiEdit
+                                                        // onClick={() => {
+                                                        // setEditRiddle(!editRiddle)
+                                                        // setRiddleToEdit(e)
+                                                        // }}
+                                                        className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
+                                                </Link>
+                                                
+                                                {/* <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " /> */}
+                                            </div>
+                                        </td>
+                                    </tr>)}
+                                </tbody>
+                            </table>
+                            <div className="flex flex-wrap gap-4">
+                                {huntsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                                    setPage((prev) => prev + 1)
+                                }}>Next Page</button>}
 
-            {editRiddle &&
-                <>
-                <div className=" flex flex-col items-start gap-4 pb-4 border-[0.1rem] rounded-lg">
-                    {riddleToEdit.riddles.map((e:any) => {
-                        return (<div className="w-[70%] self-start flex flex-col gap-4 p-4">
-                            <h1 className="font-semibold">Edit Riddle</h1>
-                            {/* <Input
-                                className="w-full"
-                                type="text"
-                                label="Select Brewery"
-                                // placeholder="Brewery 01"
-                                labelPlacement="outside"
-                                defaultValue={`${e.title}`}
-                                classNames={{ label: "!font-semibold" }}
-                            /> */}
-                            {/* <Select
-                                size={'md'}
-                                className="w-full"
-                                labelPlacement={"outside"}
-                                label="Select Brewery"
-                                placeholder="Brewery 01"
-                                defaultSelectedKeys={}
-                                classNames={{
-                                    label: "!font-semibold"
-                                }}
-
-                            >
-                                {selections.map((animal) => (
-                                    <SelectItem key={animal.key}>
-                                        {animal.label}
-                                    </SelectItem>
-                                ))}
-                            </Select> */}
-                            <div className="flex w-full gap-4">
-                                <div className="flex flex-col justify-between w-full ">
-                                    <Input
-                                        className="w-full"
-                                        type="text"
-                                        onChange={(f) => {
-                                            const title = f.target.value
-                                            const find = riddleToEdit.riddles.find((k: any) => k._id == e._id)
-                                            find.title=title
-                                            const newRiddles = riddleToEdit.riddles.map((k:any) => {
-                                                if (k._id == find._id) {
-                                                    return find
-                                                }
-                                                return k
-                                            })
-                                            setRiddleToEdit((prev:any) => {
-                                                return (
-                                                    {
-                                                        ...prev,
-                                                        riddles:newRiddles
-                                                    }
-                                                )
-                                            })
-                                            console.log(find)
-                                        }}
-                                        label="Riddle Name"
-                                        defaultValue={`${e.title}`}
-                                        placeholder="Brewery 01"
-                                        labelPlacement="outside"
-                                        classNames={{ label: "!font-semibold" }}
-                                    />
-                                    <Input
-                                        className="w-full"
-                                        type="text"
-                                        onChange={(f) => {
-                                            const title = f.target.value
-                                            const find = riddleToEdit.riddles.find((k: any) => k._id == e._id)
-                                            find.hint = title
-                                            const newRiddles = riddleToEdit.riddles.map((k: any) => {
-                                                if (k._id == find._id) {
-                                                    return find
-                                                }
-                                                return k
-                                            })
-                                            setRiddleToEdit((prev: any) => {
-                                                return (
-                                                    {
-                                                        ...prev,
-                                                        riddles: newRiddles
-                                                    }
-                                                )
-                                            })
-                                            console.log(find)
-                                        }}
-                                        label="Hint"
-                                        defaultValue={`${e.hint}`}
-                                        placeholder="Write Hint"
-                                        labelPlacement="outside"
-                                        classNames={{ label: "!font-semibold" }}
-                                    />
-                                </div>
-
-                                <div className="flex flex-col gap-4 w-full ">
-                                    <Textarea
-                                        label="Description"
-                                        placeholder="Write your description..."
-                                        onChange={(f) => {
-                                            const title = f.target.value
-                                            const find = riddleToEdit.riddles.find((k: any) => k._id == e._id)
-                                            find.description = title
-                                            const newRiddles = riddleToEdit.riddles.map((k: any) => {
-                                                if (k._id == find._id) {
-                                                    return find
-                                                }
-                                                return k
-                                            })
-                                            setRiddleToEdit((prev: any) => {
-                                                return (
-                                                    {
-                                                        ...prev,
-                                                        riddles: newRiddles
-                                                    }
-                                                )
-                                            })
-                                            console.log(find)
-                                        }}
-                                        className="w-full"
-                                        labelPlacement="outside"
-                                        defaultValue={`${e.description}`}
-                                        size="lg"
-                                        minRows={10}
-                                        classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                                    />
-                                    <Input
-                                        className="w-full "
-                                        type="text"
-                                        onChange={(f) => {
-                                            const title = f.target.value
-                                            const find = riddleToEdit.riddles.find((k: any) => k._id == e._id)
-                                            find.reward = title
-                                            const newRiddles = riddleToEdit.riddles.map((k: any) => {
-                                                if (k._id == find._id) {
-                                                    return find
-                                                }
-                                                return k
-                                            })
-                                            setRiddleToEdit((prev: any) => {
-                                                return (
-                                                    {
-                                                        ...prev,
-                                                        riddles: newRiddles
-                                                    }
-                                                )
-                                            })
-                                            console.log(find)
-                                        }}
-                                        defaultValue={`${e.reward}`}
-                                        label="Reward"
-                                        placeholder="Write Reward"
-                                        labelPlacement="outside"
-                                        classNames={{ label: "!font-semibold" }}
-                                    />
-                                </div>
+                                {
+                                    page != 1 && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                                        setPage((prev) => prev - 1)
+                                    }}>Previous Page</button>
+                                }
                             </div>
-                            <button onClick={() => {
-                                deleteRiddle.mutate(e._id)
-                            }} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Delete Riddle</button>
-                        </div>)
-                    })}
-                    <button onClick={() => {
-                        updateHunts.mutate(riddleToEdit)
-                    }} className="px-16  w-full py-2 bg-[#A92223]  rounded text-white">Update Riddles</button>
-                    </div>
+
+                        </>
+                    }
                 </>
-            }
             </>
             <Modal
                 size={"xl"}

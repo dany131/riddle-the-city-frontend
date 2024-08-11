@@ -11,6 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import {Time} from "@internationalized/date";
 import Link from "next/link";
+import { ImSpinner2 } from "react-icons/im";
 const selections = [
     { label: 'Open', key: 1 },
     { label: 'Closed', key: 2 }
@@ -72,18 +73,18 @@ export default function ManageBreweries() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
 
     
-    const [breweryToEdit,setBreweryToEdit]=useState<null|BreweryEditData>()
-    const [status, setStatus] = useState<Status>()
-    const [breweryEditId,setBreweryEditId]=useState<null|string>()
-    const [addBrewery, setAddBrewery] = useState(false)
+    // const [breweryToEdit,setBreweryToEdit]=useState<null|BreweryEditData>()
+    // const [status, setStatus] = useState<Status>()
+    // const [breweryEditId,setBreweryEditId]=useState<null|string>()
+    // const [addBrewery, setAddBrewery] = useState(false)
     const [page, setPage] = useState(1)
     const [breweryName, setBreweryName] = useState<any>()
     const [breweryToAdd, setBreweryToAdd] = useState<any>()
     const [breweryLocationToAdd, setBreweryLocationToAdd] = useState<any>()
-    const [breweryToAddDay, setBreweryToAddDay] = useState<any>()
-    const [breweryToAddStartTime, setBreweryToAddStartTime] = useState<any>()
-    const [breweryToAddEndTime, setBreweryToAddEndTime] = useState<any>()
-    const [breweryToAddStatus, setBreweryToAddStatus] = useState<any>()
+    // const [breweryToAddDay, setBreweryToAddDay] = useState<any>()
+    // const [breweryToAddStartTime, setBreweryToAddStartTime] = useState<any>()
+    // const [breweryToAddEndTime, setBreweryToAddEndTime] = useState<any>()
+    // const [breweryToAddStatus, setBreweryToAddStatus] = useState<any>()
     const [message, setMessage] = useState('')
     const [googleData, setGoogleData] = useState<any>()
     const [location, setLocation] = useState('')
@@ -98,7 +99,7 @@ export default function ManageBreweries() {
         enabled:!!location
     })
     const breweryQuery = useQuery(['breweries', page], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[1]}&limit=20`)
+        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[1]}&limit=10`)
     }, {
         onSuccess(data) {
             console.log(data)
@@ -126,14 +127,14 @@ export default function ManageBreweries() {
         <>
             
                 <>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                     <p className="text-xl font-semibold">Manage Breweries</p>
-                    <Link href={'/admin/manage-breweries/create'} className="px-16 py-2 bg-[#A92223] rounded text-white">Add Brewery</Link>
+                    <Link href={'/admin/manage-breweries/create'} className="sm:px-16 px-4 py-2 bg-[#A92223] rounded text-white">Add Brewery</Link>
                 </div>
-                {breweryQuery.isFetching && <p className="text-center">Fetching Data</p>}
-                {breweryQuery.data?.data.data.length == 0 && !breweryQuery.isFetching  && <p className="text-center">No Data Exists</p>}
-                {breweryQuery.data?.data.data.length!= 0 && !breweryQuery.isFetching && <>
-                    <table className="p-4 mt-4">
+                {breweryQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
+                {/* {breweryQuery.data?.data.data.length == 0 && !breweryQuery.isFetching  && <p className="text-center">No Data Exists</p>} */}
+                {!breweryQuery.isFetching && <>
+                    <table className="p-4 w-full block  overflow-auto mt-4">
                         <thead><tr className="bg-gray-200">
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
                             <th className="p-2 text-sm text-left">Brewery Name</th>
@@ -141,28 +142,32 @@ export default function ManageBreweries() {
                             <th className="p-2 text-sm text-left">Date Of Creation</th>
                             <th className="p-2 text-sm text-left rounded-r-md">Action</th>
                         </tr>    </thead>
-                        <tbody>{breweryQuery.data?.data.data.map((e: any, index: number) => <tr key={index + 1}>
+                        <tbody>{breweryQuery.data?.data.data.map((e: any, index: number) => <tr className="border-b-2 border-solid border-gray-200" key={index + 1}>
                             <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
                             <td className="p-2 text-sm">{e.name}</td>
                             <td className="p-2 text-sm">{e.address.text}</td>
                             <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
                             <td className="p-2 text-sm">
                                 <div className="flex gap-2">
-                                    <CiEdit onClick={() => {
-                                        setBreweryName(e)
-                                        // setBreweryName(e.name)
-                                        // setBreweryEditId(e._id)
-                                        // setStatus(`${e.schedule[0].status}` as '1' | '2')
-                                        onOpen1()
-                                    }} className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
+                                    <Link href={`/admin/manage-breweries/edit?id=${e._id}`}><CiEdit className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" /></Link>
+                                    
                                     {/* <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " /> */}
                                 </div>
                             </td>
                         </tr>)}</tbody>
                     </table>
-                    {breweryQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] w-max rounded text-white m-auto" type="button" onClick={() => {
-                        setPage((prev) => prev + 1)
-                    }}>Next Page</button>}
+
+                    {<div className="flex flex-wrap gap-4">
+                        {breweryQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                            setPage((prev) => prev + 1)
+                        }}>Next Page</button>}
+                       
+                        {
+                            page != 1 && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                                setPage((prev) => prev - 1)
+                            }}>Previous Page</button>
+                        }
+                        </div>}
                 </>}
                 </>
             <Modal
@@ -378,7 +383,7 @@ export default function ManageBreweries() {
                                     //     breweryEditMutation.mutate(breweryToEdit)
                                     //     setBreweryToEdit(null)
                                     // }
-                                }} className="px-16 py-2 bg-[#A92223] w-max rounded text-white">Save Changes</button>
+                                }} className="px-16 py-2 bg-[#A92223] w-max rounded text-white">{breweryEditMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Save Changes"}</button>
                             </ModalBody>
                         </>
                     )}

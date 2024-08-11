@@ -6,6 +6,7 @@ import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { useRouter } from "next/navigation";
+import { ImSpinner2 } from "react-icons/im";
 
 const selections = [
     { label: 'Open', key: 1 }
@@ -95,7 +96,7 @@ export default function CreateRiddle() {
                 <div className="flex flex-col gap-4">
                     <Input
                         value={huntToAdd.name}
-                        className="w-[70%]"
+                        className="sm:w-[70%] w-full"
                         type="text"
                         label="Hunt Name"
                         placeholder="Enter Hunt Name"
@@ -124,14 +125,14 @@ export default function CreateRiddle() {
                                 })
                             })
                         }}
-                        className="w-[70%]"
+                        className="sm:w-[70%] w-full"
                         labelPlacement="outside"
                         size="lg"
                         minRows={5}
                         classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
                     />
                     <Autocomplete
-                        className="w-[70%] font-semibold"
+                        className="sm:w-[70%] w-full font-semibold"
                         variant="flat"
                         isLoading={breweryQuery.isLoading}
                         defaultItems={(breweryQuery.data?.data.data ? breweryQuery.data?.data.data : [{ name: "",_id:"" }] as any)}
@@ -163,7 +164,7 @@ export default function CreateRiddle() {
                 </div>
                 <h1 className="font-semibold">Create Riddles</h1>
                 {huntToAdd.riddles.map((e,index:number) =>
-                    <div className="w-[70%] flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
+                    <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
                         <div className="flex gap-4">
                            
                             <Input
@@ -302,7 +303,147 @@ export default function CreateRiddle() {
                         }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max">Save</button> */}
                     </div>
                 )}
-                <div className="flex gap-4">
+                {huntToAdd.riddles.map((e, index: number) =>
+                    <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
+                        <div className="flex gap-4">
+
+                            <Input
+                                value={e.title}
+                                onChange={(j) => {
+                                    const value = j.target.value
+                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index)
+                                    find!.title = value
+                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                        if (index1 == index) {
+                                            return find
+                                        }
+                                        return k
+                                    })
+                                    setHuntToAdd((prev: any) => {
+                                        return (
+                                            {
+                                                ...prev,
+                                                riddles: newRiddles
+                                            }
+                                        )
+                                    })
+                                }}
+                                className="w-full"
+                                type="text"
+                                label="Title "
+                                placeholder="Enter Riddle Title"
+                                labelPlacement="outside"
+                                classNames={{ label: "!font-semibold" }}
+                            />
+                        </div>
+                        <Textarea
+                            value={e.description}
+                            label="Description"
+                            placeholder="Write description..."
+                            onChange={(j) => {
+                                const value = j.target.value
+                                const find = huntToAdd.riddles.find((e, index1) => index1 == index)
+                                find!.description = value
+                                const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                    if (index1 == index) {
+                                        return find
+                                    }
+                                    return k
+                                })
+                                setHuntToAdd((prev: any) => {
+                                    return (
+                                        {
+                                            ...prev,
+                                            riddles: newRiddles
+                                        }
+                                    )
+                                })
+                            }}
+                            className="w-full"
+                            labelPlacement="outside"
+                            size="lg"
+                            minRows={10}
+                            classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
+                        />
+                        <div className="flex gap-4">
+                            <Textarea
+                                onChange={(j) => {
+                                    const value = j.target.value
+                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index)
+                                    find!.reward = value
+                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                        if (index1 == index) {
+                                            return find
+                                        }
+                                        return k
+                                    })
+                                    setHuntToAdd((prev: any) => {
+                                        return (
+                                            {
+                                                ...prev,
+                                                riddles: newRiddles
+                                            }
+                                        )
+                                    })
+                                }}
+                                value={e.reward}
+                                label="Reward"
+                                placeholder="Write Reward..."
+                                className="w-full"
+                                labelPlacement="outside"
+                                size="lg"
+                                minRows={5}
+                                classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                            /> <Textarea
+                                value={e.hint}
+                                label="Hint"
+                                onChange={(j) => {
+                                    const value = j.target.value
+                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index)
+                                    find!.hint = value
+                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                        if (index1 == index) {
+                                            return find
+                                        }
+                                        return k
+                                    })
+                                    setHuntToAdd((prev: any) => {
+                                        return (
+                                            {
+                                                ...prev,
+                                                riddles: newRiddles
+                                            }
+                                        )
+                                    })
+                                }}
+                                placeholder="Write Hint..."
+                                className="w-full"
+                                labelPlacement="outside"
+                                size="lg"
+                                minRows={5}
+                                classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                            />
+                        </div>
+                        {index != 0 && <button onClick={() => {
+                            const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != index)
+                            setHuntToAdd((prev) => {
+                                return (
+                                    {
+                                        ...prev,
+                                        riddles: oldRiddles
+                                    }
+                                )
+                            })
+                            // setCreateRiddle(!createRiddle)
+                            // onOpen1()
+                        }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>}
+                        {/* <button onClick={() => {
+                            // setCreateRiddle(!createRiddle)
+                            // onOpen1()
+                        }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max">Save</button> */}
+                    </div>
+                )}
+                <div className="flex flex-wrap gap-4">
                     <button onClick={() => {
                         const oldRiddles = huntToAdd.riddles
                         setHuntToAdd((prev) => {
@@ -324,7 +465,7 @@ export default function CreateRiddle() {
                         // setCreateRiddle(!createRiddle)
                         // onOpen1()
                     }} className="px-16 py-2 bg-[#A92223] rounded text-white w-full ">Add More Riddles</button>
-                    <button onClick={buttonSubmit} className="px-16 py-2 bg-[#A92223] rounded text-white w-full ">Submit</button>
+                    <button onClick={buttonSubmit} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-full ">{huntAddMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Submit" }</button>
                 </div>
                 {/* <button onClick={() => {
                     // setCreateRiddle(!createRiddle)

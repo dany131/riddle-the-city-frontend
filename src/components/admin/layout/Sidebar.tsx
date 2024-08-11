@@ -38,7 +38,7 @@ export default function Sidebar() {
     })
     return (
         <>
-            <div className=" text-white flex flex-col gap-8 h-[10rem] sm:h-full w-full p-4 sm:w-[20%] bg-[#160704]">
+            <div className=" text-white hidden sm:flex flex-col gap-8 h-[10rem] sm:h-full w-full p-4 sm:w-[20%] bg-[#160704]">
                 <div className="h-[5rem] flex justify-between w-full">
                     <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={400} height={1000} />
                     <button className="block sm:hidden text-3xl" onClick={()=>{setDisplay(!display)}}>

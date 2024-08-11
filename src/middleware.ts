@@ -80,7 +80,7 @@ export const config = {
     matcher: [
         '/admin/dashboard',
         '/admin/manage-breweries/:path*',
-        '/admin/manage-riddles/:path*',
+        '/admin/manage-hunts/:path*',
         '/admin/notifications',
         '/admin/settings',
         '/admin/view-bookings',

@@ -8,6 +8,7 @@ import Image from "next/image"
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { useRouter } from "next/navigation";
+import { ImSpinner2 } from "react-icons/im";
 const montesserat = Montserrat({
     weight: "600",
     subsets: ['latin']
@@ -136,7 +137,7 @@ export default function NewPassword(data: any) {
                         setCode((prev) => prev + e.target.value)
                     }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
                 </div>
-                <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Save Password</button>
+                <button type="submit" className="bg-[#A92223] rounded-lg p-4 flex justify-center text-white w-[80%]">{newPasswordMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> :"Save Password"}</button>
             </form>
         </>
     )

@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 const axiosInstance = axios.create(
     {
@@ -20,7 +21,7 @@ axiosInstance.interceptors.response.use((response:AxiosResponse) => {
     return response
 }, async (error: AxiosError) => {
     if(error.response?.statusText == "Unauthorized") {
-        console.log(error)
+        console.log('token expired')
         const refreshToken = Cookies.get('refreshToken')
         try {
             const refreshTokenFetch=await axiosInstance.get('/riddle/api/auth/tokens', {
@@ -38,16 +39,30 @@ axiosInstance.interceptors.response.use((response:AxiosResponse) => {
             }})
         }
         catch (e) {
-            const userData = JSON.parse(Cookies.get('userData')!)
-            if (userData.role == 'Admin') {
-                window.location.href = '/admin/login'
+            console.log('refresh token error')
+            try {
+                const userData = JSON.parse(Cookies.get('userData')!)
+                if (userData.role == 'Admin') {
+                    window.location.href = '/admin/login'
+                }
+                else {
+                    window.location.href = '/auth/login'
+                }
+                Cookies.remove('userData')
+                Cookies.remove('accessToken')
+                Cookies.remove('refreshToken')
             }
-            else {
-                window.location.href = '/auth/login'
+            catch(e) {
+                console.log('userdata error', e)
+                // redirect("/auth/login");
+                if (window.location.href.includes('/admin')) {
+                    window.location.href = '/admin/login'
+                }
+                else {
+                    window.location.href = '/auth/login'
+                }
+                // console.log(window.location.href)
             }
-            Cookies.remove('userData')
-            Cookies.remove('accessToken')
-            Cookies.remove('refreshToken')
         }
     }
     console.log('interceptor error', error)

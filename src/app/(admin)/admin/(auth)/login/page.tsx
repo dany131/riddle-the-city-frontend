@@ -10,6 +10,7 @@ import { CiMail } from "react-icons/ci";
 import { IoIosLock } from "react-icons/io";
 import { useMutation } from "react-query";
 import Cookies from 'js-cookie'
+import { ImSpinner2 } from "react-icons/im";
 type LoginData = {
     email: string,
     password: string,
@@ -99,7 +100,7 @@ export default function Login() {
                     {/* <Checkbox>Remember Me</Checkbox> */}
                     {/* <Link href={'/admin/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link> */}
                 </div>
-                <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
+                <button type="submit" className="bg-[#A92223] rounded-lg p-4 flex justify-center text-white w-[80%]">{loginMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Login" }</button>
             </form>
         </>
     )

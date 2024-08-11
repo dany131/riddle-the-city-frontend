@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
 import { CiMail } from "react-icons/ci"
+import { ImSpinner2 } from "react-icons/im"
 import { useMutation } from "react-query"
 type ForgotPasswordData = {
     email:string
@@ -53,7 +54,7 @@ export default function ForgotPassword() {
                         <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
                 />
-                <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-center text-white w-[80%]">Continue</button>
+                <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-center flex justify-center text-white w-[80%]">{forgotPasswordMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Continue" }</button>
             </form>
         </>
     )
