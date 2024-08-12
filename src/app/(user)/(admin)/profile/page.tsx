@@ -2,7 +2,19 @@
 import Image from "next/image"
 import { CiEdit } from "react-icons/ci";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import Cookies from 'js-cookie'
+type UserData = {
+    name: string,
+    email: string,
+    phone: string,
+    role: string,
+    id: string
+}
 export default function Profile() {
+    let userData: UserData = { name: '', email: '', id: '', phone: '', role: 'User' }
+    if (Cookies.get('userData')!) {
+        userData = JSON.parse(Cookies.get('userData')!)
+    }
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     return (
         <>
@@ -18,15 +30,15 @@ export default function Profile() {
                     <div className="flex sm:flex-row flex-col gap-4">
                         <div className="flex flex-col w-[40%]">
                             <p className="text-gray-400 text-sm">Full Name</p>
-                            <p className="font-semibold">John Marshall</p>
+                            <p className="font-semibold">{userData.name }</p>
                         </div>
                         <div className="flex flex-col w-[40%]">
                             <p className="text-gray-400 text-sm">Email Address</p>
-                            <p className="font-semibold">john.marshall@gmail.com</p>
+                            <p className="font-semibold">{userData.email}</p>
                         </div>
                         <div className="flex flex-col w-[40%]">
                             <p className="text-gray-400 text-sm">Phone</p>
-                            <p className="font-semibold">+1234567890</p>
+                            <p className="font-semibold">{userData.phone}</p>
                         </div>
                     </div>
                     <div className="flex flex-col gap-4">
@@ -81,29 +93,38 @@ export default function Profile() {
                     {(onClose) => (
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Edit Profile</ModalHeader>
-                            <ModalBody className="flex flex-col gap-4 pb-8">
-                                <Input
-                                    className="w-full"
-                                    type="text"
-                                    label="Username"
-                                    placeholder="Enter User name"
-                                    labelPlacement="outside"
-                                    classNames={{
-                                        label:"font-semibold"
-                                    }}
-                                />
-                                <Input
-                                    className="w-full"
-                                    type="text"
-                                    label="Phone Number"
-                                    placeholder="Enter phone number"
-                                    labelPlacement="outside"
-                                    classNames={{
-                                        label: "font-semibold"
-                                    }}
-                                />
-                                
-                                <button onClick={() => {  }} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Profile</button>
+                            <ModalBody >
+                                <form className="flex flex-col gap-4 pb-8" >
+                                    <Input
+                                        className="w-full"
+                                        type="text"
+                                        label="Username"
+                                        defaultValue={`${userData.name}`}
+                                        placeholder="Enter User name"
+                                        labelPlacement="outside"
+                                        classNames={{
+                                            label: "font-semibold"
+                                        }}
+                                    />
+                                    <Input
+                                        className="w-full"
+                                        type="text"
+                                        label="Phone Number"
+                                        defaultValue={`${userData.phone}`}
+                                        placeholder="Enter phone number"
+                                        labelPlacement="outside"
+                                        classNames={{
+                                            label: "font-semibold"
+                                        }}
+                                    />
+                                    <div className="flex flex-col gap-2">
+                                        <p className="font-semibold text-sm">Profile Picture</p>
+                                        <div className="h-[7rem] w-[7rem]">
+                                            <Image className="h-full w-full" src={'/images/user/profile/profile.png'} width={200} height={200} alt="google maps" />
+                                        </div>
+                                    </div>
+                                    <button onClick={() => { }} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Profile</button>
+                                </form>
                             </ModalBody>
                         </>
                     )}

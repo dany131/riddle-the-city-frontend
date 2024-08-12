@@ -67,6 +67,41 @@ export default function Register() {
             }
         },
     })
+    const registerGoogleMutation = useMutation((data: LoginData) => axiosInstance.post('/riddle/api/auth/signup', data), {
+        onSuccess(data) {
+            console.log('success', data)
+            Cookies.set('accessToken', data.data.data.tokens.access_token)
+            Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
+            Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture }))
+            router.push('/dashboard')
+        },
+        onError(error: any) {
+            if (typeof (error.response.data.message) == 'string') {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+            else {
+                toast.error(error.response.data.message.join(','), {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
+        },
+    })
     function handleSubmit(e:FormEvent) {
         e.preventDefault()
         const form = e.target as any as HTMLFormElement
@@ -182,7 +217,7 @@ export default function Register() {
                 accessType: 2,
                 accessToken: access_token
             }
-            loginMutation.mutate(loginData)
+            registerGoogleMutation.mutate(loginData)
         },
         flow: 'implicit',
     });
