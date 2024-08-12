@@ -6,7 +6,7 @@ import { useQuery } from "react-query"
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
-export default function StartRiddle(datas: any) {
+export default function StartRiddle(datas:any) {
     // console.log('hunt id start riddle', datas.searchParams.id)
     const navigate=useRouter()
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
