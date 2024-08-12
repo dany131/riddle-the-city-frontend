@@ -60,10 +60,10 @@ export default function Sidebar() {
                             <TbPackages className="w-1/4" />
                             <Link className="w-full" href={'/packages'}>Packages</Link>
                         </div>
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/hunt-history' ? 'bg-[#a922236e]' : ''}`}>
+                        {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/hunt-history' ? 'bg-[#a922236e]' : ''}`}>
                             <FaHistory className="w-1/4" />
                             <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
-                        </div>
+                        </div> */}
                         <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                             <MdOutlineFeedback className="w-1/4" />
                             <Link className="w-full" href={'/feedback'}>Feedback</Link>
