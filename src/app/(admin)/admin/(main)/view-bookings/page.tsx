@@ -20,7 +20,7 @@ export default function Bookings() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const bookingsQuery = useQuery(['bookings', page], ({ queryKey }) => {
         const userData = JSON.parse(Cookies.get('userData')!)
-        return axiosInstance.get(`/riddle/api/booking/all?page=${queryKey[1]}&limit=10&userId=${userData.id}`)
+        return axiosInstance.get(`/riddle/api/booking/all?page=${queryKey[1]}&limit=10`)
     }, {
         onSuccess(data) {
             console.log(data)
@@ -46,7 +46,8 @@ export default function Bookings() {
                             <th className="p-2 text-sm text-left">User Name</th>
                             <th className="p-2 text-sm text-left">Package Booked</th>
                             <th className="p-2 text-sm text-left">Date Of Booking</th>
-                            <th className="p-2 text-sm text-left rounded-r-md">Action</th>
+                            <th className="p-2 text-sm text-left">Is Active</th>
+                            {/* <th className="p-2 text-sm text-left rounded-r-md">Action</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -55,11 +56,12 @@ export default function Bookings() {
                             <td className="p-2 text-sm">{e.user.name}</td>
                             <td className="p-2 text-sm">{e.package.name}</td>
                             <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
-                            <td className="p-2 text-sm">
+                            <td className="p-2 text-sm">{`${e.active?"Active":"Not Active"}` }</td>
+                            {/* <td className="p-2 text-sm">
                                 <div className="flex gap-2">
                                     <IoEyeOutline onClick={onOpen2} className=" cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " />
                                 </div>
-                            </td>
+                            </td> */}
                         </tr>)}
                     </tbody>
                 </table>

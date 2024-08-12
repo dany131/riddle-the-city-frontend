@@ -12,11 +12,13 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineFeedback } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CiCircleInfo } from "react-icons/ci";
+import { TbPackages } from "react-icons/tb";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
 import Cookies from 'js-cookie'
 import axiosInstance from "@/app/utils/axiosInstance";
 import { useMutation } from "react-query";
+import { FaHistory } from "react-icons/fa";
 export default function Sidebar() {
     const navigate=useRouter()
     const pathname = usePathname()
@@ -54,6 +56,14 @@ export default function Sidebar() {
                             <RxDashboard className="w-1/4" />
                             <Link className="w-full" href={'/dashboard'}>Dashboard</Link>
                         </div>
+                        <div className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
+                            <TbPackages className="w-1/4" />
+                            <Link className="w-full" href={'/packages'}>Packages</Link>
+                        </div>
+                        <div className={`flex gap-4  p-2 items-center ${pathname == '/hunt-history' ? 'bg-[#a922236e]' : ''}`}>
+                            <FaHistory className="w-1/4" />
+                            <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
+                        </div>
                         <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                             <MdOutlineFeedback className="w-1/4" />
                             <Link className="w-full" href={'/feedback'}>Feedback</Link>
@@ -77,6 +87,14 @@ export default function Sidebar() {
                                 <div className={`flex gap-4  p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                                     <RxDashboard className="w-1/4" />
                                     <Link className="w-full" href={'/dashboard'}>Dashboard</Link>
+                                </div>
+                                <div className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
+                                    <TbPackages className="w-1/4" />
+                                    <Link className="w-full" href={'/packages'}>Packages</Link>
+                                </div>
+                                <div className={`flex gap-4  p-2 items-center ${pathname == '/hunt-history' ? 'bg-[#a922236e]' : ''}`}>
+                                    <FaHistory className="w-1/4" />
+                                    <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
                                 </div>
                                 <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                                     <MdOutlineFeedback className="w-1/4" />

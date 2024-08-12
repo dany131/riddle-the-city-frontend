@@ -1,6 +1,6 @@
 'use client';
 import { GoBell } from "react-icons/go";
-import { FaRegUser } from "react-icons/fa";
+import { FaHistory, FaRegUser } from "react-icons/fa";
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { ImNewspaper } from "react-icons/im";
 import { FaListCheck } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
 import { BiSolidBookContent } from "react-icons/bi";
-import { TbSettings } from "react-icons/tb";
+import { TbPackages, TbSettings } from "react-icons/tb";
 import { usePathname, useRouter } from "next/navigation";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineFeedback } from "react-icons/md";
@@ -120,6 +120,14 @@ export default function UserTopBar() {
                             <div className={`flex gap-4  p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                                 <RxDashboard className="w-1/4" />
                                 <Link className="w-full" href={'/dashboard'}>Dashboard</Link>
+                            </div>
+                            <div className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
+                                <TbPackages className="w-1/4" />
+                                <Link className="w-full" href={'/packages'}>Packages</Link>
+                            </div>
+                            <div className={`flex gap-4  p-2 items-center ${pathname == '/hunt-history' ? 'bg-[#a922236e]' : ''}`}>
+                                <FaHistory className="w-1/4" />
+                                <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
                             </div>
                             <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                                 <MdOutlineFeedback className="w-1/4" />

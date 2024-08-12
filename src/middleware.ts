@@ -88,6 +88,12 @@ export const config = {
         '/feedback',
         '/help',
         '/profile',
-        '/settings/:path*'
+        '/settings/:path*',
+        '/checkout',
+        '/payment',
+        '/startRiddle',
+        '/packages',
+        '/brewery',
+        '/completion/:path*'
     ]
 }
