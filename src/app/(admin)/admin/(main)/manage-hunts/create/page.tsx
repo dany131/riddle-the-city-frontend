@@ -81,7 +81,7 @@ export default function CreateRiddle() {
             onOpen1();
         },
         onError(error: any) {
-            if (typeof Array.isArray(error.response.data.message)) {
+            if (Array.isArray(error.response.data.message)) {
                 toast.error(error.response.data.message[0], {
                     position: "top-right",
                     autoClose: 5000,
