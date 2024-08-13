@@ -106,11 +106,11 @@ export default function EditBrewery(data: any) {
         onSuccess(data) {
             console.log(data)
             const addressNotAvailable = {
-                "latitude": data.data.data.address.location.coordinates[0],
-                "longitude": data.data.data.address.location.coordinates[1],
-                "text": data.data.data.address.text
+                "latitude": data.data.data.brewery.address.location.coordinates[0],
+                "longitude": data.data.data.brewery.address.location.coordinates[1],
+                "text": data.data.data.brewery.address.text
             }
-            const scheduleRiddle = data.data.data.schedule.map((e:any) => {
+            const scheduleRiddle = data.data.data.brewery.schedule.map((e:any) => {
                 return {
                     status: e.status,
                     time: e.time,
@@ -119,7 +119,7 @@ export default function EditBrewery(data: any) {
             })
             setBreweryToAdd(
                 {
-                    ...data.data.data,
+                    ...data.data.data.brewery,
                     address: addressNotAvailable,
                     schedule:scheduleRiddle
 
