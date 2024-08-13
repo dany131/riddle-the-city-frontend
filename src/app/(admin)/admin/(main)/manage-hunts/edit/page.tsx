@@ -170,7 +170,7 @@ export default function EditHunts(data: any) {
                             value={huntToAdd?.name}
                             className="sm:w-[70%] w-full"
                             type="text"
-                            isInvalid={huntToAdd?.name == ''}
+                            isInvalid={huntToAdd?.name == '' && updateHunts.isError}
                             errorMessage="Please Enter Hunt Name"
                             label="Hunt Name"
                             placeholder="Enter Hunt Name"
@@ -188,7 +188,7 @@ export default function EditHunts(data: any) {
                         <Textarea
                             value={huntToAdd?.description}
                             label="Hunt Description"
-                            isInvalid={huntToAdd?.description == ''}
+                            isInvalid={huntToAdd?.description == '' && updateHunts.isError}
                             errorMessage="Please Enter Hunt Description"
                             placeholder="Write description..."
                             onChange={(e) => {
@@ -263,7 +263,7 @@ export default function EditHunts(data: any) {
 
                                 <Input
                                     value={e.title}
-                                    isInvalid={e.title == ''}
+                                    isInvalid={e.title == '' && updateHunts.isError}
                                     errorMessage="Please Enter Riddle Title"
                                     onChange={(j) => {
                                         const value = j.target.value
@@ -295,7 +295,7 @@ export default function EditHunts(data: any) {
                             <Textarea
                                 value={e.description}
                                 label="Description"
-                                isInvalid={e.description == ''}
+                                isInvalid={e.description == '' && updateHunts.isError}
                                 errorMessage="Please Enter Riddle Description"
                                 placeholder="Write description..."
                                 onChange={(j) => {
@@ -345,7 +345,7 @@ export default function EditHunts(data: any) {
                                         })
                                     }}
                                     value={e.reward}
-                                    isInvalid={e.reward == ''}
+                                    isInvalid={e.reward == '' && updateHunts.isError}
                                     errorMessage="Please Enter Riddle Reward"
                                     label="Reward"
                                     placeholder="Write Reward..."
@@ -357,7 +357,7 @@ export default function EditHunts(data: any) {
                                 /> <Textarea
                                     value={e.hint}
                                     label="Hint"
-                                    isInvalid={e.hint == ''}
+                                    isInvalid={e.hint == '' && updateHunts.isError}
                                     errorMessage="Please Enter Riddle Hint"
                                     onChange={(j) => {
                                         const value = j.target.value
@@ -411,7 +411,7 @@ export default function EditHunts(data: any) {
 
                                 <Input
                                     value={e.title}
-                                    isInvalid={e.title == ''}
+                                    isInvalid={e.title == '' && updateHunts.isError}
                                     errorMessage="Please Enter Riddle Title"
                                     onChange={(j) => {
                                         const value = j.target.value
@@ -435,7 +435,7 @@ export default function EditHunts(data: any) {
                             </div>
                             <Textarea
                                 value={e.description}
-                                isInvalid={e.description == ''}
+                                isInvalid={e.description == '' && updateHunts.isError}
                                 errorMessage="Please Enter Riddle Description"
                                 label="Description"
                                 placeholder="Write description..."
@@ -472,7 +472,7 @@ export default function EditHunts(data: any) {
                                         setNewRiddles(newRiddles)
                                     }}
                                     value={e.reward}
-                                    isInvalid={e.reward == ''}
+                                    isInvalid={e.reward == '' && updateHunts.isError}
                                     errorMessage="Please Enter Riddle Reward"
                                     label="Reward"
                                     placeholder="Write Reward..."
@@ -484,7 +484,7 @@ export default function EditHunts(data: any) {
                                 /> <Textarea
                                     value={e.hint}
                                     label="Hint"
-                                    isInvalid={e.hint == ''}
+                                    isInvalid={e.hint == '' && updateHunts.isError}
                                     errorMessage="Please Enter Riddle Hint"
                                     onChange={(j) => {
                                         const value = j.target.value

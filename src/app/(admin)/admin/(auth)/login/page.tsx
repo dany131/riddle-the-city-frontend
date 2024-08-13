@@ -104,7 +104,7 @@ export default function Login() {
                     name="email"
                     className="w-full"
                     type="email"
-                    isInvalid={email == ''}
+                    isInvalid={email == '' && loginMutation.isError}
                     errorMessage="Please Enter Email"
                     onChange={(e) => {
                         setEmail(e.target.value)
@@ -119,7 +119,7 @@ export default function Login() {
                 <Input
                     name="password"
                     required
-                    isInvalid={password == ''}
+                    isInvalid={password == '' && loginMutation.isError}
                     errorMessage="Please Enter Password"
                     onChange={(e) => {
                         setPassword(e.target.value)

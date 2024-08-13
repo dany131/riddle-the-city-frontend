@@ -95,7 +95,7 @@ export default function NewPassword(data: any) {
                     onChange={(e) => {
                         setNewPass(e.target.value)
                     }}
-                    isInvalid={newPass == ''}
+                    isInvalid={newPass == '' && newPasswordMutation.isError}
                     errorMessage="Please Enter New Password"
                     label="New Password"
                     className={'w-full'}
@@ -120,7 +120,7 @@ export default function NewPassword(data: any) {
                     onChange={(e) => {
                         setConfirmPass(e.target.value)
                     }}
-                    isInvalid={confirmPass == ''}
+                    isInvalid={confirmPass == '' && newPasswordMutation.isError}
                     errorMessage="Please Enter Confirm Password"
                     label="Confirm Password"
                     className={'w-full'}

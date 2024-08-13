@@ -132,7 +132,7 @@ export default function CreateRiddle() {
                         value={huntToAdd.name}
                         className=" w-full"
                         type="text"
-                        isInvalid={huntToAdd.name == ''}
+                        isInvalid={huntToAdd.name == '' && huntAddMutation.isError}
                         errorMessage="Please Enter Hunt Name"
                         label="Hunt Name"
                         placeholder="Enter Hunt Name"
@@ -152,7 +152,7 @@ export default function CreateRiddle() {
                         value={huntToAdd.description}
                         label="Hunt Description"
                         placeholder="Write description..."
-                        isInvalid={huntToAdd.description==''}
+                        isInvalid={huntToAdd.description == '' && huntAddMutation.isError}
                         errorMessage="Please Enter Hunt Description"
                         onChange={(e) => {
                             setHuntToAdd((prev) => {
@@ -178,7 +178,7 @@ export default function CreateRiddle() {
                     label="Brewery Name"
                     labelPlacement="outside"
                     placeholder="Select a Brewery"
-                    isInvalid={huntToAdd.brewery == ''}
+                    isInvalid={huntToAdd.brewery == '' && huntAddMutation.isError}
                     errorMessage="Please Select Brewery"
                     defaultSelectedKey={huntToAdd.brewery}
                     scrollRef={scrollerRef}
@@ -212,7 +212,7 @@ export default function CreateRiddle() {
                            
                             <Input
                                 value={e.title}
-                                isInvalid={e.title == ''}
+                                isInvalid={e.title == '' && huntAddMutation.isError}
                                 errorMessage="Please Enter Riddle Title"
                                 onChange={(j) => {
                                     const value = j.target.value
@@ -244,7 +244,7 @@ export default function CreateRiddle() {
                         <Textarea
                             value={e.description}
                             label="Description"
-                            isInvalid={e.description==''}
+                            isInvalid={e.description == '' && huntAddMutation.isError}
                             errorMessage="Please Enter Riddle Description"
                             placeholder="Write description..."
                             onChange={(j) => {
@@ -294,7 +294,7 @@ export default function CreateRiddle() {
                                     })
                                 }}
                                 value={e.reward}
-                                isInvalid={e.reward == ''}
+                                isInvalid={e.reward == '' && huntAddMutation.isError}
                                 errorMessage="Please Enter Riddle Reward"
                                 label="Reward"
                                 placeholder="Write Reward..."
@@ -305,7 +305,7 @@ export default function CreateRiddle() {
                                 classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
                             /> <Textarea
                                 value={e.hint}
-                                isInvalid={e.hint == ''}
+                                isInvalid={e.hint == '' && huntAddMutation.isError}
                                 errorMessage="Please Enter Riddle Hint"
                                 label="Hint"
                                 onChange={(j) => {

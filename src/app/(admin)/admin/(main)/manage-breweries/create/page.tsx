@@ -221,7 +221,7 @@ export default function CreateBrewery() {
                             }}
                             className="w-full"
                             type="text"
-                            isInvalid={!!breweryToAdd==false}
+                            isInvalid={!!breweryToAdd == false && addBreweryMutation.isError}
                             errorMessage="Please Enter Brewery Name"
                             label="Brewery Name"
                             placeholder="Enter Brewery Name"
@@ -233,7 +233,7 @@ export default function CreateBrewery() {
                             label="Location"
                             placeholder="Enter Location"
                             labelPlacement="outside"
-                            isInvalid={!!locationText == false}
+                            isInvalid={!!locationText == false && addBreweryMutation.isError}
                             errorMessage="Please Enter Location"
                             variant="flat"
                             // value={breweryLocationToAdd?breweryLocationToAdd.text:''}
@@ -331,7 +331,7 @@ export default function CreateBrewery() {
                                         <td className="rounded-lg">
                                             <div className="pt-4 pr-4">
                                                 <TimeInput
-                                                    isInvalid={((!!brewerySchedule.find((e) => (e.time.start != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.end != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.end != ''))==false) }
+                                                    isInvalid={((!!brewerySchedule.find((e) => (e.time.start != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.end != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.end != '')) == false) && addBreweryMutation.isError}
                                                     errorMessage="Please Enter Start Time"
                                                     aria-label="starttime" isRequired onChange={(f) => {
                                                         if (!f) {
@@ -384,7 +384,7 @@ export default function CreateBrewery() {
                                         </div></td>
                                         <td ><div className="pt-4 pr-4">
                                             <TimeInput
-                                                isInvalid={((!!brewerySchedule.find((e) => (e.time.end != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.start != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.start != '')) == false)}
+                                                isInvalid={((!!brewerySchedule.find((e) => (e.time.end != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.start != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.start != '')) == false) && addBreweryMutation.isError}
                                                 errorMessage="Please Enter End Time"
                                                 aria-label="endtime" onChange={(f) => {
                                                     if (!f) {

@@ -264,7 +264,7 @@ export default function EditBrewery(data: any) {
                     <div className="flex gap-4">
                         <Input
                             value={breweryToAdd?.name}
-                            isInvalid={breweryToAdd?.name == ''}
+                            isInvalid={breweryToAdd?.name == '' && breweryEditMutation.isError}
                             errorMessage="Please Enter Brewery Name"
                             onChange={(e) => {
                                 setBreweryToAdd((prev: any) => {
@@ -288,7 +288,7 @@ export default function EditBrewery(data: any) {
                             placeholder="Enter Location"
                             labelPlacement="outside"
                             variant="flat"
-                            isInvalid={location==''}
+                            isInvalid={location == '' && breweryEditMutation.isError}
                             errorMessage="Please Enter Location"
                             endContent={
                                 <>
@@ -397,7 +397,7 @@ export default function EditBrewery(data: any) {
                                         <td className="rounded-lg">
                                             <div className="pt-4 pr-4">
                                                 <TimeInput
-                                                    isInvalid={((breweryToAdd.schedule.length == 0)) || breweryToAdd.schedule.find((e: any) => e.day == o.name)?.time.start == ''}
+                                                    isInvalid={(((breweryToAdd.schedule.length == 0)) || breweryToAdd.schedule.find((e: any) => e.day == o.name)?.time.start == '') && breweryEditMutation.isError}
                                                     errorMessage="Please Enter Start Time"
                                                     defaultValue={breweryToAdd.schedule.find((e: any) => e.day == o.name) ? new Time(parseInt(breweryToAdd.schedule.find((e: any) => e.day == o.name).time.start.split(':')[0]), parseInt(breweryToAdd.schedule.find((e: any) => e.day == o.name).time.start.split(':')[1])) : null}
                                                     aria-label="starttime" isRequired onChange={(f) => {
@@ -509,7 +509,7 @@ export default function EditBrewery(data: any) {
                                         </div></td>
                                         <td ><div className="pt-4 pr-4">
                                             <TimeInput
-                                                isInvalid={((breweryToAdd.schedule.length == 0))|| breweryToAdd.schedule.find((e:any)=>e.day==o.name)?.time.end==''}
+                                                isInvalid={(((breweryToAdd.schedule.length == 0)) || breweryToAdd.schedule.find((e: any) => e.day == o.name)?.time.end == '') && breweryEditMutation.isError}
                                                 errorMessage="Please Enter End Time"
                                                 defaultValue={breweryToAdd.schedule.find((e: any) => e.day == o.name) ? new Time(parseInt(breweryToAdd.schedule.find((e: any) => e.day == o.name).time.end.split(':')[0]), parseInt(breweryToAdd.schedule.find((e: any) => e.day == o.name).time.end.split(':')[1])) : null} aria-label="endtime" onChange={(f) => {
                                                 const findDay = breweryToAdd.schedule.find((e: any) => e.day == o.name)
