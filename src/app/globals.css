@@ -35,3 +35,7 @@ html {
     flex-wrap: wrap;
     width: 100% !important;
 }
+
+.react-multi-carousel-track{
+    gap: 1rem;
+}

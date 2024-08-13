@@ -65,13 +65,14 @@ export default function Bookings() {
                         </tr>)}
                     </tbody>
                 </table>
+                
                 <div className="flex gap-4 flex-wrap">
-                    {bookingsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] sm:w-max rounded text-white m-auto" type="button" onClick={() => {
+                    {!!bookingsQuery.data?.data.lastPage && bookingsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                         setPage((prev) => prev + 1)
                     }}>Next Page</button>}
 
                     {
-                        page != 1 && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                        page != 1 && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                             setPage((prev) => prev - 1)
                         }}>Previous Page</button>
                     }

@@ -12,10 +12,12 @@ import {
     useDisclosure
 } from "@nextui-org/react";
 import Cookies from 'js-cookie';
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { toast } from "react-toastify";
 import { FormEvent, useState } from "react";
+import Carousel from "react-multi-carousel";
+
 
 
 type UserData = {
@@ -108,6 +110,7 @@ export default function Profile() {
         }
     }
 
+    const pastHuntsQuery = useQuery(['pastHunts'], () => axiosInstance.get('/riddle/api/hunt/past?page=1&limit=10000'))
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
@@ -141,19 +144,59 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="font-semibold">Past Hunts</p>
-                        <div className="flex sm:flex-row flex-col gap-4">
-                            <div className="flex flex-col sm:w-[40%] w-full gap-2 rounded-lg shadow-md p-2">
-                                <div className="flex w-full items-center justify-between">
-                                    <p className="font-semibold">Hunt 01</p>
-                                    <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">24/02/2024</p>
+                        {!pastHuntsQuery.isFetching && 
+                            <Carousel
+                                className="pb-4"
+                                responsive={{
+                                    desktop: {
+                                        breakpoint: {
+                                            max: 3000,
+                                            min: 1024
+                                        },
+                                        items: 3,
+                                        partialVisibilityGutter: 40
+                                    },
+                                    mobile: {
+                                        breakpoint: {
+                                            max: 464,
+                                            min: 0
+                                        },
+                                        items: 1,
+                                        partialVisibilityGutter: 30
+                                    },
+                                    tablet: {
+                                        breakpoint: {
+                                            max: 1024,
+                                            min: 464
+                                        },
+                                        items: 2,
+                                        partialVisibilityGutter: 30
+                                    }
+                                }}
+
+                            >
+                                {/* <div>Item 1</div>
+                                <div>Item 2</div>
+                                <div>Item 3</div>
+                                <div>Item 4</div> */}
+                                {pastHuntsQuery.data?.data.data.map((e: any) =>
+                                <div className="flex flex-col min-h-full gap-2 rounded-lg shadow-md p-2">
+                                    <div className="flex w-full items-center justify-between">
+                                        <p className="font-semibold">{e.name}</p>
+                                        <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
+                                    </div>
+                                    <div>
+                                        <p>Starting Point: {e.startingRiddle}</p>
+                                        <p>Ending Point: {e.endingRiddle}</p>
+                                        <p className="w-full break-all">Reward: {e.rewards.join(' , ')}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p>Starting Point: Riddle Point 01</p>
-                                    <p>Ending Point: Riddle Point 01</p>
-                                    <p>Reward: Free Drink</p>
-                                </div>
-                            </div>
-                        </div>
+                            )}
+                            </Carousel>
+                        }
+                        {/* <div className="flex sm:flex-row flex-col gap-4">
+                        
+                        </div> */}
                     </div>
                 </div>
             </div>

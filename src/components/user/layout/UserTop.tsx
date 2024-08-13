@@ -1,7 +1,18 @@
 'use client';
 import { GoBell } from "react-icons/go";
 import { FaHistory, FaRegUser } from "react-icons/fa";
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import {
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure
+} from "@nextui-org/react";
 import { useState } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
@@ -12,7 +23,7 @@ import { CiLogout } from "react-icons/ci";
 import { BiSolidBookContent } from "react-icons/bi";
 import { TbPackages, TbSettings } from "react-icons/tb";
 import { usePathname, useRouter } from "next/navigation";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu, GiTrophy } from "react-icons/gi";
 import { MdOutlineFeedback } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CiCircleInfo } from "react-icons/ci";
@@ -20,43 +31,50 @@ import Image from "next/image";
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 
+
 type UserData = {
     name: string,
     email: string,
     phone: string,
     role: string,
-    id:string
+    id: string,
+    profile: { url: string, isCompleteUrl: boolean }
 }
 export default function UserTopBar() {
-    const pathname = usePathname()
-    const navigate=useRouter()
-    let userData:UserData={name:'',email:'',id:'',phone:'',role:'User'}
+    const pathname = usePathname();
+    const navigate = useRouter();
+    let userData: UserData = {
+        name: '', email: '', id: '', phone: '', role: 'User', profile: { url: '', isCompleteUrl: false }
+    };
+    let userProfilePicture = "/images/user/profile/profile.png";
     if (Cookies.get('userData')!) {
-        userData=JSON.parse(Cookies.get('userData')!)
+        userData = JSON.parse(Cookies.get('userData')!);
+        userProfilePicture = (userData.profile.isCompleteUrl) ? userData.profile.url : `${process.env.NEXT_PUBLIC_MEDIA_URL}/${userData.profile.url}`;
     }
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
-    const [changePassword, setChangePassword] = useState(false)
-    const [display, setDisplay] = useState(false)
-    
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2, onClose: onClose2 } = useDisclosure();
+    const [changePassword, setChangePassword] = useState(false);
+    const [display, setDisplay] = useState(false);
+
     const logoutMutation = useMutation(() => axiosInstance.post('/riddle/api/auth/logout'), {
         onSuccess(data) {
-            Cookies.remove('accessToken')
-            Cookies.remove('refreshToken')
-            Cookies.remove('userData')
-            onClose2()
-            navigate.push('/auth/login')
+            Cookies.remove('accessToken');
+            Cookies.remove('refreshToken');
+            Cookies.remove('userData');
+            onClose2();
+            navigate.push('/auth/login');
         },
         onError(error, variables, context) {
-            Cookies.remove('accessToken')
-            Cookies.remove('refreshToken')
-            Cookies.remove('userData')
-            onClose2()
-            navigate.push('/auth/login')
-        },
-    })
+            Cookies.remove('accessToken');
+            Cookies.remove('refreshToken');
+            Cookies.remove('userData');
+            onClose2();
+            navigate.push('/auth/login');
+        }
+    });
     return (
         <>
-            <div className=" hidden w-full sm:flex border-b-[0.1rem] border-gray-200 gap-4 flex-wrap px-4 py-2 justify-between">
+            <div
+                className=" hidden w-full sm:flex border-b-[0.1rem] border-gray-200 gap-4 flex-wrap px-4 py-2 justify-between">
                 <div>
                     <div className="flex gap-2 items-center">
                         <h1>Welcome Back,</h1>
@@ -71,18 +89,23 @@ export default function UserTopBar() {
                     </Link> */}
                     <div className="flex items-center gap-2 cursor-pointer ">
                         <Link href={'/profile'} className="flex gap-2 items-center">
-                            <FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full" />
+                            {/*<FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full"/>*/}
+                            <div className="h-[3rem] w-[3rem] p-2 rounded-full">
+                                <Image className="w-full h-full object-cover rounded-full" src={userProfilePicture}
+                                    alt="auth" width={55} height={55} />
+                            </div>
                             <p>{userData.name}</p>
                         </Link>
                     </div>
                 </div>
             </div>
 
-            <div className=" flex w-full sm:hidden border-b-[0.1rem] border-gray-200 gap-4 flex-wrap px-4 py-2 justify-between">
+            <div
+                className=" flex w-full sm:hidden border-b-[0.1rem] border-gray-200 gap-4 flex-wrap px-4 py-2 justify-between">
                 <div onClick={() => {
-                    setDisplay(!display)
+                    setDisplay(!display);
                 }} className="cursor-pointer">
-                    <GiHamburgerMenu className="h-full text-2xl"/>
+                    <GiHamburgerMenu className="h-full text-2xl" />
                 </div>
                 <div className="flex flex-col items-center">
                     <div className="flex gap-2 items-center">
@@ -105,39 +128,50 @@ export default function UserTopBar() {
                 </div>
             </div>
             <div onClick={() => {
-                setDisplay(!display)
-            }} className={`bg-[#000000bd] sm:hidden ${display?'block':'hidden'} w-full z-[888] absolute top-0 left-0 h-full`}>
+                setDisplay(!display);
+            }}
+                className={`bg-[#000000bd] sm:hidden ${display ? 'block' : 'hidden'} w-full z-[888] absolute top-0 left-0 h-full`}>
                 <div className={`h-full sm:h-full sm:hidden block w-[70%] `}>
                     <div className=" text-white flex flex-col rounded-lg p-4 gap-8 w-full h-full bg-[#160704]">
                         <div className="h-[5rem] flex justify-between w-full">
-                            <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={400} height={1000} />
+                            <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'}
+                                alt="auth" width={400} height={1000} />
                             {/* <button className="block sm:hidden text-3xl" onClick={() => { setDisplay(!display) }}>
                             <GiHamburgerMenu />
                         </button> */}
                         </div>
                         <hr />
                         <div className="flex h-full flex-col text-sm gap-4">
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
+                            <div
+                                className={`flex gap-4  p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                                 <RxDashboard className="w-1/4" />
                                 <Link className="w-full" href={'/dashboard'}>Dashboard</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
+                            <div
+                                className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
                                 <TbPackages className="w-1/4" />
                                 <Link className="w-full" href={'/packages'}>Packages</Link>
+                            </div>
+                            <div className={`flex gap-4  p-2 items-center ${pathname == '/rewards' ? 'bg-[#a922236e]' : ''}`}>
+                                <GiTrophy className="w-1/4" />
+                                <Link className="w-full" href={'/rewards'}>Rewards</Link>
                             </div>
                             {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/hunt-history' ? 'bg-[#a922236e]' : ''}`}>
                                 <FaHistory className="w-1/4" />
                                 <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
                             </div> */}
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
+                            <div
+                                className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                                 <MdOutlineFeedback className="w-1/4" />
                                 <Link className="w-full" href={'/feedback'}>Feedback</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/settings' ? 'bg-[#a922236e]' : ''}`}>
+                            <div
+                                className={`flex gap-4  p-2 items-center ${pathname == '/settings' ? 'bg-[#a922236e]' : ''}`}>
                                 <IoSettingsOutline className="w-1/4" />
                                 <Link className="w-full" href={'/settings'}>Settings</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/help' ? 'bg-[#a922236e]' : ''}`}>
+                            <div
+                                className={`flex gap-4  p-2 items-center ${pathname == '/help' ? 'bg-[#a922236e]' : ''}`}>
                                 <CiCircleInfo className="w-1/4" />
                                 <Link className="w-full" href={'/help'}>Help & Support</Link>
                             </div>
@@ -252,11 +286,14 @@ export default function UserTopBar() {
                                 <p className="text-sm text-gray-400">Are you sure you want to Logout?</p>
                                 <div className="flex w-full gap-4">
                                     <button onClick={() => {
-                                        onClose2()
-                                    }} className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
+                                        onClose2();
+                                    }} className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No
+                                    </button>
                                     <button onClick={() => {
-                                        logoutMutation.mutate()
-                                    }} className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout</button>
+                                        logoutMutation.mutate();
+                                    }}
+                                        className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout
+                                    </button>
                                 </div>
                             </ModalBody>
                         </>
@@ -264,5 +301,5 @@ export default function UserTopBar() {
                 </ModalContent>
             </Modal>
         </>
-    )
+    );
 }

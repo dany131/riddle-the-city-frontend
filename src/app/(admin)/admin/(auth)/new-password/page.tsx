@@ -95,6 +95,8 @@ export default function NewPassword(data: any) {
                     onChange={(e) => {
                         setNewPass(e.target.value)
                     }}
+                    isInvalid={newPass == ''}
+                    errorMessage="Please Enter New Password"
                     label="New Password"
                     className={'w-full'}
                     placeholder="Enter your password"
@@ -118,6 +120,8 @@ export default function NewPassword(data: any) {
                     onChange={(e) => {
                         setConfirmPass(e.target.value)
                     }}
+                    isInvalid={confirmPass == ''}
+                    errorMessage="Please Enter Confirm Password"
                     label="Confirm Password"
                     className={'w-full'}
                     placeholder="Enter your password"
@@ -160,7 +164,7 @@ export default function NewPassword(data: any) {
                         setCode((prev) => prev + e.target.value)
                     }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
                 </div>
-                <button type="submit" className="bg-[#A92223] rounded-lg p-4 flex justify-center text-white w-[80%]">{newPasswordMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> :"Save Password"}</button>
+                <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{newPasswordMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> :"Save Password"}</button>
             </form>
         </>
     )

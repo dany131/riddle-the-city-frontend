@@ -23,6 +23,8 @@ export default function Login() {
     const router = useRouter()
     const [invalid, setInvalid] = useState(false)
     const [message, setMessage] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
         onSuccess(data: any) {
             if (data.data.data.user.role == 'Admin') {
@@ -102,6 +104,11 @@ export default function Login() {
                     name="email"
                     className="w-full"
                     type="email"
+                    isInvalid={email == ''}
+                    errorMessage="Please Enter Email"
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                    }}
                     label="Email"
                     placeholder="you@example.com"
                     labelPlacement="outside"
@@ -112,6 +119,11 @@ export default function Login() {
                 <Input
                     name="password"
                     required
+                    isInvalid={password == ''}
+                    errorMessage="Please Enter Password"
+                    onChange={(e) => {
+                        setPassword(e.target.value)
+                    }}
                     label="Password"
                     className={'w-full'}
                     placeholder="Enter your password"
@@ -135,7 +147,7 @@ export default function Login() {
                     {/* <Checkbox>Remember Me</Checkbox> */}
                     {/* <Link href={'/admin/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link> */}
                 </div>
-                <button type="submit" className="bg-[#A92223] rounded-lg p-4 flex justify-center text-white w-[80%]">{loginMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Login" }</button>
+                <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{loginMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Login" }</button>
             </form>
         </>
     )

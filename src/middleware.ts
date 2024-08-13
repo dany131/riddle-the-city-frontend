@@ -94,6 +94,7 @@ export const config = {
         '/startRiddle',
         '/packages',
         '/brewery',
-        '/completion/:path*'
+        '/completion/:path*',
+        '/rewards'
     ]
 }

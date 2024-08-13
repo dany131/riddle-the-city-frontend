@@ -77,7 +77,7 @@ export default function ManageRiddles() {
             <>
                 <div className="flex justify-between items-center">
                 <p className="text-xl font-semibold">Manage Hunts</p>
-                    <Link href={'/admin/manage-hunts/create'} className="sm:px-16 px-4 py-2 bg-[#A92223] rounded text-white">Create New Hunt</Link>
+                    <Link href={'/admin/manage-hunts/create'} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Create New Hunt</Link>
                 </div>
                 <>
                     {huntsQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
@@ -131,12 +131,12 @@ export default function ManageRiddles() {
                                 </tbody>
                             </table>
                             <div className="flex flex-wrap gap-4">
-                                {huntsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                            {!!huntsQuery.data?.data.lastPage && huntsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                                     setPage((prev) => prev + 1)
                                 }}>Next Page</button>}
 
                                 {
-                                    page != 1 && <button className="px-16 py-2 bg-[#A92223] sm:w-max w-full rounded text-white m-auto" type="button" onClick={() => {
+                                page != 1 && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                                         setPage((prev) => prev - 1)
                                     }}>Previous Page</button>
                                 }
@@ -160,8 +160,8 @@ export default function ManageRiddles() {
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">Are you sure you want to delete this entry?</p>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
-                                    <button className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Delete</button>
+                                    <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">No</button>
+                                    <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Delete</button>
                                 </div>
                             </ModalBody>
                         </>
@@ -181,7 +181,7 @@ export default function ManageRiddles() {
                             <ModalHeader className="flex flex-col text-xl gap-1">Riddles Created Successfully</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">New Riddle has been created successfully & QR Code is generated</p>
-                                <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
+                                <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Okay</button>
                             </ModalBody>
                         </>
                     )}

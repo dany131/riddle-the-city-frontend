@@ -65,6 +65,8 @@ export default function ForgotPassword() {
                 {invalid && <p className="text-red-600">{message}</p>}
                 <p>Please use your email and password to login</p>
                 <Input
+                    isInvalid={email == ''}
+                    errorMessage="Please Enter Email"
                     onChange={(e) => { setEmail(e.target.value) }}
                     required
                     className="w-full"

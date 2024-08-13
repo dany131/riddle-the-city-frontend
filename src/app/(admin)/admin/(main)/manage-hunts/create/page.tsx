@@ -126,11 +126,14 @@ export default function CreateRiddle() {
             </div>
             {message && <p className="text-red-600 text-center">{message}</p>}
             <div className=" border-[0.1rem] p-4 flex flex-col gap-4 rounded-lg">
-                <div className="flex flex-col gap-4">
+                <p className="text-lg font-semibold">Hunt Details</p>
+                <div className="flex flex-col gap-4 rounded-lg sm:w-[70%] w-full border-[0.1rem] p-4">
                     <Input
                         value={huntToAdd.name}
-                        className="sm:w-[70%] w-full"
+                        className=" w-full"
                         type="text"
+                        isInvalid={huntToAdd.name == ''}
+                        errorMessage="Please Enter Hunt Name"
                         label="Hunt Name"
                         placeholder="Enter Hunt Name"
                         onChange={(e) => {
@@ -149,6 +152,8 @@ export default function CreateRiddle() {
                         value={huntToAdd.description}
                         label="Hunt Description"
                         placeholder="Write description..."
+                        isInvalid={huntToAdd.description==''}
+                        errorMessage="Please Enter Hunt Description"
                         onChange={(e) => {
                             setHuntToAdd((prev) => {
                                 const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
@@ -158,46 +163,48 @@ export default function CreateRiddle() {
                                 })
                             })
                         }}
-                        className="sm:w-[70%] w-full"
+                        className=" w-full"
                         labelPlacement="outside"
                         size="lg"
                         minRows={5}
                         classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
                     />
-                    <Autocomplete
-                        className="sm:w-[70%] w-full font-semibold"
-                        variant="flat"
-                        isLoading={breweryQuery.isLoading}
-                        defaultItems={(breweryQuery.data?.data.data ? breweryQuery.data?.data.data : [{ name: "",_id:"" }] as any)}
-                        label="Brewery Name"
-                        labelPlacement="outside"
-                        placeholder="Select a Brewery"
-                        defaultSelectedKey={huntToAdd.brewery}
-                        scrollRef={scrollerRef}
-                        onInputChange={(e) => {
-                            setSearchQuery(e)
-                        }}
-                        onSelectionChange={(e) => {
-                            setHuntToAdd((prev:any) => {
-                                // const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
-                                return ({
-                                    ...prev,
-                                    brewery: e
-                                })
-                            })
-                            // console.log(e)
-                        }}
-                        // selectionMode="single"
-                        // classNames={{}}
-                        onOpenChange={setIsOpen}
-                    >
-                        {(item: any) => (
-                            <AutocompleteItem key={item._id} className="capitalize">
-                                {item.name}
-                            </AutocompleteItem>
-                        )}
-                    </Autocomplete>
                 </div>
+                <Autocomplete
+                    className="sm:w-[70%] w-full font-semibold"
+                    variant="flat"
+                    isLoading={breweryQuery.isLoading}
+                    defaultItems={(breweryQuery.data?.data.data ? breweryQuery.data?.data.data : [{ name: "", _id: "" }] as any)}
+                    label="Brewery Name"
+                    labelPlacement="outside"
+                    placeholder="Select a Brewery"
+                    isInvalid={huntToAdd.brewery == ''}
+                    errorMessage="Please Select Brewery"
+                    defaultSelectedKey={huntToAdd.brewery}
+                    scrollRef={scrollerRef}
+                    onInputChange={(e) => {
+                        setSearchQuery(e)
+                    }}
+                    onSelectionChange={(e) => {
+                        setHuntToAdd((prev: any) => {
+                            // const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
+                            return ({
+                                ...prev,
+                                brewery: e
+                            })
+                        })
+                        // console.log(e)
+                    }}
+                    // selectionMode="single"
+                    // classNames={{}}
+                    onOpenChange={setIsOpen}
+                >
+                    {(item: any) => (
+                        <AutocompleteItem key={item._id} className="capitalize">
+                            {item.name}
+                        </AutocompleteItem>
+                    )}
+                </Autocomplete>
                 <h1 className="font-semibold">Create Riddles</h1>
                 {huntToAdd.riddles.map((e,index:number) =>
                     <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
@@ -205,6 +212,8 @@ export default function CreateRiddle() {
                            
                             <Input
                                 value={e.title}
+                                isInvalid={e.title == ''}
+                                errorMessage="Please Enter Riddle Title"
                                 onChange={(j) => {
                                     const value = j.target.value
                                     const find = huntToAdd.riddles.find((e, index1) => index1 == index)
@@ -235,6 +244,8 @@ export default function CreateRiddle() {
                         <Textarea
                             value={e.description}
                             label="Description"
+                            isInvalid={e.description==''}
+                            errorMessage="Please Enter Riddle Description"
                             placeholder="Write description..."
                             onChange={(j) => {
                                 const value = j.target.value
@@ -283,6 +294,8 @@ export default function CreateRiddle() {
                                     })
                                 }}
                                 value={e.reward}
+                                isInvalid={e.reward == ''}
+                                errorMessage="Please Enter Riddle Reward"
                                 label="Reward"
                                 placeholder="Write Reward..."
                                 className="w-full"
@@ -292,6 +305,8 @@ export default function CreateRiddle() {
                                 classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
                             /> <Textarea
                                 value={e.hint}
+                                isInvalid={e.hint == ''}
+                                errorMessage="Please Enter Riddle Hint"
                                 label="Hint"
                                 onChange={(j) => {
                                     const value = j.target.value
@@ -360,8 +375,8 @@ export default function CreateRiddle() {
                         })
                         // setCreateRiddle(!createRiddle)
                         // onOpen1()
-                    }} className="px-16 py-2 bg-[#A92223] rounded text-white w-full ">Add More Riddles</button>
-                    <button onClick={buttonSubmit} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-full ">{huntAddMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Submit" }</button>
+                    }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Add More Riddles</button>
+                    <button onClick={buttonSubmit} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{huntAddMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" />:"Submit" }</button>
                 </div>
                 {/* <button onClick={() => {
                     // setCreateRiddle(!createRiddle)

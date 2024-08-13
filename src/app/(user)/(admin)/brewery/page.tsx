@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { useMutation, useQuery } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "react-toastify";
 import { APIProvider, Map, Marker } from '@vis.gl/react-google-maps';
@@ -15,6 +16,10 @@ export default function Dashboard(datas: any) {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
     const [nextRiddle, setNextRiddle] = useState(false)
+    // const { isLoaded } = useJsApiLoader({
+    //     id: 'google-map-script',
+    //     googleMapsApiKey: `${process.env.NEXT_PUBLIC_GOOGLEAPI}`
+    // })
     const navigate=useRouter()
     // const [searchQuery, setSearchQuery] = useState('')
     const breweryQuery = useQuery(['breweries', datas.searchParams.id], ({ queryKey }) => {
@@ -112,11 +117,30 @@ export default function Dashboard(datas: any) {
                     <div className="flex flex-col gap-4 ">
                         <p className="font-semibold">Location</p>
                         <div className="h-[20rem] w-full sm:w-[60%]">
+                            {/* <GoogleMap
+                                onLoad={map => {
+                                    const bounds = new window.google.maps.LatLngBounds({ lat: breweryQuery.data?.data.data.brewery.address.location.coordinates[0], lng: breweryQuery.data?.data.data.brewery.address.location.coordinates[1] });
+                                    map.fitBounds(bounds);
+                                }}
+                                onUnmount={map => {
+                                    // do your stuff before map is unmounted
+                                }}
+                            /> */}
+                            
                             <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLEAPI}`}>
-                                <Map defaultCenter={{ lat: breweryQuery.data?.data.data.brewery.address.location.coordinates[0], lng: breweryQuery.data?.data.data.brewery.address.location.coordinates[1] }} defaultZoom={10}>
+                                <Map defaultCenter={{ lat: breweryQuery.data?.data.data.brewery.address.location.coordinates[0], lng: breweryQuery.data?.data.data.brewery.address.location.coordinates[1] }} defaultZoom={3}>
                                     <Marker position={{ lat: breweryQuery.data?.data.data.brewery.address.location.coordinates[0], lng: breweryQuery.data?.data.data.brewery.address.location.coordinates[1] }} />
                                 </Map>
                             </APIProvider>
+                            {/* <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLEAPI}`}>
+                                <Map
+                                    // style={{ width: '100vw', height: '100vh' }}
+                                    defaultCenter={{ lat: breweryQuery.data?.data.data.brewery.address.location.coordinates[0], lng: breweryQuery.data?.data.data.brewery.address.location.coordinates[1] }}
+                                    defaultZoom={10}
+                                    gestureHandling={'greedy'}
+                                    disableDefaultUI={true}
+                                />
+                            </APIProvider> */}
                             {/* <Image className="h-full w-full" src={'/images/user/dashboard/maps.png'} width={200} height={200} alt="google maps" /> */}
                         </div>
                     </div>

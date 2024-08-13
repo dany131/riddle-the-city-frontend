@@ -170,6 +170,8 @@ export default function EditHunts(data: any) {
                             value={huntToAdd?.name}
                             className="sm:w-[70%] w-full"
                             type="text"
+                            isInvalid={huntToAdd?.name == ''}
+                            errorMessage="Please Enter Hunt Name"
                             label="Hunt Name"
                             placeholder="Enter Hunt Name"
                             onChange={(e) => {
@@ -186,6 +188,8 @@ export default function EditHunts(data: any) {
                         <Textarea
                             value={huntToAdd?.description}
                             label="Hunt Description"
+                            isInvalid={huntToAdd?.description == ''}
+                            errorMessage="Please Enter Hunt Description"
                             placeholder="Write description..."
                             onChange={(e) => {
                                 setHuntToAdd((prev:any) => {
@@ -259,6 +263,8 @@ export default function EditHunts(data: any) {
 
                                 <Input
                                     value={e.title}
+                                    isInvalid={e.title == ''}
+                                    errorMessage="Please Enter Riddle Title"
                                     onChange={(j) => {
                                         const value = j.target.value
                                         const find = huntToAdd.riddles.find((e:any, index1:number) => index1 == index)
@@ -289,6 +295,8 @@ export default function EditHunts(data: any) {
                             <Textarea
                                 value={e.description}
                                 label="Description"
+                                isInvalid={e.description == ''}
+                                errorMessage="Please Enter Riddle Description"
                                 placeholder="Write description..."
                                 onChange={(j) => {
                                     const value = j.target.value
@@ -337,6 +345,8 @@ export default function EditHunts(data: any) {
                                         })
                                     }}
                                     value={e.reward}
+                                    isInvalid={e.reward == ''}
+                                    errorMessage="Please Enter Riddle Reward"
                                     label="Reward"
                                     placeholder="Write Reward..."
                                     className="w-full"
@@ -347,6 +357,8 @@ export default function EditHunts(data: any) {
                                 /> <Textarea
                                     value={e.hint}
                                     label="Hint"
+                                    isInvalid={e.hint == ''}
+                                    errorMessage="Please Enter Riddle Hint"
                                     onChange={(j) => {
                                         const value = j.target.value
                                         const find = huntToAdd.riddles.find((e:any, index1:number) => index1 == index)
@@ -399,6 +411,8 @@ export default function EditHunts(data: any) {
 
                                 <Input
                                     value={e.title}
+                                    isInvalid={e.title == ''}
+                                    errorMessage="Please Enter Riddle Title"
                                     onChange={(j) => {
                                         const value = j.target.value
                                         const find = newRiddless.find((e: any, index1: any) => index1 == index)
@@ -421,6 +435,8 @@ export default function EditHunts(data: any) {
                             </div>
                             <Textarea
                                 value={e.description}
+                                isInvalid={e.description == ''}
+                                errorMessage="Please Enter Riddle Description"
                                 label="Description"
                                 placeholder="Write description..."
                                 onChange={(j) => {
@@ -456,6 +472,8 @@ export default function EditHunts(data: any) {
                                         setNewRiddles(newRiddles)
                                     }}
                                     value={e.reward}
+                                    isInvalid={e.reward == ''}
+                                    errorMessage="Please Enter Riddle Reward"
                                     label="Reward"
                                     placeholder="Write Reward..."
                                     className="w-full"
@@ -466,6 +484,8 @@ export default function EditHunts(data: any) {
                                 /> <Textarea
                                     value={e.hint}
                                     label="Hint"
+                                    isInvalid={e.hint == ''}
+                                    errorMessage="Please Enter Riddle Hint"
                                     onChange={(j) => {
                                         const value = j.target.value
                                         const find = newRiddless.find((e: any, index1: any) => index1 == index)
@@ -533,8 +553,8 @@ export default function EditHunts(data: any) {
                             })
                             // setCreateRiddle(!createRiddle)
                             // onOpen1()
-                        }} className="px-16 py-2 bg-[#A92223] rounded text-white w-full ">Add More Riddles</button>
-                        <button onClick={buttonSubmit} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-full ">{updateHunts.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Update Hunt"}</button>
+                        }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Add More Riddles</button>
+                        <button onClick={buttonSubmit} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{updateHunts.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Update Hunt"}</button>
                     </div>
                     {/* <button onClick={() => {
                     // setCreateRiddle(!createRiddle)

@@ -201,7 +201,8 @@ export default function CreateBrewery() {
         },
     })
 
-    // console.log('brewery',brewerySchedule)
+    console.log('brewery', brewerySchedule)
+    console.log('check', (!!brewerySchedule.find((e) => (e.time.start != ''))), !!brewerySchedule.find((e) => (e.time.end != '' && e.day == 'Monday')))
     // console.log('google data', googleData)
     // console.log('location name', locationText)
     // console.log('typing location',location)
@@ -220,6 +221,8 @@ export default function CreateBrewery() {
                             }}
                             className="w-full"
                             type="text"
+                            isInvalid={!!breweryToAdd==false}
+                            errorMessage="Please Enter Brewery Name"
                             label="Brewery Name"
                             placeholder="Enter Brewery Name"
                             labelPlacement="outside"
@@ -230,6 +233,8 @@ export default function CreateBrewery() {
                             label="Location"
                             placeholder="Enter Location"
                             labelPlacement="outside"
+                            isInvalid={!!locationText == false}
+                            errorMessage="Please Enter Location"
                             variant="flat"
                             // value={breweryLocationToAdd?breweryLocationToAdd.text:''}
                             endContent={
@@ -325,18 +330,36 @@ export default function CreateBrewery() {
                                         </td>
                                         <td className="rounded-lg">
                                             <div className="pt-4 pr-4">
-                                                <TimeInput aria-label="starttime" isRequired onChange={(f) => {
-                                                    const findDay = brewerySchedule.find((e) => e.day == o.name)
-                                                    const startHour = `${f.hour < 10 ? `0${f.hour}` : `${f.hour}`}`
-                                                    const startMinute = `${f.minute < 10 ? `0${f.minute}` : `${f.minute}`}`
-                                                    findDay!.time.start = `${startHour}:${startMinute}`
-                                                    const newSchedule = brewerySchedule.map((p) => {
-                                                        if (p.day == findDay?.day) {
-                                                            return findDay
+                                                <TimeInput
+                                                    isInvalid={((!!brewerySchedule.find((e) => (e.time.start != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.end != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.end != ''))==false) }
+                                                    errorMessage="Please Enter Start Time"
+                                                    aria-label="starttime" isRequired onChange={(f) => {
+                                                        if (!f) {
+                                                            const findDay = brewerySchedule.find((e) => e.day == o.name)
+                                                            // const startHour = `${f.hour < 10 ? `0${f.hour}` : `${f.hour}`}`
+                                                            // const startMinute = `${f.minute < 10 ? `0${f.minute}` : `${f.minute}`}`
+                                                            findDay!.time.start = ``
+                                                            const newSchedule = brewerySchedule.map((p) => {
+                                                                if (p.day == findDay?.day) {
+                                                                    return findDay
+                                                                }
+                                                                return p
+                                                            })
+                                                            setBrewerySchedule(newSchedule)
                                                         }
-                                                        return p
-                                                    })
-                                                    setBrewerySchedule(newSchedule)
+                                                        else {
+                                                            const findDay = brewerySchedule.find((e) => e.day == o.name)
+                                                            const startHour = `${f.hour < 10 ? `0${f.hour}` : `${f.hour}`}`
+                                                            const startMinute = `${f.minute < 10 ? `0${f.minute}` : `${f.minute}`}`
+                                                            findDay!.time.start = `${startHour}:${startMinute}`
+                                                            const newSchedule = brewerySchedule.map((p) => {
+                                                                if (p.day == findDay?.day) {
+                                                                    return findDay
+                                                                }
+                                                                return p
+                                                            })
+                                                            setBrewerySchedule(newSchedule)
+                                                        }
                                                     // const startHour = `${e.hour < 10 ? `0${e.hour}` : `${e.hour}`}`
                                                     // const startMinute = `${e.minute < 10 ? `0${e.minute}` : `${e.minute}`}`
                                                     // console.log(startHour, startMinute)
@@ -360,18 +383,34 @@ export default function CreateBrewery() {
                                             <span>-</span>
                                         </div></td>
                                         <td ><div className="pt-4 pr-4">
-                                            <TimeInput aria-label="endtime" onChange={(f) => {
-                                                const findDay = brewerySchedule.find((e) => e.day == o.name)
-                                                const startHour = `${f.hour < 10 ? `0${f.hour}` : `${f.hour}`}`
-                                                const startMinute = `${f.minute < 10 ? `0${f.minute}` : `${f.minute}`}`
-                                                findDay!.time.end = `${startHour}:${startMinute}`
-                                                const newSchedule = brewerySchedule.map((p) => {
-                                                    if (p.day == findDay?.day) {
-                                                        return findDay
+                                            <TimeInput
+                                                isInvalid={((!!brewerySchedule.find((e) => (e.time.end != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.start != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.start != '')) == false)}
+                                                errorMessage="Please Enter End Time"
+                                                aria-label="endtime" onChange={(f) => {
+                                                    if (!f) {
+                                                        const findDay = brewerySchedule.find((e) => e.day == o.name)
+                                                        findDay!.time.end = ``
+                                                        const newSchedule = brewerySchedule.map((p) => {
+                                                            if (p.day == findDay?.day) {
+                                                                return findDay
+                                                            }
+                                                            return p
+                                                        })
+                                                        setBrewerySchedule(newSchedule)
                                                     }
-                                                    return p
-                                                })
-                                                setBrewerySchedule(newSchedule)
+                                                    else {
+                                                        const findDay = brewerySchedule.find((e) => e.day == o.name)
+                                                        const startHour = `${f.hour < 10 ? `0${f.hour}` : `${f.hour}`}`
+                                                        const startMinute = `${f.minute < 10 ? `0${f.minute}` : `${f.minute}`}`
+                                                        findDay!.time.end = `${startHour}:${startMinute}`
+                                                        const newSchedule = brewerySchedule.map((p) => {
+                                                            if (p.day == findDay?.day) {
+                                                                return findDay
+                                                            }
+                                                            return p
+                                                        })
+                                                        setBrewerySchedule(newSchedule)
+                                                    }
                                             }} isRequired />
                                         </div></td>
                                         {/* <td><div className="pt-4 pr-4">
@@ -405,7 +444,7 @@ export default function CreateBrewery() {
                         </table>
                     </div>
                 </div>
-                <button type="submit" className="px-16 py-2 bg-[#A92223] w-full rounded flex justify-center text-white">{addBreweryMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : 'Add Brewery'}</button>
+                <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{addBreweryMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : 'Add Brewery'}</button>
             </form>
             <Modal
                 size={"xl"}
