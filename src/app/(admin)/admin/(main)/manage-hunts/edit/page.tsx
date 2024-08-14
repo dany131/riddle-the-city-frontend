@@ -16,6 +16,7 @@ export default function EditHunts(data: any) {
     const [huntToAdd, setHuntToAdd] = useState<any>()
     const [newRiddless, setNewRiddles]=useState<any>(null)
     const queryClient = useQueryClient()
+    const [error,setError]=useState(false)
     // const[newRiddles,setNewRiddles]=useState<any>()
     const updateHunts = useMutation((datas: any) => axiosInstance.put(`/riddle/api/hunt?huntId=${data.searchParams.id}`, datas), {
         onSuccess(data) {
@@ -38,7 +39,7 @@ export default function EditHunts(data: any) {
                 })
             }
             else {
-                toast.error(error.response.data.message.join(','), {
+                toast.error(error.response.data.message[0], {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -106,55 +107,62 @@ export default function EditHunts(data: any) {
     console.log('current', huntToAdd)
 
     function buttonSubmit() {
-        const filterRiddlesOld = huntToAdd.riddles.filter((e:any) => {
-            if (e.description && e.hint && e.reward && e.title) {
+        const filterRiddlesOld = huntToAdd.riddles?.filter((e:any) => {
+            if (e.description || e.hint || e.reward || e.title) {
                 return e
             }
         })
         const filterRiddlesNew = newRiddless?.filter((e: any) => {
-            if (e.description && e.hint && e.reward && e.title) {
+            if (e.description || e.hint || e.reward || e.title) {
                 return e
             }
         })
-        const findRiddlesOld = huntToAdd.riddles.find((e:any) => {
+        const findRiddlesOld = huntToAdd.riddles?.filter((e:any) => {
             if (e.description == '' || e.hint == '' || e.reward == '' || e.title == '') {
                 return e
             }
         })
-        const findRiddlesNew = newRiddless?.find((e: any) => {
+        const findRiddlesNew = newRiddless?.filter((e: any) => {
             if (e.description == '' || e.hint == '' || e.reward == '' || e.title == '') {
                 return e
             }
         })
 
-        console.log('findnew f')
+        // console.log('findnew f')
         // if (!findRiddlesOld && !findRiddlesNew) {
             
         // }
         // else {
         //     setMessage('Please Fill All The Info To Add A New Hunt')
         // }
-
-        if (!newRiddless) {
-            // setMessage('')
-            const addHuntData = {
-                ...huntToAdd,
-                riddles: [
-                    ...filterRiddlesOld,
-                ]
-            }
-            updateHunts.mutate(addHuntData)
+        console.log(findRiddlesNew, findRiddlesOld)
+        if ((findRiddlesNew?findRiddlesNew.length!= 0:false || findRiddlesOld?.length != 0) || huntToAdd.name == '' || huntToAdd.description == '') {
+            setError(true)
         }
         else {
-            // setMessage('')
-            const addHuntData = {
-                ...huntToAdd,
-                riddles: [
-                    ...filterRiddlesOld,
-                    ...filterRiddlesNew
-                ]
+            console.log('im here')
+            setError(false)
+            if (!newRiddless) {
+                // setMessage('')
+                const addHuntData = {
+                    ...huntToAdd,
+                    riddles: [
+                        ...filterRiddlesOld,
+                    ]
+                }
+                updateHunts.mutate(addHuntData)
             }
-            updateHunts.mutate(addHuntData)
+            else {
+                // setMessage('')
+                const addHuntData = {
+                    ...huntToAdd,
+                    riddles: [
+                        ...filterRiddlesOld,
+                        ...filterRiddlesNew
+                    ]
+                }
+                updateHunts.mutate(addHuntData)
+            }
         }
     }
     return (
@@ -164,112 +172,118 @@ export default function EditHunts(data: any) {
             </div>
             {message && <p className="text-red-600 text-center">{message}</p>}
             <div className=" flex flex-col items-start gap-4 pb-4 border-[0.1rem] rounded-lg">
-                <div className=" border-[0.1rem] p-4 flex w-full flex-col gap-4 rounded-lg">
+                <div className=" border-[0.1rem] p-4 flex w-full flex-col gap-[3rem] rounded-lg">
                     <div className="flex flex-col gap-4">
-                        <Input
-                            value={huntToAdd?.name}
-                            className="sm:w-[70%] w-full"
-                            type="text"
-                            isInvalid={huntToAdd?.name == '' && updateHunts.isError}
-                            errorMessage="Please Enter Hunt Name"
-                            label="Hunt Name"
-                            placeholder="Enter Hunt Name"
-                            onChange={(e) => {
-                                setHuntToAdd((prev:any) => {
-                                    return ({
-                                        ...prev,
-                                        name: e.target.value
+                        <p className="font-semibold">Hunt Details</p>
+                        <div className="flex flex-col gap-4 rounded-lg sm:w-[70%] w-full border-[0.1rem] p-4">
+                            <Input
+                                value={huntToAdd?.name}
+                                className="sm:w-[70%] w-full"
+                                type="text"
+                                isInvalid={huntToAdd?.name == '' && error}
+                                errorMessage="Please Enter Hunt Name"
+                                label="Hunt Name"
+                                placeholder="Enter Hunt Name"
+                                onChange={(e) => {
+                                    setHuntToAdd((prev: any) => {
+                                        return ({
+                                            ...prev,
+                                            name: e.target.value
+                                        })
                                     })
-                                })
-                            }}
-                            labelPlacement="outside"
-                            classNames={{ label: "!font-semibold" }}
-                        />
-                        <Textarea
-                            value={huntToAdd?.description}
-                            label="Hunt Description"
-                            isInvalid={huntToAdd?.description == '' && updateHunts.isError}
-                            errorMessage="Please Enter Hunt Description"
-                            placeholder="Write description..."
-                            onChange={(e) => {
-                                setHuntToAdd((prev:any) => {
-                                    // const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
-                                    return ({
-                                        ...prev,
-                                        description: e.target.value
+                                }}
+                                labelPlacement="outside"
+                                classNames={{ label: "!font-semibold" }}
+                            />
+                            <Textarea
+                                value={huntToAdd?.description}
+                                label="Hunt Description"
+                                isInvalid={huntToAdd?.description == '' && error}
+                                errorMessage="Please Enter Hunt Description"
+                                placeholder="Write description..."
+                                onChange={(e) => {
+                                    setHuntToAdd((prev: any) => {
+                                        // const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
+                                        return ({
+                                            ...prev,
+                                            description: e.target.value
+                                        })
                                     })
-                                })
-                            }}
-                            className="sm:w-[70%] w-full"
-                            labelPlacement="outside"
-                            size="lg"
-                            minRows={5}
-                            classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                        />
-                        <Input
-                            disabled
-                            value={huntsQuery.data?.data.data.brewery.name}
-                            className="sm:w-[70%] w-full"
-                            type="text"
-                            label="Brewery Name"
-                            placeholder="Enter Hunt Name"
-                            onChange={(e) => {
-                                setHuntToAdd((prev: any) => {
-                                    return ({
-                                        ...prev,
-                                        name: e.target.value
+                                }}
+                                className="sm:w-[70%] w-full"
+                                labelPlacement="outside"
+                                size="lg"
+                                minRows={5}
+                                classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
+                            />
+                            <Input
+                                disabled
+                                value={huntsQuery.data?.data.data.brewery.name}
+                                className="sm:w-[70%] w-full"
+                                type="text"
+                                label="Brewery Name"
+                                placeholder="Enter Hunt Name"
+                                onChange={(e) => {
+                                    setHuntToAdd((prev: any) => {
+                                        return ({
+                                            ...prev,
+                                            name: e.target.value
+                                        })
                                     })
-                                })
-                            }}
-                            labelPlacement="outside"
-                            classNames={{ label: "!font-semibold" }}
-                        />
-                        {/* <Autocomplete
-                            className="w-[70%] font-semibold"
-                            variant="flat"
-                            disabled
-                            isLoading={breweryQuery.isLoading}
-                            items={(breweryQuery.data?.data.data ? breweryQuery.data?.data.data : [{ name: "", _id: "" }] as any)}
-                            label="Brewery Name"
-                            labelPlacement="outside"
-                            placeholder="Select a Brewery"
-                            selectedKey={huntToAdd?.brewery}
-                            scrollRef={scrollerRef}
-                            onSelectionChange={(e) => {
-                                setHuntToAdd((prev: any) => {
-                                    // const find = breweryQuery.data?.data.data.find((j: any) => j.name == e)
-                                    return ({
-                                        ...prev,
-                                        brewery: e
-                                    })
-                                })
-                                console.log(e)
-                            }}
-                            // selectionMode="single"
-                            // classNames={{}}
-                            onOpenChange={setIsOpen}
-                        >
-                            {(item: any) => (
-                                <AutocompleteItem key={item._id} className="capitalize">
-                                    {item.name}
-                                </AutocompleteItem>
-                            )}
-                        </Autocomplete> */}
+                                }}
+                                labelPlacement="outside"
+                                classNames={{ label: "!font-semibold" }}
+                            />
+                        </div>
                     </div>
-                    {/* <h1 className="font-semibold">Create Riddles</h1> */}
-                    {huntToAdd?.riddles.map((e:any, index: number) =>
-                        <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
-                            <div className="flex gap-4">
+                    <div className="flex flex-col gap-4">
+                        <h1 className="font-semibold">Edit Riddles</h1>
+                        {huntToAdd?.riddles.map((e: any, index: number) =>
+                            <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
+                                <div className="flex gap-4">
 
-                                <Input
-                                    value={e.title}
-                                    isInvalid={e.title == '' && updateHunts.isError}
-                                    errorMessage="Please Enter Riddle Title"
+                                    <Input
+                                        value={e.title}
+                                        isInvalid={e.title == '' && error}
+                                        errorMessage="Please Enter Riddle Title"
+                                        onChange={(j) => {
+                                            const value = j.target.value
+                                            const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
+                                            find!.title = value
+                                            const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
+                                                if (index1 == index) {
+                                                    return find
+                                                }
+                                                return k
+                                            })
+                                            setHuntToAdd((prev: any) => {
+                                                return (
+                                                    {
+                                                        ...prev,
+                                                        riddles: newRiddles
+                                                    }
+                                                )
+                                            })
+                                        }}
+                                        className="w-full"
+                                        type="text"
+                                        label="Title "
+                                        placeholder="Enter Riddle Title"
+                                        labelPlacement="outside"
+                                        classNames={{ label: "!font-semibold" }}
+                                    />
+                                </div>
+                                <Textarea
+                                    value={e.description}
+                                    label="Description"
+                                    isInvalid={e.description == '' && error}
+                                    errorMessage="Please Enter Riddle Description"
+                                    placeholder="Write description..."
                                     onChange={(j) => {
                                         const value = j.target.value
-                                        const find = huntToAdd.riddles.find((e:any, index1:number) => index1 == index)
-                                        find!.title = value
-                                        const newRiddles = huntToAdd.riddles.map((k:any, index1:number) => {
+                                        const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
+                                        find!.description = value
+                                        const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
                                             if (index1 == index) {
                                                 return find
                                             }
@@ -285,184 +299,131 @@ export default function EditHunts(data: any) {
                                         })
                                     }}
                                     className="w-full"
-                                    type="text"
-                                    label="Title "
-                                    placeholder="Enter Riddle Title"
                                     labelPlacement="outside"
-                                    classNames={{ label: "!font-semibold" }}
+                                    size="lg"
+                                    minRows={10}
+                                    classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
                                 />
-                            </div>
-                            <Textarea
-                                value={e.description}
-                                label="Description"
-                                isInvalid={e.description == '' && updateHunts.isError}
-                                errorMessage="Please Enter Riddle Description"
-                                placeholder="Write description..."
-                                onChange={(j) => {
-                                    const value = j.target.value
-                                    const find = huntToAdd.riddles.find((e:any, index1:number) => index1 == index)
-                                    find!.description = value
-                                    const newRiddles = huntToAdd.riddles.map((k:any, index1:number) => {
-                                        if (index1 == index) {
-                                            return find
-                                        }
-                                        return k
-                                    })
+                                <div className="flex gap-4">
+                                    <Textarea
+                                        onChange={(j) => {
+                                            const value = j.target.value
+                                            const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
+                                            find!.reward = value
+                                            const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
+                                                if (index1 == index) {
+                                                    return find
+                                                }
+                                                return k
+                                            })
+                                            setHuntToAdd((prev: any) => {
+                                                return (
+                                                    {
+                                                        ...prev,
+                                                        riddles: newRiddles
+                                                    }
+                                                )
+                                            })
+                                        }}
+                                        value={e.reward}
+                                        isInvalid={e.reward == '' && error}
+                                        errorMessage="Please Enter Riddle Reward"
+                                        label="Reward"
+                                        placeholder="Write Reward..."
+                                        className="w-full"
+                                        labelPlacement="outside"
+                                        size="lg"
+                                        minRows={5}
+                                        classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                                    /> <Textarea
+                                        value={e.hint}
+                                        label="Hint"
+                                        isInvalid={e.hint == '' && error}
+                                        errorMessage="Please Enter Riddle Hint"
+                                        onChange={(j) => {
+                                            const value = j.target.value
+                                            const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
+                                            find!.hint = value
+                                            const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
+                                                if (index1 == index) {
+                                                    return find
+                                                }
+                                                return k
+                                            })
+                                            setHuntToAdd((prev: any) => {
+                                                return (
+                                                    {
+                                                        ...prev,
+                                                        riddles: newRiddles
+                                                    }
+                                                )
+                                            })
+                                        }}
+                                        placeholder="Write Hint..."
+                                        className="w-full"
+                                        labelPlacement="outside"
+                                        size="lg"
+                                        minRows={5}
+                                        classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                                    />
+                                </div>
+                                {<button onClick={() => {
+                                    const oldRiddles = huntToAdd.riddles.filter((j: any, index1: number) => index1 != index)
                                     setHuntToAdd((prev: any) => {
                                         return (
                                             {
                                                 ...prev,
-                                                riddles: newRiddles
+                                                riddles: oldRiddles
                                             }
                                         )
                                     })
-                                }}
-                                className="w-full"
-                                labelPlacement="outside"
-                                size="lg"
-                                minRows={10}
-                                classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                            />
-                            <div className="flex gap-4">
-                                <Textarea
-                                    onChange={(j) => {
-                                        const value = j.target.value
-                                        const find = huntToAdd.riddles.find((e:any, index1:number) => index1 == index)
-                                        find!.reward = value
-                                        const newRiddles = huntToAdd.riddles.map((k:any, index1:number) => {
-                                            if (index1 == index) {
-                                                return find
-                                            }
-                                            return k
-                                        })
-                                        setHuntToAdd((prev: any) => {
-                                            return (
-                                                {
-                                                    ...prev,
-                                                    riddles: newRiddles
-                                                }
-                                            )
-                                        })
-                                    }}
-                                    value={e.reward}
-                                    isInvalid={e.reward == '' && updateHunts.isError}
-                                    errorMessage="Please Enter Riddle Reward"
-                                    label="Reward"
-                                    placeholder="Write Reward..."
-                                    className="w-full"
-                                    labelPlacement="outside"
-                                    size="lg"
-                                    minRows={5}
-                                    classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                /> <Textarea
-                                    value={e.hint}
-                                    label="Hint"
-                                    isInvalid={e.hint == '' && updateHunts.isError}
-                                    errorMessage="Please Enter Riddle Hint"
-                                    onChange={(j) => {
-                                        const value = j.target.value
-                                        const find = huntToAdd.riddles.find((e:any, index1:number) => index1 == index)
-                                        find!.hint = value
-                                        const newRiddles = huntToAdd.riddles.map((k:any, index1:number) => {
-                                            if (index1 == index) {
-                                                return find
-                                            }
-                                            return k
-                                        })
-                                        setHuntToAdd((prev: any) => {
-                                            return (
-                                                {
-                                                    ...prev,
-                                                    riddles: newRiddles
-                                                }
-                                            )
-                                        })
-                                    }}
-                                    placeholder="Write Hint..."
-                                    className="w-full"
-                                    labelPlacement="outside"
-                                    size="lg"
-                                    minRows={5}
-                                    classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                />
-                            </div>
-                            {<button onClick={() => {
-                                const oldRiddles = huntToAdd.riddles.filter((j:any, index1:number) => index1 != index)
-                                setHuntToAdd((prev:any) => {
-                                    return (
-                                        {
-                                            ...prev,
-                                            riddles: oldRiddles
-                                        }
-                                    )
-                                })
-                                // setCreateRiddle(!createRiddle)
-                                // onOpen1()
-                            }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>}
-                            {/* <button onClick={() => {
+                                    // setCreateRiddle(!createRiddle)
+                                    // onOpen1()
+                                }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>}
+                                {/* <button onClick={() => {
                             // setCreateRiddle(!createRiddle)
                             // onOpen1()
                         }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max">Save</button> */}
-                        </div>
-                    )}
-                    {newRiddless?.map((e: any, index: number) =>
-                        <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
-                            <div className="flex gap-4">
+                            </div>
+                        )}
+                        {newRiddless?.map((e: any, index: number) =>
+                            <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
+                                <div className="flex gap-4">
 
-                                <Input
-                                    value={e.title}
-                                    isInvalid={e.title == '' && updateHunts.isError}
-                                    errorMessage="Please Enter Riddle Title"
-                                    onChange={(j) => {
-                                        const value = j.target.value
-                                        const find = newRiddless.find((e: any, index1: any) => index1 == index)
-                                        find!.title = value
-                                        const newRiddles = newRiddless.map((k: any, index1: any) => {
-                                            if (index1 == index) {
-                                                return find
-                                            }
-                                            return k
-                                        })
-                                        setNewRiddles(newRiddles)
-                                    }}
-                                    className="w-full"
-                                    type="text"
-                                    label="Title "
-                                    placeholder="Enter Riddle Title"
-                                    labelPlacement="outside"
-                                    classNames={{ label: "!font-semibold" }}
-                                />
-                            </div>
-                            <Textarea
-                                value={e.description}
-                                isInvalid={e.description == '' && updateHunts.isError}
-                                errorMessage="Please Enter Riddle Description"
-                                label="Description"
-                                placeholder="Write description..."
-                                onChange={(j) => {
-                                    const value = j.target.value
-                                    const find = newRiddless.find((e: any, index1: any) => index1 == index)
-                                    find!.description = value
-                                    const newRiddles = newRiddless.map((k: any, index1: any) => {
-                                        if (index1 == index) {
-                                            return find
-                                        }
-                                        return k
-                                    })
-                                    setNewRiddles(newRiddles)
-                                }}
-                                className="w-full"
-                                labelPlacement="outside"
-                                size="lg"
-                                minRows={10}
-                                classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                            />
-                            <div className="flex gap-4">
+                                    <Input
+                                        value={e.title}
+                                        isInvalid={e.title == '' && error}
+                                        errorMessage="Please Enter Riddle Title"
+                                        onChange={(j) => {
+                                            const value = j.target.value
+                                            const find = newRiddless.find((e: any, index1: any) => index1 == index)
+                                            find!.title = value
+                                            const newRiddles = newRiddless.map((k: any, index1: any) => {
+                                                if (index1 == index) {
+                                                    return find
+                                                }
+                                                return k
+                                            })
+                                            setNewRiddles(newRiddles)
+                                        }}
+                                        className="w-full"
+                                        type="text"
+                                        label="Title "
+                                        placeholder="Enter Riddle Title"
+                                        labelPlacement="outside"
+                                        classNames={{ label: "!font-semibold" }}
+                                    />
+                                </div>
                                 <Textarea
+                                    value={e.description}
+                                    isInvalid={e.description == '' && error}
+                                    errorMessage="Please Enter Riddle Description"
+                                    label="Description"
+                                    placeholder="Write description..."
                                     onChange={(j) => {
                                         const value = j.target.value
                                         const find = newRiddless.find((e: any, index1: any) => index1 == index)
-                                        find!.reward = value
+                                        find!.description = value
                                         const newRiddles = newRiddless.map((k: any, index1: any) => {
                                             if (index1 == index) {
                                                 return find
@@ -471,54 +432,77 @@ export default function EditHunts(data: any) {
                                         })
                                         setNewRiddles(newRiddles)
                                     }}
-                                    value={e.reward}
-                                    isInvalid={e.reward == '' && updateHunts.isError}
-                                    errorMessage="Please Enter Riddle Reward"
-                                    label="Reward"
-                                    placeholder="Write Reward..."
                                     className="w-full"
                                     labelPlacement="outside"
                                     size="lg"
-                                    minRows={5}
-                                    classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                /> <Textarea
-                                    value={e.hint}
-                                    label="Hint"
-                                    isInvalid={e.hint == '' && updateHunts.isError}
-                                    errorMessage="Please Enter Riddle Hint"
-                                    onChange={(j) => {
-                                        const value = j.target.value
-                                        const find = newRiddless.find((e: any, index1: any) => index1 == index)
-                                        find!.hint = value
-                                        const newRiddles = newRiddless.map((k: any, index1: any) => {
-                                            if (index1 == index) {
-                                                return find
-                                            }
-                                            return k
-                                        })
-                                        setNewRiddles(newRiddles)
-                                    }}
-                                    placeholder="Write Hint..."
-                                    className="w-full"
-                                    labelPlacement="outside"
-                                    size="lg"
-                                    minRows={5}
-                                    classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                                    minRows={10}
+                                    classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
                                 />
-                            </div>
-                            <button onClick={() => {
-                                const oldRiddles = newRiddless.filter((j: any, index1: any) => index1 != index)
-                                setNewRiddles(oldRiddles)
-                                
-                                // setCreateRiddle(!createRiddle)
-                                // onOpen1()
-                            }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>
-                            {/* <button onClick={() => {
+                                <div className="flex gap-4">
+                                    <Textarea
+                                        onChange={(j) => {
+                                            const value = j.target.value
+                                            const find = newRiddless.find((e: any, index1: any) => index1 == index)
+                                            find!.reward = value
+                                            const newRiddles = newRiddless.map((k: any, index1: any) => {
+                                                if (index1 == index) {
+                                                    return find
+                                                }
+                                                return k
+                                            })
+                                            setNewRiddles(newRiddles)
+                                        }}
+                                        value={e.reward}
+                                        isInvalid={e.reward == '' && error}
+                                        errorMessage="Please Enter Riddle Reward"
+                                        label="Reward"
+                                        placeholder="Write Reward..."
+                                        className="w-full"
+                                        labelPlacement="outside"
+                                        size="lg"
+                                        minRows={5}
+                                        classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                                    /> <Textarea
+                                        value={e.hint}
+                                        label="Hint"
+                                        isInvalid={e.hint == '' && error}
+                                        errorMessage="Please Enter Riddle Hint"
+                                        onChange={(j) => {
+                                            const value = j.target.value
+                                            const find = newRiddless.find((e: any, index1: any) => index1 == index)
+                                            find!.hint = value
+                                            const newRiddles = newRiddless.map((k: any, index1: any) => {
+                                                if (index1 == index) {
+                                                    return find
+                                                }
+                                                return k
+                                            })
+                                            setNewRiddles(newRiddles)
+                                        }}
+                                        placeholder="Write Hint..."
+                                        className="w-full"
+                                        labelPlacement="outside"
+                                        size="lg"
+                                        minRows={5}
+                                        classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
+                                    />
+                                </div>
+                                <button onClick={() => {
+                                    const oldRiddles = newRiddless.filter((j: any, index1: any) => index1 != index)
+                                    setNewRiddles(oldRiddles)
+
+                                    // setCreateRiddle(!createRiddle)
+                                    // onOpen1()
+                                }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Delete Riddle</button>
+                                {/* <button onClick={() => {
                             // setCreateRiddle(!createRiddle)
                             // onOpen1()
                         }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max">Save</button> */}
-                        </div>
-                    )}
+                            </div>
+                        )}
+                    </div>
+                    {/* <h1 className="font-semibold">Create Riddles</h1> */}
+                    
                     
                     <div className="flex flex-wrap gap-4">
                         <button onClick={() => {

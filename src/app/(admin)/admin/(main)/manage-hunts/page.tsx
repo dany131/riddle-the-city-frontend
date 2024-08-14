@@ -35,14 +35,15 @@ export default function ManageRiddles() {
     // const navigate=useRouter()
     // console.log('cookies',Cookies.get('accessToken'))
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
     const [editRiddle,setEditRiddle]=useState(false)
     const [createRiddle, setCreateRiddle] = useState(false)
     const [page, setPage] = useState(1)
     const [riddleToView, setRiddleToView] = useState<any>()
     const [riddleToEdit, setRiddleToEdit] = useState<any>()
-    const queryClient=useQueryClient()
+    const queryClient = useQueryClient()
+    const [huntId,setHuntId]=useState('')
     const huntsQuery = useQuery(['hunts', page], ({ queryKey }) => {
         return axiosInstance.get(`/riddle/api/hunt/all?page=${queryKey[1]}&limit=10`)
     }, {
@@ -69,6 +70,14 @@ export default function ManageRiddles() {
         },
     })
 
+    const deleteHunt = useMutation((data: string): any => axiosInstance.delete(`/riddle/api/hunt?huntId=${data}`), {
+        onSuccess(data: any) {
+            queryClient.invalidateQueries('hunts')
+            console.log('delete',data.data)
+            onClose2()
+        },
+    })
+
     console.log(riddleToEdit)
     return (
         <>
@@ -77,7 +86,7 @@ export default function ManageRiddles() {
             <>
                 <div className="flex justify-between items-center">
                 <p className="text-xl font-semibold">Manage Hunts</p>
-                    <Link href={'/admin/manage-hunts/create'} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Create New Hunt</Link>
+                    <Link href={'/admin/manage-hunts/create'} className="sm:px-16 px-4   py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Create New Hunt</Link>
                 </div>
                 <>
                     {huntsQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
@@ -124,7 +133,10 @@ export default function ManageRiddles() {
                                                         className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
                                                 </Link>
                                                 
-                                                {/* <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " /> */}
+                                                <AiOutlineDelete onClick={() => {
+                                                    setHuntId(e._id)
+                                                    onOpen2()
+                                                }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " />
                                             </div>
                                         </td>
                                     </tr>)}
@@ -160,8 +172,10 @@ export default function ManageRiddles() {
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">Are you sure you want to delete this entry?</p>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">No</button>
-                                    <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Delete</button>
+                                    <button onClick={() => { onClose2() }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">No</button>
+                                    <button onClick={() => {
+                                        deleteHunt.mutate(huntId)
+                                    }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{deleteHunt.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Delete"}</button>
                                 </div>
                             </ModalBody>
                         </>

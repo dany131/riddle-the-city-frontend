@@ -25,7 +25,7 @@ export default function Navbar() {
             <FaInstagram className=" rounded-full text-black p-1  text-2xl bg-[#E2CEAB]" />
           </div>
         </div>
-        <div style={{ background: 'url("/images/layout/navbar.png")',backgroundRepeat:'no-repeat',backgroundSize:'cover' }}
+        <div style={{ background: 'url("/images/layout/navbar.png")',backgroundRepeat:'repeat-x',backgroundSize:'cover' }}
           className="flex Voigante flex-col xl:hidden gap-4 z-[9999999999999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
           <div className="flex justify-center">
             <Image
@@ -91,7 +91,7 @@ export default function Navbar() {
           </div>
         </div>
         <div
-          style={{ background: 'url("/images/layout/navbar.png")', backgroundRepeat: 'no-repeat' ,backgroundSize:'contain'}}
+          style={{ background: 'url("/images/layout/navbar.png")', backgroundRepeat: 'repeat-x' ,backgroundSize:'contain'}}
           className="hidden Voigante gap-16 px-0 xl:flex z-[9999999999999] relative min-w-[85%] py-1 m-auto items-center justify-center"
         >
           <div className="flex gap-8 items-center">

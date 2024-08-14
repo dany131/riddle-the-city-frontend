@@ -107,11 +107,11 @@ export default function Dashboard(datas: any) {
                         {/* <p className="font-semibold">Hunt Details</p> */}
                         <div className="flex flex-col ">
                             <p className="text-gray-400 text-sm">Hunt Name</p>
-                            <p className="font-semibold">{breweryQuery.data?.data.data.hunt.name}</p>
+                            <p className="font-semibold">{breweryQuery.data?.data.data.hunt ? breweryQuery.data?.data.data.hunt.name:"N/A"}</p>
                         </div>
                         <div className="flex flex-col ">
                             <p className="text-gray-400 text-sm">Hunt Description</p>
-                            <p className="font-semibold">{breweryQuery.data?.data.data.hunt.description}</p>
+                            <p className="font-semibold">{breweryQuery.data?.data.data.hunt ? breweryQuery.data?.data.data.hunt.description : "N/A" }</p>
                         </div>
                     </div>
                     <div className="flex flex-col gap-4 ">
@@ -144,7 +144,7 @@ export default function Dashboard(datas: any) {
                             {/* <Image className="h-full w-full" src={'/images/user/dashboard/maps.png'} width={200} height={200} alt="google maps" /> */}
                         </div>
                     </div>
-                    <button onClick={() => {
+                    <button disabled={!breweryQuery.data?.data.data.hunt} onClick={() => {
                         startRiddleMutation.mutate()
                     }} className="px-32 w-max py-2 bg-[#A92223]  rounded text-white">{startRiddleMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Start Riddle"}</button>
                 </div>

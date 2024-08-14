@@ -1,6 +1,11 @@
+'use client'
+import axiosInstance from "@/app/utils/axiosInstance"
 import { Checkbox, Textarea } from "@nextui-org/react"
 import { Vujahday_Script } from "next/font/google"
 import Image from "next/image"
+import { FormEvent } from "react"
+import { ImSpinner2 } from "react-icons/im"
+import { useMutation } from "react-query"
 const Vujahday = Vujahday_Script(
     {
         weight: "400",
@@ -8,6 +13,19 @@ const Vujahday = Vujahday_Script(
     }
 )
 export default function Contact() {
+    const contactMutation = useMutation((data:any) => axiosInstance.post('/riddle/api/platform/contact-us', data))
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+        const form = e.target as any as HTMLFormElement
+        const formData = new FormData(form)
+        console.log([...formData.entries()])
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message:formData.get('message')
+        }
+        contactMutation.mutate(data)
+    }
     return (
         <>
             <div className="flex flex-col" style={{ fontFamily: "VoiganteDisplay" }}>
@@ -81,12 +99,14 @@ export default function Contact() {
                         <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                     </div>
                     <h1 style={{ fontWeight: 400 }} className="text-[3rem] Voigante">Get in Touch</h1>
-                    <div className="w-[70%] flex flex-wrap  gap-2">
+                    <form onSubmit={handleSubmit} className="w-[70%] flex flex-wrap  gap-2">
                         <div className="flex w-full gap-4">
-                            <input className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="" id="" placeholder="Name"/>
-                            <input className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="" id="" placeholder="E-mail"/>
+                            <input  required className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="name" id="" placeholder="Name"/>
+                            <input required className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="email" id="" placeholder="E-mail"/>
                         </div>
                         <Textarea
+                            required
+                            name="message"
                             variant={'bordered'}
                             minRows={100}
                             // label="Description"
@@ -103,23 +123,23 @@ export default function Contact() {
                             }}
                         />
                         <div className="flex flex-col gap-4 items-start">
-                            <Checkbox><p className="text-gray-400">I agree that my submitted data is being collected and stored.</p></Checkbox>
-                            <button className="relative h-[3rem]  z-[1]  flex justify-center items-center px-8 py-4 sm:px-8 sm:py-2 box-border">
+                            <Checkbox required><p className="text-gray-400">I agree that my submitted data is being collected and stored.</p></Checkbox>
+                            <button type="submit" className="relative h-[3rem]  z-[1]  flex justify-center items-center px-8 py-4 sm:px-8 sm:py-2 box-border">
                                 <Image
                                     priority
-                                    className="w-full h-full absolute top-0 w-full h-full z-[-1] sm:object-contain object-cover"
+                                    className="w-full h-full absolute top-0 w-full h-full z-[-1] object-contain"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
                                     width={50}
                                     height={50}
                                 />
-                                <p className="w-max">Submit Now</p>
+                                <p className="w-max p-4">{contactMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Submit Now"}</p>
                             </button>
                             {/* <div className="p-[0.3rem] border-[#867460] max-h-[0.3rem] border-2"></div>
                             <p>I agree that my submitted data is being collected and stored.</p> */}
                         </div>
                         
-                    </div>
+                    </form>
                 </div>
             </div>
         </>

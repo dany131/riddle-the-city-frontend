@@ -105,6 +105,7 @@ export default function CreateBrewery() {
     const [message, setMessage] = useState('')
     const [googleData, setGoogleData] = useState<any>()
     const [location, setLocation] = useState('')
+    const [error,setError]=useState(false)
     const queryClient=useQueryClient()
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
@@ -114,12 +115,20 @@ export default function CreateBrewery() {
             }
         })
         console.log('filter', filterBrewery)
-        const breweryData = {
-            "name": breweryToAdd,
-            "address": breweryLocationToAdd,
-            "schedule": filterBrewery
+        if (filterBrewery.length == 0 || !breweryToAdd || !breweryLocationToAdd) {
+            setError(true)
+            // console.log('empty',true)
         }
-        addBreweryMutation.mutate(breweryData)
+        else {
+            const breweryData = {
+                "name": breweryToAdd,
+                "address": breweryLocationToAdd,
+                "schedule": filterBrewery
+            }
+            setError(false)
+            addBreweryMutation.mutate(breweryData)
+        }
+
         // if (filterBrewery) {
         //     console.log(breweryData)
         //     // setMessage('Add Schedules For The Breweries Before Submitting')
@@ -187,7 +196,7 @@ export default function CreateBrewery() {
                 })
             }
             else {
-                toast.error(error.response.data.message.join(','), {
+                toast.error(error.response.data.message[0], {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -202,7 +211,8 @@ export default function CreateBrewery() {
     })
 
     console.log('brewery', brewerySchedule)
-    console.log('check', (!!brewerySchedule.find((e) => (e.time.start != ''))), !!brewerySchedule.find((e) => (e.time.end != '' && e.day == 'Monday')))
+    console.log('name',breweryToAdd)
+    // console.log('check', (!!brewerySchedule.find((e) => (e.time.start != ''))), !!brewerySchedule.find((e) => (e.time.end != '' && e.day == 'Monday')))
     // console.log('google data', googleData)
     // console.log('location name', locationText)
     // console.log('typing location',location)
@@ -221,7 +231,7 @@ export default function CreateBrewery() {
                             }}
                             className="w-full"
                             type="text"
-                            isInvalid={!!breweryToAdd == false && addBreweryMutation.isError}
+                            isInvalid={!!breweryToAdd == false && error}
                             errorMessage="Please Enter Brewery Name"
                             label="Brewery Name"
                             placeholder="Enter Brewery Name"
@@ -233,7 +243,7 @@ export default function CreateBrewery() {
                             label="Location"
                             placeholder="Enter Location"
                             labelPlacement="outside"
-                            isInvalid={!!locationText == false && addBreweryMutation.isError}
+                            isInvalid={!!locationText == false && error}
                             errorMessage="Please Enter Location"
                             variant="flat"
                             // value={breweryLocationToAdd?breweryLocationToAdd.text:''}
@@ -331,7 +341,8 @@ export default function CreateBrewery() {
                                         <td className="rounded-lg">
                                             <div className="pt-4 pr-4">
                                                 <TimeInput
-                                                    isInvalid={((!!brewerySchedule.find((e) => (e.time.start != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.end != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.end != '')) == false) && addBreweryMutation.isError}
+                                                    className="!pb-0"
+                                                    isInvalid={((!!brewerySchedule.find((e) => (e.time.start != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.end != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.end != '')) == false) && error}
                                                     errorMessage="Please Enter Start Time"
                                                     aria-label="starttime" isRequired onChange={(f) => {
                                                         if (!f) {
@@ -384,7 +395,8 @@ export default function CreateBrewery() {
                                         </div></td>
                                         <td ><div className="pt-4 pr-4">
                                             <TimeInput
-                                                isInvalid={((!!brewerySchedule.find((e) => (e.time.end != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.start != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.start != '')) == false) && addBreweryMutation.isError}
+                                                className="!pb-0"
+                                                isInvalid={((!!brewerySchedule.find((e) => (e.time.end != ''))) == false) && (!!brewerySchedule.find((e) => (e.time.start != '' && e.day == o.name)) || !!brewerySchedule.find((e) => (e.time.start != '')) == false) && error}
                                                 errorMessage="Please Enter End Time"
                                                 aria-label="endtime" onChange={(f) => {
                                                     if (!f) {

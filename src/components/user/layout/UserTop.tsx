@@ -17,7 +17,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { RxDashboard } from "react-icons/rx";
-import { ImNewspaper } from "react-icons/im";
+import { ImNewspaper, ImSpinner2 } from "react-icons/im";
 import { FaListCheck } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
 import { BiSolidBookContent } from "react-icons/bi";
@@ -292,7 +292,7 @@ export default function UserTopBar() {
                                     <button onClick={() => {
                                         logoutMutation.mutate();
                                     }}
-                                        className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Logout
+                                        className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">{logoutMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Logout"}
                                     </button>
                                 </div>
                             </ModalBody>

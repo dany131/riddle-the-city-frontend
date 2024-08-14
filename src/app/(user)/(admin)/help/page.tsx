@@ -1,26 +1,52 @@
 'use client'
+import axiosInstance from "@/app/utils/axiosInstance";
 import { Button, Input, Modal, Textarea, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import { FormEvent } from "react";
+import { ImSpinner2 } from "react-icons/im";
 import { PiUploadSimpleFill } from "react-icons/pi";
+import { useMutation } from "react-query";
 export default function Help() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const helpMutation = useMutation((data: any) => axiosInstance.postForm('/riddle/api/platform/support', data), {
+        onSuccess(data, variables, context) {
+            console.log(data)
+            onOpen2()
+        },
+    })
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+        const form = e.target as any as HTMLFormElement
+        const formData = new FormData(form)
+        console.log([...formData.entries()])
+        // const data: FeedbackData = {
+        //     description: formData.get('description') as any as string,
+        //     rating
+        // }
+        helpMutation.mutate(formData)
+        // feedbackMutation.mutate(data)
+    }
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
                 <p className="font-semibold text-xl">Help & Support</p>
-                <div className="flex flex-col border-1 rounded-lg gap-4 p-4">
-                    <p className="font-semibold">Contact Us</p>
-                    <p className="text-gray-400 text-sm">Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum.</p>
+                <form onSubmit={handleSubmit} className="flex flex-col border-1 rounded-lg gap-4 p-4">
+                    {/* <p className="font-semibold">Contact Us</p>
+                    <p className="text-gray-400 text-sm">Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum.</p> */}
                     <Input
+                        name="title"
+                        required
                         className="sm:w-1/2 w-full"
                         type="text"
                         label="Title"
-                        placeholder="Lorem Ipsum Odor"
+                        placeholder="Enter Title"
                         labelPlacement="outside"
                         classNames={{label:"font-semibold"}}
                     />
                     <Textarea
+                        required
+                        name="description"
                         label="Description"
-                        placeholder="Lorem Ipsum Odor"
+                        placeholder="Enter Description"
                         className="sm:w-1/2 w-full"
                         labelPlacement="outside"
                         size="lg"
@@ -33,10 +59,10 @@ export default function Help() {
                             <PiUploadSimpleFill className="text-[#29A4CB]" />
                             <p className="text-[#29A4CB] text-sm">Upload Images or Other Media</p>
                         </div>
-                        <input type="file" className="invisible absolute" name="media" id="media" />
+                        <input multiple type="file" className="invisible absolute" name="files" id="media" />
                     </label>
-                    <button onClick={() => { onOpen2() }} className="px-32 sm:w-max w-full py-2 bg-[#A92223]  rounded text-white">Submit</button>
-                </div>
+                    <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{helpMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Submit"}</button>
+                </form>
             </div>
             <Modal
                 size={"xl"}

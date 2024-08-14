@@ -130,7 +130,7 @@ export default function ManageBreweries() {
                 <>
                 <div className="flex justify-between items-center">
                     <p className="text-xl font-semibold">Manage Breweries</p>
-                    <Link href={'/admin/manage-breweries/create'} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Add Brewery</Link>
+                    <Link href={'/admin/manage-breweries/create'} className="sm:px-16 px-4 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Add Brewery</Link>
                 </div>
                 {breweryQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
                 {/* {breweryQuery.data?.data.data.length == 0 && !breweryQuery.isFetching  && <p className="text-center">No Data Exists</p>} */}

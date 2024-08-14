@@ -16,6 +16,7 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState<string | null>()
     const [invalid, setInvalid] = useState(false)
     const [message, setMessage] = useState('')
+    const [error,setError]=useState(false)
     const forgotPasswordMutation = useMutation((data: ForgotPasswordData) => axiosInstance.post('/riddle/api/auth/forgot-password', data), {
         onSuccess(data) {
             console.log(data)
@@ -36,7 +37,7 @@ export default function ForgotPassword() {
                 })
             }
             else {
-                toast.error(error.response.data.message.join(','), {
+                toast.error(error.response.data.message[0], {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -56,7 +57,13 @@ export default function ForgotPassword() {
         const passwordData:ForgotPasswordData = {
             email:email as any as string
         }
-        forgotPasswordMutation.mutate(passwordData)
+        if (!email) {
+            setError(true)
+        }
+        else {
+            setError(false)
+            forgotPasswordMutation.mutate(passwordData)
+        }
     }
     return (
         <>
@@ -65,7 +72,7 @@ export default function ForgotPassword() {
                 {invalid && <p className="text-red-600">{message}</p>}
                 <p>Please use your email and password to login</p>
                 <Input
-                    isInvalid={email == '' && forgotPasswordMutation.isError}
+                    isInvalid={email == '' && error}
                     errorMessage="Please Enter Email"
                     onChange={(e) => { setEmail(e.target.value) }}
                     required

@@ -31,6 +31,7 @@ export default function NewPassword(data: any) {
     const [notMatch, setNotMatch] = useState(false)
     const [newPass, setNewPass] = useState<string>('')
     const [confirmPass, setConfirmPass] = useState<string>('')
+    const [error, setError] = useState(false)
     const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.post('/riddle/api/auth/forgot-password/change-password', data), {
         onSuccess(data) {
             console.log(data)
@@ -52,7 +53,7 @@ export default function NewPassword(data: any) {
                 })
             }
             else {
-                toast.error(error.response.data.message.join(','), {
+                toast.error(error.response.data.message[0], {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -67,19 +68,33 @@ export default function NewPassword(data: any) {
     })
     function handleSubmit(e:FormEvent) {
         e.preventDefault()
-        console.log('check',newPass,confirmPass)
-        if (newPass == confirmPass) {
-            setNotMatch(false)
-            const passwordData:NewPasswordData = {
-                email: data.searchParams.email,
-                verificationCode: code,
-                password:newPass
-            }
-            newPasswordMutation.mutate(passwordData)
+        console.log('check', newPass, confirmPass)
+        if (!newPass || !confirmPass) {
+            setError(true)
         }
         else {
-            setNotMatch(true)
-            setMessage('Passwords Do Not Match')
+            setError(false)
+            if (newPass == confirmPass) {
+                setNotMatch(false)
+                const passwordData: NewPasswordData = {
+                    email: data.searchParams.email,
+                    verificationCode: code,
+                    password: newPass
+                }
+                newPasswordMutation.mutate(passwordData)
+            }
+            else {
+                toast.error('Passwords Do Not Match', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+            }
         }
     }
 
@@ -89,13 +104,12 @@ export default function NewPassword(data: any) {
         <>
             <form onSubmit={handleSubmit} className="h-full w-full items-center  flex flex-col gap-8 p-8 sm:p-24">
                 <h1 className="text-2xl font-bold">Set New Password</h1>
-                {notMatch && <p className="text-red-600">{ message}</p>}
                 <Input
                     required
                     onChange={(e) => {
                         setNewPass(e.target.value)
                     }}
-                    isInvalid={newPass == '' && newPasswordMutation.isError}
+                    isInvalid={newPass == '' && error}
                     errorMessage="Please Enter New Password"
                     label="New Password"
                     className={'w-full'}
@@ -120,7 +134,7 @@ export default function NewPassword(data: any) {
                     onChange={(e) => {
                         setConfirmPass(e.target.value)
                     }}
-                    isInvalid={confirmPass == '' && newPasswordMutation.isError}
+                    isInvalid={confirmPass == '' && error}
                     errorMessage="Please Enter Confirm Password"
                     label="Confirm Password"
                     className={'w-full'}
