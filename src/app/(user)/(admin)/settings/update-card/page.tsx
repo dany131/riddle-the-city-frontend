@@ -1,25 +1,89 @@
-'use client'
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { useQuery } from 'react-query';
+'use client';
+import {loadStripe} from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
+import {useQuery, useMutation} from 'react-query';
 import axiosInstance from '@/app/utils/axiosInstance';
 import Payment from '@/components/user/layout/Payment';
+import SavedPaymentCard from '@/components/user/layout/SavedPaymentCard';
+import {useState} from 'react';
+import {Modal, ModalBody, ModalContent, ModalHeader, useDisclosure, Button} from "@nextui-org/react";
+import {ImSpinner2} from "react-icons/im";
+
+
 const stripePromise = loadStripe('pk_test_51PkygCIZASCLbug8qI63eXXhDkNWGwho4ADU1RSxysg8EaLREa361nBHfusl1pYcUXO28xlO2lsMpyhHjxmibjQ100UEAxoxng');
+
 export default function UpdateCard() {
-    const clientSecretQuery = useQuery(['clientSecret'], () => axiosInstance.put('/riddle/api/payment/card'))
+    const [clientSecret, setClientSecret] = useState(null);
+    const {isOpen, onOpen, onClose} = useDisclosure();
+
+    const savedCardQuery = useQuery(['savedCard'], () => axiosInstance.get('/riddle/api/payment/card'));
+
+    const getClientSecret = useMutation(() => axiosInstance.put('/riddle/api/payment/card'), {
+        onSuccess: (data) => {
+            setClientSecret(data.data.data.clientSecret);
+        }
+    });
+
+    const confirmUpdateCard = () => {
+        getClientSecret.mutate(); // Fetch clientSecret when user confirms update
+    };
+
     return (
         <>
-            <div className="flex flex-col border-1 rounded-lg gap-4 p-4">
-                <p className="font-semibold">Update Card Info</p>
-                {clientSecretQuery.data?.data && 
-                    <Elements stripe={stripePromise} options={{
-                        clientSecret: clientSecretQuery.data.data.data.clientSecret
-                    }}>
-                        <Payment/>
-                        </Elements>
-                    
-                }
+            <div className="flex flex-col border rounded-lg gap-4 p-4">
+                <p className="font-semibold text-lg md:text-xl">Payment Methods</p>
+
+                {savedCardQuery.isFetching ? (
+                    <div className="flex justify-center items-center h-48">
+                        <ImSpinner2 className="text-4xl animate-spin"/>
+                    </div>
+                ) : (
+                    <>
+                        {savedCardQuery.data?.data?.data && Object.keys(savedCardQuery.data.data.data).length > 0 ? (
+                            <SavedPaymentCard card={savedCardQuery.data.data.data}/>
+                        ) : (
+                            <p className="text-center">No saved payment method found.</p>
+                        )}
+
+                        <div className="flex justify-center">
+                            <button
+                                type="button"
+                                onClick={onOpen}
+                                className="px-16 py-2 bg-[#A92223] rounded text-white">
+                                Update Card
+                            </button>
+                        </div>
+                    </>
+                )}
+
+                <Modal
+                    size="xl"
+                    isOpen={isOpen}
+                    backdrop="blur"
+                    onClose={onClose}
+                    placement="center"
+                >
+                    <ModalContent>
+                        <ModalHeader className="flex flex-col text-xl gap-1">Update Your Card</ModalHeader>
+                        <ModalBody className="flex flex-col gap-4 pb-8">
+                            {clientSecret ? (
+                                <Elements stripe={stripePromise} options={{clientSecret}}>
+                                    <Payment/>
+                                </Elements>
+                            ) : (
+                                <><p className="text-sm text-gray-500">
+                                    Your previous card will be deleted by this action.
+                                </p><Button
+                                    onPress={confirmUpdateCard}
+                                    className="px-16 py-2 bg-[#A92223] flex rounded text-white w-max">
+                                    Confirm Update
+                                </Button></>
+
+                            )}
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
             </div>
         </>
-    )
+    );
 }

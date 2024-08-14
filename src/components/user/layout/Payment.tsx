@@ -22,7 +22,7 @@ export default function Payment() {
             //`Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
-                return_url: `${window.location.origin}/settings`
+                return_url: `${window.location.origin}/settings/update-card`
             }
         });
 
