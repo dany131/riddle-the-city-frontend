@@ -121,8 +121,12 @@ export default function UserTopBar() {
                     </Link> */}
                     <div className="flex items-center gap-2 cursor-pointer ">
                         <Link href={'/profile'} className="flex gap-2 items-center">
-                            <FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full" />
-                            {/* <p>{userData.name}</p> */}
+                            {/*<FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full"/>*/}
+                            <div className="h-[3rem] w-[3rem] p-2 rounded-full">
+                                <Image className="w-full h-full object-cover rounded-full" src={userProfilePicture}
+                                    alt="auth" width={55} height={55} />
+                            </div>
+                            <p>{userData.name}</p>
                         </Link>
                     </div>
                 </div>
