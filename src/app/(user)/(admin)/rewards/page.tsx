@@ -36,7 +36,7 @@ export default function Rewards() {
 
     const claimRewardMutation = useMutation(
         (data: ClaimReward) =>
-            axiosInstance.post(`/riddle/api/hunt/claim-rewards?riddleId=${data.riddleId}&riddleCompletionId=${data.riddleCompletionId}`),
+            axiosInstance.post(`/riddle/api/hunt/claim-reward?riddleId=${data.riddleId}&riddleCompletionId=${data.riddleCompletionId}`),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('rewards');
