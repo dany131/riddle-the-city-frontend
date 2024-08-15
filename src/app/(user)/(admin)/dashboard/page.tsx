@@ -1,31 +1,43 @@
 'use client';
 
 import Image from "next/image";
-import { useState } from "react";
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
+import {useState} from "react";
+import {
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure
+} from "@nextui-org/react";
 import Link from "next/link";
-import { CiEdit } from "react-icons/ci";
-import { useQuery } from "react-query";
+import {CiEdit} from "react-icons/ci";
+import {useQuery} from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
+
 
 export default function Dashboard() {
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
-    const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
-    const [nextRiddle, setNextRiddle] = useState(false)
-    const [searchQuery, setSearchQuery] = useState('')
-    const navigate = useRouter()
-    const breweryQuery = useQuery(['breweries', searchQuery], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=1&limit=10&searchQuery=${queryKey[1]}`)
+    const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
+    const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
+    const [nextRiddle, setNextRiddle] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useRouter();
+    const breweryQuery = useQuery(['breweries', searchQuery], ({queryKey}) => {
+        return axiosInstance.get(`/riddle/api/brewery/all?page=1&limit=10&searchQuery=${queryKey[1]}`);
     }, {
         onSuccess(data) {
-            console.log(data)
+            console.log(data);
         },
         onError(err) {
-            console.log(err)
-        },
-    })
-    const userStatsQuery = useQuery(['stats'], () => axiosInstance.get('/riddle/api/user/stats'))
+            console.log(err);
+        }
+    });
+    const userStatsQuery = useQuery(['stats'], () => axiosInstance.get('/riddle/api/user/stats'));
 
     return (
         <>
@@ -35,18 +47,31 @@ export default function Dashboard() {
                     {/* Statistic Cards */}
                     <div className="flex flex-col sm:flex-row gap-4 w-full">
                         {[
-                            { label: "Current Package", value: userStatsQuery.data?.data.data.currentPackage.name || "None" },
-                            { label: "Riddles Completed", value: userStatsQuery.data?.data.data.riddlesCompleted },
-                            { label: "Hunts Completed", value: userStatsQuery.data?.data.data.huntsCompleted },
-                            { label: "Active Hunt", value: userStatsQuery.data?.data.data.activeHunt.name || "None" }
+                            {
+                                label: "Current Package",
+                                value: userStatsQuery.data?.data.data.currentPackage.name || "None"
+                            },
+                            {label: "Riddles Completed", value: userStatsQuery.data?.data.data.riddlesCompleted},
+                            {label: "Hunts Completed", value: userStatsQuery.data?.data.data.huntsCompleted},
+                            {
+                                label: "Active Hunt",
+                                value: userStatsQuery.data?.data.data.activeHunt.name ? (
+                                    <Link href={"/startRiddle"} className="text-[#A92223] cursor-pointer underline">
+                                        {userStatsQuery.data?.data.data.activeHunt.name}
+                                    </Link>
+                                ) : "None"
+                            }
                         ].map((stat, index) => (
-                            <div key={index} className="flex gap-4 p-4 w-full sm:w-1/2 lg:w-1/4 justify-between items-center border-[0.15rem] rounded-lg">
+                            <div key={index}
+                                 className="flex gap-4 p-4 w-full sm:w-1/2 lg:w-1/4 justify-between items-center border-[0.15rem] rounded-lg">
                                 <div className="flex flex-col gap-2">
                                     <p className="font-bold">{stat.label}</p>
                                     <p className="text-lg">{stat.value}</p>
                                 </div>
                                 <div className="h-[5rem] w-[5rem] bg-gray-200 p-4 rounded-full">
-                                    <Image className="w-full h-full object-contain" src={'/images/admin/main/dashboard/drink.svg'} alt="drink" width={100} height={100} />
+                                    <Image className="w-full h-full object-contain"
+                                           src={'/images/admin/main/dashboard/drink.svg'} alt="drink" width={100}
+                                           height={100}/>
                                 </div>
                             </div>
                         ))}
@@ -58,7 +83,7 @@ export default function Dashboard() {
                         placeholder="Search Breweries"
                         onChange={(e) => setSearchQuery(e.target.value)}
                         labelPlacement="outside"
-                        classNames={{ label: "font-semibold text-lg" }}
+                        classNames={{label: "font-semibold text-lg"}}
                         className="!mt-8 w-full sm:w-1/2"
                     />
                     <table className="p-4 w-full block sm:table overflow-auto mt-4">
@@ -101,7 +126,9 @@ export default function Dashboard() {
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Hint</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm">Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit ame</p>
+                                <p className="text-sm">Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit
+                                    commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit
+                                    ame</p>
                                 <div className="flex w-full gap-4">
                                     <button className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Okay</button>
                                 </div>
@@ -124,10 +151,13 @@ export default function Dashboard() {
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Reward</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm">Congratulations! You successfully solved the riddle. You got Reward: 30% discount on a drink.</p>
+                                <p className="text-sm">Congratulations! You successfully solved the riddle. You got
+                                    Reward: 30% discount on a drink.</p>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Claim Reward</button>
-                                    <button className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Next Riddle</button>
+                                    <button className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Claim Reward
+                                    </button>
+                                    <button className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Next Riddle
+                                    </button>
                                 </div>
                             </ModalBody>
                         </>
@@ -135,5 +165,5 @@ export default function Dashboard() {
                 </ModalContent>
             </Modal>
         </>
-    )
+    );
 }
