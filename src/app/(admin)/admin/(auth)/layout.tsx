@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <>
             <div className={`min-h-[100vh] flex sm:flex-row flex-col `}>
                 <div className="h-[20rem] sm:h-auto flex items-center w-full sm:w-[50%]">
-                    <Image className="w-full h-full object-cover" src={'/images/admin/auth/left-image.png'} alt="auth" width={400} height={1000} />
+                    <Image className="w-full h-full object-cover" src={'/images/admin/auth/image 9 (2).svg'} alt="auth" width={400} height={1000} />
                 </div>
                 <div className="h-full w-full sm:w-[50%]">
                 {children}
