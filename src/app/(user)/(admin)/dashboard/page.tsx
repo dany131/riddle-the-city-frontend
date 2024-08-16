@@ -25,10 +25,11 @@ export default function Dashboard() {
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
     const [nextRiddle, setNextRiddle] = useState(false);
+    const [page,setPage]=useState(1)
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useRouter();
-    const breweryQuery = useQuery(['breweries', searchQuery], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=1&limit=10&searchQuery=${queryKey[1]}`);
+    const breweryQuery = useQuery(['breweries', searchQuery,page], ({queryKey}) => {
+        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[2]}&limit=10&searchQuery=${queryKey[1]}`);
     }, {
         onSuccess(data) {
             console.log(data);
@@ -81,7 +82,10 @@ export default function Dashboard() {
                     <Input
                         label="Available Breweries"
                         placeholder="Search Breweries"
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value) 
+                            setPage(1)
+                        }}
                         labelPlacement="outside"
                         classNames={{label: "font-semibold text-lg"}}
                         className="!mt-8 w-full sm:w-1/2"
@@ -110,6 +114,17 @@ export default function Dashboard() {
                         ))}
                         </tbody>
                     </table>
+                    {<div className="flex flex-wrap gap-4">
+                        {!!breweryQuery.data?.data.lastPage && breweryQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
+                            setPage((prev) => prev + 1)
+                        }}>Next Page</button>}
+
+                        {
+                            page != 1 && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
+                                setPage((prev) => prev - 1)
+                            }}>Previous Page</button>
+                        }
+                    </div>}
                 </div>
             </div>
 
