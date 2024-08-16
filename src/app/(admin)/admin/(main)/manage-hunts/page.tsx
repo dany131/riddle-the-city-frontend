@@ -29,6 +29,7 @@ const selections = [
 
 import Cookies from 'js-cookie'
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function ManageRiddles() {
     console.log('hunts pageee')
@@ -76,16 +77,41 @@ export default function ManageRiddles() {
             console.log('delete',data.data)
             onClose2()
         },
+        onError(error: any) {
+            if (Array.isArray(error.response.data.message)) {
+                toast.error(error.response.data.message[0], {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                });
+            } else {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                });
+            }
+        },
     })
 
     console.log(riddleToEdit)
     return (
         <>
-            
-            
+
+
             <>
                 <div className="flex justify-between items-center">
-                <p className="text-xl font-semibold">Manage Hunts</p>
+                    <p className="text-xl font-semibold">Manage Hunts</p>
                     <Link href={'/admin/manage-hunts/create'} className="sm:px-16 px-4   py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Create New Hunt</Link>
                 </div>
                 <>
@@ -93,62 +119,62 @@ export default function ManageRiddles() {
                     {/* {huntsQuery.data?.data.data.length == 0 && !huntsQuery.isFetching && <p className="text-center">No Data Exists</p>} */}
                     {!huntsQuery.isFetching &&
                         <>
-                        <table className="p-4 w-full block sm:table overflow-auto mt-4">
+                            <table className="p-4 w-full block sm:table overflow-auto mt-4">
                                 <thead>
-                                    <tr className="bg-gray-200">
-                                        <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
-                                        <th className="p-2 text-sm text-left">Brewery Name</th>
-                                        <th className="p-2 text-sm text-left">Riddle Description</th>
-                                        <th className="p-2 text-sm text-left">Creation Date</th>
-                                        {/* <th className="p-2 text-sm text-left ">QR Code Link</th> */}
-                                        <th className="p-2 text-sm text-left rounded-r-md">Action</th>
-                                    </tr>
+                                <tr className="bg-gray-200">
+                                    <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
+                                    <th className="p-2 text-sm text-left">Brewery Name</th>
+                                    <th className="p-2 text-sm text-left">Riddle Description</th>
+                                    <th className="p-2 text-sm text-left">Creation Date</th>
+                                    {/* <th className="p-2 text-sm text-left ">QR Code Link</th> */}
+                                    <th className="p-2 text-sm text-left rounded-r-md">Action</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    {huntsQuery.data?.data.data.map((e: any, index: number) => <tr className="border-b-2 border-solid border-gray-200" key={index + 1} >
-                                        <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
-                                        <td className="p-2 text-sm">{e.name}</td>
-                                        <td className="p-2 text-sm">{e.description}</td>
-                                        <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
-                                        <td className="p-2 text-sm">
-                                            <div className="flex gap-2">
-                                                {/* {downloadPdf.data?.data && 
+                                {huntsQuery.data?.data.data.map((e: any, index: number) => <tr className="border-b-2 border-solid border-gray-200" key={index + 1} >
+                                    <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
+                                    <td className="p-2 text-sm">{e.name}</td>
+                                    <td className="p-2 text-sm">{e.description}</td>
+                                    <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
+                                    <td className="p-2 text-sm">
+                                        <div className="flex gap-2">
+                                            {/* {downloadPdf.data?.data &&
                                             <a className="underline text-red-600" href={`${downloadPdf.data?.data}`}>Download PDF</a>
                                         } */}
 
-                                                {/* <button onClick={() => {
+                                            {/* <button onClick={() => {
                                             downloadPdf.mutate(e._id)
                                         }} className="underline text-red-600">Download PDF</button> */}
-                                                <GrView onClick={() => {
-                                                    downloadPdf.mutate(e._id)
-                                                    // setRiddleToView(e)
-                                                    // onOpen3()
-                                                }} className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
-                                                <Link href={`/admin/manage-hunts/edit?id=${e._id}`}>
-                                                    <CiEdit
-                                                        // onClick={() => {
-                                                        // setEditRiddle(!editRiddle)
-                                                        // setRiddleToEdit(e)
-                                                        // }}
-                                                        className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
-                                                </Link>
-                                                
-                                                <AiOutlineDelete onClick={() => {
-                                                    setHuntId(e._id)
-                                                    onOpen2()
-                                                }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " />
-                                            </div>
-                                        </td>
-                                    </tr>)}
+                                            <GrView onClick={() => {
+                                                downloadPdf.mutate(e._id)
+                                                // setRiddleToView(e)
+                                                // onOpen3()
+                                            }} className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
+                                            <Link href={`/admin/manage-hunts/edit?id=${e._id}`}>
+                                                <CiEdit
+                                                    // onClick={() => {
+                                                    // setEditRiddle(!editRiddle)
+                                                    // setRiddleToEdit(e)
+                                                    // }}
+                                                    className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
+                                            </Link>
+
+                                            <AiOutlineDelete onClick={() => {
+                                                setHuntId(e._id)
+                                                onOpen2()
+                                            }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " />
+                                        </div>
+                                    </td>
+                                </tr>)}
                                 </tbody>
                             </table>
                             <div className="flex flex-wrap gap-4">
-                            {!!huntsQuery.data?.data.lastPage && huntsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
+                                {!!huntsQuery.data?.data.lastPage && huntsQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                                     setPage((prev) => prev + 1)
                                 }}>Next Page</button>}
 
                                 {
-                                page != 1 && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
+                                    page != 1 && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                                         setPage((prev) => prev - 1)
                                     }}>Previous Page</button>
                                 }
@@ -249,16 +275,3 @@ export default function ManageRiddles() {
         </>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

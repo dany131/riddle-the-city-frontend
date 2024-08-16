@@ -17,6 +17,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { toast } from "react-toastify";
+import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
+import { IoIosArrowForward, IoIosLock } from "react-icons/io";
 type UserData = {
     name: string,
     email: string,
@@ -31,7 +33,10 @@ type NewPasswordData = {
     newPassword: string
 }
 export default function UserTopBar() {
-    const navigate=useRouter()
+    const navigate = useRouter()
+    const [isVisible, toggleVisibility1] = useState(false)
+    const [isVisible2, toggleVisibility2] = useState(false)
+    const [isVisible3, toggleVisibility3] = useState(false)
     const pathname=usePathname()
     const [display, setDisplay] = useState(false)
     let userData: UserData = { name: '', email: '', id: '', phone: '', role: 'User' }
@@ -123,7 +128,7 @@ export default function UserTopBar() {
     })
     return (
         <>
-            
+
 
             <div className=" hidden w-full sm:flex border-b-[0.1rem] border-gray-200 gap-4 flex-wrap px-4 py-2 justify-between">
                 <div>
@@ -287,29 +292,66 @@ export default function UserTopBar() {
                                         <Input
                                             name="password"
                                             required
-                                            className="w-full"
-                                            type="text"
                                             label="Current Password"
-                                            placeholder="Enter Current Password"
+                                            className={'w-full'}
+                                            placeholder="Enter your password"
                                             labelPlacement="outside"
+                                            startContent={
+                                                <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                                            }
+                                            endContent={
+                                                <button className="focus:outline-none" type="button" onClick={() => { toggleVisibility1(!isVisible) }}>
+                                                    {isVisible ? (
+                                                        <BsEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                                                    ) : (
+                                                        <BsEyeFill className="text-2xl text-default-400 pointer-events-none" />
+                                                    )}
+                                                </button>
+                                            }
+                                            type={isVisible ? "text" : "password"}
                                         />
+
                                         <Input
-                                            required
                                             name="new-password"
-                                            className="w-full"
-                                            type="text"
+                                            required
                                             label="New Password"
-                                            placeholder="Enter New Password"
+                                            className={'w-full'}
+                                            placeholder="Enter your password"
                                             labelPlacement="outside"
+                                            startContent={
+                                                <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                                            }
+                                            endContent={
+                                                <button className="focus:outline-none" type="button" onClick={() => { toggleVisibility2(!isVisible2) }}>
+                                                    {isVisible2 ? (
+                                                        <BsEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                                                    ) : (
+                                                        <BsEyeFill className="text-2xl text-default-400 pointer-events-none" />
+                                                    )}
+                                                </button>
+                                            }
+                                            type={isVisible2 ? "text" : "password"}
                                         />
                                         <Input
-                                            className="w-full"
-                                            required
                                             name="confirm-password"
-                                            type="text"
+                                            required
                                             label="Confirm Password"
-                                            placeholder="Confirm New Password"
+                                            className={'w-full'}
+                                            placeholder="Enter your password"
                                             labelPlacement="outside"
+                                            startContent={
+                                                <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                                            }
+                                            endContent={
+                                                <button className="focus:outline-none" type="button" onClick={() => { toggleVisibility3(!isVisible3) }}>
+                                                    {isVisible3 ? (
+                                                        <BsEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                                                    ) : (
+                                                        <BsEyeFill className="text-2xl text-default-400 pointer-events-none" />
+                                                    )}
+                                                </button>
+                                            }
+                                            type={isVisible3 ? "text" : "password"}
                                         />
                                         <button type="submit" className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Save Changes</button>
                                     </form>

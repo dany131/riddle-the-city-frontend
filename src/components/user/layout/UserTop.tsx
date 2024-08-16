@@ -92,7 +92,7 @@ export default function UserTopBar() {
                             {/*<FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full"/>*/}
                             <div className="h-[3rem] w-[3rem] p-2 rounded-full">
                                 <Image className="w-full h-full object-cover rounded-full" src={userProfilePicture}
-                                    alt="auth" width={55} height={55} />
+                                       alt="auth" width={55} height={55} />
                             </div>
                             <p>{userData.name}</p>
                         </Link>
@@ -124,7 +124,7 @@ export default function UserTopBar() {
                             {/*<FaRegUser className="p-2 border-[0.1rem] text-4xl rounded-full"/>*/}
                             <div className="h-[3rem] w-[3rem] p-2 rounded-full">
                                 <Image className="w-full h-full object-cover rounded-full" src={userProfilePicture}
-                                    alt="auth" width={55} height={55} />
+                                       alt="auth" width={55} height={55} />
                             </div>
                             <p>{userData.name}</p>
                         </Link>
@@ -134,12 +134,12 @@ export default function UserTopBar() {
             <div onClick={() => {
                 setDisplay(!display);
             }}
-                className={`bg-[#000000bd] sm:hidden ${display ? 'block' : 'hidden'} w-full z-[888] absolute top-0 left-0 h-full`}>
+                 className={`bg-[#000000bd] sm:hidden ${display ? 'block' : 'hidden'} w-full z-[888] absolute top-0 left-0 h-full`}>
                 <div className={`h-full sm:h-full sm:hidden block w-[70%] `}>
                     <div className=" text-white flex flex-col rounded-lg p-4 gap-8 w-full h-full bg-[#160704]">
                         <div className="h-[5rem] flex justify-between w-full">
                             <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'}
-                                alt="auth" width={400} height={1000} />
+                                   alt="auth" width={400} height={1000} />
                             {/* <button className="block sm:hidden text-3xl" onClick={() => { setDisplay(!display) }}>
                             <GiHamburgerMenu />
                         </button> */}
@@ -296,7 +296,7 @@ export default function UserTopBar() {
                                     <button onClick={() => {
                                         logoutMutation.mutate();
                                     }}
-                                        className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">{logoutMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Logout"}
+                                            className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223] flex justify-center rounded ">{logoutMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Logout"}
                                     </button>
                                 </div>
                             </ModalBody>

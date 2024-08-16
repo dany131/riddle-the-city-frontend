@@ -53,15 +53,15 @@ export default function Sidebar() {
                     </div>
                     <hr />
                     <div className="hidden sm:flex h-full sm:flex-col text-sm gap-4">
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
+                        <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                             <RxDashboard className="w-1/4" />
                             <Link className="w-full" href={'/dashboard'}>Dashboard</Link>
                         </div>
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
+                        <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
                             <TbPackages className="w-1/4" />
                             <Link className="w-full" href={'/packages'}>Packages</Link>
                         </div>
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/rewards' ? 'bg-[#a922236e]' : ''}`}>
+                        <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/rewards' ? 'bg-[#a922236e]' : ''}`}>
                             <GiTrophy className="w-1/4" />
                             <Link className="w-full" href={'/rewards'}>Rewards</Link>
                         </div>
@@ -69,15 +69,15 @@ export default function Sidebar() {
                             <FaHistory className="w-1/4" />
                             <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
                         </div> */}
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
+                        <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                             <MdOutlineFeedback className="w-1/4" />
                             <Link className="w-full" href={'/feedback'}>Feedback</Link>
                         </div>
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/settings' ? 'bg-[#a922236e]' : ''}`}>
+                        <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/settings' ? 'bg-[#a922236e]' : ''}`}>
                             <IoSettingsOutline className="w-1/4" />
                             <Link className="w-full" href={'/settings'}>Settings</Link>
                         </div>
-                        <div className={`flex gap-4  p-2 items-center ${pathname == '/help' ? 'bg-[#a922236e]' : ''}`}>
+                        <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/help' ? 'bg-[#a922236e]' : ''}`}>
                             <CiCircleInfo className="w-1/4" />
                             <Link className="w-full" href={'/help'}>Help & Support</Link>
                         </div>
@@ -89,15 +89,15 @@ export default function Sidebar() {
                     {display &&
                         <div onClick={() => setDisplay(!display)} className="flex sm:hidden w-full absolute z-[9999999] left-0 bg-[#000206d6] top-0 h-full justify-end">
                             <div className="bg-[#160704] flex h-full w-1/2 p-4 flex-col text-sm gap-4">
-                                <div className={`flex gap-4  p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
+                                <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                                     <RxDashboard className="w-1/4" />
                                     <Link className="w-full" href={'/dashboard'}>Dashboard</Link>
                                 </div>
-                                <div className={`flex gap-4  p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
+                                <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/packages' ? 'bg-[#a922236e]' : ''}`}>
                                     <TbPackages className="w-1/4" />
                                     <Link className="w-full" href={'/packages'}>Packages</Link>
                                 </div>
-                                <div className={`flex gap-4  p-2 items-center ${pathname == '/rewards' ? 'bg-[#a922236e]' : ''}`}>
+                                <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/rewards' ? 'bg-[#a922236e]' : ''}`}>
                                     <GiTrophy className="w-1/4" />
                                     <Link className="w-full" href={'/rewards'}>Rewards</Link>
                                 </div>
@@ -105,19 +105,19 @@ export default function Sidebar() {
                                     <FaHistory className="w-1/4" />
                                     <Link className="w-full" href={'/hunt-history'}>Hunt History</Link>
                                 </div> */}
-                                <div className={`flex gap-4  p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
+                                <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/feedback' ? 'bg-[#a922236e]' : ''}`}>
                                     <MdOutlineFeedback className="w-1/4" />
                                     <Link className="w-full" href={'/feedback'}>Feedback</Link>
                                 </div>
-                                <div className={`flex gap-4  p-2 items-center ${pathname == '/settings' ? 'bg-[#a922236e]' : ''}`}>
+                                <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/settings' ? 'bg-[#a922236e]' : ''}`}>
                                     <IoSettingsOutline className="w-1/4" />
                                     <Link className="w-full" href={'/settings'}>Settings</Link>
                                 </div>
-                                <div className={`flex gap-4  p-2 items-center ${pathname == '/help' ? 'bg-[#a922236e]' : ''}`}>
+                                <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/help' ? 'bg-[#a922236e]' : ''}`}>
                                     <CiCircleInfo className="w-1/4" />
                                     <Link className="w-full" href={'/help'}>Help & Support</Link>
                                 </div>
-                                <div className="flex mt-auto gap-4 items-center">
+                                <div className="flex mt-auto  gap-4 items-center">
                                     <CiLogout />
                                     <button onClick={onOpen2}>Logout</button>
                                 </div>
@@ -145,7 +145,7 @@ export default function Sidebar() {
                                     }} className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
                                     <button onClick={() => {
                                         logoutMutation.mutate()
-                                    }} className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">{logoutMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Logout"}</button>
+                                    }} className="px-16 w-full py-2 border-2 border-[#A92223] flex justify-center text-[#A92223]  rounded ">{logoutMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Logout"}</button>
                                 </div>
                             </ModalBody>
                         </>

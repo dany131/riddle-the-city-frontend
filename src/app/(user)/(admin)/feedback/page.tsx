@@ -2,7 +2,7 @@
 import Image from "next/image"
 import StarRatings from 'react-star-ratings';
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, useDisclosure } from "@nextui-org/react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import { ImSpinner2 } from "react-icons/im";
@@ -11,12 +11,17 @@ type FeedbackData = {
     "description": string
 }
 export default function Feedback() {
-    const[rating,setRating]=useState(0)
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const [rating, setRating] = useState(0)
+    const formRef:any=useRef()
+    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
     const feedbackMutation = useMutation((data: FeedbackData) => axiosInstance.post('/riddle/api/platform/feedback', data), {
         onSuccess(data, variables, context) {
             console.log(data)
             onOpen2()
+            const form = formRef.current as HTMLFormElement
+            form.reset()
+            setRating(0)
+
         },
     })
     function handleSubmit(e:FormEvent) {
@@ -28,12 +33,13 @@ export default function Feedback() {
             rating
         }
         feedbackMutation.mutate(data)
+
     }
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
                 <p className="font-semibold text-xl">Feedback</p>
-                <form onSubmit={handleSubmit} className="flex flex-col border-1 rounded-lg gap-8 p-4">
+                <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col border-1 rounded-lg gap-8 p-4">
                     <p className="font-semibold">Provide Feedback About Your Hunt Experience</p>
                     <div className="flex flex-col gap-2 ">
                         <p className="font-semibold">Provide Rating</p>
@@ -92,7 +98,9 @@ export default function Feedback() {
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">Feedback has been submitted successfully.</p>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
+                                    <button onClick={() => {
+                                        onClose2()
+                                    }} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
                                 </div>
                             </ModalBody>
                         </>

@@ -47,19 +47,19 @@ export default function Sidebar() {
                 </div>
                 <hr />
                 <div className="hidden sm:flex h-full sm:flex-col text-sm gap-4">
-                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/dashboard' ?'bg-[#a922236e]':''}`}>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/dashboard' ?'bg-[#a922236e]':''}`}>
                         <RxDashboard className="w-1/4" />
                         <Link className="w-full" href={'/admin/dashboard'}>Dashboard</Link>
                     </div>
-                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-breweries' ? 'bg-[#a922236e]' : ''}`}>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-breweries' ? 'bg-[#a922236e]' : ''}`}>
                         <ImNewspaper className="w-1/4" />
                         <Link className="w-full" href={'/admin/manage-breweries'}>Manage Breweries</Link>
                     </div>
-                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
                         <FaListCheck className="w-1/4" />
                         <Link className="w-full" href={'/admin/manage-hunts'}>Manage Hunts</Link>
                     </div>
-                    <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/view-bookings' ? 'bg-[#a922236e]' : ''}`}>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/view-bookings' ? 'bg-[#a922236e]' : ''}`}>
                         <BiSolidBookContent className="w-1/4" />
                         <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                     </div>
@@ -78,19 +78,19 @@ export default function Sidebar() {
                 {display &&
                     <div onClick={()=>setDisplay(!display)} className="flex sm:hidden w-full absolute z-[9999999] left-0 bg-[#000206d6] top-0 h-full justify-end">
                         <div className="bg-[#160704] flex h-full w-1/2 p-4 flex-col text-sm gap-4">
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/dashboard' ? 'bg-[#a922236e]' : ''}`}>
+                            <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/dashboard' ? 'bg-[#a922236e]' : ''}`}>
                                 <RxDashboard className="w-1/4" />
                                 <Link className="w-full" href={'/admin/dashboard'}>Dashboard</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-breweries' ? 'bg-[#a922236e]' : ''}`}>
+                            <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-breweries' ? 'bg-[#a922236e]' : ''}`}>
                                 <ImNewspaper className="w-1/4" />
                                 <Link className="w-full" href={'/admin/manage-breweries'}>Manage Breweries</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
+                            <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
                                 <FaListCheck className="w-1/4" />
                                 <Link className="w-full" href={'/admin/manage-hunts'}>Manage Hunts</Link>
                             </div>
-                            <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/view-bookings' ? 'bg-[#a922236e]' : ''}`}>
+                            <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/view-bookings' ? 'bg-[#a922236e]' : ''}`}>
                                 <BiSolidBookContent className="w-1/4" />
                                 <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                             </div>
@@ -102,7 +102,7 @@ export default function Sidebar() {
                                 <CiLogout />
                                 <button onClick={onOpen2}>Logout</button>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 }
             </div>

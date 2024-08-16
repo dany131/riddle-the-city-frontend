@@ -83,7 +83,7 @@ export default function Login() {
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
-            const { access_token } = codeResponse 
+            const { access_token } = codeResponse
             console.log('google',access_token)
             const loginData: LoginData = {
                 accessType: 2,
@@ -146,10 +146,10 @@ export default function Login() {
                     type={isVisible ? "text" : "password"}
                 />
 
-                {/* <div className="flex w-full justify-between">
-                    <Checkbox>Remember Me</Checkbox>
+                <div className="flex w-full justify-between">
+                    {/* <Checkbox>Remember Me</Checkbox> */}
                     <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
-                </div> */}
+                </div>
                 <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">Login</button>
                 <div className="flex w-full items-center justify-center gap-4 mt-4">
                     <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>
@@ -180,7 +180,7 @@ export default function Login() {
                     <div className="flex justify-center">
                         <div className="w-[7rem] h-[7rem]">
 
-                        <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={200} height={200} />
+                            <Image className="w-full h-full object-contain" src={'/images/admin/main/layout/ridde.png'} alt="auth" width={200} height={200} />
                         </div>
                     </div>
                     <h1 className="text-2xl font-bold">Login</h1>
@@ -222,10 +222,10 @@ export default function Login() {
                         classNames={{ label: "!text-white" }}
                     />
 
-                    {/* <div className="flex w-full justify-between">
-                        <Checkbox><p className="text-white">Remember Me</p></Checkbox>
+                    <div className="flex w-full justify-between">
+                        {/* <Checkbox><p className="text-white">Remember Me</p></Checkbox> */}
                         <Link href={'/auth/forgot-password'} className="text-blue-600 underline">Forgot Password?</Link>
-                    </div> */}
+                    </div>
                     <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-full">Login</button>
                     <div className="flex w-full items-center justify-center gap-4 mt-4">
                         <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>

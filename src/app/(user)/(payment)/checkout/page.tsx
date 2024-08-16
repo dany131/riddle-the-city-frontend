@@ -13,6 +13,12 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
+import { Montserrat } from "next/font/google";
+
+const montesserat = Montserrat({
+    weight: '600',
+    subsets:['latin']
+})
 
 
 type UserData = {
@@ -73,11 +79,11 @@ export default function Checkout(datas: any) {
     return (
         <>
             {checkoutPage == 0 && <>
-                <div className="flex flex-col gap-4 sm:px-16 px-4 py-8 h-full">
-                    <p className="font-semibold text-xl">Checkout</p>
-                    <div className="flex sm:flex-row flex-col border-1 rounded-lg gap-16 p-4">
+                <div className={`flex flex-col h-[100vh] sm:h-full gap-4 sm:px-16 px-4 py-8  ${montesserat.className}`}>
+                    <p className={`font-semibold text-xl sm:text-center `}>Checkout</p>
+                    <div className="flex h-full sm:flex-row flex-col sm:w-1/2 sm:self-center border-1 rounded-lg gap-16 p-4">
 
-                        <div className="w-full flex flex-col gap-4">
+                        <div className={`w-full h-full ${!packagesQuery.isFetching?"overflow-auto":""}  flex flex-col gap-4`}>
                             {packagesQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
                             {!packagesQuery.isFetching && <>
                                 <div className="flex flex-col ">
@@ -100,11 +106,11 @@ export default function Checkout(datas: any) {
                                     <p className="font-semibold">Total Amount</p>
                                     <div className="flex flex-col gap-2">
                                         <div className="flex flex-col gap-2">
-                                            <div className="flex justify-between">
-                                                <p>Price</p>
+                                            <div className="flex justify-between border-b-[0.1rem] border-dashed border-[#c9c9c9] pb-4">
+                                                <p className="text-[#c9c9c9] ">Price</p>
                                                 <p className="font-semibold">${packagesQuery.data?.data.data.price}</p>
                                             </div>
-                                            <div className="w-[98%] h-[0.1rem] bg-gray-400"></div>
+                                            {/* <div className="w-[98%] h-[0.1rem] bg-gray-400 "></div> */}
                                         </div>
                                         {/* <div className="flex flex-col gap-2">
                                             <div className="flex justify-between">
@@ -114,17 +120,17 @@ export default function Checkout(datas: any) {
                                             <div className="w-[98%] h-[0.1rem] bg-gray-400"></div>
                                         </div> */}
                                         <div className="flex flex-col gap-2">
+                                            {/* <div className="w-[98%] h-[0.1rem] bg-gray-400"></div> */}
                                             <div className="flex justify-between">
-                                                <p>Subtotal (Incl.VAT)</p>
+                                                <p className="text-[#c9c9c9] ">Subtotal (Incl.VAT)</p>
                                                 <p className="font-semibold">${packagesQuery.data?.data.data.price}</p>
                                             </div>
-                                            <div className="w-[98%] h-[0.1rem] bg-gray-400"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" onClick={() => {
+                                <button  type="button" onClick={() => {
                                     setCheckoutPage(1)
-                                }} className="sm:px-32 sm:w-max px-8 w-full py-2 bg-[#A92223]  rounded text-white">Pay Now</button>
+                                }} className=" w-full sm:w-max m-auto mb-0 px-4 flex justify-center py-2 bg-[#A92223]  rounded text-white">Pay Now</button>
                             </>}
                         </div>
                         {/* <div className="sm:w-[40%] w-full order-first sm:order-last flex flex-col gap-8">
@@ -136,7 +142,7 @@ export default function Checkout(datas: any) {
                                 className="sm:w-1/2 w-full"
                                 type="text"
                                 label="Schedule Date"
-                                // placeholder="Lorem Ipsum Odor" 
+                                // placeholder="Lorem Ipsum Odor"
                                 defaultValue="12/April/24"
                                 labelPlacement="outside"
                                 classNames={{ label: "font-semibold" }}
@@ -146,9 +152,9 @@ export default function Checkout(datas: any) {
                 </div>
             </>}
             {checkoutPage == 1 && <>
-                <div className="flex flex-col gap-4 sm:px-16 px-4 py-8 h-full">
-                    <p className="font-semibold text-xl">Payment</p>
-                    <div className="flex flex-col border-1 rounded-lg gap-4 p-4">
+                <div className="flex flex-col gap-4 h-[100vh] sm:h-full sm:px-16 px-4 py-8 ">
+                    <p className="font-semibold text-xl sm:text-center">Payment</p>
+                    <div className="flex flex-col h-full overflow-auto border-1 sm:w-1/2 sm:self-center rounded-lg gap-4 p-4">
                         {/* <div>
                             <p>Select Billing Method</p>
                             <p className="text-gray-400 text-sm">This will be your primary payment method for all purchases</p>
@@ -161,30 +167,39 @@ export default function Checkout(datas: any) {
                                 <Radio value="visa"><Image className="w-[3rem] h-[2rem]" src={'/images/user/payment/visa.png'} alt="master card" width={50} height={50} /></Radio>
                             </RadioGroup>
                         </div> */}
-                        <Link href={`/settings/update-card`} className="underline flex justify-start text-[#A92223]">Add New Payment Method</Link>
-                        <div className="flex flex-wrap  w-full gap-8">
-                            <Input
-                                className="w-full"
-                                type="text"
-                                disabled
-                                label="Card Number"
-                                placeholder={`**** **** **** ${cardQuery.data?.data.data.last4}`}
-                                // defaultValue="12/April/24"
-                                labelPlacement="outside"
-                                classNames={{ label: "font-semibold" }}
-                            />
-                            <Input
-                                className="w-[47%]"
-                                type="text"
-                                disabled
-                                value={`${userData.name}`}
-                                label="Name"
-                                placeholder="John"
-                                // defaultValue="12/April/24"
-                                labelPlacement="outside"
-                                classNames={{ label: "font-semibold" }}
-                            />
-                            {/* <Input
+                        {cardQuery.data?.data.data.last4 && <Link href={`/settings/update-card`} className="underline flex justify-start text-[#A92223]">Add New Payment Method</Link>}
+                        {!cardQuery.data?.data.data.last4 && <div className="flex flex-col items-center gap-4 m-auto ">
+                            <div className="px-[2.5rem] py-8 w-max rounded-full text-5xl font-bold bg-red-200 text-[#A92223]">
+                                $
+                            </div>
+                            <p>No Saved Payment Info To Display</p>
+                            <Link href={`/settings/update-card`} className="sm:px-16 px-4   py-2 bg-[#A92223] flex justify-center rounded text-white w-full ">Add New Payment Method</Link>
+                        </div>}
+                        {/* {!cardQuery.data?.data.data.last4 && <p className="text-center m-auto">No Card Found</p>} */}
+                        {cardQuery.data?.data.data.last4 && <>
+                            <div className="flex flex-wrap  w-full gap-8">
+                                <Input
+                                    className="w-full"
+                                    type="text"
+                                    disabled
+                                    label="Card Number"
+                                    placeholder={`**** **** **** ${cardQuery.data?.data.data.last4}`}
+                                    // defaultValue="12/April/24"
+                                    labelPlacement="outside"
+                                    classNames={{ label: "font-semibold" }}
+                                />
+                                <Input
+                                    className="sm:w-[47%] w-full"
+                                    type="text"
+                                    disabled
+                                    value={`${userData.name}`}
+                                    label="Name"
+                                    placeholder="John"
+                                    // defaultValue="12/April/24"
+                                    labelPlacement="outside"
+                                    classNames={{ label: "font-semibold" }}
+                                />
+                                {/* <Input
                                 className="w-[47%]"
                                 type="text"
                                 label="Last Name"
@@ -193,29 +208,29 @@ export default function Checkout(datas: any) {
                                 labelPlacement="outside"
                                 classNames={{ label: "font-semibold" }}
                             /> */}
-                            <Input
-                                className="w-[47%]"
-                                type="text"
-                                label="Expiration month"
-                                disabled
-                                value={`${cardQuery.data?.data.data.expiryMonth < 10 ? `0${cardQuery.data?.data.data.expiryMonth}`:`${cardQuery.data?.data.data.expiryMonth}`}`}
-                                placeholder="MM"
-                                // defaultValue="12/April/24"
-                                labelPlacement="outside"
-                                classNames={{ label: "font-semibold" }}
-                            />
-                            <Input
-                                className="w-[47%]"
-                                type="text"
-                                disabled
-                                value={`${cardQuery.data?.data.data.expiryYear}`}
-                                label="Expiration year"
-                                placeholder="YYYY"
-                                // defaultValue="12/April/24"
-                                labelPlacement="outside"
-                                classNames={{ label: "font-semibold" }}
-                            />
-                            {/* <Input
+                                <Input
+                                    className="sm:w-[47%] w-[40%]"
+                                    type="text"
+                                    label="Expiration month"
+                                    disabled
+                                    value={`${cardQuery.data?.data.data.expiryMonth < 10 ? `0${cardQuery.data?.data.data.expiryMonth}` : `${cardQuery.data?.data.data.expiryMonth}`}`}
+                                    placeholder="MM"
+                                    // defaultValue="12/April/24"
+                                    labelPlacement="outside"
+                                    classNames={{ label: "font-semibold" }}
+                                />
+                                <Input
+                                    className="sm:w-[47%] w-[40%]"
+                                    type="text"
+                                    disabled
+                                    value={`${cardQuery.data?.data.data.expiryYear}`}
+                                    label="Expiration year"
+                                    placeholder="YYYY"
+                                    // defaultValue="12/April/24"
+                                    labelPlacement="outside"
+                                    classNames={{ label: "font-semibold" }}
+                                />
+                                {/* <Input
                                 className="w-[47%]"
                                 type="text"
                                 label="Security code"
@@ -225,12 +240,14 @@ export default function Checkout(datas: any) {
                                 classNames={{ label: "font-semibold" }}
                             /> */}
 
-                        </div>
-                        <button onClick={() => { 
-                            paymentMutation.mutate({
-                                package:datas.searchParams.id
-                            })
-                         }} className="sm:px-32 px-8 sm:w-max w-full py-2 bg-[#A92223]  rounded text-white">Pay Now</button>
+                            </div>
+                            <button onClick={() => {
+                                paymentMutation.mutate({
+                                    package: datas.searchParams.id
+                                })
+                            }} className="m-auto mb-0 px-4 sm:w-max w-full flex justify-center py-2 bg-[#A92223]  rounded text-white">Pay Now</button>
+                        </>}
+
                     </div>
                 </div>
             </>}
@@ -259,7 +276,7 @@ export default function Checkout(datas: any) {
                     )}
                 </ModalContent>
             </Modal>
-            
+
         </>
     )
 }
