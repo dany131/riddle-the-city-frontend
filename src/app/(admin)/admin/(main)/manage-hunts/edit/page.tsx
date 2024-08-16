@@ -130,7 +130,7 @@ export default function EditHunts(data: any) {
 
         // console.log('findnew f')
         // if (!findRiddlesOld && !findRiddlesNew) {
-            
+
         // }
         // else {
         //     setMessage('Please Fill All The Info To Add A New Hunt')
@@ -167,12 +167,12 @@ export default function EditHunts(data: any) {
     }
     return (
         <>
-            <div className="flex justify-between">
-                <p className="text-xl font-semibold">Edit Hunt</p>
-            </div>
+            {/*<div className="flex justify-between">*/}
+            {/*    <p className="text-xl font-semibold">Edit Hunt</p>*/}
+            {/*</div>*/}
             {message && <p className="text-red-600 text-center">{message}</p>}
-            <div className=" flex flex-col items-start gap-4 pb-4 border-[0.1rem] rounded-lg">
-                <div className=" border-[0.1rem] p-4 flex w-full flex-col gap-[3rem] rounded-lg">
+            {/*<div className=" flex flex-col items-start gap-4 pb-4 border-[0.1rem] rounded-lg">*/}
+            {/*    <div className=" border-[0.1rem] p-4 flex w-full flex-col gap-[3rem] rounded-lg">*/}
                     <div className="flex flex-col gap-4">
                         <p className="font-semibold">Hunt Details</p>
                         <div className="flex flex-col gap-4 rounded-lg sm:w-[70%] w-full border-[0.1rem] p-4">
@@ -236,7 +236,7 @@ export default function EditHunts(data: any) {
                             />
                         </div>
                     </div>
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col mt-3 gap-4">
                         <h1 className="font-semibold">Edit Riddles</h1>
                         {huntToAdd?.riddles.map((e: any, index: number) =>
                             <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
@@ -502,8 +502,8 @@ export default function EditHunts(data: any) {
                         )}
                     </div>
                     {/* <h1 className="font-semibold">Create Riddles</h1> */}
-                    
-                    
+
+
                     <div className="flex flex-wrap gap-4">
                         <button onClick={() => {
                             // const oldRiddles = N.riddles
@@ -533,7 +533,7 @@ export default function EditHunts(data: any) {
                                         ]
                                     )
                                 }
-                                
+
                             })
                             // setCreateRiddle(!createRiddle)
                             // onOpen1()
@@ -548,11 +548,11 @@ export default function EditHunts(data: any) {
                     // setCreateRiddle(!createRiddle)
                     // onOpen1()
                 }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Submit</button> */}
-                </div>
+                {/*</div>*/}
                 {/* <button onClick={() => {
                     updateHunts.mutate(riddleToEdit)
                 }} className="px-16  w-full py-2 bg-[#A92223]  rounded text-white">{updateHunts.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Update Riddles"}</button> */}
-            </div>
+            {/*</div>*/}
         </>
     )
 }

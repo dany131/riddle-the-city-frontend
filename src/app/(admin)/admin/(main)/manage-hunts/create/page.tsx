@@ -146,11 +146,11 @@ export default function CreateRiddle() {
     console.log('hunt to add', huntToAdd);
     return (
         <>
-            <div className="flex justify-between">
-                <p className="text-xl font-semibold">Create New Hunt</p>
-            </div>
+            {/*<div className="flex justify-between">*/}
+            {/*    <p className="text-xl font-semibold">Create New Hunt</p>*/}
+            {/*</div>*/}
             {message && <p className="text-red-600 text-center">{message}</p>}
-            <div className=" border-[0.1rem] p-4 flex flex-col gap-[3rem] rounded-lg">
+            {/*<div className=" border-[0.1rem] p-4 flex flex-col gap-[3rem] rounded-lg">*/}
                 <div className="flex flex-col gap-4">
                     <p className="font-semibold">Hunt Details</p>
                     <div className="flex flex-col gap-4 rounded-lg sm:w-[70%] w-full border-[0.1rem] p-4">
@@ -236,7 +236,7 @@ export default function CreateRiddle() {
                         </Autocomplete>
                     </div>
                 </div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col mt-3 gap-4">
                     <h1 className="font-semibold">Create Riddles</h1>
                     {huntToAdd.riddles.map((e, index: number) =>
                         <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
@@ -422,7 +422,7 @@ export default function CreateRiddle() {
                     // setCreateRiddle(!createRiddle)
                     // onOpen1()
                 }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max ">Submit</button> */}
-            </div>
+            {/*</div>*/}
 
             <Modal
                 size={"xl"}
