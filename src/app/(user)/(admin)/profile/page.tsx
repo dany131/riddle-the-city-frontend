@@ -64,14 +64,16 @@ export default function Profile() {
         });
     }, {
         onSuccess(data) {
-            const { name, email, phone, role, _id, profilePicture } = data.data.data;
+            console.log('data',data)
+            const { name, email, phone, role, _id, profilePicture,accessType } = data.data.data;
             Cookies.set('userData', JSON.stringify({
                 name,
                 email,
                 phone,
                 role,
                 id: _id,
-                profile: profilePicture
+                profile: profilePicture,
+                accessType
             }));
         },
         onError(error: any) {
@@ -179,10 +181,10 @@ export default function Profile() {
                                 <div>Item 2</div>
                                 <div>Item 3</div>
                                 <div>Item 4</div> */}
-                                {pastHuntsQuery.data?.data.data.map((e: any) =>
+                                {pastHuntsQuery.data?.data.data.map((e: any,index:number) =>
                                 <div className="flex flex-col min-h-full gap-2 rounded-lg shadow-md p-2">
                                     <div className="flex w-full items-center justify-between">
-                                        <p className="font-semibold">{e.name}</p>
+                                            <p className="font-semibold">Hunt {index+1<10?`0${index+1}`:`${index+1}` }</p>
                                         <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
                                     </div>
                                     <div>

@@ -4,7 +4,7 @@ import { Checkbox, Input, Radio, RadioGroup } from "@nextui-org/react"
 import Image from "next/image"
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, use, useState } from "react";
+import { FormEvent, use, useEffect, useState } from "react";
 import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
 import { CiMail } from "react-icons/ci";
 import { FaFacebook } from "react-icons/fa";
@@ -24,7 +24,7 @@ export default function Login() {
     const [isVisible, toggleVisibility] = useState(false)
     const router = useRouter()
     const [invalid, setInvalid] = useState(false)
-    const [message,setMessage]=useState('')
+    const [message, setMessage] = useState('')
     const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
         onSuccess(data: any) {
             if (data.data.data.statusCode != 400) {
@@ -32,8 +32,8 @@ export default function Login() {
                     setInvalid(false)
                     Cookies.set('accessToken', data.data.data.tokens.access_token)
                     Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
-                    Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture }))
-                    router.push('/dashboard')
+                    Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture, accessType: data.data.data.user.accessType }))
+                    router.replace('/dashboard')
                 }
                 else {
                     toast.error('Invalid Credentials', {
@@ -106,6 +106,21 @@ export default function Login() {
         }
         loginMutation.mutate(dataForLogin)
     }
+    useEffect(() => {
+        try {
+            const accessToken = Cookies.get('accessToken')
+            const { role } = JSON.parse(Cookies.get('userData')!)
+            if (accessToken) {
+                if (role == 'User') {
+                    router.replace('/dashboard')
+                }
+                else {
+                    router.replace('/admin/dashboard')
+                }
+            }
+        }
+        catch {}
+    },[])
     return (
         <>
             <form onSubmit={handleSubmit} className="h-auto sm:flex w-full items-center  hidden flex-col gap-4 p-8 !sm:px-16 !sm:py-8">

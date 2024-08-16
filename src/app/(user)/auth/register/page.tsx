@@ -72,7 +72,7 @@ export default function Register() {
             console.log('success', data)
             Cookies.set('accessToken', data.data.data.tokens.access_token)
             Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
-            Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture }))
+            Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture, accessType: data.data.data.user.accessType }))
             router.push('/dashboard')
         },
         onError(error: any) {

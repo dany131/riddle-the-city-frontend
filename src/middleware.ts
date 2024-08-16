@@ -27,7 +27,13 @@ export default async function Middleware(request: NextRequest) {
                 }
             })
             const { role } = userData
-            if (role == 'User' && request.nextUrl.pathname.includes('/admin')) {
+            if (request.nextUrl.pathname.includes('/login') && role == 'User') {
+                return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
+            }
+            else if (request.nextUrl.pathname.includes('/login') && role == 'Admin') {
+                return NextResponse.redirect(new URL('/admin/dashboard', request.nextUrl.origin))
+            }
+            else if (role == 'User' && request.nextUrl.pathname.includes('/admin')) {
                 return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
             }
             else if (role=='Admin' && restrictedUserPaths.includes(request.nextUrl.pathname)) {
@@ -95,6 +101,8 @@ export const config = {
         '/packages',
         '/brewery',
         '/completion/:path*',
-        '/rewards'
+        '/rewards',
+        '/admin/login',
+        '/auth/login'
     ]
 }

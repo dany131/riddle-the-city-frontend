@@ -7,11 +7,27 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import { useMutation } from "react-query";
 import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie'
 type NewPasswordData = {
     oldPassword: string,
     newPassword: string
 }
+
+type UserData = {
+    name: string,
+    email: string,
+    phone: string,
+    role: string,
+    id: string,
+    accessType:number
+}
+
 export default function Settings() {
+    let userData: UserData = { name: '', email: '', id: '', phone: '', role: 'User',accessType:2 }
+    if (Cookies.get('userData')!) {
+        userData = JSON.parse(Cookies.get('userData')!)
+    }
+    console.log('user data',userData)
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
     const [message, setMessage] = useState<string>('')
     const [notMatch, setNotMatch] = useState(false)
@@ -62,7 +78,7 @@ export default function Settings() {
         <>
             <div className="flex flex-col border-1 rounded-lg gap-4 p-4">
                 <div className="flex flex-wrap gap-4 w-full">
-                    <button onClick={() => { onOpen2() }} className=" sm:w-max w-full px-8 flex justify-between items-center  py-4 text-white bg-black rounded-lg" ><span className="pr-16">Change Password</span> <IoIosArrowForward /></button>
+                    {userData.accessType != 2 && <button onClick={() => { onOpen2() }} className=" sm:w-max w-full px-8 flex justify-between items-center  py-4 text-white bg-black rounded-lg" ><span className="pr-16">Change Password</span> <IoIosArrowForward /></button>}
                     <Link className="px-8 sm:w-max w-full flex justify-between items-center py-4 text-white bg-black rounded-lg" href={'/settings/privacy-policy'}><span className="pr-16">Privacy Policy</span> <IoIosArrowForward /></Link>
                     <Link className="px-8 sm:w-max w-full flex justify-between items-center py-4 text-white bg-black rounded-lg" href={'/settings/about-us'}><span className="pr-16">About Us</span> <IoIosArrowForward /></Link>
                     <Link className="px-8 sm:w-max w-full flex justify-between items-center py-4 text-white bg-black rounded-lg" href={'/settings/terms-conditions'}><span className="pr-16">Terms & Conditions</span> <IoIosArrowForward /></Link>

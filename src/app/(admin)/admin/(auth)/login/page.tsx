@@ -3,7 +3,7 @@
 import axiosInstance from "@/app/utils/axiosInstance";
 import {Input} from "@nextui-org/react";
 import {useRouter} from "next/navigation";
-import {FormEvent, useState} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import {BsEyeFill, BsEyeSlash} from "react-icons/bs";
 import {CiMail} from "react-icons/ci";
 import {IoIosLock} from "react-icons/io";
@@ -13,13 +13,13 @@ import {ImSpinner2} from "react-icons/im";
 import {toast} from "react-toastify";
 import {RegexConstants} from "@/_utils/constant";
 
-
 type LoginData = {
     email: string,
     password: string,
     accessType: number,
     accessToken: string
 }
+
 
 export default function Login() {
     const [isVisible, toggleVisibility] = useState(false);
@@ -42,9 +42,10 @@ export default function Login() {
                     phone: data.data.data.user.phone,
                     role: data.data.data.user.role,
                     id: data.data.data.user._id,
-                    profile: data.data.data.user.profilePicture
+                    profile: data.data.data.user.profilePicture,
+                    accessType: data.data.data.user.accessType
                 }));
-                router.push('/admin/dashboard');
+                router.replace('/admin/dashboard');
             } else {
                 toast.error('Invalid Credentials', {
                     position: "top-right",
@@ -106,6 +107,21 @@ export default function Login() {
         loginMutation.mutate(dataForLogin);
     }
 
+    useEffect(() => {
+        try {
+            const accessToken = Cookies.get('accessToken')
+            const { role } = JSON.parse(Cookies.get('userData')!)
+            if (accessToken) {
+                if (role == 'User') {
+                    router.replace('/dashboard')
+                }
+                else {
+                    router.replace('/admin/dashboard')
+                }
+            }
+        }
+        catch { }
+    }, [])
     return (
         <>
             <form onSubmit={handleSubmit} className="h-full w-full items-center flex flex-col gap-4 p-8 sm:px-24">
