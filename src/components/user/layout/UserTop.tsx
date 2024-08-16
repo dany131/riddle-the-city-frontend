@@ -107,13 +107,13 @@ export default function UserTopBar() {
                 }} className="cursor-pointer">
                     <GiHamburgerMenu className="h-full text-2xl" />
                 </div>
-                <div className="flex flex-col items-center">
+                {/* <div className="flex flex-col items-center">
                     <div className="flex gap-2 items-center">
                         <h1>Welcome</h1>
                         <p className="text-xl font-semibold">{userData.name}</p>
                     </div>
                     <p className="text-xs text-gray-400">{new Date().toDateString()}</p>
-                </div>
+                </div> */}
                 <div className="flex items-center gap-4">
                     {/* <Link href={'/admin/notifications'} className="p-2 relative border-[0.1rem] rounded-full">
                         <GoBell />
@@ -126,7 +126,7 @@ export default function UserTopBar() {
                                 <Image className="w-full h-full object-cover rounded-full" src={userProfilePicture}
                                        alt="auth" width={55} height={55} />
                             </div>
-                            <p>{userData.name}</p>
+                            {/* <p>{userData.name}</p> */}
                         </Link>
                     </div>
                 </div>
