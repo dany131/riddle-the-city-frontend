@@ -34,18 +34,19 @@ export default function UpdateCard() {
                 <p className="font-semibold text-lg md:text-xl">Payment Methods</p>
 
                 {savedCardQuery.isFetching ? (
-                    <div className="flex justify-center items-center h-48">
+                    <div className={`flex justify-center items-center h-48`}>
                         <ImSpinner2 className="text-4xl animate-spin"/>
                     </div>
                 ) : (
-                    <>
-                        {savedCardQuery.data?.data?.data && Object.keys(savedCardQuery.data.data.data).length > 0 ? (
-                            <SavedPaymentCard card={savedCardQuery.data.data.data}/>
-                        ) : (
-                            <p className="text-center">No saved payment method found.</p>
-                        )}
+                        <><div id='card'>
+                            {savedCardQuery.data?.data?.data && Object.keys(savedCardQuery.data.data.data).length > 0 ? (
+                                <SavedPaymentCard card={savedCardQuery.data.data.data} />
+                            ) : (
+                                <p className="text-center">No saved payment method found.</p>
+                            )}
+                    </div>
 
-                        <div className="flex justify-center">
+                        <div className="flex">
                             <button
                                 type="button"
                                 onClick={onOpen}

@@ -114,7 +114,7 @@ export default function Dashboard() {
                         ))}
                         </tbody>
                     </table>
-                    {<div className="flex flex-wrap gap-4">
+                    {<div className="flex flex-wrap py-4 justify-center gap-4">
                         {!!breweryQuery.data?.data.lastPage && breweryQuery.data?.data.lastPage != page && <button className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max " type="button" onClick={() => {
                             setPage((prev) => prev + 1)
                         }}>Next Page</button>}

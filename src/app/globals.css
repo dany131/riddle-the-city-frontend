@@ -39,3 +39,11 @@ html {
 .react-multi-carousel-track{
     gap: 1rem;
 }
+
+#card > div{
+    justify-content: flex-start !important;
+}
+
+.rccs{
+    margin: 0 !important;
+}
