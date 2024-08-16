@@ -130,6 +130,7 @@ export default function Login() {
                     name="email"
                     className="w-full"
                     type="email"
+                    classNames={{ label: 'font-semibold' }}
                     isInvalid={email === '' && loginMutation.isError}
                     errorMessage="Please Enter Email"
                     onChange={(e) => {
@@ -145,6 +146,7 @@ export default function Login() {
                 <Input
                     name="password"
                     required
+                    classNames={{ label: 'font-semibold' }}
                     isInvalid={passwordError !== ''}
                     errorMessage={passwordError}
                     onChange={(e) => {

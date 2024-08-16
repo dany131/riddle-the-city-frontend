@@ -121,7 +121,7 @@ export default function Login() {
     },[])
     return (
         <>
-            <form onSubmit={handleSubmit} className="h-auto sm:flex w-full items-center  hidden flex-col gap-4 p-8 !sm:px-16 !sm:py-8">
+            <form onSubmit={handleSubmit} className=" overflow-auto sm:flex w-full items-center  hidden flex-col gap-4 p-8 !sm:px-16 !sm:py-8">
                 <h1 className="text-2xl font-bold">Login</h1>
                 {invalid && <p className="text-red-600">{message}</p>}
                 <p>Please use your email and password to login</p>
@@ -133,6 +133,7 @@ export default function Login() {
                     label="Email"
                     placeholder="you@example.com"
                     labelPlacement="outside"
+                    classNames={{label:"font-semibold"}}
                     startContent={
                         <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
@@ -144,6 +145,7 @@ export default function Login() {
                     className={'w-full'}
                     placeholder="Enter your password"
                     labelPlacement="outside"
+                    classNames={{ label: "font-semibold" }}
                     startContent={
                         <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
@@ -179,7 +181,7 @@ export default function Login() {
 
 
 
-            <form onSubmit={handleSubmit} className="h-auto bg-[#160704]  relative sm:hidden w-full ">
+            <form onSubmit={handleSubmit} className=" overflow-auto bg-[#160704]  relative sm:hidden w-full ">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -210,7 +212,7 @@ export default function Login() {
                         startContent={
                             <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
-                        classNames={{ label: "!text-white" }}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
                     <Input
                         required
@@ -232,7 +234,7 @@ export default function Login() {
                             </button>
                         }
                         type={isVisible ? "text" : "password"}
-                        classNames={{ label: "!text-white" }}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
 
                     <div className="flex w-full justify-between">

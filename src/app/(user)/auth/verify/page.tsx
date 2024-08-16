@@ -67,7 +67,7 @@ export default function Verify(datas: any) {
     }
     return (
         <>
-            <form onSubmit={handleSubmit} className=" w-full items-center  hidden sm:flex flex-col gap-4 p-8 sm:px-24 sm:py-8 ">
+            <form onSubmit={handleSubmit} className="h-full overflow-auto w-full items-center  hidden sm:flex flex-col gap-4 p-8 sm:px-24 sm:py-8 ">
                 <h1 className="text-2xl font-bold">Verification</h1>
                 {invalid && <p className="text-red-600">{message}</p>}
                 <p className="text-center">We have sent you an email containing 6 digits verification code. Please enter the code to verify your identity</p>
@@ -101,7 +101,7 @@ export default function Verify(datas: any) {
             </form>
 
 
-            <form className="h-full w-full bg-[#160704] sm:hidden relative">
+            <form className="h-full overflow-auto w-full bg-[#160704] sm:hidden relative">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"

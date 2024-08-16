@@ -68,10 +68,11 @@ export default function ForgotPassword() {
     return (
         <>
             <form onSubmit={handleSubmit} className="overflow-auto w-full items-center  flex flex-col gap-4 p-8 sm:p-24">
-                <h1 className="text-2xl font-bold">Welcome Back!</h1>
+                <h1 className="text-2xl font-bold">Forgot Password</h1>
                 {invalid && <p className="text-red-600">{message}</p>}
-                <p>Please use your email and password to login</p>
+                {/* <p>Please use your email and password to login</p> */}
                 <Input
+                    classNames={{ label: 'font-semibold' }}
                     isInvalid={email == '' && error}
                     errorMessage="Please Enter Email"
                     onChange={(e) => { setEmail(e.target.value) }}

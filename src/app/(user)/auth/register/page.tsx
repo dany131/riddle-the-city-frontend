@@ -13,6 +13,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoIosLock } from "react-icons/io";
 import { useMutation } from "react-query";
+import { CiUser } from "react-icons/ci";
 import Cookies from 'js-cookie'
 import { toast } from "react-toastify";
 type LoginData = {
@@ -224,7 +225,7 @@ export default function Register() {
     
     return (
         <>
-            <form ref={formRef as any} onSubmit={handleSubmit} className="h-full hidden w-full items-center  sm:flex flex-col gap-4 p-8 sm:p-8">
+            <form ref={formRef as any} onSubmit={handleSubmit} className="h-full sm:overflow-visible overflow-auto  hidden w-full items-center  sm:flex flex-col gap-4 p-8 sm:p-8">
                 <h1 className="text-2xl font-bold">Registration</h1>
                 {noMatch && <p className="text-red-600">{message}</p>}
                 <Input
@@ -236,8 +237,9 @@ export default function Register() {
                     placeholder="John Gordon"
                     labelPlacement="outside"
                     startContent={
-                        <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                        <CiUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
+                    classNames={{label:'font-semibold'}}
                 />
                 <Input
                     name="email"
@@ -250,6 +252,7 @@ export default function Register() {
                     startContent={
                         <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
+                    classNames={{ label: 'font-semibold' }}
                 />
                 <Input
                     name="phone"
@@ -262,6 +265,7 @@ export default function Register() {
                     startContent={
                         <BiPhone className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
+                    classNames={{ label: 'font-semibold' }}
                 />
                 <Input
                     name="password"
@@ -282,6 +286,7 @@ export default function Register() {
                             )}
                         </button>
                     }
+                    classNames={{ label: 'font-semibold' }}
                     type={isVisible1 ? "text" : "password"}
                 />
                 <Input
@@ -291,6 +296,7 @@ export default function Register() {
                     className={'w-full'}
                     placeholder="Enter your password"
                     labelPlacement="outside"
+                    classNames={{ label: 'font-semibold' }}
                     startContent={
                         <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
@@ -329,7 +335,7 @@ export default function Register() {
 
 
 
-            <form onSubmit={handleSubmit} className="h-auto bg-[#160704]  relative sm:hidden w-full ">
+            <form onSubmit={handleSubmit} className="h-full sm:overflow-visible overflow-auto  bg-[#160704]  relative sm:hidden w-full ">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -338,8 +344,9 @@ export default function Register() {
                     alt="home-banner"
                     width={1000}
                     height={500}
+                    
                 />
-                <div className="h-full relative z-[1] text-white flex w-full items-center flex-col gap-4 p-8 !sm:px-16 !sm:py-8 ">
+                <div className="h-full sm:overflow-visible overflow-auto relative z-[1] text-white flex w-full items-center flex-col gap-4 p-8 !sm:px-16 !sm:py-8 ">
                     <div className="flex justify-center">
                         <div className="w-[7rem] h-[7rem]">
 
@@ -357,9 +364,10 @@ export default function Register() {
                         placeholder="John Gordon"
                         labelPlacement="outside"
                         startContent={
-                            <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
+                            <CiUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
-                        classNames={{ label: "!text-white" }}   
+                        classNames={{ label: "!text-white font-semibold" }}  
+                        // classNames={{ label: 'font-semibold' }}
                     />
                     <Input
                         name="email"
@@ -372,7 +380,7 @@ export default function Register() {
                         startContent={
                             <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
-                        classNames={{ label: "!text-white" }}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
                     <Input
                         name="phone"
@@ -385,7 +393,7 @@ export default function Register() {
                         startContent={
                             <BiPhone className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
-                        classNames={{ label: "!text-white" }}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
                     <Input
                         name="password"
@@ -407,7 +415,7 @@ export default function Register() {
                             </button>
                         }
                         type={isVisible1 ? "text" : "password"}
-                        classNames={{ label: "!text-white" }}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
                     <Input
                         name="confirm-password"
@@ -419,7 +427,7 @@ export default function Register() {
                         startContent={
                             <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
-                        classNames={{label:"!text-white"}}
+                        classNames={{ label:"!text-white font-semibold"}}
                         endContent={
                             <button className="focus:outline-none" type="button" onClick={() => { toggleVisibility2(!isVisible2) }}>
                                 {isVisible2 ? (

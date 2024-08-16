@@ -61,7 +61,7 @@ export default function ForgotPassword() {
     }
     return (
         <>
-            <form onSubmit={handleSubmit} className="h-full w-full items-center hidden sm:flex flex-col gap-4 p-8 sm:p-24">
+            <form onSubmit={handleSubmit} className="h-auto overflow-auto w-full items-center hidden sm:flex flex-col gap-4 p-8 sm:p-8">
                 <h1 className="text-2xl font-bold">Forgot Password</h1>
                 {invalid && <p className="text-red-600">{ message}</p>}
                 <Input
@@ -71,6 +71,7 @@ export default function ForgotPassword() {
                     label="Email Address"
                     placeholder="you@example.com"
                     labelPlacement="outside"
+                    classNames={{ label:"font-semibold"}}
                     startContent={
                         <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
@@ -79,7 +80,7 @@ export default function ForgotPassword() {
             </form>
 
 
-            <form onSubmit={handleSubmit} className="bg-[#160704] h-[100vh] w-full relative  sm:hidden ">
+            <form onSubmit={handleSubmit} className=" h-full overflow-auto bg-[#160704] h-[100vh] w-full relative  sm:hidden ">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -107,7 +108,7 @@ export default function ForgotPassword() {
                         startContent={
                             <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
-                        classNames={{label:"!text-white"}}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
                     <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-center text-white w-full">Continue</button>
                 </div>

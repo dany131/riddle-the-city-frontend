@@ -96,7 +96,7 @@ export default function NewPassword(data: any) {
     }
     return (
         <>
-            <form onSubmit={handleSubmit} className="h-full w-full items-center hidden sm:flex flex-col gap-4 p-8 sm:p-24">
+            <form onSubmit={handleSubmit} className="h-full overflow-auto w-full items-center hidden sm:flex flex-col gap-4 p-8 sm:p-24">
                 <h1 className="text-2xl font-bold">Set New Password</h1>
                 {notMatch && <p className="text-red-600">{message}</p>}
                 <Input
@@ -106,6 +106,7 @@ export default function NewPassword(data: any) {
                     label="New Password"
                     className={'w-full'}
                     placeholder="Enter your password"
+                    classNames={{ label:"font-semibold"}}
                     labelPlacement="outside"
                     startContent={
                         <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
@@ -127,6 +128,7 @@ export default function NewPassword(data: any) {
                     }}
                     label="Confirm Password"
                     className={'w-full'}
+                    classNames={{ label: "font-semibold" }}
                     placeholder="Enter your password"
                     labelPlacement="outside"
                     startContent={
@@ -171,7 +173,7 @@ export default function NewPassword(data: any) {
 
 
 
-            <div className="h-full w-full bg-[#160704] text-white sm:hidden relative">
+            <div className="h-full overflow-auto w-full bg-[#160704] text-white sm:hidden relative">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"
@@ -202,7 +204,7 @@ export default function NewPassword(data: any) {
                             </button>
                         }
                         type={isVisible1 ? "text" : "password"}
-                        classNames={{label:"!text-white"}}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
                     <Input
                         label="Confirm Password"
@@ -222,8 +224,12 @@ export default function NewPassword(data: any) {
                             </button>
                         }
                         type={isVisible2 ? "text" : "password"}
-                        classNames={{ label: "!text-white" }}
+                        classNames={{ label: "!text-white font-semibold" }}
                     />
+                    <ReactInputVerificationCode onChange={(value) => {
+                        console.log(value)
+                        setCode(value)
+                    }} length={4} />
                     <button type="submit" className="bg-[#A92223] w-full rounded-lg p-4 text-white ">Save Password</button>
                 </div>
             </div>

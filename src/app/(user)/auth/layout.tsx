@@ -14,8 +14,10 @@ export default function UserAuthLayout({ children }: { children: React.ReactNode
                 <div className="h-full sm:block hidden w-full sm:w-[50%]">
                         <Image className="w-full h-full object-cover" src={'/images/admin/auth/image 9 (2).svg'} alt="auth" width={400} height={1000} />
                 </div>
-                <div className="h-auto overflow-auto w-full sm:w-[50%]">
-                    {children}
+                    <div className="h-full flex justify-center sm:overflow-auto w-full sm:w-[50%]">
+                        <div className="sm:w-[80%] w-full justify-center items-center h-full flex items-center ">
+                            {children}
+                        </div>
                 </div>
             </div>
             </GoogleOAuthProvider>
