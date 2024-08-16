@@ -73,7 +73,7 @@ export default function UpdateCard() {
                                 </Elements>
                             ) : (
                                 <><p className="text-sm text-gray-500">
-                                    Your previous card will be deleted by this action.
+                                    Are you sure you want yo update your card ?
                                 </p><Button
                                     onPress={confirmUpdateCard}
                                     className="px-16 py-2 bg-[#A92223] flex rounded text-white w-max">

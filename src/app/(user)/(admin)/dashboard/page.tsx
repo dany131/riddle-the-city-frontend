@@ -49,7 +49,7 @@ export default function Dashboard() {
                     <div className="flex flex-col sm:flex-row gap-4 w-full">
                         {[
                             {
-                                label: "Current Package",
+                                label: "Current Pass",
                                 value: userStatsQuery.data?.data.data.currentPackage.name || "None"
                             },
                             {label: "Riddles Completed", value: userStatsQuery.data?.data.data.riddlesCompleted},
@@ -83,7 +83,7 @@ export default function Dashboard() {
                         label="Available Breweries"
                         placeholder="Search Breweries"
                         onChange={(e) => {
-                            setSearchQuery(e.target.value) 
+                            setSearchQuery(e.target.value)
                             setPage(1)
                         }}
                         labelPlacement="outside"
