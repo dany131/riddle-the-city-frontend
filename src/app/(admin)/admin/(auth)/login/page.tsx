@@ -121,7 +121,7 @@ export default function Login() {
     }, [])
     return (
         <>
-            <form onSubmit={handleSubmit} className="h-full w-full items-center flex flex-col gap-4 p-8 sm:px-24">
+            <form onSubmit={handleSubmit} className=" w-full items-center flex flex-col gap-4 p-8 sm:px-24">
                 <h1 className="text-2xl font-bold">Welcome Back!</h1>
                 {invalid && <p className="text-red-600">{message}</p>}
                 <p>Please use your email and password to login</p>

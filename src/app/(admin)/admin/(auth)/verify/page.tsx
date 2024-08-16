@@ -8,7 +8,7 @@ const montesserat = Montserrat({
 export default function Verify() {
     return (
         <>
-            <div className="h-full w-full items-center  flex flex-col gap-4 p-8 sm:p-24">
+            <div className="h-full w-full items-center overflow-auto  flex flex-col gap-4 p-8 sm:p-24">
                 <h1 className="text-2xl font-bold">Verification</h1>
                 <p className="text-center">We have sent you an email containing 6 digits verification code. Please enter the code to verify your identity</p>
                 <div className="flex flex-wrap gap-4">

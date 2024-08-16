@@ -144,6 +144,7 @@ export default function NewPassword(data: any) {
                     type={isVisible2 ? "text" : "password"}
                 />
                 <ReactInputVerificationCode onChange={(value) => {
+                    console.log(value)
                     setCode(value)
                 }} length={4} />
                 {/* <CountdownCircleTimer

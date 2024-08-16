@@ -10,6 +10,7 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "react-toastify";
+import ReactInputVerificationCode from "react-input-verification-code";
 const montesserat = Montserrat({
     weight: "600",
     subsets: ['latin']
@@ -102,7 +103,7 @@ export default function NewPassword(data: any) {
     console.log(newPass,confirmPass)
     return (
         <>
-            <form onSubmit={handleSubmit} className="h-full w-full items-center  flex flex-col gap-8 p-8 sm:p-24">
+            <form onSubmit={handleSubmit} className="w-full overflow-auto items-center  flex flex-col gap-8 p-8 sm:p-24">
                 <h1 className="text-2xl font-bold">Set New Password</h1>
                 <Input
                     required
@@ -156,27 +157,9 @@ export default function NewPassword(data: any) {
                 />
                 <p className="self-start">Enter Verification Code</p>
                 <div className="flex flex-wrap relative gap-4">
-                    {/* <input required onChange={(e) => {
-                        setCode((prev)=>prev+e.target.value)
-                    }} className="absolute z-1 bg-red-900 w-full h-full invisible" type="text" name="" id="" /> */}
-                    <input required onChange={(e) => {
-                        setCode((prev) => prev + e.target.value)
-                    }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
-                    <input required onChange={(e) => {
-                        setCode((prev) => prev + e.target.value)
-                    }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
-                    <input required onChange={(e) => {
-                        setCode((prev) => prev + e.target.value)
-                    }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
-                    <input required onChange={(e) => {
-                        setCode((prev) => prev + e.target.value)
-                    }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem]  border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
-                    <input required onChange={(e) => {
-                        setCode((prev) => prev + e.target.value)
-                    }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
-                    <input required onChange={(e) => {
-                        setCode((prev) => prev + e.target.value)
-                    }} className={`p-4 ${montesserat.className} w-[4rem] h-[4rem] border-2 border-gray-200 text-center font-semibold text-xl rounded-xl`}/>
+                    <ReactInputVerificationCode  onChange={(value) => {
+                        setCode(value)
+                    }} length={4} />
                 </div>
                 <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{newPasswordMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> :"Save Password"}</button>
             </form>
