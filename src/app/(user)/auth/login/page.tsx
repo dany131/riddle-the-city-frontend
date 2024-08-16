@@ -107,19 +107,17 @@ export default function Login() {
         loginMutation.mutate(dataForLogin)
     }
     useEffect(() => {
-        try {
-            const accessToken = Cookies.get('accessToken')
+        const accessToken = Cookies.get('accessToken')
+        // console.log('access token',accessToken)
+        if (accessToken) {
             const { role } = JSON.parse(Cookies.get('userData')!)
-            if (accessToken) {
-                if (role == 'User') {
-                    router.replace('/dashboard')
-                }
-                else {
-                    router.replace('/admin/dashboard')
-                }
+            if (role == 'User') {
+                router.replace('/dashboard')
+            }
+            else {
+                router.replace('/admin/dashboard')
             }
         }
-        catch {}
     },[])
     return (
         <>

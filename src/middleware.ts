@@ -10,7 +10,18 @@ type UserData = {
     id: string
 }
 
-const restrictedUserPaths = ['/dashboard','/feedback','/help','/profile','/settings']
+const restrictedUserPaths = ['/dashboard',
+    '/feedback',
+    '/help',
+    '/profile',
+    '/settings',
+    '/checkout',
+    '/payment',
+    '/startRiddle',
+    '/packages',
+    '/brewery',
+    '/completion',
+    '/rewards']
 
 export default async function Middleware(request: NextRequest) {
     const cookiesInitialise = cookies()
@@ -72,7 +83,8 @@ export default async function Middleware(request: NextRequest) {
         }
     }
     else {
-        if (request.nextUrl.pathname.includes('/admin')) {
+        console.log('im here')
+        if (request.nextUrl.pathname.includes('/admin') && request.nextUrl.pathname!='/admin/login') {
             return NextResponse.redirect(new URL('/admin/login', request.nextUrl.origin))
         }
         else if (restrictedUserPaths.includes(request.nextUrl.pathname)) {
