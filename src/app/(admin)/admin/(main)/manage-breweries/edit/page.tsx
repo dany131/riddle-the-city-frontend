@@ -10,6 +10,7 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import { Time } from "@internationalized/date";
 import { time } from "console";
 import { toast } from "react-toastify";
+import {useRouter} from "next/navigation";
 const users = [
     {
         id: 0, name: 'Sunday'
@@ -35,6 +36,8 @@ const users = [
     }
 ]
 export default function EditBrewery(data: any) {
+    const navigate = useRouter();
+
     const [message, setMessage] = useState('')
     const [googleData, setGoogleData] = useState<any>()
     const [locationText, setLocationText] = useState('')
@@ -204,6 +207,7 @@ export default function EditBrewery(data: any) {
         else {
             setError(false)
             breweryEditMutation.mutate(breweryToAdd)
+            navigate.push('/admin/manage-breweries');
         }
         // if (!filterBrewery && name) {
         //     setMessage('')
@@ -245,8 +249,8 @@ export default function EditBrewery(data: any) {
         //     setMessage('All Fields Must Be Filled')
         // }
     }
-    
-    const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({ queryKey }) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
+
+    const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({ queryKey }) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&components=country:us&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
         onSuccess(data) {
             const datas = data.data.results.map((e: any) => {
                 return { label: e.formatted_address, geometry: e.geometry }
@@ -449,7 +453,7 @@ export default function EditBrewery(data: any) {
                                                             }
                                                         }
                                                         // else {
-                                                            
+
                                                         // }
                                                     }
                                                     else {

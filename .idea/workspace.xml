@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="46eb10ff-7ba6-4860-990b-87f57089775b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/(admin)/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/(main)/manage-breweries/create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/(main)/manage-breweries/create/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/(main)/manage-breweries/edit/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/(main)/manage-breweries/edit/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/admin/(main)/manage-breweries/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/admin/(main)/manage-breweries/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1723384039148</updated>
       <workItem from="1723384044048" duration="67679000" />
-      <workItem from="1723820039342" duration="8614000" />
+      <workItem from="1723820039342" duration="10690000" />
     </task>
     <servers />
   </component>

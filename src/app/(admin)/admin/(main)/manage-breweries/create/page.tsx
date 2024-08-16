@@ -157,7 +157,7 @@ export default function CreateBrewery() {
         //     setMessage('All Fields Must Be Filled')
         // }
     }
-    const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({ queryKey }) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
+    const googleMapsQuery = useQuery(['googlemapsGeocode', location], ({ queryKey }) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${queryKey[1]}&components=country:us&key=${process.env.NEXT_PUBLIC_GOOGLEAPI}`), {
         onSuccess(data) {
             const datas = data.data.results.map((e: any) => {
                 return { label: e.formatted_address, geometry: e.geometry }
@@ -168,7 +168,7 @@ export default function CreateBrewery() {
         },
         // enabled: !!location
     })
-    
+
     const addBreweryMutation = useMutation((data: any) => axiosInstance.post('/riddle/api/brewery', data), {
         onSuccess(data) {
             console.log(data)
@@ -237,7 +237,7 @@ export default function CreateBrewery() {
                             placeholder="Enter Brewery Name"
                             labelPlacement="outside"
                         />
-                        
+
                         <Autocomplete
                             required
                             label="Location"
@@ -282,7 +282,7 @@ export default function CreateBrewery() {
                                 // }
                                 console.log('input changed')
                                 // if (e!='') {
-                                    
+
                                 // }
                             }}
                         >
