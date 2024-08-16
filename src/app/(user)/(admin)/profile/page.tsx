@@ -148,7 +148,7 @@ export default function Profile() {
                         <p className="font-semibold">Past Hunts</p>
                         {!pastHuntsQuery.isFetching && 
                             <Carousel
-                                className="pb-4"
+                                className="p-4"
                                 responsive={{
                                     desktop: {
                                         breakpoint: {
@@ -182,9 +182,9 @@ export default function Profile() {
                                 <div>Item 3</div>
                                 <div>Item 4</div> */}
                                 {pastHuntsQuery.data?.data.data.map((e: any,index:number) =>
-                                <div className="flex flex-col min-h-full gap-2 rounded-lg shadow-md p-2">
+                                    <div style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}} className="flex flex-col min-h-full gap-2 rounded-lg  p-2">
                                     <div className="flex w-full items-center justify-between">
-                                            <p className="font-semibold">Hunt {index+1<10?`0${index+1}`:`${index+1}` }</p>
+                                            <h1 className="font-black text-lg">Hunt {index+1<10?`0${index+1}`:`${index+1}` }</h1>
                                         <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
                                     </div>
                                     <div>
