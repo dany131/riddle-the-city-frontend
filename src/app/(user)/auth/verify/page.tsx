@@ -70,7 +70,7 @@ export default function Verify(datas: any) {
             <form onSubmit={handleSubmit} className="h-full overflow-auto w-full items-center  hidden sm:flex flex-col gap-4 p-8 sm:px-24 sm:py-8 ">
                 <h1 className="text-2xl font-bold">Verification</h1>
                 {invalid && <p className="text-red-600">{message}</p>}
-                <p className="text-center">We have sent you an email containing 6 digits verification code. Please enter the code to verify your identity</p>
+                <p className="text-center">We have sent you an email containing verification code. Please enter the code to verify your identity</p>
                 <ReactInputVerificationCode onChange={(value) => {
                     setCode(value)
                 }} length={4}/>
@@ -114,7 +114,7 @@ export default function Verify(datas: any) {
                 <div className="flex flex-col relative z-[1] h-[100vh] text-white gap-4 p-8 sm:p-24 items-center">
                     <h1 className="text-2xl font-bold">Verification</h1>
                     {invalid && <p className="text-red-600">{message}</p>}
-                    <p className="text-center">We have sent you an email containing 6 digits verification code. Please enter the code to verify your identity</p>
+                    <p className="text-center">We have sent you an email containing verification code. Please enter the code to verify your identity</p>
                     <ReactInputVerificationCode onChange={(value) => {
                         setCode(value)
                     }} length={4} />

@@ -24,7 +24,7 @@ export default function Packages() {
                                 <p>{e.name}</p>
                             </div>
                             <div className="flex justify-center">
-                                <p>{e.price}$</p>
+                                <p>${e.price}</p>
                             </div>
                             <div className="text-center">
                                 <p>{e.description}</p>

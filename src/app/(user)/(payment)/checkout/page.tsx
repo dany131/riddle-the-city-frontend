@@ -265,9 +265,9 @@ export default function Checkout(datas: any) {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Payment Successfull</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Payment Successful</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm ">You have successfully booked Brewery Package</p>
+                                <p className="text-sm ">You have successfully booked {packagesQuery.data?.data.data.name}</p>
                                 {/* <div className="flex w-full gap-4">
                                     <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
                                 </div> */}

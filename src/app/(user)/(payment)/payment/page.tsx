@@ -27,7 +27,7 @@ export default function Payment() {
                             className="w-full"
                             type="text"
                             label="Card Number"
-                            placeholder="**** **** **** 1234" 
+                            placeholder="**** **** **** 1234"
                             // defaultValue="12/April/24"
                             labelPlacement="outside"
                             classNames={{ label: "font-semibold" }}
@@ -92,7 +92,7 @@ export default function Payment() {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Payment Successfull</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Payment Successful</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm ">You have successfully booked Brewery Package</p>
                                 <div className="flex w-full gap-4">
