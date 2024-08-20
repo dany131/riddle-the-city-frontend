@@ -11,7 +11,7 @@ import {useMutation} from "react-query";
 import Cookies from 'js-cookie';
 import {ImSpinner2} from "react-icons/im";
 import {toast} from "react-toastify";
-import {RegexConstants} from "@/_utils/constant";
+import {RegexConstants} from "@/app/utils/constant";
 
 type LoginData = {
     email: string,

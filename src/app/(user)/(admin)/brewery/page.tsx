@@ -21,6 +21,7 @@ import {ImSpinner2} from "react-icons/im";
 import {toast} from "react-toastify";
 import {APIProvider, Map, Marker} from '@vis.gl/react-google-maps';
 import {useRouter} from "next/navigation";
+import {IoLocationSharp} from "react-icons/io5";
 
 
 const BreweryDetails = ({brewery}: { brewery: any }) => (
@@ -69,12 +70,12 @@ const LocationMap = ({coordinates}: { coordinates: [number, number] }) => (
     <div className="h-[20rem] w-full sm:w-[60%]">
         <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLEAPI}`}>
             <Map
-                defaultCenter={{lat: coordinates[0], lng: coordinates[1]}}
-                defaultZoom={16}
+                defaultCenter={{lat: coordinates[1], lng: coordinates[0]}}
+                defaultZoom={13}
                 disableDefaultUI={true}
                 mapId={"roadmap"}
             >
-                <Marker position={{lat: coordinates[0], lng: coordinates[1]}}/>
+                <Marker position={{lat: coordinates[1], lng: coordinates[0]}}/>
             </Map>
         </APIProvider>
     </div>
@@ -102,6 +103,7 @@ const Dashboard = (datas: any) => {
     const {isOpen: isOpenHint, onOpen: onOpenHint, onOpenChange: onOpenChangeHint} = useDisclosure();
     const {isOpen: isOpenReward, onOpen: onOpenReward, onOpenChange: onOpenChangeReward} = useDisclosure();
     const navigate = useRouter();
+    let googleMapUrl: string = "https://www.google.com/maps/place";
 
     const breweryQuery = useQuery(['breweries', datas.searchParams.id], ({queryKey}) => {
         return axiosInstance.get(`/riddle/api/brewery?breweryId=${queryKey[1]}`);
@@ -131,6 +133,9 @@ const Dashboard = (datas: any) => {
 
     const isHuntAvailable = breweryQuery.data?.data.data.hunt?.name && breweryQuery.data?.data.data.hunt?.description;
 
+    const encodedAddress = encodeURIComponent(breweryQuery.data?.data.data.brewery.address.text || "");
+    googleMapUrl = `${googleMapUrl}/${encodedAddress}`;
+
     if (breweryQuery.isFetching) {
         return (
             <div className="flex justify-center h-full items-center">
@@ -151,7 +156,15 @@ const Dashboard = (datas: any) => {
                 <HuntDetails hunt={breweryQuery.data?.data.data.hunt}/>
 
                 <div className="flex flex-col gap-4">
-                    <p className="font-semibold">Location</p>
+                    <p className="text-gray-400 text-sm">Location</p>
+                    <a
+                        href={googleMapUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className=" text-crystal-blue-dark underline flex items-center">
+                        <IoLocationSharp className="text-crystal-blue-dark"/>
+                        <span>{` ${breweryQuery.data?.data.data.brewery.address.text}`}</span>
+                    </a>
                     <LocationMap coordinates={breweryQuery.data?.data.data.brewery.address.location.coordinates}/>
                 </div>
 
