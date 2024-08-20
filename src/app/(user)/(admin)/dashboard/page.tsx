@@ -81,7 +81,7 @@ export default function Dashboard() {
                 <div>
                     <Input
                         label="Available Breweries"
-                        placeholder="Search Breweries"
+                        placeholder="Search breweries by name/location"
                         onChange={(e) => {
                             setSearchQuery(e.target.value)
                             setPage(1)
