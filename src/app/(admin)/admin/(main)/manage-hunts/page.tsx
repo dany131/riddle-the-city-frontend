@@ -167,12 +167,14 @@ export default function ManageRiddles() {
                                             {/* <button onClick={() => {
                                             downloadPdf.mutate(e._id)
                                         }} className="underline text-red-600">Download PDF</button> */}
-                                            <GrView onClick={() => {
-                                                downloadPdf.mutate(e._id);
-                                                // setRiddleToView(e)
-                                                // onOpen3()
-                                            }}
-                                                    className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600"/>
+                                            <Link href={`/admin/manage-hunts/view?id=${e._id}`}>
+                                                <GrView onClick={() => {
+                                                    // downloadPdf.mutate(e._id);
+                                                    // setRiddleToView(e)
+                                                    // onOpen3()
+                                                }}
+                                                        className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600"/>
+                                            </Link>
                                             <Link href={`/admin/manage-hunts/edit?id=${e._id}`}>
                                                 <CiEdit
                                                     // onClick={() => {
