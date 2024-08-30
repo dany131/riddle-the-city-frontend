@@ -120,13 +120,15 @@ export default function Rewards() {
                         <div className="flex justify-between mt-4 gap-2">
                             <button
                                 className="px-4 py-2 sm:px-8 lg:px-16 w-full sm:w-max bg-[#A92223] rounded text-white"
-                                hidden={page === 2}
+                                hidden={page === 1}
+                                onClick={handlePreviousPage}
                             >
                                 Previous
                             </button>
                             <button
                                 className="px-4 py-2 sm:px-8 lg:px-16 w-full sm:w-max bg-[#A92223] rounded text-white"
-                                hidden={rewardsQuery.data?.data?.data?.length < 1}
+                                hidden={rewardsQuery.data?.data?.data?.length < 10}
+                                onClick={handleNextPage}
                             >
                                 Next
                             </button>
