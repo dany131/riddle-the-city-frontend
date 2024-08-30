@@ -1,21 +1,24 @@
 'use client';
 
-import { ImSpinner2 } from "react-icons/im";
+import {ImSpinner2} from "react-icons/im";
 import {
     Button,
-    Input,
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
     Modal,
     ModalBody,
     ModalContent,
-    ModalFooter,
     ModalHeader,
-    Select,
-    SelectItem,
+    Progress,
     useDisclosure
 } from "@nextui-org/react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
-import { useState } from "react";
+import {useState, useEffect} from "react";
+import {FaTrophy} from "react-icons/fa";
+
 
 type ClaimReward = {
     riddleId: string;
@@ -23,11 +26,13 @@ type ClaimReward = {
 };
 
 export default function Rewards() {
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2, onClose: onClose2 } = useDisclosure();
-    const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3, onClose: onClose3 } = useDisclosure();
+    const {isOpen: isOpen2, onOpen: onOpen2, onClose: onClose2} = useDisclosure();
+    const {isOpen: isOpen3, onOpen: onOpen3, onClose: onClose3} = useDisclosure();
+    const {isOpen: isOpen4, onOpen: onOpen4, onClose: onClose4} = useDisclosure();
     const [page, setPage] = useState(1);
     const [riddleToClaim, setRiddleToClaim] = useState<any>(null);
     const [awardToClaim, setAwardToClaim] = useState<any>(null);
+    const [countdown, setCountdown] = useState(60);
     const queryClient = useQueryClient();
 
     const rewardsQuery = useQuery(['rewards', page], () =>
@@ -45,104 +50,90 @@ export default function Rewards() {
         }
     );
 
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (countdown > 0 && isOpen2) {
+            timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+        } else if (countdown === 0) {
+            claimRewardMutation.mutate(awardToClaim);
+        }
+        return () => clearTimeout(timer);
+    }, [countdown, isOpen2]);
+
     return (
         <>
             <div className="flex justify-between items-center">
-                <p className="text-xl font-semibold">Rewards</p>
+                <p className="text-xl font-semibold">All Rewards</p>
             </div>
 
             {rewardsQuery.isLoading ? (
                 <div className="flex justify-center h-full items-center">
-                    <ImSpinner2 className="text-4xl animate-spin" />
+                    <ImSpinner2 className="text-4xl animate-spin"/>
                 </div>
             ) : (
-                <>
-                    <table className="p-4 w-full block sm:table overflow-auto mt-4">
-                        <thead>
-                        <tr className="bg-gray-200">
-                            <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
-                            <th className="p-2 text-sm text-left">Brewery Name</th>
-                            <th className="p-2 text-sm text-left">Location</th>
-                            <th className="p-2 text-sm text-left rounded-r-md">Hunt Name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {rewardsQuery.data?.data.data.map((reward: any, index: number) => (
-                            <tr
-                                key={reward.id}
-                                onClick={() => {
-                                    setRiddleToClaim(reward);
-                                    onOpen3();
-                                }}
-                                className="border-b-2 border-solid cursor-pointer hover:bg-gray-100 border-gray-200"
-                            >
-                                <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
-                                <td className="p-2 text-sm">{reward.brewery.name}</td>
-                                <td className="p-2 text-sm">{reward.brewery.address.text}</td>
-                                <td className="p-2 text-sm">{reward.hunt.name}</td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-
-                    <div className="flex flex-wrap gap-4">
-                        {page > 1 && (
-                            <button
-                                className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max"
-                                type="button"
-                                onClick={() => setPage(page - 1)}
-                            >
-                                Previous Page
-                            </button>
-                        )}
-                        {rewardsQuery.data?.data.lastPage !== page && (
-                            <button
-                                className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max"
-                                type="button"
-                                onClick={() => setPage(page + 1)}
-                            >
-                                Next Page
-                            </button>
-                        )}
-                    </div>
-                </>
+                rewardsQuery.data?.data?.data?.length ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                            {rewardsQuery.data?.data.data.map((reward: any) => (
+                                <Card
+                                    key={reward.id}
+                                    isPressable
+                                    onClick={() => {
+                                        setRiddleToClaim(reward);
+                                        onOpen3();
+                                    }}
+                                    className={`shadow-lg transition-all duration-300 ${reward.claimed ? 'opacity-50' : 'opacity-100'}`}
+                                >
+                                    <CardHeader>
+                                        <div className="flex justify-between w-full">
+                                            <p className="text-sm font-semibold">{reward.hunt.name}</p>
+                                            <FaTrophy className="text-yellow-500"/>
+                                        </div>
+                                    </CardHeader>
+                                    <CardBody>
+                                        <p className="text-sm">Brewery: {reward.brewery.name}</p>
+                                        <p className="text-sm">Location: {reward.brewery.address.text}</p>
+                                        <p className="text-sm">Hunt Status:
+                                            <span
+                                                className={(reward.isCompleted) ? "text-sm text-green-600" : "text-sm text-red-500"}> {(reward.isCompleted) ? "Completed" : "In Progress"}</span>
+                                        </p>
+                                    </CardBody>
+                                    <CardFooter className="flex justify-center">
+                                        <p className="text-sm text-orange-500 font-semibold">Rewards
+                                            Claimed: {reward.riddle.filter((e: any) => e.claimed)?.length}</p>
+                                    </CardFooter>
+                                </Card>
+                            ))}
+                        </div>) :
+                    (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                            <p className="font-semibold text-red-600">No Rewards found</p>
+                        </div>
+                    )
             )}
 
-            <Modal size="xl" isOpen={isOpen3} backdrop="blur" onOpenChange={onOpenChange3} placement="center">
+            <Modal size="xl" isOpen={isOpen3} backdrop="blur" onClose={onClose3} placement="center">
                 <ModalContent>
                     <ModalHeader className="flex flex-col text-xl gap-1">Reward</ModalHeader>
                     <ModalBody className="pb-4">
                         <div className="flex flex-col gap-4 pb-8">
                             {riddleToClaim?.riddle.map((riddle: any) => (
-                                <div key={riddle.id} className="flex flex-col gap-2 shadow-lg rounded-lg p-4">
-                                    <div className="flex flex-col gap-1">
-                                        <div className="flex flex-col gap-2">
-                                            <p>
-                                                Riddle Name: <span className="font-semibold">{riddle.name}</span>
-                                            </p>
-                                        </div>
-                                        <div className="flex flex-col gap-2">
-                                            <p>
-                                                Riddle Reward: <span className="font-semibold">{riddle.rewards}</span>
-                                            </p>
-                                        </div>
-                                        {riddle.claimed && (
-                                            <div className="flex flex-col gap-2">
-                                                <p>
-                                                    Claimed Reward: <span className="font-semibold">{riddle.claimed ? 'Yes' : 'No'}</span>
-                                                </p>
-                                            </div>
-                                        )}
-                                    </div>
+                                <div key={riddle.id}
+                                     className={(riddle.claimed) ? "flex flex-col gap-2 shadow-lg rounded-lg p-4 bg-red-400" : "flex flex-col gap-2 shadow-lg rounded-lg p-4"}>
+                                    <p>Riddle Name: <span className="font-semibold">{riddle.name}</span></p>
+                                    <p>Riddle Reward: <span className="font-semibold">{riddle.rewards}</span></p>
+                                    {riddle.claimed && (
+                                        <p>Claimed Reward: <span className="font-semibold">Yes</span></p>
+                                    )}
                                     {!riddle.claimed && (
                                         <div className="flex w-full justify-center gap-4">
                                             <button
                                                 onClick={() => {
                                                     setAwardToClaim({
                                                         riddleCompletionId: riddleToClaim._id,
-                                                        riddleId: riddle._id
+                                                        riddleId: riddle._id,
+                                                        rewards: riddle.rewards
                                                     });
-                                                    onOpen2();
+                                                    onOpen4();
                                                     onClose3();
                                                 }}
                                                 className="px-1 w-max py-1 bg-[#A92223] text-xs rounded text-white"
@@ -158,17 +149,52 @@ export default function Rewards() {
                 </ModalContent>
             </Modal>
 
-            <Modal size="xl" isOpen={isOpen2} backdrop="blur" onOpenChange={onOpenChange2} placement="center">
+            <Modal size="xl" isOpen={isOpen2} backdrop="blur" onClose={onClose2} placement="center">
+                <ModalContent>
+                    <ModalHeader className="flex flex-col items-center gap-1">
+                        Claiming Reward in {countdown} seconds
+                    </ModalHeader>
+                    <ModalBody className="flex flex-col items-center gap-4 pb-8">
+                        <p>Reward: <span className="font-semibold">{awardToClaim?.rewards}</span></p>
+                        <Progress
+                            value={countdown}
+                            maxValue={60}
+                            color="danger"
+                            size="lg"
+                            className="w-full"
+                        />
+                        {/*<Button*/}
+                        {/*    size="lg"*/}
+                        {/*    color="primary"*/}
+                        {/*    onClick={() => claimRewardMutation.mutate(awardToClaim)}*/}
+                        {/*    disabled={countdown > 0}*/}
+                        {/*>*/}
+                        {/*    {claimRewardMutation.isLoading ? (*/}
+                        {/*        <ImSpinner2 className="text-xl animate-spin"/>*/}
+                        {/*    ) : "Claim Now"}*/}
+                        {/*</Button>*/}
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
+
+            <Modal size="xl" isOpen={isOpen4} backdrop="blur" onClose={onClose4} placement="center">
                 <ModalContent>
                     <ModalHeader className="flex flex-col items-center gap-1">
                         Are You Sure You Want To Claim This Reward?
                     </ModalHeader>
                     <ModalBody className="flex flex-col gap-4 pb-8">
+                        <p className="text-sm text-red-600">If you click on yes, 1 minute timer will began to claim the
+                            rewards. Make
+                            sure you are ready
+                            to show your rewards to the bartender</p>
                         <button
                             className="px-16 py-2 bg-[#A92223] w-max m-auto rounded flex justify-center text-white"
-                            onClick={() => claimRewardMutation.mutate(awardToClaim)}
+                            onClick={() => {
+                                onOpen2();
+                                onClose4();
+                            }}
                         >
-                            {claimRewardMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Yes"}
+                            Yes
                         </button>
                     </ModalBody>
                 </ModalContent>
