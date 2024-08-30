@@ -1,6 +1,6 @@
 'use client';
 import Image from "next/image";
-import { CiEdit } from "react-icons/ci";
+import {CiEdit} from "react-icons/ci";
 import {
     Button,
     Input,
@@ -12,12 +12,11 @@ import {
     useDisclosure
 } from "@nextui-org/react";
 import Cookies from 'js-cookie';
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
-import { toast } from "react-toastify";
-import { FormEvent, useState } from "react";
+import {toast} from "react-toastify";
+import {FormEvent, useState} from "react";
 import Carousel from "react-multi-carousel";
-
 
 
 type UserData = {
@@ -43,14 +42,14 @@ export default function Profile() {
         id: '',
         phone: '',
         role: 'User',
-        profile: { url: '', isCompleteUrl: false }
+        profile: {url: '', isCompleteUrl: false}
     };
     let userProfilePicture = "/images/user/profile/profile.png";
     if (Cookies.get('userData')!) {
         userData = JSON.parse(Cookies.get('userData')!);
         userProfilePicture = (userData.profile.isCompleteUrl) ? userData.profile.url : `${process.env.NEXT_PUBLIC_MEDIA_URL}/${userData.profile.url}`;
     }
-    const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
+    const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
     const userProfileEditMutation = useMutation((data: any) => {
         const formData = new FormData();
         if (data.name) formData.append('name', data.name);
@@ -64,8 +63,8 @@ export default function Profile() {
         });
     }, {
         onSuccess(data) {
-            console.log('data',data)
-            const { name, email, phone, role, _id, profilePicture,accessType } = data.data.data;
+            console.log('data', data);
+            const {name, email, phone, role, _id, profilePicture, accessType} = data.data.data;
             Cookies.set('userData', JSON.stringify({
                 name,
                 email,
@@ -112,7 +111,7 @@ export default function Profile() {
         }
     }
 
-    const pastHuntsQuery = useQuery(['pastHunts'], () => axiosInstance.get('/riddle/api/hunt/past?page=1&limit=10000'))
+    const pastHuntsQuery = useQuery(['pastHunts'], () => axiosInstance.get('/riddle/api/hunt/past?page=1&limit=10000'));
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
@@ -121,13 +120,13 @@ export default function Profile() {
                     <div className="flex justify-between">
                         <div className="h-[7rem] w-[7rem] relative">
                             <Image className="h-full w-full"
-                                src={userProfilePicture}
-                                width={200} height={200}
-                                alt="Profile Picture" />
+                                   src={userProfilePicture}
+                                   width={200} height={200}
+                                   alt="Profile Picture"/>
                         </div>
                         <button onClick={onOpen2}
-                            className="px-4 w-max py-2 h-max bg-[#A92223] rounded text-white flex gap-2 items-center">
-                            <CiEdit className="text-lg" /> <span className="sm:inline hidden">Edit Profile</span>
+                                className="px-4 w-max py-2 h-max bg-[#A92223] rounded text-white flex gap-2 items-center">
+                            <CiEdit className="text-lg"/> <span className="sm:inline hidden">Edit Profile</span>
                         </button>
                     </div>
                     <div className="flex sm:flex-row flex-col gap-4">
@@ -146,7 +145,7 @@ export default function Profile() {
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="font-semibold">Past Hunts</p>
-                        {!pastHuntsQuery.isFetching && 
+                        {!pastHuntsQuery.isFetching &&
                             <Carousel
                                 className="p-4"
                                 responsive={{
@@ -181,23 +180,27 @@ export default function Profile() {
                                 <div>Item 2</div>
                                 <div>Item 3</div>
                                 <div>Item 4</div> */}
-                                {pastHuntsQuery.data?.data.data.map((e: any,index:number) =>
-                                    <div style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}} className="flex flex-col min-h-full gap-2 rounded-lg  p-4">
-                                    <div className="flex w-full items-center justify-between">
-                                            <h1 className="font-black text-lg">Hunt {index+1<10?`0${index+1}`:`${index+1}` }</h1>
-                                        <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
+
+                                {pastHuntsQuery.data?.data?.data.length ? (pastHuntsQuery.data?.data.data.map((e: any, index: number) =>
+                                    <div style={{boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}
+                                         className="flex flex-col min-h-full gap-2 rounded-lg  p-4">
+                                        <div className="flex w-full items-center justify-between">
+                                            <h1 className="font-black text-lg">Hunt {index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</h1>
+                                            <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
+                                        </div>
+                                        <div>
+                                            <p>Starting Point: {e.startingRiddle}</p>
+                                            <p>Ending Point: {e.endingRiddle}</p>
+                                            <p className="w-full break-all">Reward: {e.rewards.join(' , ')}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p>Starting Point: {e.startingRiddle}</p>
-                                        <p>Ending Point: {e.endingRiddle}</p>
-                                        <p className="w-full break-all">Reward: {e.rewards.join(' , ')}</p>
-                                    </div>
-                                </div>
-                            )}
+                                )) : (
+                                    <p className="font-semibold text-red-600">No Past Hunts Found</p>
+                                )}
                             </Carousel>
                         }
                         {/* <div className="flex sm:flex-row flex-col gap-4">
-                        
+
                         </div> */}
                     </div>
                 </div>
@@ -222,7 +225,7 @@ export default function Profile() {
                                         defaultValue={`${userData.name}`}
                                         placeholder="Enter User name"
                                         labelPlacement="outside"
-                                        classNames={{ label: "font-semibold" }}
+                                        classNames={{label: "font-semibold"}}
                                         onChange={(e) => {
                                             setName(e.target.value);
                                         }}
@@ -234,7 +237,7 @@ export default function Profile() {
                                         defaultValue={`${userData.phone}`}
                                         placeholder="Enter phone number"
                                         labelPlacement="outside"
-                                        classNames={{ label: "font-semibold" }}
+                                        classNames={{label: "font-semibold"}}
                                         onChange={(e) => {
                                             setPhone(e.target.value);
                                         }}
@@ -243,9 +246,9 @@ export default function Profile() {
                                         <p className="font-semibold text-sm">Profile Picture</p>
                                         <div className="h-[7rem] w-[7rem] relative">
                                             <Image className="h-full w-full"
-                                                src={previewImage || userProfilePicture}
-                                                width={200} height={200}
-                                                alt="Profile Picture" />
+                                                   src={previewImage || userProfilePicture}
+                                                   width={200} height={200}
+                                                   alt="Profile Picture"/>
                                             <input
                                                 type="file"
                                                 accept="image/*"
