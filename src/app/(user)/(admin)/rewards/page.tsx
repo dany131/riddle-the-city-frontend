@@ -2,7 +2,6 @@
 
 import {ImSpinner2} from "react-icons/im";
 import {
-    Button,
     Card,
     CardHeader,
     CardBody,
@@ -60,6 +59,18 @@ export default function Rewards() {
         return () => clearTimeout(timer);
     }, [countdown, isOpen2]);
 
+    const handlePreviousPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if (rewardsQuery.data?.data?.data?.length > 0) {
+            setPage(page + 1);
+        }
+    };
+
     return (
         <>
             <div className="flex justify-between items-center">
@@ -72,6 +83,7 @@ export default function Rewards() {
                 </div>
             ) : (
                 rewardsQuery.data?.data?.data?.length ? (
+                    <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                             {rewardsQuery.data?.data.data.map((reward: any) => (
                                 <Card
@@ -103,12 +115,28 @@ export default function Rewards() {
                                     </CardFooter>
                                 </Card>
                             ))}
-                        </div>) :
-                    (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                            <p className="font-semibold text-red-600">No Rewards found</p>
                         </div>
-                    )
+
+                        <div className="flex justify-between mt-4 gap-2">
+                            <button
+                                className="px-4 py-2 sm:px-8 lg:px-16 w-full sm:w-max bg-[#A92223] rounded text-white"
+                                hidden={page === 2}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                className="px-4 py-2 sm:px-8 lg:px-16 w-full sm:w-max bg-[#A92223] rounded text-white"
+                                hidden={rewardsQuery.data?.data?.data?.length < 1}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                        <p className="font-semibold text-red-600">No Rewards found</p>
+                    </div>
+                )
             )}
 
             <Modal size="xl" isOpen={isOpen3} backdrop="blur" onClose={onClose3} placement="center">
@@ -163,16 +191,6 @@ export default function Rewards() {
                             size="lg"
                             className="w-full"
                         />
-                        {/*<Button*/}
-                        {/*    size="lg"*/}
-                        {/*    color="primary"*/}
-                        {/*    onClick={() => claimRewardMutation.mutate(awardToClaim)}*/}
-                        {/*    disabled={countdown > 0}*/}
-                        {/*>*/}
-                        {/*    {claimRewardMutation.isLoading ? (*/}
-                        {/*        <ImSpinner2 className="text-xl animate-spin"/>*/}
-                        {/*    ) : "Claim Now"}*/}
-                        {/*</Button>*/}
                     </ModalBody>
                 </ModalContent>
             </Modal>
@@ -183,10 +201,8 @@ export default function Rewards() {
                         Are You Sure You Want To Claim This Reward?
                     </ModalHeader>
                     <ModalBody className="flex flex-col gap-4 pb-8">
-                        <p className="text-sm text-red-600">If you click on yes, 1 minute timer will began to claim the
-                            rewards. Make
-                            sure you are ready
-                            to show your rewards to the bartender</p>
+                        <p className="text-sm text-red-600">If you click on yes, 1 minute timer will begin to claim the
+                            rewards. Make sure you are ready to show your rewards to the bartender</p>
                         <button
                             className="px-16 py-2 bg-[#A92223] w-max m-auto rounded flex justify-center text-white"
                             onClick={() => {
