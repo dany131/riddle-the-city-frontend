@@ -8,6 +8,7 @@ import { useMutation } from "react-query"
 import ReactInputVerificationCode from 'react-input-verification-code';
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
+import Cookies from 'js-cookie'
 const montesserat = Montserrat({
     weight: "600",
     subsets: ['latin']
@@ -20,7 +21,11 @@ type EmailVerification = {
 export default function Verify(datas: any) {
     const navigate=useRouter()
     const [isPlaying, setIsPlaying] = useState(0)
-    const resendVerificationQuery = useMutation(() => axiosInstance.get(`/riddle/api/auth/resend-verification-code?userId=${datas.searchParams.userid}`))
+    const resendVerificationQuery = useMutation(() => axiosInstance.get(`/riddle/api/auth/resend-verification-code?userId=${datas.searchParams.userid}`), {
+        onSuccess(data, variables, context) {
+            console.log('resend',data.data)
+        },
+    })
     const emailVerificationMutation = useMutation((data: EmailVerification) => axiosInstance.post(`/riddle/api/auth/email-verification?userId=${datas.searchParams.userid}`, data), {
         onError(error: any) {
             if (typeof (error.response.data.message) == 'string') {
@@ -50,7 +55,18 @@ export default function Verify(datas: any) {
         },
         onSuccess(data) {
             setInvalid(false)
-            navigate.replace('/auth/login')
+            console.log('verify', data.data)
+            const accessToken = localStorage.getItem('accessToken')
+            const refreshToken = localStorage.getItem('refreshToken')
+            const userData = localStorage.getItem('userData')
+            Cookies.set('accessToken', accessToken!)
+            Cookies.set('refreshToken',refreshToken! )
+            Cookies.set('userData', userData!)
+            navigate.replace('/dashboard')
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('refreshToken')
+            localStorage.removeItem('userData')
+            // navigate.replace('/auth/login')
         },
     })
     const [disabled, setDisabled] = useState(true)
@@ -101,7 +117,7 @@ export default function Verify(datas: any) {
             </form>
 
 
-            <form className="h-full overflow-auto w-full bg-[#160704] sm:hidden relative">
+            <form onSubmit={handleSubmit} className="h-full overflow-auto w-full bg-[#160704] sm:hidden relative">
                 <Image
                     priority
                     className="absolute top-0 h-full w-full"

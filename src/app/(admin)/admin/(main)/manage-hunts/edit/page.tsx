@@ -25,6 +25,7 @@ export default function EditHunts(data: any) {
             // setEditRiddle(!editRiddle)
             setNewRiddles(null)
             queryClient.invalidateQueries('hunts')
+            queryClient.invalidateQueries('individualhunts')
         },
         onError(error: any) {
             if (typeof (error.response.data.message) == 'string') {

@@ -25,15 +25,25 @@ export default function Login() {
     const router = useRouter()
     const [invalid, setInvalid] = useState(false)
     const [message, setMessage] = useState('')
+    const [email,setEmail]=useState('')
     const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
         onSuccess(data: any) {
             if (data.data.data.statusCode != 400) {
                 if (data.data.data.user.role == 'User') {
-                    setInvalid(false)
-                    Cookies.set('accessToken', data.data.data.tokens.access_token)
-                    Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
-                    Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture, accessType: data.data.data.user.accessType }))
-                    router.replace('/dashboard')
+                    console.log(data.data)
+                    if (!data.data.data.user.isApproved) {
+                        localStorage.setItem('accessToken', data.data.data.tokens.access_token)
+                        localStorage.setItem('refreshToken', data.data.data.tokens.refresh_token)
+                        router.push(`/auth/verify?userid=${data.data.data.user._id}`)
+                    }
+                    else {
+                        Cookies.set('accessToken', data.data.data.tokens.access_token)
+                        Cookies.set('refreshToken', data.data.data.tokens.refresh_token)
+                        Cookies.set('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture, accessType: data.data.data.user.accessType }))
+                        router.replace('/dashboard')
+                    }
+                    // setInvalid(false)
+                    
                 }
                 else {
                     toast.error('Invalid Credentials', {
@@ -133,7 +143,10 @@ export default function Login() {
                     label="Email"
                     placeholder="you@example.com"
                     labelPlacement="outside"
-                    classNames={{label:"font-semibold"}}
+                    classNames={{ label: "font-semibold" }}
+                    onChange={(e) => {
+                        setEmail(e.target.value)
+                    }}
                     startContent={
                         <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                     }
@@ -209,6 +222,9 @@ export default function Login() {
                         label="Email"
                         placeholder="you@example.com"
                         labelPlacement="outside"
+                        onChange={(e) => {
+                            setEmail(e.target.value)
+                        }}
                         startContent={
                             <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                         }
