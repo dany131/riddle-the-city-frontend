@@ -23,6 +23,7 @@ export default function EditHunts(data: any) {
             console.log('checkkkk')
             console.log('update hunts', data.data)
             // setEditRiddle(!editRiddle)
+            setNewRiddles(null)
             queryClient.invalidateQueries('hunts')
         },
         onError(error: any) {
