@@ -22,6 +22,7 @@ type EmailVerification = {
 const numbers=['0','1','2','3','4','5','6','7','8','9']
 export default function Verify(datas: any) {
     const navigate=useRouter()
+    console.log('userid', datas.searchParams.userid)
     const [isPlaying, setIsPlaying] = useState(0)
     const resendVerificationQuery = useMutation(() => axiosInstance.get(`/riddle/api/auth/resend-verification-code?userId=${datas.searchParams.userid}`), {
         onSuccess(data, variables, context) {
