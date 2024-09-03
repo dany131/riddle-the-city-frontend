@@ -58,6 +58,7 @@ export default function EditHunts(data: any) {
     const huntsQuery = useQuery(['individualhunts', data.searchParams.id], ({ queryKey }) => {
         return axiosInstance.get(`/riddle/api/hunt?huntId=${queryKey[1]}`)
     }, {
+        refetchOnWindowFocus:false,
         onSuccess(data) {
             console.log(data)
             const huntsData = {
