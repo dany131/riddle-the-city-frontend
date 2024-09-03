@@ -58,14 +58,22 @@ export default function Completion(datas: any) {
                         <Image className="w-full h-full" src={`/images/user/congratulations.gif`} alt="congrats"
                                width={100} height={100}/>
                     </div>
-                    {!riddleIsCompleted && <Link href={`/startRiddle`}
-                                                 className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Next
-                        Riddle</Link>}
-                    {riddleIsCompleted && <button onClick={() => {
+                    <div className="flex gap-4">
+                        {!riddleIsCompleted && <Link href={`/startRiddle`}
+                            className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Next
+                            Riddle</Link>}
+                        {(!riddleIsCompleted || riddleIsCompleted) && <button onClick={() => {
+                            // navigate.replace('/rewards');
+                            onOpen3();
+                        }} className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Claim
+                            Reward</button>}
+                    </div>
+                    
+                    {/* {riddleIsCompleted && <button onClick={() => {
                         navigate.replace('/rewards');
                         // onOpen3();
                     }} className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Claim
-                        Reward</button>}
+                        Reward</button>} */}
                 </div>}
                 {/* <p>Scan Start</p> */}
 
@@ -84,17 +92,17 @@ export default function Completion(datas: any) {
                             <ModalHeader className="flex flex-col text-xl gap-1">Reward</ModalHeader>
                             <ModalBody className="pb-4">
                                 <div className="flex flex-col gap-4 pb-8">
-                                    {huntQuery.data?.data.data.riddles.map((e: any) =>
+                                    
                                         <>
                                             <div className="flex flex-col gap-2 shadow-lg rounded-lg p-4">
                                                 {/* <p className="text-sm ">Congratulations You successfully solved the riddle. You got Reward:</p> */}
-                                                <p className="font-semibold">{e.reward}</p>
+                                                <p className="font-semibold">{riddleQuery.data?.data.data.riddle.reward}</p>
                                                 {/* <div className="flex w-full gap-4">
                                                 <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Claim Reward</button>
                                             </div> */}
                                             </div>
                                         </>
-                                    )}
+                                    
                                 </div>
                                 <div className="flex flex-col items-center gap-2">
                                     <p className="text-sm font-semibold">Are You Sure You Want To Claim These
