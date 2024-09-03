@@ -34,6 +34,7 @@ export default function Login() {
                     if (!data.data.data.user.isApproved) {
                         localStorage.setItem('accessToken', data.data.data.tokens.access_token)
                         localStorage.setItem('refreshToken', data.data.data.tokens.refresh_token)
+                        localStorage.setItem('userData', JSON.stringify({ name: data.data.data.user.name, email: data.data.data.user.email, phone: data.data.data.user.phone, role: data.data.data.user.role, id: data.data.data.user._id, profile: data.data.data.user.profilePicture, accessType: data.data.data.user.accessType }))
                         router.push(`/auth/verify?userid=${data.data.data.user._id}`)
                     }
                     else {
