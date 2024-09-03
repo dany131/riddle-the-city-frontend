@@ -18,6 +18,7 @@ const montesserat = Montserrat({
 type EmailVerification = {
     verificationCode:string
 }
+const numbers=['0','1','2','3','4','5','6','7','8','9']
 export default function Verify(datas: any) {
     const navigate=useRouter()
     const [isPlaying, setIsPlaying] = useState(0)
@@ -81,6 +82,9 @@ export default function Verify(datas: any) {
         }
         emailVerificationMutation.mutate(verificationData)
     }
+    console.log('length', code.length)
+    console.log('code ', code)
+    console.log(numbers.includes(code[3]))
     return (
         <>
             <form onSubmit={handleSubmit} className="h-full overflow-auto w-full items-center  hidden sm:flex flex-col gap-4 p-8 sm:px-24 sm:py-8 ">
@@ -107,7 +111,7 @@ export default function Verify(datas: any) {
                         </span>
                     )}
                 </CountdownCircleTimer>
-                <button className="bg-[#A92223] rounded-lg px-16 py-2 text-white w-full" type="submit">Submit</button>
+                {code.length == 4 && numbers.includes(code[3]) && <button className="bg-[#A92223] rounded-lg px-16 py-2 text-white w-full" type="submit">Submit</button>}
                 <button onClick={() => {
                     setDisabled(true)
                     setIsPlaying((prev) => prev + 1)
@@ -151,7 +155,8 @@ export default function Verify(datas: any) {
                             </span>
                         )}
                     </CountdownCircleTimer>
-                    <button className="bg-[#A92223] rounded-lg px-16 py-2 text-white w-full" type="submit">Submit</button>
+                    {code.length == 4 && numbers.includes(code[3]) && <button className="bg-[#A92223] rounded-lg px-16 py-2 text-white w-full" type="submit">Submit</button> }
+                    
                     <button onClick={() => {
                         setDisabled(true)
                         setIsPlaying((prev) => prev + 1)
