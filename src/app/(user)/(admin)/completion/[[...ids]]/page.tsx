@@ -28,11 +28,6 @@ export default function Completion(datas: any) {
     const [riddleIsCompleted, setRiddleIsCompleted] = useState(false);
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
-    const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
-        onSuccess(data) {
-            queryClient.invalidateQueries('getRiddle');
-        }
-    });
     const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/riddle/api/hunt/current-riddle"),
         {
             onError(err) {
@@ -40,9 +35,16 @@ export default function Completion(datas: any) {
                 // navigate.replace('/dashboard')
                 setRiddleIsCompleted(true);
             },
-            enabled: !!scanMutation.data?.data
+            // enabled: !!scanMutation.data?.data
         }
     );
+
+    const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
+        onSuccess(data) {
+            queryClient.invalidateQueries('getRiddle');
+        },
+        enabled:!!riddleQuery.data?.data
+    });
     const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/riddle/api/hunt?huntId=${datas.params.ids[0]}`),
         {
             enabled: riddleIsCompleted
@@ -68,7 +70,7 @@ export default function Completion(datas: any) {
                         }} className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Claim
                             Reward</button>}
                     </div>
-                    
+
                     {/* {riddleIsCompleted && <button onClick={() => {
                         navigate.replace('/rewards');
                         // onOpen3();
@@ -92,7 +94,7 @@ export default function Completion(datas: any) {
                             <ModalHeader className="flex flex-col text-xl gap-1">Reward</ModalHeader>
                             <ModalBody className="pb-4">
                                 <div className="flex flex-col gap-4 pb-8">
-                                    
+
                                         <>
                                             <div className="flex flex-col gap-2 shadow-lg rounded-lg p-4">
                                                 {/* <p className="text-sm ">Congratulations You successfully solved the riddle. You got Reward:</p> */}
@@ -102,7 +104,7 @@ export default function Completion(datas: any) {
                                             </div> */}
                                             </div>
                                         </>
-                                    
+
                                 </div>
                                 <div className="flex flex-col items-center gap-2">
                                     <p className="text-sm font-semibold">Are You Sure You Want To Claim These
