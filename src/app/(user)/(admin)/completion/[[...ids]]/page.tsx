@@ -28,13 +28,20 @@ export default function Completion(datas: any) {
     const [riddleIsCompleted, setRiddleIsCompleted] = useState(false);
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
+    const [scan,setScan]=useState(false)
     const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/riddle/api/hunt/current-riddle"),
         {
             onError(err) {
                 console.log('im hereee');
                 // navigate.replace('/dashboard')
                 setRiddleIsCompleted(true);
+                setScan(true)
+                
             },
+            onSuccess(data) {
+                setScan(true)
+            },
+            refetchOnWindowFocus:false
             // enabled: !!scanMutation.data?.data
         }
     );
@@ -42,14 +49,22 @@ export default function Completion(datas: any) {
     const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/riddle/api/hunt?huntId=${datas.params.ids[0]}`),
     {
         // enabled: riddleIsCompleted
+        onSuccess(data) {
+            axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`)
+        },
+        refetchOnWindowFocus:false
     }
 );
-const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
-    onSuccess(data) {
-        queryClient.invalidateQueries('getRiddle');
-    },
-    enabled:!!riddleQuery.data?.data && !!huntQuery.data?.data
-});
+// console.log('data',riddleQuery.data)
+// const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
+//     onSuccess(data) {
+//         queryClient.invalidateQueries('getRiddle');
+//     },
+//     enabled:scan,
+//     refetchOnWindowFocus:false,
+// });
+
+console.log('fetching',riddleQuery.isFetching)
 return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
