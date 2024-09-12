@@ -39,18 +39,18 @@ export default function Completion(datas: any) {
         }
     );
 
-    const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
-        onSuccess(data) {
-            queryClient.invalidateQueries('getRiddle');
-        },
-        enabled:!!riddleQuery.data?.data
-    });
     const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/riddle/api/hunt?huntId=${datas.params.ids[0]}`),
-        {
-            enabled: riddleIsCompleted
-        }
-    );
-    return (
+    {
+        // enabled: riddleIsCompleted
+    }
+);
+const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
+    onSuccess(data) {
+        queryClient.invalidateQueries('getRiddle');
+    },
+    enabled:!!riddleQuery.data?.data && !!huntQuery.data?.data
+});
+return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
                 {riddleQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2
