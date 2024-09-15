@@ -55,14 +55,14 @@ export default function Footer() {
                             <Link href={'/'}>Home</Link>
                             <Link href={`/about`}>About Us</Link>
                             <Link href={'/listings'}>Breweries</Link>
-                            
+
                         </div>
                         <div className="w-1/2 pt-4 sm:w-1/4 flex flex-col gap-4">
                             <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}>Packages</Link>
                         </div>
                         <div className="w-1/2 p-4 sm:w-1/4 flex flex-col gap-4">
-                            <p>Support</p>
-                            <p>Feedback</p>
+                            {/*<p>Support</p>*/}
+                            {/*<p>Feedback</p>*/}
                             <p>FAQ</p>
                             <Link href={'/contact'}>Contact US</Link>
                         </div>

@@ -53,8 +53,8 @@ export default function Contact() {
                             </div>
                             <h1 className="text-lg">ADDRESS</h1>
                             <div>
-                                <p>8500, Lorem Street,</p>
-                                <p>Chicago,IL, 55030</p>
+                                <p>301 Northcreek Blvd, </p>
+                                <p>Unit 116 Goodlettsville, TN 37072</p>
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%]  items-center bg-[#2A1B15] p-8">
@@ -64,8 +64,8 @@ export default function Contact() {
                             </div>
                             <h1 className="text-lg">PHONE</h1>
                             <div>
-                                <p>1 (200) 123-4567</p>
-                                <p>1 (200) 123-4567</p>
+                                <p>1 (615) 380-1111</p>
+                                {/*<p>1 (200) 123-4567</p>*/}
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%] items-center bg-[#2A1B15] p-8">
@@ -75,8 +75,8 @@ export default function Contact() {
                             </div>
                             <h1 className="text-lg">MAIL</h1>
                             <div>
-                                <p>info@yoursite.com,</p>
-                                <p>hr@yoursite.com</p>
+                                <p>riddlethecity@gmail.com</p>
+                                {/*<p>hr@yoursite.com</p>*/}
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%] items-center bg-[#2A1B15] p-8">
@@ -86,8 +86,8 @@ export default function Contact() {
                             </div>
                             <h1>HOURS</h1>
                             <div className="flex flex-col items-center">
-                                <p>Mon - Fri: 8 AM - 6 PM</p>
-                                <p>Sat: 9 AM - 4 PM,</p>
+                                <p>Variable based on Brewery hours</p>
+                                {/*<p>Sat: 9 AM - 4 PM,</p>*/}
                             </div>
                         </div>
                     </div>
@@ -138,7 +138,7 @@ export default function Contact() {
                             {/* <div className="p-[0.3rem] border-[#867460] max-h-[0.3rem] border-2"></div>
                             <p>I agree that my submitted data is being collected and stored.</p> */}
                         </div>
-                        
+
                     </form>
                 </div>
             </div>

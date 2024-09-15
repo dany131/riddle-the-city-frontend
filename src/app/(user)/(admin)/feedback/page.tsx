@@ -58,7 +58,7 @@ export default function Feedback() {
                     </div>
 
                     <div className="flex flex-col ">
-                        <p className="font-semibold">Provide Descriptive Comment</p>
+                        <p className="font-semibold">Share What You Loved About The Hunts</p>
                         <Textarea
                             name="description"
                             // label="Riddle Description"
