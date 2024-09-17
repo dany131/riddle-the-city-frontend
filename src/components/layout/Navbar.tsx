@@ -3,13 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {IoCall} from "react-icons/io5";
-import {FaFacebook, FaInstagram, FaLinkedin, FaTwitter} from "react-icons/fa";
-import {FaFacebookF} from "react-icons/fa";
+import {FaFacebookF, FaInstagram, FaLinkedin, FaTwitter} from "react-icons/fa";
 
 
 export default function Navbar() {
     const pathname = usePathname();
-    console.log(pathname);
     return (
         <>
             <div className="absolute Voigante flex justify-center flex flex-col gap-2 w-full top-[2rem]  ">
@@ -20,11 +18,11 @@ export default function Navbar() {
                     </div>
                     <div className="flex gap-4">
                         {/* Facebook Link */}
-                        <Link href="https://www.facebook.com/RiddleTheCity">
+                        <Link href="https://www.facebook.com/RiddleTheCity" target="_blank" rel="noopener noreferrer">
                             <FaFacebookF className="rounded-full text-black p-1 text-2xl bg-[#E2CEAB]"/>
                         </Link>
                         {/*<FaTwitter className="  rounded-full text-black p-1  text-2xl bg-[#E2CEAB]"/>*/}
-                        <Link href="https://www.instagram.com/riddlethecity">
+                        <Link href="https://www.instagram.com/riddlethecity" target="_blank" rel="noopener noreferrer">
                             <FaInstagram className=" rounded-full text-black p-1  text-2xl bg-[#E2CEAB]"/>
                         </Link>
 
