@@ -1,0 +1,72 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Compress build files
+        run: tar -czf build.tar.gz .next public package.json package-lock.json .env
+
+      - name: Start SSH Agent and Add Key
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+
+      - name: Deploy to remote server
+        env:
+          PM2_APP_NAME: "rtc-frontend"
+        run: |
+          # Transfer the build artifact to the remote server
+          scp -o StrictHostKeyChecking=no build.tar.gz ubuntu@${{ secrets.SERVER_IP }}:/tmp/build.tar.gz
+          
+          # SSH into the remote server
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} << 'EOF'
+            # Navigate to the app directory
+            cd /home/rtc-frontend
+          
+            # Unpack the build artifact
+            sudo tar -xzf /tmp/build.tar.gz -C .
+          
+            # Check if PM2 is installed, if not install it
+            if ! command -v pm2 &> /dev/null; then
+              echo "PM2 not found, installing..."
+              sudo npm install -g pm2
+            else
+              echo "PM2 is already installed"
+            fi
+
+          # Install dependencies if package.json is included
+            sudo npm install
+          
+            # Check if PM2 app is running, restart if it is, otherwise start it
+            if pm2 describe ${{ env.PM2_APP_NAME }} > /dev/null; then
+              echo "Restarting PM2 app..."
+              pm2 restart ${{ env.PM2_APP_NAME }}
+            else
+              echo "Starting PM2 app..."
+              pm2 start npm --name ${{ env.PM2_APP_NAME }} -- run start
+            fi
+          
+            # Save the PM2 process list
+            pm2 save
+          EOF
