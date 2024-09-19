@@ -18,14 +18,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Compress build files
-        run: tar -czf build.tar.gz .next public package.json package-lock.json .env
+      - name: Compress necessary files (exclude node_modules and build files)
+        run: tar --exclude='.git' --exclude='node_modules' --exclude='.next' --exclude='build.tar.gz' -czf build-source.tar.gz *
 
       - name: Start SSH Agent and Add Key
         uses: webfactory/ssh-agent@v0.5.4
@@ -36,16 +30,25 @@ jobs:
         env:
           PM2_APP_NAME: "rtc-frontend"
         run: |
-          # Transfer the build artifact to the remote server
-          scp -o StrictHostKeyChecking=no build.tar.gz ubuntu@${{ secrets.SERVER_IP }}:/tmp/build.tar.gz
+          # Transfer the source code to the remote server
+          scp -o StrictHostKeyChecking=no build-source.tar.gz ubuntu@${{ secrets.SERVER_IP }}:/tmp/build-source.tar.gz
           
           # SSH into the remote server
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.SERVER_IP }} << 'EOF'
             # Navigate to the app directory
             cd /home/rtc-frontend
           
-            # Unpack the build artifact
-            sudo tar -xzf /tmp/build.tar.gz -C .
+            # Remove old files if necessary
+            sudo rm -rf /home/rtc-frontend/*
+
+            # Unpack the source code
+            sudo tar -xzf /tmp/build-source.tar.gz -C .
+
+            # Install dependencies if package.json is included
+            sudo npm install
+
+            # Build the project on the remote server
+            npm run build
           
             # Check if PM2 is installed, if not install it
             if ! command -v pm2 &> /dev/null; then
@@ -54,9 +57,6 @@ jobs:
             else
               echo "PM2 is already installed"
             fi
-
-          # Install dependencies if package.json is included
-            sudo npm install
           
             # Check if PM2 app is running, restart if it is, otherwise start it
             if pm2 describe ${{ env.PM2_APP_NAME }} > /dev/null; then
