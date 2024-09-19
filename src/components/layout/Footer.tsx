@@ -9,10 +9,18 @@ import {
     useDisclosure
 } from "@nextui-org/react";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 
 export default function Footer() {
+    const router = useRouter(); // Initialize the router
+
     const {isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1} = useDisclosure();
+
+    const handleLoginClick = () => {
+        router.push('/auth/login'); // Navigate to the login page
+    };
+
     return (
         <>
             <div className="relative min-h-[30rem] Voigante mt-16 ">
@@ -120,7 +128,9 @@ export default function Footer() {
                             <ModalHeader className="flex flex-col text-xl gap-1">Register Yourself!</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <p className="text-sm text-gray-400">Please register yourself before booking.</p>
-                                <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
+                                <button onClick={handleLoginClick}
+                                        className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay
+                                </button>
                             </ModalBody>
                         </>
                     )}

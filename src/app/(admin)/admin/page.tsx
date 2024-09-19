@@ -1,7 +1,6 @@
-import { redirect } from "next/navigation";
+import {redirect} from "next/navigation";
+
 
 export default function Intial() {
-    return redirect('/admin/login')
+    return redirect('/admin/login');
 }
-
-// Pipeline test
