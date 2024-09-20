@@ -19,7 +19,7 @@ jobs:
           node-version: '20'
 
       - name: Compress necessary files (exclude node_modules and build files)
-        run: tar --exclude='.git' --exclude='node_modules' --exclude='.next' --exclude='build.tar.gz' -czf build-source.tar.gz *
+        run: tar --exclude='.git' --exclude='node_modules' --exclude='.next' --exclude='build.tar.gz' -czf build-source.tar.gz * .env
 
       - name: Start SSH Agent and Add Key
         uses: webfactory/ssh-agent@v0.5.4
