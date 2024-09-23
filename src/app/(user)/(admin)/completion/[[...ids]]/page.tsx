@@ -29,6 +29,12 @@ export default function Completion(datas: any) {
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
     const [scan,setScan]=useState(false)
+
+    const scanMutation=useMutation(()=>axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`),{
+        onError(error, variables, context) {
+            setRiddleIsCompleted(true)
+        },
+    })
     const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/riddle/api/hunt/current-riddle"),
         {
             onError(err) {
@@ -48,10 +54,11 @@ export default function Completion(datas: any) {
 
     const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/riddle/api/hunt?huntId=${datas.params.ids[0]}`),
     {
-        // enabled: riddleIsCompleted
         onSuccess(data) {
-            axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`)
+            scanMutation.mutate()
         },
+        // enabled: riddleIsCompleted
+        
         refetchOnWindowFocus:false
     }
 );
@@ -65,6 +72,7 @@ export default function Completion(datas: any) {
 // });
 
 console.log('fetching',riddleQuery.isFetching)
+console.log('scan mutation',scanMutation.data?.data)
 return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
@@ -76,10 +84,10 @@ return (
                                width={100} height={100}/>
                     </div>
                     <div className="flex gap-4">
-                        {!riddleIsCompleted && <Link href={`/startRiddle`}
+                        {scanMutation.data?.data && !scanMutation.data?.data.isCompleted && <Link href={`/startRiddle`}
                             className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Next
                             Riddle</Link>}
-                        {(!riddleIsCompleted || riddleIsCompleted) && <button onClick={() => {
+                        {(!riddleQuery.isLoading) && <button onClick={() => {
                             // navigate.replace('/rewards');
                             onOpen3();
                         }} className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Claim
