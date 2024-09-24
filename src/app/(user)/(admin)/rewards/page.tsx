@@ -44,7 +44,7 @@ export default function Rewards() {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('rewards');
-                onClose2();
+                // onClose2();
             }
         }
     );
@@ -54,7 +54,8 @@ export default function Rewards() {
         if (countdown > 0 && isOpen2) {
             timer = setTimeout(() => setCountdown(countdown - 1), 1000);
         } else if (countdown === 0) {
-            claimRewardMutation.mutate(awardToClaim);
+            // claimRewardMutation.mutate(awardToClaim);
+            onClose2();
         }
         return () => clearTimeout(timer);
     }, [countdown, isOpen2]);
@@ -208,6 +209,7 @@ export default function Rewards() {
                         <button
                             className="px-16 py-2 bg-[#A92223] w-max m-auto rounded flex justify-center text-white"
                             onClick={() => {
+                                claimRewardMutation.mutate(awardToClaim);
                                 onOpen2();
                                 onClose4();
                             }}
