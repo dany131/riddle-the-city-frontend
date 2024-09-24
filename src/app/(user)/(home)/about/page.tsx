@@ -91,8 +91,7 @@ export default function AboutUs() {
                         standstill. To be honest, it wasn’t the best version of Riddle the City. RTC has taken a lot of
                         twists and turns to get to where it is today. It will change more as we make our way into the
                         future. This version was launched in the Fall of 2024. We will adapt to whatever the world
-                        throws at us. I smell Franchises in the future. If you’re interested and love riddles, let's
-                        talk.</p>
+                        throws at us.</p>
                 </div>
                 <div className="px-8 mt-24  sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <div className="flex items-center gap-4">
