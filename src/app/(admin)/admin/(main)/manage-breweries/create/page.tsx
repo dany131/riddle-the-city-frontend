@@ -169,7 +169,7 @@ export default function CreateBrewery() {
         // enabled: !!location
     })
 
-    const addBreweryMutation = useMutation((data: any) => axiosInstance.post('/riddle/api/brewery', data), {
+    const addBreweryMutation = useMutation((data: any) => axiosInstance.post('/brewery', data), {
         onSuccess(data) {
             console.log(data)
             queryClient.invalidateQueries('breweries')

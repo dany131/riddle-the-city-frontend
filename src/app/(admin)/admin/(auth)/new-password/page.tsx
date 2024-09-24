@@ -33,7 +33,7 @@ export default function NewPassword(data: any) {
     const [newPass, setNewPass] = useState<string>('')
     const [confirmPass, setConfirmPass] = useState<string>('')
     const [error, setError] = useState(false)
-    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.post('/riddle/api/auth/forgot-password/change-password', data), {
+    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.post('/auth/forgot-password/change-password', data), {
         onSuccess(data) {
             console.log(data)
             setNotMatch(false)

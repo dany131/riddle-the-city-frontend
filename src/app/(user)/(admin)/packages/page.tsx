@@ -7,7 +7,7 @@ import {useQuery} from "react-query";
 
 
 export default function Packages() {
-    const packagesQuery = useQuery(['packages'], () => axiosInstance.get('/riddle/api/package/all?page=1&limit=20'));
+    const packagesQuery = useQuery(['packages'], () => axiosInstance.get('/package/all?page=1&limit=20'));
 
     return (
         <div className="flex flex-col gap-4 px-4 h-full">

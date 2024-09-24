@@ -35,12 +35,12 @@ export default function Rewards() {
     const queryClient = useQueryClient();
 
     const rewardsQuery = useQuery(['rewards', page], () =>
-        axiosInstance.get(`/riddle/api/hunt/rewards?page=${page}&limit=10`)
+        axiosInstance.get(`/hunt/rewards?page=${page}&limit=10`)
     );
 
     const claimRewardMutation = useMutation(
         (data: ClaimReward) =>
-            axiosInstance.post(`/riddle/api/hunt/claim-reward?riddleId=${data.riddleId}&riddleCompletionId=${data.riddleCompletionId}`),
+            axiosInstance.post(`/hunt/claim-reward?riddleId=${data.riddleId}&riddleCompletionId=${data.riddleCompletionId}`),
         {
             onSuccess: () => {
                 queryClient.invalidateQueries('rewards');

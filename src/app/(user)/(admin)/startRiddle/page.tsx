@@ -10,7 +10,7 @@ export default function StartRiddle(datas:any) {
     // console.log('hunt id start riddle', datas.searchParams.id)
     const navigate=useRouter()
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
-    const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/riddle/api/hunt/current-riddle"),
+    const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/hunt/current-riddle"),
         {
             onError(err) {
                 navigate.replace('/dashboard')

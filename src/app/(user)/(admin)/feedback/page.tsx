@@ -14,7 +14,7 @@ export default function Feedback() {
     const [rating, setRating] = useState(0)
     const formRef:any=useRef()
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
-    const feedbackMutation = useMutation((data: FeedbackData) => axiosInstance.post('/riddle/api/platform/feedback', data), {
+    const feedbackMutation = useMutation((data: FeedbackData) => axiosInstance.post('/platform/feedback', data), {
         onSuccess(data, variables, context) {
             console.log(data)
             onOpen2()

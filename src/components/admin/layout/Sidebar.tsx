@@ -20,7 +20,7 @@ export default function Sidebar() {
     const navigate=useRouter()
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2} = useDisclosure();
     const [display, setDisplay] = useState(false)
-    const logoutMutation = useMutation(() => axiosInstance.post('/riddle/api/auth/logout'), {
+    const logoutMutation = useMutation(() => axiosInstance.post('/auth/logout'), {
         onSuccess(data) {
             Cookies.remove('accessToken')
             Cookies.remove('refreshToken')

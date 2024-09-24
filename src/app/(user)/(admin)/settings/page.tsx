@@ -36,7 +36,7 @@ export default function Settings() {
     const [isVisible, toggleVisibility1] = useState(false)
     const [isVisible2, toggleVisibility2] = useState(false)
     const [isVisible3, toggleVisibility3] = useState(false)
-    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.put('/riddle/api/user/password', data), {
+    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.put('/user/password', data), {
         onSuccess(data) {
             console.log('data',data)
             setNotMatch(false)

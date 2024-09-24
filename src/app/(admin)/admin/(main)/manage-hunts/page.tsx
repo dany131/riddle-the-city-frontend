@@ -58,7 +58,7 @@ export default function ManageRiddles() {
     const queryClient = useQueryClient();
     const [huntId, setHuntId] = useState('');
     const huntsQuery = useQuery(['hunts', page], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/hunt/all?page=${queryKey[1]}&limit=10`);
+        return axiosInstance.get(`/hunt/all?page=${queryKey[1]}&limit=10`);
     }, {
         onSuccess(data) {
             console.log(data);
@@ -68,7 +68,7 @@ export default function ManageRiddles() {
         }
     });
 
-    const deleteRiddle = useMutation((data: any) => axiosInstance.delete(`/riddle/api/hunt/riddle?huntId=${riddleToEdit._id}&riddleId=${data}`, data), {
+    const deleteRiddle = useMutation((data: any) => axiosInstance.delete(`/hunt/riddle?huntId=${riddleToEdit._id}&riddleId=${data}`, data), {
         onSuccess(data) {
             console.log('delete hunts', data.data);
             setEditRiddle(!editRiddle);
@@ -77,7 +77,7 @@ export default function ManageRiddles() {
     });
 
     const downloadPdf = useMutation((data: any) => axiosInstance({
-        url: `${`/riddle/api/hunt/pdf?huntId=${data}`}`,
+        url: `${`/hunt/pdf?huntId=${data}`}`,
         method: "GET",
         responseType: 'blob'
     }), {
@@ -87,7 +87,7 @@ export default function ManageRiddles() {
         }
     });
 
-    const deleteHunt = useMutation((data: string): any => axiosInstance.delete(`/riddle/api/hunt?huntId=${data}`), {
+    const deleteHunt = useMutation((data: string): any => axiosInstance.delete(`/hunt?huntId=${data}`), {
         onSuccess(data: any) {
             queryClient.invalidateQueries('hunts');
             console.log('delete', data.data);

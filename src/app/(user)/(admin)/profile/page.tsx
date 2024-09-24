@@ -56,7 +56,7 @@ export default function Profile() {
         if (data.phone) formData.append('phone', data.phone);
         if (data.file) formData.append('file', data.file);
 
-        return axiosInstance.put(`/riddle/api/user`, formData, {
+        return axiosInstance.put(`/user`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -111,7 +111,7 @@ export default function Profile() {
         }
     }
 
-    const pastHuntsQuery = useQuery(['pastHunts'], () => axiosInstance.get('/riddle/api/hunt/past?page=1&limit=10000'));
+    const pastHuntsQuery = useQuery(['pastHunts'], () => axiosInstance.get('/hunt/past?page=1&limit=10000'));
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">

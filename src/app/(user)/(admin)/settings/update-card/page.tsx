@@ -16,9 +16,9 @@ export default function UpdateCard() {
     const [clientSecret, setClientSecret] = useState(null);
     const {isOpen, onOpen, onClose} = useDisclosure();
 
-    const savedCardQuery = useQuery(['savedCard'], () => axiosInstance.get('/riddle/api/payment/card'));
+    const savedCardQuery = useQuery(['savedCard'], () => axiosInstance.get('/payment/card'));
 
-    const getClientSecret = useMutation(() => axiosInstance.put('/riddle/api/payment/card'), {
+    const getClientSecret = useMutation(() => axiosInstance.put('/payment/card'), {
         onSuccess: (data) => {
             setClientSecret(data.data.data.clientSecret);
         }

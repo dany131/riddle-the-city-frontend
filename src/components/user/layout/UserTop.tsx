@@ -55,7 +55,7 @@ export default function UserTopBar() {
     const [changePassword, setChangePassword] = useState(false);
     const [display, setDisplay] = useState(false);
 
-    const logoutMutation = useMutation(() => axiosInstance.post('/riddle/api/auth/logout'), {
+    const logoutMutation = useMutation(() => axiosInstance.post('/auth/logout'), {
         onSuccess(data) {
             Cookies.remove('accessToken');
             Cookies.remove('refreshToken');

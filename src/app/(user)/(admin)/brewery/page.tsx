@@ -106,10 +106,10 @@ const Dashboard = (datas: any) => {
     let googleMapUrl: string = "https://www.google.com/maps/place";
 
     const breweryQuery = useQuery(['breweries', datas.searchParams.id], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/brewery?breweryId=${queryKey[1]}`);
+        return axiosInstance.get(`/brewery?breweryId=${queryKey[1]}`);
     });
 
-    const startRiddleMutation = useMutation(() => axiosInstance.post(`/riddle/api/hunt/start?breweryId=${datas.searchParams.id}`), {
+    const startRiddleMutation = useMutation(() => axiosInstance.post(`/hunt/start?breweryId=${datas.searchParams.id}`), {
         onSuccess(data) {
             navigate.push(`/startRiddle`);
         },

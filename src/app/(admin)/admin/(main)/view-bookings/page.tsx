@@ -20,7 +20,7 @@ export default function Bookings() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const bookingsQuery = useQuery(['bookings', page], ({ queryKey }) => {
         const userData = JSON.parse(Cookies.get('userData')!)
-        return axiosInstance.get(`/riddle/api/booking/all?page=${queryKey[1]}&limit=10`)
+        return axiosInstance.get(`/booking/all?page=${queryKey[1]}&limit=10`)
     }, {
         onSuccess(data) {
             console.log(data)

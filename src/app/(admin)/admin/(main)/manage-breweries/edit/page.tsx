@@ -105,7 +105,7 @@ export default function EditBrewery(data: any) {
     ])
     const queryClient = useQueryClient()
     const breweryQuery = useQuery(['individualBrewery', data.searchParams.id], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/brewery?breweryId=${queryKey[1]}`)
+        return axiosInstance.get(`/brewery?breweryId=${queryKey[1]}`)
     }, {
         onSuccess(data) {
             console.log(data)
@@ -155,7 +155,7 @@ export default function EditBrewery(data: any) {
         },
         refetchOnWindowFocus: false,
     })
-    const breweryEditMutation = useMutation((datas: any) => axiosInstance.put(`/riddle/api/brewery?breweryId=${data.searchParams.id}`, datas), {
+    const breweryEditMutation = useMutation((datas: any) => axiosInstance.put(`/brewery?breweryId=${data.searchParams.id}`, datas), {
         onSuccess(data) {
             console.log('put data', data)
             queryClient.invalidateQueries('breweries')

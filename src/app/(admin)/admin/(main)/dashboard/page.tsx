@@ -38,7 +38,7 @@ const selections = [
 export default function Dashboard() {
     const [line, setLine] = useState<any>()
     const [lineDays, setLineDays]=useState<any>()
-    const chartsQuery = useQuery(['charts'], () => axiosInstance.get('/riddle/api/admin/stats'), {
+    const chartsQuery = useQuery(['charts'], () => axiosInstance.get('/admin/stats'), {
         onSuccess(data) {
             console.log(data.data.data)
             const month = data.data.data.graph.userSignup.map((e: any) => e.month)

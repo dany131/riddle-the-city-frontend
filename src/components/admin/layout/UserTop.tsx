@@ -48,7 +48,7 @@ export default function UserTopBar() {
     const [changePassword, setChangePassword] = useState(false)
     const [message, setMessage] = useState<string>('')
     const [notMatch, setNotMatch] = useState(false)
-    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.put('/riddle/api/user/password', data), {
+    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.put('/user/password', data), {
         onSuccess(data) {
             console.log('data', data)
             setNotMatch(false)
@@ -110,7 +110,7 @@ export default function UserTopBar() {
         }
     }
 
-    const logoutMutation = useMutation(() => axiosInstance.post('/riddle/api/auth/logout'), {
+    const logoutMutation = useMutation(() => axiosInstance.post('/auth/logout'), {
         onSuccess(data) {
             Cookies.remove('accessToken')
             Cookies.remove('refreshToken')

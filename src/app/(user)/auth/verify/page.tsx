@@ -26,12 +26,12 @@ export default function Verify(datas: any) {
     const navigate = useRouter();
     console.log('userid', datas.searchParams.userid);
     const [isPlaying, setIsPlaying] = useState(0);
-    const resendVerificationQuery = useMutation(() => axiosInstance.get(`/riddle/api/auth/resend-verification-code?userId=${datas.searchParams.userid}`), {
+    const resendVerificationQuery = useMutation(() => axiosInstance.get(`/auth/resend-verification-code?userId=${datas.searchParams.userid}`), {
         onSuccess(data, variables, context) {
             console.log('resend', data.data);
         }
     });
-    const emailVerificationMutation = useMutation((data: EmailVerification) => axiosInstance.post(`/riddle/api/auth/email-verification?userId=${datas.searchParams.userid}`, data), {
+    const emailVerificationMutation = useMutation((data: EmailVerification) => axiosInstance.post(`/auth/email-verification?userId=${datas.searchParams.userid}`, data), {
         onError(error: any) {
             if (typeof (error.response.data.message) == 'string') {
                 toast.error(error.response.data.message, {

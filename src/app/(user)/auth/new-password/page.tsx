@@ -31,7 +31,7 @@ export default function NewPassword(data: any) {
     const [disabled, setDisabled] = useState(true)
     const [isPlaying, setIsPlaying] = useState(0)
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1, onClose: onClose1, } = useDisclosure();
-    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.post('/riddle/api/auth/forgot-password/change-password', data), {
+    const newPasswordMutation = useMutation((data: NewPasswordData) => axiosInstance.post('/auth/forgot-password/change-password', data), {
         onSuccess(data) {
             console.log(data)
             setNotMatch(false)

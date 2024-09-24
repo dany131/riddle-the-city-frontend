@@ -50,7 +50,7 @@ export default function CreateRiddle() {
     });
 
     const breweryQuery = useQuery(['breweries', searchQuery], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=1&limit=20&searchQuery=${queryKey[1]}`);
+        return axiosInstance.get(`/brewery/all?page=1&limit=20&searchQuery=${queryKey[1]}`);
     }, {
         onSuccess(data) {
             console.log(data);
@@ -74,7 +74,7 @@ export default function CreateRiddle() {
 
     const queryClient = useQueryClient();
 
-    const huntAddMutation = useMutation((data: any) => axiosInstance.post(`/riddle/api/hunt`, data), {
+    const huntAddMutation = useMutation((data: any) => axiosInstance.post(`/hunt`, data), {
         onSuccess(data) {
             console.log('post data', data);
             queryClient.invalidateQueries('hunts');

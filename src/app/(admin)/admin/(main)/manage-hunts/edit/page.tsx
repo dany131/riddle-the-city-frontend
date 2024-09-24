@@ -18,7 +18,7 @@ export default function EditHunts(data: any) {
     const queryClient = useQueryClient()
     const [error,setError]=useState(false)
     // const[newRiddles,setNewRiddles]=useState<any>()
-    const updateHunts = useMutation((datas: any) => axiosInstance.put(`/riddle/api/hunt?huntId=${data.searchParams.id}`, datas), {
+    const updateHunts = useMutation((datas: any) => axiosInstance.put(`/hunt?huntId=${data.searchParams.id}`, datas), {
         onSuccess(data) {
             console.log('checkkkk')
             console.log('update hunts', data.data)
@@ -56,7 +56,7 @@ export default function EditHunts(data: any) {
     })
 
     const huntsQuery = useQuery(['individualhunts', data.searchParams.id], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/hunt?huntId=${queryKey[1]}`)
+        return axiosInstance.get(`/hunt?huntId=${queryKey[1]}`)
     }, {
         refetchOnWindowFocus:false,
         onSuccess(data) {
@@ -86,7 +86,7 @@ export default function EditHunts(data: any) {
     })
 
     const breweryQuery = useQuery(['breweries', page], ({ queryKey }) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[1]}&limit=20`)
+        return axiosInstance.get(`/brewery/all?page=${queryKey[1]}&limit=20`)
     }, {
         onSuccess(data) {
             console.log(data)

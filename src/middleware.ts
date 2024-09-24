@@ -32,7 +32,7 @@ export default async function Middleware(request: NextRequest) {
     if (accessToken) {
         userData = JSON.parse(userData!)
         try {
-            const accessTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/riddle/api/brewery/all?page=1&limit=20`, {
+            const accessTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/brewery/all?page=1&limit=20`, {
                 headers: {
                     Authorization:`Bearer ${accessToken}`
                 }
@@ -53,7 +53,7 @@ export default async function Middleware(request: NextRequest) {
         }
         catch {
             try {
-                const refreshTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/riddle/api/auth/tokens`, {
+                const refreshTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/tokens`, {
                     headers: {
                         Authorization: `Bearer ${refreshToken}`
                     }

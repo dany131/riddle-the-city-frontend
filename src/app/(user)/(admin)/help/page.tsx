@@ -12,7 +12,7 @@ export default function Help() {
     const [selectedImages, setSelectedImages] = useState<File[]>([]); // State for selected images
     const formRef = useRef<HTMLFormElement>(null); // Reference to the form element
 
-    const helpMutation = useMutation((data: any) => axiosInstance.postForm('/riddle/api/platform/support', data), {
+    const helpMutation = useMutation((data: any) => axiosInstance.postForm('/platform/support', data), {
         onSuccess(data, variables, context) {
             console.log(data);
             onOpen2();

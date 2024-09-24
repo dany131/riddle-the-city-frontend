@@ -10,7 +10,7 @@ export default function ViewHunt({searchParams}: any) {
     const [huntToView, setHuntToView] = useState<any>(null);
 
     const huntsQuery = useQuery(['individualhunts', searchParams.id], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/hunt?huntId=${queryKey[1]}`);
+        return axiosInstance.get(`/hunt?huntId=${queryKey[1]}`);
     }, {
         onSuccess(data) {
             const huntData = {

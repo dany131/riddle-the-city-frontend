@@ -17,7 +17,7 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState<string | null>()
     const [invalid, setInvalid] = useState(false)
     const [message, setMessage] = useState('')
-    const forgotPasswordMutation = useMutation((data: ForgotPasswordData) => axiosInstance.post('/riddle/api/auth/forgot-password', data), {
+    const forgotPasswordMutation = useMutation((data: ForgotPasswordData) => axiosInstance.post('/auth/forgot-password', data), {
         onSuccess(data) {
             console.log(data)
             setInvalid(false)

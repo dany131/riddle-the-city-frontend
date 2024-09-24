@@ -30,12 +30,12 @@ export default function Completion(datas: any) {
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
     const [scan,setScan]=useState(false)
 
-    const scanMutation=useMutation(()=>axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`),{
+    const scanMutation=useMutation(()=>axiosInstance.post(`/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`),{
         onError(error, variables, context) {
             setRiddleIsCompleted(true)
         },
     })
-    const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/riddle/api/hunt/current-riddle"),
+    const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/hunt/current-riddle"),
         {
             onError(err) {
                 console.log('im hereee');
@@ -52,7 +52,7 @@ export default function Completion(datas: any) {
         }
     );
 
-    const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/riddle/api/hunt?huntId=${datas.params.ids[0]}`),
+    const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/hunt?huntId=${datas.params.ids[0]}`),
     {
         onSuccess(data) {
             scanMutation.mutate()
@@ -63,7 +63,7 @@ export default function Completion(datas: any) {
     }
 );
 // console.log('data',riddleQuery.data)
-// const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/riddle/api/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
+// const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
 //     onSuccess(data) {
 //         queryClient.invalidateQueries('getRiddle');
 //     },

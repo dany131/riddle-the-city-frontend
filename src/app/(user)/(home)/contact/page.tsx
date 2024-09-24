@@ -13,7 +13,7 @@ const Vujahday = Vujahday_Script(
     }
 )
 export default function Contact() {
-    const contactMutation = useMutation((data:any) => axiosInstance.post('/riddle/api/platform/contact-us', data))
+    const contactMutation = useMutation((data:any) => axiosInstance.post('/platform/contact-us', data))
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
         const form = e.target as any as HTMLFormElement

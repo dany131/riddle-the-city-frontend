@@ -39,11 +39,11 @@ export default function Checkout(datas: any) {
     if (Cookies.get('userData')!) {
         userData = JSON.parse(Cookies.get('userData')!)
     }
-    const packagesQuery = useQuery(['packagesIndividual', datas.searchParams.id], ({ queryKey }) => axiosInstance.get(`/riddle/api/package?packageId=${queryKey[1]}`))
-    const cardQuery = useQuery(['cardIndividual'], () => axiosInstance.get(`/riddle/api/payment/card`))
+    const packagesQuery = useQuery(['packagesIndividual', datas.searchParams.id], ({ queryKey }) => axiosInstance.get(`/package?packageId=${queryKey[1]}`))
+    const cardQuery = useQuery(['cardIndividual'], () => axiosInstance.get(`/payment/card`))
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2 } = useDisclosure();
     const { isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1 } = useDisclosure();
-    const paymentMutation = useMutation((data: PaymentData) => axiosInstance.post('/riddle/api/booking', data),
+    const paymentMutation = useMutation((data: PaymentData) => axiosInstance.post('/booking', data),
         {
             onSuccess(data) {
                 onOpen2()

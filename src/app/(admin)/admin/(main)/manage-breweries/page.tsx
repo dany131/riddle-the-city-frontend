@@ -110,7 +110,7 @@ export default function ManageBreweries() {
         enabled: !!location
     });
     const breweryQuery = useQuery(['breweries', page], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[1]}&limit=10`);
+        return axiosInstance.get(`/brewery/all?page=${queryKey[1]}&limit=10`);
     }, {
         onSuccess(data) {
             console.log(data);
@@ -120,7 +120,7 @@ export default function ManageBreweries() {
         }
     });
 
-    const breweryEditMutation = useMutation((data: BreweryEditData) => axiosInstance.put(`/riddle/api/brewery?breweryId=${breweryName._id}`, data), {
+    const breweryEditMutation = useMutation((data: BreweryEditData) => axiosInstance.put(`/brewery?breweryId=${breweryName._id}`, data), {
         onSuccess(data) {
             console.log('put data', data);
             queryClient.invalidateQueries('breweries');

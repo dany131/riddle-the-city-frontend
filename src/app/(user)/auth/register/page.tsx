@@ -40,7 +40,7 @@ export default function Register() {
     const router = useRouter();
     const secretKey = "Admin@1234";
 
-    const registerMutation = useMutation((data: LoginData) => axiosInstance.post('/riddle/api/auth/signup', data), {
+    const registerMutation = useMutation((data: LoginData) => axiosInstance.post('/auth/signup', data), {
         onSuccess(data) {
             console.log('success', data);
             localStorage.setItem('accessToken', data.data.data.tokens.access_token);
@@ -82,7 +82,7 @@ export default function Register() {
             }
         }
     });
-    const registerGoogleMutation = useMutation((data: LoginData) => axiosInstance.post('/riddle/api/auth/signup', data), {
+    const registerGoogleMutation = useMutation((data: LoginData) => axiosInstance.post('/auth/signup', data), {
         onSuccess(data) {
             console.log('success', data);
             Cookies.set('accessToken', data.data.data.tokens.access_token);
@@ -189,7 +189,7 @@ export default function Register() {
         }
     }
 
-    const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
+    const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/auth/login', data), {
         onSuccess(data: any) {
             if (data.data.data.statusCode != 400) {
                 if (data.data.data.user.role == 'User') {
@@ -592,7 +592,7 @@ export default function Register() {
 //     const formRef=useRef()
 //     const router = useRouter()
 //
-//     const registerMutation = useMutation((data: LoginData) => axiosInstance.post('/riddle/api/auth/signup', data), {
+//     const registerMutation = useMutation((data: LoginData) => axiosInstance.post('/auth/signup', data), {
 //         onSuccess(data) {
 //             console.log('success', data)
 //             localStorage.setItem('accessToken', data.data.data.tokens.access_token)
@@ -627,7 +627,7 @@ export default function Register() {
 //             }
 //         },
 //     })
-//     const registerGoogleMutation = useMutation((data: LoginData) => axiosInstance.post('/riddle/api/auth/signup', data), {
+//     const registerGoogleMutation = useMutation((data: LoginData) => axiosInstance.post('/auth/signup', data), {
 //         onSuccess(data) {
 //             console.log('success', data)
 //             Cookies.set('accessToken', data.data.data.tokens.access_token)
@@ -714,7 +714,7 @@ export default function Register() {
 //             // setNoMatch(true)
 //         }
 //     }
-//     const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
+//     const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/auth/login', data), {
 //         onSuccess(data: any) {
 //             if (data.data.data.statusCode != 400) {
 //                 if (data.data.data.user.role == 'User') {

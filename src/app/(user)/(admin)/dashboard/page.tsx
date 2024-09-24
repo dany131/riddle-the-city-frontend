@@ -29,7 +29,7 @@ export default function Dashboard() {
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useRouter();
     const breweryQuery = useQuery(['breweries', searchQuery,page], ({queryKey}) => {
-        return axiosInstance.get(`/riddle/api/brewery/all?page=${queryKey[2]}&limit=10&searchQuery=${queryKey[1]}`);
+        return axiosInstance.get(`/brewery/all?page=${queryKey[2]}&limit=10&searchQuery=${queryKey[1]}`);
     }, {
         onSuccess(data) {
             console.log(data);
@@ -38,7 +38,7 @@ export default function Dashboard() {
             console.log(err);
         }
     });
-    const userStatsQuery = useQuery(['stats'], () => axiosInstance.get('/riddle/api/user/stats'));
+    const userStatsQuery = useQuery(['stats'], () => axiosInstance.get('/user/stats'));
 
     return (
         <>

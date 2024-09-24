@@ -30,7 +30,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/riddle/api/auth/login', data), {
+    const loginMutation = useMutation((data: LoginData): any => axiosInstance.post('/auth/login', data), {
         onSuccess(data: any) {
             if (data.data.data.user.role === 'Admin') {
                 setInvalid(false);
