@@ -43,9 +43,9 @@ export default function Listings() {
                     </div>
                 </div>
                 <div className="px-8 mt-24  sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
-                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                    <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className=" w-full sm:w-[40%]">
-                            <Image className="w-full h-full" src={'/images/listings/brewery_new_heights.png'} width={200}
+                            <Image className="w-full h-full object-contain" src={'/images/listings/brewery_new_heights.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                         <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col">
@@ -78,7 +78,7 @@ export default function Listings() {
                         </div>
 
                     </div>
-                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                    <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className="w-full sm:w-[60%] px-4 sm:px-16 py-8 gap-4 flex flex-col ">
                             <h1 className="text-2xl">Fait La Force Brewing Company</h1>
                             <p className={`${montesserat.className}`}>Their aim is to create a space and experience that
@@ -108,13 +108,13 @@ export default function Listings() {
                             </div>
                         </div>
                         <div className="w-full sm:w-[40%]">
-                            <Image className="w-full h-full" src={'/images/listings/brewery_fait.png'} width={200}
+                            <Image className="w-full h-full object-contain" src={'/images/listings/brewery_fait.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                     </div>
-                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                    <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className="w-full sm:w-[40%]">
-                            <Image className="w-full h-full" src={'/images/listings/brewery_fox.png'} width={200}
+                            <Image className="w-full h-full object-contain" src={'/images/listings/brewery_fox.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                         <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col ">
@@ -149,9 +149,9 @@ export default function Listings() {
 
                     </div>
 
-                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                    <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className=" w-full sm:w-[40%]">
-                            <Image className="w-full h-full" src={'/images/listings/brewery_hiwire.png'} width={200}
+                            <Image className="w-full h-full object-contain" src={'/images/listings/brewery_hiwire.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                         <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col">
@@ -183,7 +183,7 @@ export default function Listings() {
                         </div>
 
                     </div>
-                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                    <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className="w-full sm:w-[60%] px-4 sm:px-16 py-8 gap-4 flex flex-col ">
                             <h1 className="text-2xl">Czann’s Brewing Company</h1>
                             <p className={`${montesserat.className}`}>Their Brew Master's goal is to bring high quality
@@ -214,13 +214,13 @@ export default function Listings() {
                             </div>
                         </div>
                         <div className="w-full sm:w-[40%]">
-                            <Image className="w-full h-full" src={'/images/listings/brewery_czanns.png'} width={200}
+                            <Image className="w-full h-full object-contain" src={'/images/listings/brewery_czanns.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                     </div>
-                    <div className="flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
+                    <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
                         <div className="w-full sm:w-[40%]">
-                            <Image className="w-full h-full" src={'/images/listings/brewery_yazoo.png'} width={200}
+                            <Image className="w-full h-full object-contain" src={'/images/listings/brewery_yazoo.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                         <div className="w-full px-4 sm:w-[60%] sm:px-16 py-8 gap-4 flex flex-col ">
