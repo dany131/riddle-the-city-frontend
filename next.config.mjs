@@ -5,7 +5,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "dtagg-bucket.s3.amazonaws.com",
+                hostname: "riddlethecity.s3.us-east-2.amazonaws.com",
                 port: "",
             },
             {
