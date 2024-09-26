@@ -18,6 +18,15 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Create .env file
+        run: |
+          echo "NEXT_PUBLIC_BASEURL=${{ secrets.NEXT_PUBLIC_BASEURL }}" >> .env
+          echo "NEXT_PUBLIC_API=${{ secrets.NEXT_PUBLIC_API }}" >> .env
+          echo "NEXT_PUBLIC_GOOGLE_CLIENT_ID=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_ID }}" >> .env
+          echo "NEXT_PUBLIC_GOOGLE_CLIENT_SECRET=${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET }}" >> .env
+          echo "NEXT_PUBLIC_GOOGLEAPI=${{ secrets.NEXT_PUBLIC_GOOGLEAPI }}" >> .env
+          echo "NEXT_PUBLIC_MEDIA_URL=${{ secrets.NEXT_PUBLIC_MEDIA_URL }}" >> .env
+
       - name: Compress necessary files (exclude node_modules and build files)
         run: tar --exclude='.git' --exclude='node_modules' --exclude='.next' --exclude='build.tar.gz' -czf build-source.tar.gz * .env
 

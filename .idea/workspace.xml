@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46eb10ff-7ba6-4860-990b-87f57089775b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/pipelines.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/pipelines.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +72,7 @@
       <workItem from="1724966769778" duration="59000" />
       <workItem from="1724968716585" duration="23000" />
       <workItem from="1724969458284" duration="72787000" />
-      <workItem from="1726710016958" duration="22809000" />
+      <workItem from="1726710016958" duration="23841000" />
     </task>
     <servers />
   </component>
