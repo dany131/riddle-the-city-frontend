@@ -10,7 +10,7 @@ import {Modal, ModalBody, ModalContent, ModalHeader, useDisclosure, Button} from
 import {ImSpinner2} from "react-icons/im";
 
 
-const stripePromise = loadStripe('pk_test_51PkygCIZASCLbug8qI63eXXhDkNWGwho4ADU1RSxysg8EaLREa361nBHfusl1pYcUXO28xlO2lsMpyhHjxmibjQ100UEAxoxng');
+const stripePromise = loadStripe('pk_live_51PmGG1AmDjxrP14scR0gDvZiYqoDxS8HfnM539lak5veHZXAQALBroWHYPAgtlaSBuWdTiurPl1Ar0GUwtNQvvEw00niQu6Ghv');
 
 export default function UpdateCard() {
     const [clientSecret, setClientSecret] = useState(null);
