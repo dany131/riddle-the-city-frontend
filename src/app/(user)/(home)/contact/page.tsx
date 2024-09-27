@@ -32,7 +32,7 @@ export default function Contact() {
                 <div className="min-h-[70vh] relative">
                     <Image
                         priority
-                        className="absolute top-0 h-full w-full"
+                        className="absolute top-0 h-full w-full object-cover"
                         style={{ opacity: "1" }}
                         src={"/images/contact/image 14.png"}
                         alt="home-banner"

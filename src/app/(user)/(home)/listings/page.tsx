@@ -29,7 +29,7 @@ export default function Listings() {
                 <div className="min-h-[70vh] relative">
                     <Image
                         priority
-                        className="absolute top-0 h-full w-full"
+                        className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "1"}}
                         src={"/images/listings/image 15.png"}
                         alt="home-banner"
