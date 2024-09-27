@@ -31,7 +31,7 @@ export default function Listings() {
                         priority
                         className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "1"}}
-                        src={"/images/listings/image 15.png"}
+                        src={"/images/layout/image 15.svg"}
                         alt="home-banner"
                         width={1000}
                         height={500}

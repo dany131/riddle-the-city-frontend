@@ -82,9 +82,9 @@ export default function Home() {
                 <div className="min-h-[100vh] relative">
                     <Image
                         priority
-                        className="absolute top-0 h-full w-full"
+                        className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "0.1"}}
-                        src={"/images/home/home-banner.png"}
+                        src={"/images/layout/image 9.svg"}
                         alt="home-banner"
                         width={1000}
                         height={500}

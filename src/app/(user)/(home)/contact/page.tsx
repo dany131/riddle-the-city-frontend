@@ -34,7 +34,7 @@ export default function Contact() {
                         priority
                         className="absolute top-0 h-full w-full object-cover"
                         style={{ opacity: "1" }}
-                        src={"/images/contact/image 14.png"}
+                        src={"/images/layout/Mask group.svg"}
                         alt="home-banner"
                         width={1000}
                         height={500}

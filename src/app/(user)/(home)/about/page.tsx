@@ -24,7 +24,7 @@ export default function AboutUs() {
                         priority
                         className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "1"}}
-                        src={"/images/aboutus/about-us-banner.png"}
+                        src={"/images/layout/image 13.svg"}
                         alt="home-banner"
                         width={1000}
                         height={500}
