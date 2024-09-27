@@ -168,7 +168,7 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div onClick={()=>setDisplayMenu(false)} className={`${displayMenu?"block":"hidden"} fixed z-[10000000000000] h-full w-full bg-[#00000085]`}>
+            <div onClick={()=>setDisplayMenu(false)} className={`${displayMenu?"flex":"hidden"} fixed z-[10000000000000] h-full w-full bg-[#00000085]`}>
                 <div className="w-[70%] h-full bg-[#160704] ">
                 <div className="w-full flex  mt-8 flex-col gap-4 items-center">
                     <div  className="w-full flex  justify-center">
