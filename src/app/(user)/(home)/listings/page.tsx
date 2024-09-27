@@ -37,14 +37,14 @@ export default function Listings() {
                         height={500}
                     />
                     <div
-                        className="pt-[23rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
+                        className="pt-[16rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
                         <p>Home <span className="mx-2">/</span> Listings</p>
                         <h1 className="text-[4rem]">Listings</h1>
                     </div>
                 </div>
                 <div className="px-8 mt-24  sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className=" w-full sm:w-[40%]">
+                        <div className=" w-full max-h-[20rem] p-2 sm:w-[40%]">
                             <Image className="w-full h-full object-contain" src={'/images/listings/brewery_new_heights.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
@@ -107,13 +107,13 @@ export default function Listings() {
                                 </button>
                             </div>
                         </div>
-                        <div className="w-full sm:w-[40%]">
+                        <div className="w-full max-h-[20rem] p-2 sm:w-[40%]">
                             <Image className="w-full h-full object-contain" src={'/images/listings/brewery_fait.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                     </div>
                     <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className="w-full sm:w-[40%]">
+                        <div className="w-full max-h-[20rem] p-2 sm:w-[40%]">
                             <Image className="w-full h-full object-contain" src={'/images/listings/brewery_fox.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
@@ -150,7 +150,7 @@ export default function Listings() {
                     </div>
 
                     <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className=" w-full sm:w-[40%]">
+                        <div className=" w-full max-h-[20rem] p-2 sm:w-[40%]">
                             <Image className="w-full h-full object-contain" src={'/images/listings/brewery_hiwire.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
@@ -213,13 +213,13 @@ export default function Listings() {
                                 </button>
                             </div>
                         </div>
-                        <div className="w-full sm:w-[40%]">
+                        <div className="w-full max-h-[20rem] p-2 sm:w-[40%]">
                             <Image className="w-full h-full object-contain" src={'/images/listings/brewery_czanns.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>
                     </div>
                     <div className="sm:w-[70%] flex flex-wrap border-1 border-[#E2CEAB] sm:flex-nowrap bg-[#2A1B15] rounded-lg">
-                        <div className="w-full sm:w-[40%]">
+                        <div className="w-full max-h-[20rem] p-2 sm:w-[40%]">
                             <Image className="w-full h-full object-contain" src={'/images/listings/brewery_yazoo.png'} width={200}
                                    height={300} alt="store-1"/>
                         </div>

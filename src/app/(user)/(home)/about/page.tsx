@@ -30,7 +30,7 @@ export default function AboutUs() {
                         height={500}
                     />
                     <div
-                        className="pt-[23rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
+                        className="pt-[16rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
                         <p>Home <span className="mx-2">/</span> About Us</p>
                         <h1 className="text-[4rem]">About Us</h1>
                     </div>
@@ -102,35 +102,35 @@ export default function AboutUs() {
                     <h1 style={{fontWeight: 400}} className="text-[3rem]">Achievements</h1>
                     <div className="flex flex-wrap justify-center gap-24">
                         <div className="flex flex-col gap-[1.4rem]">
-                            <div className="relative">
-                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>beer products</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]"
+                            <div className="relative  flex flex-col items-center">
+                                <Image className="top-0 left-[40%] h-[3rem] w-[3rem]"
                                        src={'/images/aboutus/world.svg'} width={80} height={80} alt="strawberry icon"/>
+                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>beer products</p>
                             </div>
                             <p className="text-center">47</p>
                         </div>
                         <div className="flex flex-col gap-[1.4rem]">
-                            <div className="relative">
-                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>happy clients</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]"
+                            <div className="relative  flex flex-col items-center">
+                                <Image className=" top-0 left-[40%] h-[3rem] w-[3rem]"
                                        src={'/images/aboutus/mic.svg'} width={80} height={80} alt="strawberry icon"/>
+                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>happy clients</p>
                             </div>
                             <p className="text-center">80</p>
                         </div>
                         <div className="flex flex-col gap-[1.4rem]">
-                            <div className="relative">
-                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>music gigs</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]"
+                            <div className="relative  flex flex-col items-center">
+                                <Image className=" top-0 left-[40%] h-[3rem] w-[3rem]"
                                        src={'/images/aboutus/coffee.svg'} width={80} height={80} alt="strawberry icon"/>
+                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>music gigs</p>
                             </div>
                             <p className="text-center">67</p>
                         </div>
                         <div className="flex flex-col gap-[1.4rem]">
-                            <div className="relative">
-                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>sports events</p>
-                                <Image className="absolute top-0 left-[40%] h-[3rem] w-[3rem]"
+                            <div className="relative flex flex-col items-center">
+                                <Image className="top-0 left-[40%] h-[3rem] w-[3rem]"
                                        src={'/images/aboutus/strawberry.svg'} width={80} height={80}
                                        alt="strawberry icon"/>
+                                <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`}>sports events</p>
                             </div>
                             <p className="text-center">46</p>
                         </div>

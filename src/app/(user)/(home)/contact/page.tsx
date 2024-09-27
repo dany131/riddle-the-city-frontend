@@ -39,7 +39,7 @@ export default function Contact() {
                         width={1000}
                         height={500}
                     />
-                    <div className="pt-[23rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
+                    <div className="pt-[16rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
                         <p>Home <span className="mx-2">/</span> Contact</p>
                         <h1 className="text-[4rem]">Contact</h1>
                     </div>
@@ -47,9 +47,9 @@ export default function Contact() {
                 <div className="px-8 mt-24  sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <div className="flex flex-wrap w-full gap-4 justify-center">
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%] min-w-[100%]  items-center bg-[#2A1B15] p-8">
-                            <div className="relative">
+                            <div className="relative flex flex-col items-center gap-2">
+                                <Image className="top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (4).svg'} width={80} height={80} alt="strawberry icon" />
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >address</p>
-                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (4).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1 className="text-lg">ADDRESS</h1>
                             <div>
@@ -58,9 +58,9 @@ export default function Contact() {
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%]  items-center bg-[#2A1B15] p-8">
-                            <div className="relative">
+                            <div className="relative flex flex-col items-center gap-2">
+                                <Image className=" top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (5).svg'} width={80} height={80} alt="strawberry icon" />
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >phone</p>
-                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (5).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1 className="text-lg">PHONE</h1>
                             <div>
@@ -69,9 +69,9 @@ export default function Contact() {
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%] items-center bg-[#2A1B15] p-8">
-                            <div className="relative">
+                            <div className="relative flex flex-col items-center gap-2">
+                                <Image className=" top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (6).svg'} width={80} height={80} alt="strawberry icon" />
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >mail</p>
-                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (6).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1 className="text-lg">MAIL</h1>
                             <div>
@@ -80,9 +80,9 @@ export default function Contact() {
                             </div>
                         </div>
                         <div className="flex flex-col gap-[2.5rem] sm:min-w-[20%]  min-w-[100%] items-center bg-[#2A1B15] p-8">
-                            <div className="relative">
+                            <div className="relative flex flex-col items-center gap-2">
+                                <Image className=" top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (7).svg'} width={80} height={80} alt="strawberry icon" />
                                 <p className={`text-4xl ${Vujahday.className} text-[#DF9135]`} >hours</p>
-                                <Image className="absolute top-0 left-[20%] h-[3rem] w-[3rem]" src={'/images/contact/Vector (7).svg'} width={80} height={80} alt="strawberry icon" />
                             </div>
                             <h1>HOURS</h1>
                             <div className="flex flex-col items-center">
@@ -99,7 +99,7 @@ export default function Contact() {
                         <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                     </div>
                     <h1 style={{ fontWeight: 400 }} className="text-[3rem] Voigante">Get in Touch</h1>
-                    <form onSubmit={handleSubmit} className="w-[70%] flex flex-wrap  gap-2">
+                    <form onSubmit={handleSubmit} className="sm:w-[70%] flex flex-wrap  gap-2">
                         <div className="flex w-full gap-4">
                             <input  required className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="name" id="" placeholder="Name"/>
                             <input required className="w-full p-2 bg-[#2A1B15] border-2 border-[#867460] rounded" type="text" name="email" id="" placeholder="E-mail"/>
