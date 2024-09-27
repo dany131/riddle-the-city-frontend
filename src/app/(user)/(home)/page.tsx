@@ -90,7 +90,7 @@ export default function Home() {
                         height={500}
                     />
                     <div
-                        className="pt-[16rem] sm:pt-72 md:pt-56  z-[999999999] relative relative flex md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 justify-center">
+                        className="pt-[16rem] sm:pt-72 md:pt-56  z-[999] relative relative flex md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 justify-center">
                         <div className="flex flex-col gap-4 w-full md:w-1/2 justify-center">
                             <p className="Voigante text-5xl">
                                 Treasure Hunt through Nashville Breweries
@@ -144,7 +144,7 @@ export default function Home() {
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                         </div>
                     </div>
-                    <div className="z-[9999999999]">
+                    <div className="z-[999]">
                         <p className="text-5xl Voigante text-center" id="packages">
                             Featured Packages
                         </p>

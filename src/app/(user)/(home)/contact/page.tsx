@@ -39,7 +39,7 @@ export default function Contact() {
                         width={1000}
                         height={500}
                     />
-                    <div className="pt-[16rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
+                    <div className="pt-[16rem] sm:pt-72 md:pt-56 z-[999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
                         <p>Home <span className="mx-2">/</span> Contact</p>
                         <h1 className="text-[4rem]">Contact</h1>
                     </div>

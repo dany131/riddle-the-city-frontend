@@ -17,7 +17,7 @@ export default function Navbar() {
     return (
         <>
             <div className="absolute Voigante  justify-center flex flex-col gap-2 w-full top-[2rem]  ">
-                <div className="flex justify-between sm:px-24 px-4 sm:w-[98%] z-[9999999999999]">
+                <div className="flex justify-between sm:px-24 px-4 sm:w-[98%] z-[9999]">
                     <div className="flex gap-2 items-center">
                         <IoCall className="text-2xl bg-[#E2CEAB] p-1 text-[#241411] rounded-full"/>
                         <p>Call Us: 615-380-1111</p>
@@ -39,7 +39,7 @@ export default function Navbar() {
                     backgroundRepeat: 'repeat-x',
                     backgroundSize: 'cover'
                 }}
-                     className="flex Voigante flex-col xl:hidden gap-4 z-[9999999999999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
+                     className="flex Voigante flex-col xl:hidden gap-4 z-[9999] relative px-8 min-w-[85%] py-4 m-auto items-center justify-center">
                     <div className="flex w-full items-center    ">
                         
                         <IoMenu onClick={()=>setDisplayMenu(true)} className="w-[15%] text-4xl cursor-pointer"/>
@@ -108,7 +108,7 @@ export default function Navbar() {
                         backgroundRepeat: 'repeat-x',
                         backgroundSize: 'contain'
                     }}
-                    className="hidden Voigante gap-16 px-0 xl:flex z-[9999999999999] relative min-w-[85%] py-1 m-auto items-center justify-center"
+                    className="hidden Voigante gap-16 px-0 xl:flex z-[9999] relative min-w-[85%] py-1 m-auto items-center justify-center"
                 >
                     <div className="flex gap-8 items-center">
                         {pathname == '/' ?
@@ -168,7 +168,7 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div onClick={()=>setDisplayMenu(false)} className={`${displayMenu?"flex":"hidden"} fixed z-[10000000000000] h-full w-full bg-[#00000085]`}>
+            <div onClick={()=>setDisplayMenu(false)} className={`${displayMenu?"flex":"hidden"} fixed z-[100005] h-full w-full bg-[#00000085]`}>
                 <div className="w-[70%] h-full bg-[#160704] ">
                 <div className="w-full flex  mt-8 flex-col gap-4 items-center">
                     <div  className="w-full flex  justify-center">
