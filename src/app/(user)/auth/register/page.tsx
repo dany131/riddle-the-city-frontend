@@ -375,8 +375,8 @@ export default function Register() {
                         console.log(e);
                         setSelected(e);
                     }}>
-                        <Checkbox value={'yes'}>I accept <span className="underline">Terms & Conditions</span> and <span
-                            className="underline">Privacy Policy</span></Checkbox>
+                        <Checkbox value={'yes'}>I accept <Link href={'/terms-and-conditions'} className="underline">Terms & Conditions</Link> and <Link href={'/privacy-policy'}
+                            className="underline">Privacy Policy</Link></Checkbox>
 
                     </CheckboxGroup>
                 </div>

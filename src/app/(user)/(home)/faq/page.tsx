@@ -71,15 +71,15 @@ export default function Faq() {
                 <div className="min-h-[70vh] relative">
                     <Image
                         priority
-                        className="absolute top-0 h-full w-full"
+                        className="absolute top-0 h-full object-cover w-full"
                         style={{opacity: "1"}}
-                        src={"/images/contact/image 14.png"}
+                        src={"/images/layout/Mask group.svg"}
                         alt="home-banner"
                         width={1000}
                         height={500}
                     />
                     <div
-                        className="pt-[23rem] sm:pt-72 md:pt-56 z-[9999999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
+                        className="pt-[23rem] sm:pt-72 md:pt-56 z-[999] relative flex flex-col md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 ">
                         <p>Home <span className="mx-2">/</span> FAQ</p>
                         <h1 className="text-[4rem]">FAQs</h1>
                     </div>

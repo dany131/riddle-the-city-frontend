@@ -110,8 +110,8 @@ export default function Footer() {
                 <div className="relative flex flex-wrap justify-around z-[4] p-[0.8rem]">
                     <p className="text-center">Copyrights ©2023 Riddle the City | All Rights Reserved</p>
                     <div className="flex gap-4">
-                        <p>Privacy Policy</p>
-                        <p>Terms & Conditions</p>
+                        <Link href={'/privacy-policy'}>Privacy Policy</Link>
+                        <Link href={'/terms-and-conditions'}>Terms & Conditions</Link>
                     </div>
                 </div>
             </div>
