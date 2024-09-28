@@ -84,7 +84,7 @@ return (
                                width={100} height={100}/>
                     </div>
                     <div className="flex gap-4">
-                        {scanMutation.data?.data && !scanMutation.data?.data.isCompleted && <Link href={`/startRiddle`}
+                        {scanMutation.data?.data && !scanMutation.data?.data.data.isCompleted && <Link href={`/startRiddle`}
                             className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Next
                             Riddle</Link>}
                         {(!riddleQuery.isLoading) && <button onClick={() => {
