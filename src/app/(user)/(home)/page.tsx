@@ -130,7 +130,7 @@ export default function Home() {
                 <div className="px-8 sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <Image
                         priority
-                        className="absolute w-full h-full z-[0]"
+                        className="absolute w-full object-cover h-full z-[0]"
                         style={{opacity: "0.1"}}
                         src={"/images/home/featured-package.png"}
                         alt="featured package"
@@ -332,7 +332,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col relative  mt-16">
                     <Image
-                        priority className="w-full h-full absolute" style={{opacity: '0.1'}}
+                        priority className="w-full object-cover h-full absolute" style={{opacity: '0.1'}}
                         src={'/images/layout/clientBanner.svg'} alt="mystery" width={500} height={700}/>
                     <div className="flex flex-col relative z-[2] sm:pt-36 gap-8">
                         <div className="px-8 sm:px-28 flex items-center gap-4 self-start">
