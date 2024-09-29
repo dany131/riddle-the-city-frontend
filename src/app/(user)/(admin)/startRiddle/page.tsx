@@ -19,7 +19,25 @@ export default function StartRiddle(datas:any) {
     )
     return (
         <>
-        
+            <div className="flex flex-col gap-4 px-4 h-full">
+                {riddleQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2 className="text-4xl animate-spin" /></div>}
+                {!riddleQuery.isFetching && <div className="flex flex-col border-1 rounded-lg gap-4 p-4 h-full ">
+                    <p className="text-xl font-semibold">Riddle {riddleQuery.data?.data.data.riddleNumber < 10 ? `0${riddleQuery.data?.data.data.riddleNumber}` : riddleQuery.data?.data.data.riddleNumber}</p>
+                    <div className="flex flex-col ">
+                        <p className="text-gray-400 text-sm">Riddle Name</p>
+                        <p className="font-semibold">{riddleQuery.data?.data.data.riddle.title}</p>
+                    </div>
+                    <div className="flex flex-col ">
+                        <p className="text-gray-400 text-sm">Riddle Description</p>
+                        <p className="font-semibold">{riddleQuery.data?.data.data.riddle.description}</p>
+                    </div>
+                    {/* <p>Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing</p> */}
+                    <button
+                        onClick={() => { onOpen2() }}
+                        className="px-32 sm:w-max w-full py-2 bg-[#FFDADA] text-[#A92223] rounded font-semibold">Hint</button>
+                    <p className="mt-auto sm:mx-0 mx-auto text-gray-400 text-sm">*** Please Scan QR Code for Next Riddle***</p>
+                </div>}
+            </div>
             <Modal
                 size={"xl"}
                 isOpen={isOpen2}
