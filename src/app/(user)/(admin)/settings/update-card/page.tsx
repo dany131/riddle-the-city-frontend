@@ -10,7 +10,7 @@ import {Modal, ModalBody, ModalContent, ModalHeader, useDisclosure, Button} from
 import {ImSpinner2} from "react-icons/im";
 
 
-const stripePromise = loadStripe('pk_live_51PmGG1AmDjxrP14scR0gDvZiYqoDxS8HfnM539lak5veHZXAQALBroWHYPAgtlaSBuWdTiurPl1Ar0GUwtNQvvEw00niQu6Ghv');
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || "");
 
 export default function UpdateCard() {
     const [clientSecret, setClientSecret] = useState(null);
@@ -38,13 +38,14 @@ export default function UpdateCard() {
                         <ImSpinner2 className="text-4xl animate-spin"/>
                     </div>
                 ) : (
-                        <><div id='card'>
+                    <>
+                        <div id="card">
                             {savedCardQuery.data?.data?.data && Object.keys(savedCardQuery.data.data.data).length > 0 ? (
-                                <SavedPaymentCard card={savedCardQuery.data.data.data} />
+                                <SavedPaymentCard card={savedCardQuery.data.data.data}/>
                             ) : (
                                 <p className="text-center">No saved payment method found.</p>
                             )}
-                    </div>
+                        </div>
 
                         <div className="flex">
                             <button
