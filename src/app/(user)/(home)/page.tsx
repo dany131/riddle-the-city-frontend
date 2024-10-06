@@ -81,7 +81,7 @@ export default function Home() {
             <div className="flex flex-col ">
                 <div className="min-h-[100vh] relative">
                     <Image
-                        priority
+                        
                         className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "0.1"}}
                         src={"/images/layout/image 9.svg"}
@@ -92,18 +92,18 @@ export default function Home() {
                     <div
                         className="pt-[16rem] sm:pt-72 md:pt-56  z-[999] relative relative flex md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 justify-center">
                         <div className="flex flex-col gap-4 w-full md:w-1/2 justify-center">
-                            <p className="Voigante text-5xl">
+                            <p className="Voigante sm:text-start text-center text-5xl">
                                 Treasure Hunt through Nashville Breweries
                             </p>
-                            <p className={`${montesserat.className} text-sm font-extralight`}>
+                            <p className={`${montesserat.className} text-sm font-extralight sm:text-start text-center`}>
                                 That is the inspiration for my Treasure Hunts. I want to bring
                                 joy to others while experiencing joy myself. I trust your
                                 experience is everything you hoped it would be, and then some.
                             </p>
                             <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}
-                                  className="relative h-[3rem] self-start flex justify-center items-center p-8">
+                                  className="relative h-[3rem] sm:self-start  flex justify-center items-center p-8 ">
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
@@ -114,9 +114,9 @@ export default function Home() {
                             </Link>
                         </div>
                         <div className="w-full md:w-1/2">
-                            <div className="h-[28rem] w-full">
+                            <div className="sm:h-[28rem]  w-full">
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full"
                                     src={"/images/home/home-img1.svg"}
                                     alt="home img1"
@@ -129,7 +129,7 @@ export default function Home() {
                 </div>
                 <div className="px-8 sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <Image
-                        priority
+                        
                         className="absolute w-full object-cover h-full z-[0]"
                         style={{opacity: "0.1"}}
                         src={"/images/home/featured-package.png"}
@@ -148,7 +148,7 @@ export default function Home() {
                         <p className="text-5xl Voigante text-center" id="packages">
                             Featured Packages
                         </p>
-                        <p className="font-semibold Voigante">
+                        <p className="font-semibold Voigante sm:text-start text-center">
                             If purchasing a 3-Day Pass in Nashville please take a look at <a
                             href="https://www.musiccitybrewhop.com/" target="_blank" rel="noopener noreferrer"
                             className="text-blue-500">Music City Brew Hop</a>.
@@ -157,7 +157,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 mb-16">
                         <div
-                            className="h-[25rem] Voigante relative min-w-[22rem] flex flex-col items-center pt-16"
+                            className="h-[25rem] Voigante relative min-w-[22rem] flex flex-col gap-4 items-center pt-16"
                         >
                             <Image className="w-full object-contain h-full absolute z-[0]"
                                    src={'/images/home/featured-frame-box.png'} alt="frame box" width={300}
@@ -165,7 +165,7 @@ export default function Home() {
                             <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
                                 <p className="w-full text-center text-xl">3 Day Pass</p>
                             </div>
-                            <div className="flex z-[1] flex-col gap-4 mt-16">
+                            <div className="flex z-[1] flex-col gap-4 ">
                                 <div>
                                     <p className="text-center text-lg">$29 per person</p>
                                 </div>
@@ -186,7 +186,7 @@ export default function Home() {
                                     }}
                                             className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                         <Image
-                                            priority
+                                            
                                             className="w-full h-full absolute top-0 w-full h-full z-[-1] sm:object-contain object-cover"
                                             src={"/images/button/Frame.svg"}
                                             alt="button Frame 1"
@@ -199,7 +199,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div
-                            className="h-[25rem] Voigante relative min-w-[22rem] flex flex-col items-center pt-16"
+                            className="h-[25rem] Voigante relative gap-4 min-w-[22rem] flex flex-col items-center pt-16"
 
                         >
                             <Image className="w-full object-contain h-full absolute z-[0]"
@@ -210,7 +210,7 @@ export default function Home() {
                                     Single Brewery Pass
                                 </p>
                             </div>
-                            <div className="flex flex-col z-[1] gap-4 mt-16">
+                            <div className="flex flex-col z-[1] gap-4 ">
                                 <div>
                                     <p className="text-center text-lg">$10 per person</p>
                                 </div>
@@ -227,7 +227,7 @@ export default function Home() {
                                 }}
                                         className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                     <Image
-                                        priority
+                                        
                                         className="w-full h-full absolute top-0 w-full h-full z-[1] sm:object-contain object-cover"
                                         src={"/images/button/Frame.svg"}
                                         alt="button Frame 1"
@@ -239,7 +239,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div
-                            className="h-[25rem] Voigante relative min-w-[22rem] flex flex-col items-center pt-16"
+                            className="h-[25rem] Voigante relative min-w-[22rem] gap-4 flex flex-col items-center pt-16"
                         >
                             <Image className="w-full object-contain h-full absolute z-[0]"
                                    src={'/images/home/featured-frame-box.png'} alt="frame box" width={300}
@@ -249,7 +249,7 @@ export default function Home() {
                                     Single Person Membership
                                 </p>
                             </div>
-                            <div className="flex flex-col z-[1] gap-4 mt-16">
+                            <div className="flex flex-col z-[1] gap-4 ">
                                 <div>
                                     <p className="text-center text-lg">$79 per year</p>
                                 </div>
@@ -266,7 +266,7 @@ export default function Home() {
                                 }}
                                         className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
                                     <Image
-                                        priority
+                                        
                                         className="w-full h-full absolute top-0 w-full h-full z-[1] sm:object-contain object-cover"
                                         src={"/images/button/Frame.svg"}
                                         alt="button Frame 1"
@@ -279,15 +279,15 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between flex-wrap gap-4 px-8 sm:px-28 mt-16">
+                <div className="flex justify-between flex-wrap gap-8 px-8 sm:px-28 mt-16">
                     <div className="w-full lg:w-[40%]  flex flex-col gap-4 items-center justify-center">
-                        <div className="flex items-center gap-4 self-start">
-                            <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
-                            <p id="about">About Us</p>
+                        <div className="flex items-center gap-4 sm:self-start">
+                            <div className="h-[0.5rem]  rounded-full w-[5rem] bg-orange-400"></div>
+                            <p id="about" >About Us</p>
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                         </div>
-                        <div className="flex flex-col gap-4">
-                            <p className="text-6xl Voigante">
+                        <div className="flex flex-col gap-4 sm:text-start text-center">
+                            <p className="text-6xl Voigante ">
                                 Riddle the City
                             </p>
                             <p className="text-sm">
@@ -304,9 +304,9 @@ export default function Home() {
                                 treasures are all pretty cool.
                             </p>
                             <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}
-                                  className="relative z-[1] h-[3rem] self-start flex justify-center items-center mt-4 p-8">
+                                  className="relative z-[1] h-[3rem] sm:self-start flex justify-center items-center mt-4 p-8">
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
@@ -318,9 +318,9 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="w-full lg:w-[40%] ">
-                        <div className="h-[25rem]">
+                        <div className="sm:h-[25rem]">
                             <Image
-                                priority
+                                
                                 className="w-full  h-full"
                                 src={"/images/home/aboutus.svg"}
                                 alt="about us"
@@ -332,35 +332,35 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col relative  mt-16">
                     <Image
-                        priority className="w-full object-cover h-full absolute" style={{opacity: '0.1'}}
+                         className="w-full object-cover h-full absolute" style={{opacity: '0.1'}}
                         src={'/images/layout/clientBanner.svg'} alt="mystery" width={500} height={700}/>
                     <div className="flex flex-col relative z-[2] sm:pt-36 gap-8">
-                        <div className="px-8 sm:px-28 flex items-center gap-4 self-start">
+                        <div className="px-8 sm:px-28 flex items-center gap-4 self-start  justify-center sm:w-auto w-full">
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                             <p>Testimonials</p>
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                         </div>
-                        <div className="px-8 sm:px-28 flex gap-8 justify-between">
-                            <h1 className={`text-4xl Voigante`}>What Clients Say About Us</h1>
+                        <div className="px-8 sm:px-28 flex gap-8 sm:justify-between sm:flex-nowrap flex-wrap justify-center">
+                            <h1 className={`text-4xl Voigante text-center`}>What Clients Say About Us</h1>
                             <div className="flex gap-4">
                                 <button onClick={prevSlide} className="min-h-[3rem] w-[3rem]">
                                     <Image
-                                        priority className="w-full h-full" src={'/images/layout/forwardButton.svg'}
+                                         className="w-full h-full" src={'/images/layout/forwardButton.svg'}
                                         alt="back button" width={100} height={100}/>
                                 </button>
                                 <button onClick={nextSlide} className="min-h-[3rem] w-[3rem]">
                                     <Image
-                                        priority className="w-full h-full" src={'/images/layout/backButton.svg'}
+                                         className="w-full h-full" src={'/images/layout/backButton.svg'}
                                         alt="back button" width={100} height={100}/>
                                 </button>
                             </div>
                         </div>
                         <div className="slider-container">
                             <Slider className="px-4 " ref={sliderRef} {...settings}>
-                                <div className=" h-auto max-h-[55rem] relative">
+                                <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                     <Image
-                                        priority
-                                        className="w-full h-full absolute top-0 z-[0]"
+                                        
+                                        className="w-full h-full absolute  top-0 z-[0]"
                                         src={"/images/layout/testimonialBox.png"}
                                         alt="about us"
                                         width={200}
@@ -371,7 +371,7 @@ export default function Home() {
                                         <div className="flex justify-between items-center gap-4 mb-4">
                                             <div className="w-[5rem] h-[3rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/person.png"}
                                                     alt="client"
@@ -385,7 +385,7 @@ export default function Home() {
                                             </div>
                                             <div className="w-[8.5rem] h-[4rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/stars.svg"}
                                                     alt="client"
@@ -400,9 +400,9 @@ export default function Home() {
                                             prizes. The journey on the way was the real adventure.</p>
                                     </div>
                                 </div>
-                                <div className=" h-auto max-h-[55rem] relative">
+                                <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                     <Image
-                                        priority
+                                        
                                         className="w-full h-full absolute top-0 z-[0]"
                                         src={"/images/layout/testimonialBox.png"}
                                         alt="about us"
@@ -414,7 +414,7 @@ export default function Home() {
                                         <div className="flex justify-between items-center gap-4 mb-4">
                                             <div className="w-[5rem] h-[3rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/person.png"}
                                                     alt="client"
@@ -428,7 +428,7 @@ export default function Home() {
                                             </div>
                                             <div className="w-[8.5rem] h-[4rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/stars.svg"}
                                                     alt="client"
@@ -443,9 +443,9 @@ export default function Home() {
                                             prizes. The journey on the way was the real adventure.</p>
                                     </div>
                                 </div>
-                                <div className=" h-auto max-h-[55rem] relative">
+                                <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                     <Image
-                                        priority
+                                        
                                         className="w-full h-full absolute top-0 z-[0]"
                                         src={"/images/layout/testimonialBox.png"}
                                         alt="about us"
@@ -457,7 +457,7 @@ export default function Home() {
                                         <div className="flex justify-between items-center gap-4 mb-4">
                                             <div className="w-[5rem] h-[3rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/person.png"}
                                                     alt="client"
@@ -471,7 +471,7 @@ export default function Home() {
                                             </div>
                                             <div className="w-[8.5rem] h-[4rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/stars.svg"}
                                                     alt="client"
@@ -486,9 +486,9 @@ export default function Home() {
                                             prizes. The journey on the way was the real adventure.</p>
                                     </div>
                                 </div>
-                                <div className=" h-auto max-h-[55rem] relative">
+                                <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                     <Image
-                                        priority
+                                        
                                         className="w-full h-full absolute top-0 z-[0]"
                                         src={"/images/layout/testimonialBox.png"}
                                         alt="about us"
@@ -500,7 +500,7 @@ export default function Home() {
                                         <div className="flex justify-between items-center gap-4 mb-4">
                                             <div className="w-[5rem] h-[3rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/person.png"}
                                                     alt="client"
@@ -514,7 +514,7 @@ export default function Home() {
                                             </div>
                                             <div className="w-[8.5rem] h-[4rem]">
                                                 <Image
-                                                    priority
+                                                    
                                                     className="w-full h-full"
                                                     src={"/images/layout/stars.svg"}
                                                     alt="client"
@@ -560,7 +560,7 @@ export default function Home() {
                         {/* <div className="flex  overflow-x-hidden gap-16 ">
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -571,7 +571,7 @@ export default function Home() {
                                     <div className="flex  justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -585,7 +585,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[9rem] h-[4rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.png"}
                                                 alt="client"
@@ -599,7 +599,7 @@ export default function Home() {
                             </div>
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -610,7 +610,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -624,7 +624,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[9rem] h-[4rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.png"}
                                                 alt="client"
@@ -638,7 +638,7 @@ export default function Home() {
                             </div>
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -649,7 +649,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -663,7 +663,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[9rem] h-[4rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.png"}
                                                 alt="client"
@@ -677,7 +677,7 @@ export default function Home() {
                             </div>
                             <div className="w-[81%] min-h-[20rem] max-h-[55rem] relative" >
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -688,7 +688,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -702,7 +702,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[9rem] h-[4rem]">
                                             <Image
-                                                priority
+                                                
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.png"}
                                                 alt="client"
@@ -728,8 +728,8 @@ export default function Home() {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Register Yourself!</ModalHeader>
-                            <ModalBody className="flex flex-col gap-4 pb-8">
+                            <ModalHeader className="flex flex-col text-xl gap-1 text-center">Register Yourself!</ModalHeader>
+                            <ModalBody className="flex flex-col gap-4 pb-8 items-center">
                                 <p className="text-sm text-gray-400">Please register yourself before booking.</p>
                                 <button onClick={handleLoginClick}
                                         className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay

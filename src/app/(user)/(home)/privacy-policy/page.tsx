@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
             <div className="flex flex-col gap-8" style={{ fontFamily: "VoiganteDisplay" }}>
                 <div className="min-h-[70vh] relative">
                     <Image
-                        priority
+                        
                         className="absolute top-0 h-full object-cover object-right w-full"
                         style={{ opacity: "1" }}
                         src={"/images/privacy-policy/image 16.svg"}

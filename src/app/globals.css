@@ -15,6 +15,13 @@ html {
     scroll-behavior: smooth;
 }
 
+@media only screen and (max-width: 400px) {
+    .slick-active > div{
+        /* display:flex; */
+        justify-content: start !important;
+    }
+    
+}
 .slick-active > div{
     display:flex;
     justify-content: center;

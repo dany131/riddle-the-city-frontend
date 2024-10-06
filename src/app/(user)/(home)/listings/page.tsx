@@ -28,7 +28,7 @@ export default function Listings() {
             <div className="flex flex-col Voigante">
                 <div className="min-h-[70vh] relative">
                     <Image
-                        priority
+                        
                         className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "1"}}
                         src={"/images/layout/image 15.svg"}

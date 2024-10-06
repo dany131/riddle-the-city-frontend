@@ -70,7 +70,7 @@ export default function Faq() {
             <div className="flex flex-col" style={{fontFamily: "VoiganteDisplay"}}>
                 <div className="min-h-[70vh] relative">
                     <Image
-                        priority
+                        
                         className="absolute top-0 h-full object-cover w-full"
                         style={{opacity: "1"}}
                         src={"/images/layout/Mask group.svg"}

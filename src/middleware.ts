@@ -29,68 +29,68 @@ export default async function Middleware(request: NextRequest) {
     const refreshToken = cookiesInitialise.get('refreshToken')?.value
     let userData: UserData | any = cookiesInitialise.get('userData')?.value
     console.log('pathname',request.nextUrl.pathname)
-    if (accessToken) {
-        userData = JSON.parse(userData!)
-        try {
-            const accessTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/brewery/all?page=1&limit=20`, {
-                headers: {
-                    Authorization:`Bearer ${accessToken}`
-                }
-            })
-            const { role } = userData
-            if (request.nextUrl.pathname.includes('/login') && role == 'User') {
-                return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
-            }
-            else if (request.nextUrl.pathname.includes('/login') && role == 'Admin') {
-                return NextResponse.redirect(new URL('/admin/dashboard', request.nextUrl.origin))
-            }
-            else if (role == 'User' && request.nextUrl.pathname.includes('/admin')) {
-                return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
-            }
-            else if (role=='Admin' && restrictedUserPaths.includes(request.nextUrl.pathname)) {
-                return NextResponse.redirect(new URL('/admin/dashboard', request.nextUrl.origin))
-            }
-        }
-        catch {
-            try {
-                const refreshTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/tokens`, {
-                    headers: {
-                        Authorization: `Bearer ${refreshToken}`
-                    }
-                })
-                const { access_token, refresh_token } = refreshTokenChecking.data.data.tokens
-                const response = NextResponse.next()
-                console.log('new middleware refresh tokens set')
-                response.cookies.set('accessToken', access_token)
-                response.cookies.set('refreshToken', refresh_token)
-                return response
-            }
-            catch (e) {
-                console.log('middleware refreshtoken error')
-                const { role } = userData
-                let response;
-                if (role == 'Admin') {
-                    response = NextResponse.redirect(new URL('/admin/login', request.nextUrl.origin))
-                }
-                else {
-                    response = NextResponse.redirect(new URL('/auth/login', request.nextUrl.origin))
-                }
-                response.cookies.delete('accessToken')
-                response.cookies.delete('refreshToken')
-                response.cookies.delete('userData')
-                return response
-            }
-        }
-    }
-    else {
-        console.log('im here')
-        if (request.nextUrl.pathname.includes('/admin') && request.nextUrl.pathname!='/admin/login') {
-            return NextResponse.redirect(new URL('/admin/login', request.nextUrl.origin))
-        }
-        else if (restrictedUserPaths.includes(request.nextUrl.pathname)) {
-            return NextResponse.redirect(new URL('/auth/login', request.nextUrl.origin))
-        }
-    }
+    // if (accessToken) {
+    //     userData = JSON.parse(userData!)
+    //     try {
+    //         const accessTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/brewery/all?page=1&limit=20`, {
+    //             headers: {
+    //                 Authorization:`Bearer ${accessToken}`
+    //             }
+    //         })
+    //         const { role } = userData
+    //         if (request.nextUrl.pathname.includes('/login') && role == 'User') {
+    //             return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
+    //         }
+    //         else if (request.nextUrl.pathname.includes('/login') && role == 'Admin') {
+    //             return NextResponse.redirect(new URL('/admin/dashboard', request.nextUrl.origin))
+    //         }
+    //         else if (role == 'User' && request.nextUrl.pathname.includes('/admin')) {
+    //             return NextResponse.redirect(new URL('/dashboard', request.nextUrl.origin))
+    //         }
+    //         else if (role=='Admin' && restrictedUserPaths.includes(request.nextUrl.pathname)) {
+    //             return NextResponse.redirect(new URL('/admin/dashboard', request.nextUrl.origin))
+    //         }
+    //     }
+    //     catch {
+    //         try {
+    //             const refreshTokenChecking = await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/tokens`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${refreshToken}`
+    //                 }
+    //             })
+    //             const { access_token, refresh_token } = refreshTokenChecking.data.data.tokens
+    //             const response = NextResponse.next()
+    //             console.log('new middleware refresh tokens set')
+    //             response.cookies.set('accessToken', access_token)
+    //             response.cookies.set('refreshToken', refresh_token)
+    //             return response
+    //         }
+    //         catch (e) {
+    //             console.log('middleware refreshtoken error')
+    //             const { role } = userData
+    //             let response;
+    //             if (role == 'Admin') {
+    //                 response = NextResponse.redirect(new URL('/admin/login', request.nextUrl.origin))
+    //             }
+    //             else {
+    //                 response = NextResponse.redirect(new URL('/auth/login', request.nextUrl.origin))
+    //             }
+    //             response.cookies.delete('accessToken')
+    //             response.cookies.delete('refreshToken')
+    //             response.cookies.delete('userData')
+    //             return response
+    //         }
+    //     }
+    // }
+    // else {
+    //     console.log('im here')
+    //     if (request.nextUrl.pathname.includes('/admin') && request.nextUrl.pathname!='/admin/login') {
+    //         return NextResponse.redirect(new URL('/admin/login', request.nextUrl.origin))
+    //     }
+    //     else if (restrictedUserPaths.includes(request.nextUrl.pathname)) {
+    //         return NextResponse.redirect(new URL('/auth/login', request.nextUrl.origin))
+    //     }
+    // }
 }
 
 

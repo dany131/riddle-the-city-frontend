@@ -21,7 +21,7 @@ export default function AboutUs() {
             <div className="flex flex-col Voigante">
                 <div className="min-h-[70vh] relative">
                     <Image
-                        priority
+                        
                         className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "1"}}
                         src={"/images/layout/image 13.svg"}
@@ -39,7 +39,7 @@ export default function AboutUs() {
                     <div className="w-full lg:w-[50%] ">
                         <div className="h-[25rem]">
                             <Image
-                                priority
+                                
                                 className="w-full h-full"
                                 src={"/images/home/aboutUS (2).svg"}
                                 alt="about us"
@@ -72,7 +72,7 @@ export default function AboutUs() {
                             </p>
                             {/* <button className="relative z-[1] h-[3rem] self-start flex justify-center items-center mt-4 p-8">
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"

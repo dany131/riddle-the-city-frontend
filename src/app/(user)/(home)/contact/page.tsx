@@ -31,7 +31,7 @@ export default function Contact() {
             <div className="flex flex-col" style={{ fontFamily: "VoiganteDisplay" }}>
                 <div className="min-h-[70vh] relative">
                     <Image
-                        priority
+                        
                         className="absolute top-0 h-full w-full object-cover"
                         style={{ opacity: "1" }}
                         src={"/images/layout/Mask group.svg"}
@@ -126,7 +126,7 @@ export default function Contact() {
                             <Checkbox required><p className="text-gray-400">I agree that my submitted data is being collected and stored.</p></Checkbox>
                             <button type="submit" className="relative h-[3rem]  z-[1]  flex justify-center items-center px-8 py-4 sm:px-8 sm:py-2 box-border">
                                 <Image
-                                    priority
+                                    
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1] object-contain"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
