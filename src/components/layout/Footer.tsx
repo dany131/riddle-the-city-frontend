@@ -38,7 +38,7 @@ export default function Footer() {
                                 <p style={{fontFamily: "VoiganteDisplay"}}>🗺️ Embark on an Exciting Journey!</p>
                                 <div className="min-h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                             </div>
-                            <div className="z-[4] relative flex flex-wrap gap-2 justify-center sm:gap-0 sm:justify-between">
+                            <div className="z-[4]  pl-0 sm:pl-8 relative flex flex-wrap gap-2 justify-center sm:gap-0 sm:justify-between">
                                 <p className="text-[1.5rem] text-center sm:text-[2.2rem] Voigante">Join the Ultimate Treasure Hunt
                                     Adventure!</p>
                                 <button onClick={() => {
