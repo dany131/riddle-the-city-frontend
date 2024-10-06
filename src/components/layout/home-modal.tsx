@@ -31,7 +31,7 @@ export default function ModalHomeWithButton(){
             }}
             className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
             <Image
-                
+                loading="lazy"
                 className="w-full h-full absolute top-0 w-full h-full z-[2] sm:object-contain object-cover"
                 src={"/images/button/Frame.svg"}
                 alt="button Frame 1"

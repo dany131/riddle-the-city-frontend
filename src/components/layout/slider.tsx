@@ -59,12 +59,12 @@ export default function HomeSlider({children}:{children:React.ReactNode}){
                 <h1 className={`text-4xl Voigante text-center`}>What Clients Say About Us</h1>
                 <div className="flex gap-4">
                     <button onClick={prevSlide} className="min-h-[3rem] w-[3rem]">
-                        <Image
+                        <Image loading="lazy"
                                 className="w-full h-full" src={'/images/layout/forwardButton.svg'}
                             alt="back button" width={100} height={100}/>
                     </button>
                     <button onClick={nextSlide} className="min-h-[3rem] w-[3rem]">
-                        <Image
+                        <Image loading="lazy"
                                 className="w-full h-full" src={'/images/layout/backButton.svg'}
                             alt="back button" width={100} height={100}/>
                     </button>

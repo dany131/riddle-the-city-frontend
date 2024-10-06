@@ -16,7 +16,7 @@ export default function Home() {
             <div className="flex flex-col ">
                 <div className="min-h-[100vh] relative">
                     <Image
-                        
+                        loading="lazy"
                         className="absolute top-0 h-full w-full object-cover"
                         style={{opacity: "0.1"}}
                         src={"/images/layout/image 9.svg"}
@@ -38,7 +38,7 @@ export default function Home() {
                             <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}
                                   className="relative h-[3rem] sm:self-start  flex justify-center items-center p-8 ">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
@@ -51,7 +51,7 @@ export default function Home() {
                         <div className="w-full md:w-1/2">
                             <div className="sm:h-[28rem]  w-full">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full"
                                     src={"/images/home/home-img1.svg"}
                                     alt="home img1"
@@ -64,7 +64,7 @@ export default function Home() {
                 </div>
                 <div className="px-8 sm:px-4 pb-16 flex flex-col items-center gap-8 relative">
                     <Image
-                        
+                        loading="lazy"
                         className="absolute w-full object-cover h-full z-[0]"
                         style={{opacity: "0.1"}}
                         src={"/images/home/featured-package.png"}
@@ -94,7 +94,7 @@ export default function Home() {
                         <div
                             className="h-[25rem] Voigante relative min-w-[22rem] flex flex-col gap-4 items-center pt-16"
                         >
-                            <Image className="w-full object-contain h-full absolute z-[0]"
+                            <Image loading="lazy" className="w-full object-contain h-full absolute z-[0]"
                                    src={'/images/home/featured-frame-box.png'} alt="frame box" width={300}
                                    height={300}/>
                             <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
@@ -124,7 +124,7 @@ export default function Home() {
                             className="h-[25rem] Voigante relative gap-4 min-w-[22rem] flex flex-col items-center pt-16"
 
                         >
-                            <Image className="w-full object-contain h-full absolute z-[0]"
+                            <Image loading="lazy" className="w-full object-contain h-full absolute z-[0]"
                                    src={'/images/home/featured-frame-box.png'} alt="frame box" width={300}
                                    height={300}/>
                             <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
@@ -150,7 +150,7 @@ export default function Home() {
                         <div
                             className="h-[25rem] Voigante relative min-w-[22rem] gap-4 flex flex-col items-center pt-16"
                         >
-                            <Image className="w-full object-contain h-full absolute z-[0]"
+                            <Image loading="lazy" className="w-full object-contain h-full absolute z-[0]"
                                    src={'/images/home/featured-frame-box.png'} alt="frame box" width={300}
                                    height={300}/>
                             <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
@@ -202,7 +202,7 @@ export default function Home() {
                             <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}
                                   className="relative z-[1] h-[3rem] sm:self-start flex justify-center items-center mt-4 p-8">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full absolute top-0 w-full h-full z-[-1]"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
@@ -216,7 +216,7 @@ export default function Home() {
                     <div className="w-full lg:w-[40%] ">
                         <div className="sm:h-[25rem]">
                             <Image
-                                
+                                loading="lazy"
                                 className="w-full  h-full"
                                 src={"/images/home/aboutus.svg"}
                                 alt="about us"
@@ -228,6 +228,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col relative  mt-16">
                     <Image
+                    loading="lazy"
                          className="w-full object-cover h-full absolute" style={{opacity: '0.1'}}
                         src={'/images/layout/clientBanner.svg'} alt="mystery" width={500} height={700}/>
                     <div className="flex flex-col relative z-[2] sm:pt-36 gap-8">
@@ -240,7 +241,7 @@ export default function Home() {
                         <HomeSlider >
                             <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full absolute  top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -252,7 +253,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -266,7 +267,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[8.5rem] h-[4rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.svg"}
                                                 alt="client"
@@ -283,7 +284,7 @@ export default function Home() {
                             </div>
                             <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -295,7 +296,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -309,7 +310,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[8.5rem] h-[4rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.svg"}
                                                 alt="client"
@@ -326,7 +327,7 @@ export default function Home() {
                             </div>
                             <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -338,7 +339,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -352,7 +353,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[8.5rem] h-[4rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.svg"}
                                                 alt="client"
@@ -369,7 +370,7 @@ export default function Home() {
                             </div>
                             <div className=" h-auto max-h-[55rem] !w-[80%] sm:!w-[100%] relative">
                                 <Image
-                                    
+                                    loading="lazy"
                                     className="w-full h-full absolute top-0 z-[0]"
                                     src={"/images/layout/testimonialBox.png"}
                                     alt="about us"
@@ -381,7 +382,7 @@ export default function Home() {
                                     <div className="flex justify-between items-center gap-4 mb-4">
                                         <div className="w-[5rem] h-[3rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/person.png"}
                                                 alt="client"
@@ -395,7 +396,7 @@ export default function Home() {
                                         </div>
                                         <div className="w-[8.5rem] h-[4rem]">
                                             <Image
-                                                
+                                                loading="lazy"
                                                 className="w-full h-full"
                                                 src={"/images/layout/stars.svg"}
                                                 alt="client"
