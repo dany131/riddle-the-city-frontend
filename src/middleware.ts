@@ -115,6 +115,7 @@ export const config = {
         '/completion/:path*',
         '/rewards',
         '/admin/login',
-        '/auth/login'
+        '/auth/login',
+        '/admin/mailing'
     ]
 }

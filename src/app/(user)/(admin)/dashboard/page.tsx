@@ -80,8 +80,8 @@ export default function Dashboard() {
                 </div>
                 <div>
                     <Input
-                        label="Available Breweries"
-                        placeholder="Search breweries by name/location"
+                        label="Available Locations"
+                        placeholder="Search Location by name/location"
                         onChange={(e) => {
                             setSearchQuery(e.target.value)
                             setPage(1)
@@ -94,7 +94,7 @@ export default function Dashboard() {
                         <thead>
                         <tr className="bg-gray-200">
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
-                            <th className="p-2 text-sm text-left">Brewery Name</th>
+                            <th className="p-2 text-sm text-left">Location Name</th>
                             <th className="p-2 text-sm text-left">Location</th>
                             <th className="p-2 text-sm text-left rounded-r-md">Date Of Creation</th>
                         </tr>

@@ -68,7 +68,7 @@ export default function Dashboard() {
                 </div>
                 <div className="flex gap-4 p-4 w-full justify-between items-center border-[0.15rem] rounded-lg">
                     <div className="flex flex-col gap-2">
-                        <p className="font-semibold">Total Breweries</p>
+                        <p className="font-semibold">Total Locations</p>
                         <p className="font-bold text-3xl">{chartsQuery.data?.data.data.counts.totalBreweries}</p>
                         {/* <p className="p-1 w-max bg-green-200 text-green-600 rounded-full flex gap-2 items-center"><AiOutlineStock /> 12.08%</p> */}
                     </div>

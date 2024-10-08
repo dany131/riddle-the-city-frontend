@@ -26,7 +26,7 @@ import {IoLocationSharp} from "react-icons/io5";
 
 const BreweryDetails = ({brewery}: { brewery: any }) => (
     <div className="flex flex-col">
-        <p className="text-gray-400 text-sm">Brewery Name</p>
+        <p className="text-gray-400 text-sm">Location Name</p>
         <p className="font-semibold">{brewery.name}</p>
     </div>
 );
@@ -53,16 +53,37 @@ const ScheduleDetails = ({schedule}: { schedule: any[] }) => (
     </>
 );
 
-const HuntDetails = ({hunt}: { hunt: any }) => (
+const HuntDetails = ({hunts,setHuntId,huntId}: { hunts: any,setHuntId:any,huntId:string|null }) => (
     <div className="flex flex-col gap-4">
-        <div className="flex flex-col">
+        <Select
+      isRequired
+      label="Select Hunt"
+      placeholder="Select a Hunt"
+      defaultSelectedKeys={["cat"]}
+      className="max-w-xs"
+      labelPlacement="outside"
+      selectedKeys={huntId?[huntId]:[]}
+      onSelectionChange={(e)=>{
+        // console.log('select',e)
+        setHuntId(Object.values(e)[0])
+      }}
+      classNames={{label:"!font-semibold"}}
+    >
+      {hunts.map((animal:any) => (
+        <SelectItem key={animal._id}>
+          {animal.name}
+        </SelectItem>
+      ))}
+    </Select>
+
+        {/* <div className="flex flex-col">
             <p className="text-gray-400 text-sm">Hunt Name</p>
             <p className="font-semibold">{hunt?.name || "N/A"}</p>
-        </div>
-        <div className="flex flex-col">
+        </div> */}
+        {huntId && <div className="flex flex-col">
             <p className="text-gray-400 text-sm">Hunt Description</p>
-            <p className="font-semibold">{hunt?.description || "N/A"}</p>
-        </div>
+            <p className="font-semibold">{hunts.find((e:any)=>e._id==huntId).description || "N/A"}</p>
+        </div>}
     </div>
 );
 
@@ -81,18 +102,20 @@ const LocationMap = ({coordinates}: { coordinates: [number, number] }) => (
     </div>
 );
 
-const StartRiddleButton = ({isHuntAvailable, startRiddleMutation}: {
+const StartRiddleButton = ({isHuntAvailable, startRiddleMutation,huntId}: {
     isHuntAvailable: boolean,
-    startRiddleMutation: any
+    startRiddleMutation: any,
+    huntId:string|null
 }) => (
     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
         <button
-            disabled={!isHuntAvailable}
-            onClick={() => startRiddleMutation.mutate()}
+            disabled={!isHuntAvailable || !huntId}
+            onClick={() => startRiddleMutation.mutate(huntId)}
             className={`px-8 sm:px-32 w-full sm:w-max py-2 rounded text-white ${isHuntAvailable ? 'bg-[#A92223]' : 'bg-gray-400 cursor-not-allowed'}`}
         >
             {startRiddleMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin"/> : "Start Riddle"}
         </button>
+        {!huntId &&  <p className="text-red-500">Select A Hunt To Start Riddle</p>}
         {!isHuntAvailable && (
             <p className="text-red-500">No hunt created for this brewery</p>
         )}
@@ -100,6 +123,7 @@ const StartRiddleButton = ({isHuntAvailable, startRiddleMutation}: {
 );
 
 const Dashboard = (datas: any) => {
+    const [huntId,setHuntId]=useState(null)
     const {isOpen: isOpenHint, onOpen: onOpenHint, onOpenChange: onOpenChangeHint} = useDisclosure();
     const {isOpen: isOpenReward, onOpen: onOpenReward, onOpenChange: onOpenChangeReward} = useDisclosure();
     const navigate = useRouter();
@@ -109,7 +133,8 @@ const Dashboard = (datas: any) => {
         return axiosInstance.get(`/brewery?breweryId=${queryKey[1]}`);
     });
 
-    const startRiddleMutation = useMutation(() => axiosInstance.post(`/hunt/start?breweryId=${datas.searchParams.id}`), {
+    console.log('huntid',huntId)
+    const startRiddleMutation = useMutation((data:string) => axiosInstance.post(`/hunt/start?breweryId=${datas.searchParams.id}&huntId=${data}`), {
         onSuccess(data) {
             navigate.push(`/startRiddle`);
         },
@@ -131,7 +156,7 @@ const Dashboard = (datas: any) => {
         }
     });
 
-    const isHuntAvailable = breweryQuery.data?.data.data.hunt?.name && breweryQuery.data?.data.data.hunt?.description;
+    const isHuntAvailable = breweryQuery.data?.data.data.hunts.length;
 
     const encodedAddress = encodeURIComponent(breweryQuery.data?.data.data.brewery.address.text || "");
     googleMapUrl = `${googleMapUrl}/${encodedAddress}`;
@@ -153,7 +178,7 @@ const Dashboard = (datas: any) => {
 
                 <ScheduleDetails schedule={breweryQuery.data?.data.data.brewery.schedule}/>
 
-                <HuntDetails hunt={breweryQuery.data?.data.data.hunt}/>
+                <HuntDetails huntId={huntId} hunts={breweryQuery.data?.data.data.hunts} setHuntId={setHuntId}/>
 
                 <div className="flex flex-col gap-4">
                     <p className="text-gray-400 text-sm">Location</p>
@@ -168,7 +193,7 @@ const Dashboard = (datas: any) => {
                     <LocationMap coordinates={breweryQuery.data?.data.data.brewery.address.location.coordinates}/>
                 </div>
 
-                <StartRiddleButton isHuntAvailable={isHuntAvailable} startRiddleMutation={startRiddleMutation}/>
+                <StartRiddleButton huntId={huntId} isHuntAvailable={isHuntAvailable} startRiddleMutation={startRiddleMutation}/>
             </div>
 
             <Modal

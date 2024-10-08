@@ -25,6 +25,7 @@ import {useRouter} from "next/navigation";
 import {Time} from "@internationalized/date";
 import Link from "next/link";
 import {ImSpinner2} from "react-icons/im";
+import Image from "next/image";
 
 
 const selections = [
@@ -136,10 +137,10 @@ export default function ManageBreweries() {
 
             <>
                 <div className="flex justify-between items-center">
-                    <p className="text-xl font-semibold">Manage Breweries</p>
+                    <p className="text-xl font-semibold">Manage Locations</p>
                     <Link href={'/admin/manage-breweries/create'}
                           className="sm:px-16 px-4 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Add
-                        Brewery</Link>
+                        Location</Link>
                 </div>
                 {breweryQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2
                     className="text-4xl animate-spin"/></div>}
@@ -149,9 +150,10 @@ export default function ManageBreweries() {
                         <thead>
                         <tr className="bg-gray-200">
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
-                            <th className="p-2 text-sm text-left">Brewery Name</th>
+                            <th className="p-2 text-sm text-left">Location Name</th>
                             <th className="p-2 text-sm text-left">Location</th>
                             <th className="p-2 text-sm text-left">Date Of Creation</th>
+                            <th className="p-2 text-sm text-left">Location Logo</th>
                             <th className="p-2 text-sm text-left rounded-r-md">Action</th>
                         </tr>
                         </thead>
@@ -161,6 +163,8 @@ export default function ManageBreweries() {
                             <td className="p-2 text-sm">{e.name}</td>
                             <td className="p-2 text-sm">{e.address.text}</td>
                             <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
+
+                            <td className="p-2 text-sm"><Image className="w-[3rem] h-[3rem] object-contain" src={e.media?e.media.includes('placeholder')?'/images/user/profile/profile.png':`${process.env.NEXT_PUBLIC_MEDIA_URL}/${e.media}`:'/images/user/profile/profile.png'} alt="brewery Logo" width={100} height={100}/></td>
                             <td className="p-2 text-sm">
                                 <div className="flex gap-2">
                                     <Link href={`/admin/manage-breweries/edit?id=${e._id}`}><CiEdit

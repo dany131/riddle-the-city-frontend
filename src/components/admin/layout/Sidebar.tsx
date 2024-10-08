@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import Cookies from 'js-cookie'
+import { CiMail } from "react-icons/ci";
 
 export default function Sidebar() {
     const pathname = usePathname()
@@ -53,7 +54,7 @@ export default function Sidebar() {
                     </div>
                     <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-breweries' ? 'bg-[#a922236e]' : ''}`}>
                         <ImNewspaper className="w-1/4" />
-                        <Link className="w-full" href={'/admin/manage-breweries'}>Manage Breweries</Link>
+                        <Link className="w-full" href={'/admin/manage-breweries'}>Manage Locations</Link>
                     </div>
                     <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
                         <FaListCheck className="w-1/4" />
@@ -63,6 +64,11 @@ export default function Sidebar() {
                         <BiSolidBookContent className="w-1/4" />
                         <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                     </div>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/mailing' ? 'bg-[#a922236e]' : ''}`}>
+                        <CiMail className="w-1/4" />
+                        <Link className="w-full" href={'/admin/mailing'}>Mailing</Link>
+                    </div>
+
                     {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                         <TbSettings className="w-1/4" />
                         <Link className="w-full" href={'/admin/settings'}>Settings</Link>
@@ -84,7 +90,7 @@ export default function Sidebar() {
                             </div>
                             <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-breweries' ? 'bg-[#a922236e]' : ''}`}>
                                 <ImNewspaper className="w-1/4" />
-                                <Link className="w-full" href={'/admin/manage-breweries'}>Manage Breweries</Link>
+                                <Link className="w-full" href={'/admin/manage-breweries'}>Manage Locations</Link>
                             </div>
                             <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/manage-hunts' ? 'bg-[#a922236e]' : ''}`}>
                                 <FaListCheck className="w-1/4" />
@@ -94,6 +100,10 @@ export default function Sidebar() {
                                 <BiSolidBookContent className="w-1/4" />
                                 <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                             </div>
+                            <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/mailing' ? 'bg-[#a922236e]' : ''}`}>
+                        <CiMail className="w-1/4" />
+                        <Link className="w-full" href={'/admin/mailing'}>Mailing</Link>
+                    </div>
                             {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                                 <TbSettings className="w-1/4" />
                                 <Link className="w-full" href={'/admin/settings'}>Settings</Link>

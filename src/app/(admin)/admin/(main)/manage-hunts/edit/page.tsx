@@ -1,14 +1,46 @@
 'use client'
 import axiosInstance from "@/app/utils/axiosInstance";
-import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Textarea, useDisclosure } from "@nextui-org/react";
+import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, Switch, Textarea, useDisclosure } from "@nextui-org/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Autocomplete, AutocompleteItem } from "@nextui-org/react";
 import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "react-toastify";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
+  };
+
+  
+const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];  
 export default function EditHunts(data: any) {
     // console.log(data.searchParams.id)
+    const [isActive,setIsActive]=useState(true)
     const [message,setMessage]=useState('')
     const [page, setPage] = useState(1)
     const [hasMore, setHasMore] = useState(false)
@@ -79,6 +111,7 @@ export default function EditHunts(data: any) {
             })
             huntsData.riddles=riddlesToAdd
             setHuntToAdd(huntsData)
+            setIsActive(data.data.data.isActive)
         },
         onError(err) {
             console.log(err)
@@ -224,8 +257,8 @@ export default function EditHunts(data: any) {
                                 value={huntsQuery.data?.data.data.brewery.name}
                                 className="sm:w-[70%] w-full"
                                 type="text"
-                                label="Brewery Name"
-                                placeholder="Enter Hunt Name"
+                                label="Location Name"
+                                placeholder="Enter Location Name"
                                 onChange={(e) => {
                                     setHuntToAdd((prev: any) => {
                                         return ({
@@ -237,20 +270,20 @@ export default function EditHunts(data: any) {
                                 labelPlacement="outside"
                                 classNames={{ label: "!font-semibold" }}
                             />
+                            <div className="flex flex-col gap-2">
+                            <p className="font-semibold text-sm">Is Hunt Active</p>
+                            <Switch isSelected={isActive} onValueChange={(value)=>setIsActive(value)} defaultSelected/>
+                        </div>
                         </div>
                     </div>
                     <div className="flex flex-col mt-3 gap-4">
                         <h1 className="font-semibold">Edit Riddles</h1>
                         {huntToAdd?.riddles.map((e: any, index: number) =>
                             <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
-                                <div className="flex gap-4">
-
-                                    <Input
-                                        value={e.title}
-                                        isInvalid={e.title == '' && error}
-                                        errorMessage="Please Enter Riddle Title"
-                                        onChange={(j) => {
-                                            const value = j.target.value
+                                <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Title</p>
+                            <ReactQuill  placeholder="Enter Riddle Title" value={e.title} onChange={(j) => {
+                                            const value = j;
                                             const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
                                             find!.title = value
                                             const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
@@ -267,23 +300,13 @@ export default function EditHunts(data: any) {
                                                     }
                                                 )
                                             })
-                                        }}
-                                        className="w-full"
-                                        type="text"
-                                        label="Title "
-                                        placeholder="Enter Riddle Title"
-                                        labelPlacement="outside"
-                                        classNames={{ label: "!font-semibold" }}
-                                    />
-                                </div>
-                                <Textarea
-                                    value={e.description}
-                                    label="Description"
-                                    isInvalid={e.description == '' && error}
-                                    errorMessage="Please Enter Riddle Description"
-                                    placeholder="Write description..."
-                                    onChange={(j) => {
-                                        const value = j.target.value
+                                        }} theme="snow" />
+
+                            </div>
+                            <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Description</p>
+                            <ReactQuill placeholder="Write description..." value={e.description} onChange={(j) => {
+                                        const value = j
                                         const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
                                         find!.description = value
                                         const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
@@ -300,17 +323,14 @@ export default function EditHunts(data: any) {
                                                 }
                                             )
                                         })
-                                    }}
-                                    className="w-full"
-                                    labelPlacement="outside"
-                                    size="lg"
-                                    minRows={10}
-                                    classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                                />
-                                <div className="flex gap-4">
-                                    <Textarea
-                                        onChange={(j) => {
-                                            const value = j.target.value
+                                    }} theme="snow" />
+                                
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="flex flex-col gap-2 h-auto">
+                                                        <p className="font-semibold text-sm">Reward</p>
+                                                        <ReactQuill placeholder="Write Reward..." value={e.reward} onChange={(j) => {
+                                            const value = j
                                             const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
                                             find!.reward = value
                                             const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
@@ -327,24 +347,13 @@ export default function EditHunts(data: any) {
                                                     }
                                                 )
                                             })
-                                        }}
-                                        value={e.reward}
-                                        isInvalid={e.reward == '' && error}
-                                        errorMessage="Please Enter Riddle Reward"
-                                        label="Reward"
-                                        placeholder="Write Reward..."
-                                        className="w-full"
-                                        labelPlacement="outside"
-                                        size="lg"
-                                        minRows={5}
-                                        classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                    /> <Textarea
-                                        value={e.hint}
-                                        label="Hint"
-                                        isInvalid={e.hint == '' && error}
-                                        errorMessage="Please Enter Riddle Hint"
-                                        onChange={(j) => {
-                                            const value = j.target.value
+                                        }} theme="snow" />
+                                                            
+                                </div>
+                                <div className="flex flex-col gap-2 h-auto">
+                                <p className="font-semibold text-sm">Hint</p>
+                                <ReactQuill placeholder="Write Hint..." value={e.hint}  onChange={(j) => {
+                                            const value = j
                                             const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
                                             find!.hint = value
                                             const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
@@ -361,15 +370,11 @@ export default function EditHunts(data: any) {
                                                     }
                                                 )
                                             })
-                                        }}
-                                        placeholder="Write Hint..."
-                                        className="w-full"
-                                        labelPlacement="outside"
-                                        size="lg"
-                                        minRows={5}
-                                        classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                    />
+                                        }} theme="snow" />
+                                    
                                 </div>
+                            </div>
+                                
                                 {<button onClick={() => {
                                     const oldRiddles = huntToAdd.riddles.filter((j: any, index1: number) => index1 != index)
                                     setHuntToAdd((prev: any) => {

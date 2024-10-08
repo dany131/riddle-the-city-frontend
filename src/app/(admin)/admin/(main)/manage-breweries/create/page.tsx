@@ -9,6 +9,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "react-toastify";
+import Image from "next/image";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 const users = [
     {
         id: 0, name: 'Sunday'
@@ -36,14 +38,18 @@ const users = [
 
 export default function CreateBrewery() {
     const navigate=useRouter()
+    const [profileImage,setProfileImage]=useState<File|null>(null)
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3 } = useDisclosure();
     const [breweryToAdd, setBreweryToAdd] = useState<any>()
     const [breweryLocationToAdd, setBreweryLocationToAdd] = useState<any>()
     const [locationText,setLocationText]=useState('')
+    const {register,handleSubmit}=useForm()
     // const [breweryToAddDay, setBreweryToAddDay] = useState<any>()
     // const [breweryToAddStartTime, setBreweryToAddStartTime] = useState<any>()
     // const [breweryToAddEndTime, setBreweryToAddEndTime] = useState<any>()
     // const [breweryToAddStatus, setBreweryToAddStatus] = useState<any>()
+    // const [profileImage, setProfileImage] = useState<File | null>(null);
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
     const [brewerySchedule, setBrewerySchedule] = useState([
         {
             "day": 'Sunday',
@@ -105,9 +111,9 @@ export default function CreateBrewery() {
     const [message, setMessage] = useState('')
     const [googleData, setGoogleData] = useState<any>()
     const [location, setLocation] = useState('')
-    const [error,setError]=useState(false)
+    const [error,setError]=useState<any>(false)
     const queryClient=useQueryClient()
-    function handleSubmit(e: FormEvent) {
+    function handleSubmitt(e: FieldValues) {
         e.preventDefault()
         const filterBrewery = brewerySchedule.filter((f) => {
             if (f.time.start && f.time.end) {
@@ -119,6 +125,10 @@ export default function CreateBrewery() {
             setError(true)
             // console.log('empty',true)
         }
+        if(!profileImage){
+            setError("Select Brewery Logo")
+
+        }
         else {
             const breweryData = {
                 "name": breweryToAdd,
@@ -126,6 +136,31 @@ export default function CreateBrewery() {
                 "schedule": filterBrewery
             }
             setError(false)
+            console.log('actualBrewery',breweryData)
+            const formData= new FormData()
+            Object.entries(breweryData.address).forEach((e)=>{
+                formData.append(`address[${e[0]}]`,e[1] as any)
+            })
+            formData.append(`name`,breweryData.name as any)
+            formData.append('file',e.file)
+            // formData.append('file',)
+            
+            breweryData.schedule.forEach((e,index)=>{
+
+                // console.log('process',e)
+                Object.entries(e).forEach((j,ind)=>{
+                    // console.log('key',j)
+                    if(typeof j[1] =='object'){
+                        Object.entries(j[1]).forEach((k)=>{
+                            formData.append(`schedule[${index}][${j[0]}][${k[0]}]`,k[1] as any)
+                        })
+                    }
+                    else{
+                        formData.append(`schedule[${index}][${j[0]}]`,j[1] as any)
+                    }
+                })
+            })
+            console.log('breweryData',[...formData.entries()])
             addBreweryMutation.mutate(breweryData)
         }
 
@@ -222,9 +257,10 @@ export default function CreateBrewery() {
                 <p className="text-xl font-semibold">Add Brewery</p>
             </div>
             {!!message && <p className="text-red-600 text-center">{message}</p>}
-            <form onSubmit={handleSubmit} className="mt-4 p-4 border-[0.1rem] flex flex-col gap-4 rounded-lg">
+            <form onSubmit={handleSubmitt} className="mt-4 p-4 border-[0.1rem] flex flex-col gap-4 rounded-lg">
                 <div className="sm:w-[80%] flex flex-col gap-4 w-full">
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 flex-wrap w-full">
+                        <div className="flex gap-4 w-full">
                         <Input
                             onChange={(e) => {
                                 setBreweryToAdd(e.target.value)
@@ -232,9 +268,9 @@ export default function CreateBrewery() {
                             className="w-full"
                             type="text"
                             isInvalid={!!breweryToAdd == false && error}
-                            errorMessage="Please Enter Brewery Name"
-                            label="Brewery Name"
-                            placeholder="Enter Brewery Name"
+                            errorMessage="Please Enter Location Name"
+                            label="Location Name"
+                            placeholder="Enter Location Name"
                             labelPlacement="outside"
                         />
 
@@ -288,6 +324,23 @@ export default function CreateBrewery() {
                         >
                             {(item) => <AutocompleteItem key={item.label}>{item.label}</AutocompleteItem>}
                         </Autocomplete>
+                        </div>
+                        
+
+                        <div className="relative min-h-[10rem] w-[10rem] flex flex-col gap-2">
+                            <p className="text-sm">Location Logo</p>
+                            {error && <p className="text-red-500 font-semibold">{error}</p>}
+                            <label htmlFor="breweryLogo" className="cursor-pointer block">
+                            <Image src={previewImage?previewImage:'/images/user/profile/profile.png'} alt="brewery Logo" width={100} height={100} className="h-full w-full object-contain"/>
+                            </label>
+                            <input   onChange={(e)=>{
+                                if (e.target.files && e.target.files.length > 0) {
+                                    const file = e.target.files[0];
+                                    setProfileImage(file);
+                                    setPreviewImage(URL.createObjectURL(file));
+                                }
+                            }} className="absolute invisible" id="breweryLogo" type="file"/>
+                        </div>
                     </div>
                     <div className="flex flex-col gap-4">
                         <p className="font-semibold">Schedule Hours</p>
@@ -456,7 +509,7 @@ export default function CreateBrewery() {
                         </table>
                     </div>
                 </div>
-                <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{addBreweryMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : 'Add Brewery'}</button>
+                <button type="submit" className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{addBreweryMutation.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : 'Add Location'}</button>
             </form>
             <Modal
                 size={"xl"}
@@ -472,9 +525,9 @@ export default function CreateBrewery() {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Brewery Added Successfuly</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Location Added Successfuly</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm text-gray-400">New Brewery has been added successfully</p>
+                                <p className="text-sm text-gray-400">New Location has been added successfully</p>
                                 {/* <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button> */}
                             </ModalBody>
                         </>

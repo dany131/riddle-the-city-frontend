@@ -17,6 +17,7 @@ import {useMutation, useQuery, useQueryClient} from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import {useState, useEffect} from "react";
 import {FaTrophy} from "react-icons/fa";
+import Image from "next/image";
 
 
 type ClaimReward = {
@@ -149,11 +150,12 @@ export default function Rewards() {
                         <div className="flex flex-col gap-4 pb-8">
                             {riddleToClaim?.riddle.map((riddle: any) => (
                                 <div key={riddle.id}
-                                     className={(riddle.claimed) ? "flex flex-col gap-2 shadow-lg rounded-lg p-4 bg-red-400" : "flex flex-col gap-2 shadow-lg rounded-lg p-4"}>
+                                     className={(riddle.claimed) ? "flex flex-col gap-2 shadow-lg rounded-lg p-4  relative" : "flex flex-col gap-2 shadow-lg rounded-lg p-4"}>
                                     <p>Riddle Name: <span className="font-semibold">{riddle.name}</span></p>
                                     <p>Riddle Reward: <span className="font-semibold">{riddle.rewards}</span></p>
                                     {riddle.claimed && (
-                                        <p>Claimed Reward: <span className="font-semibold">Yes</span></p>
+                                        <Image src={'/images/layout/claimed.png'} alt="claimed" className="absolute top-0 left-0 w-full h-full object-contain " width={200} height={200}/>
+                                        // <p>Claimed Reward: <span className="font-semibold">Yes</span></p>
                                     )}
                                     {!riddle.claimed && (
                                         <div className="flex w-full justify-center gap-4">

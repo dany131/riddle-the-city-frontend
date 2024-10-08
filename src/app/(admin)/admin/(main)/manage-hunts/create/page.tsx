@@ -20,7 +20,9 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import {useRouter} from "next/navigation";
 import {ImSpinner2} from "react-icons/im";
 import {toast} from "react-toastify";
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import {Switch} from "@nextui-org/react";
 
 const selections = [
     {label: 'Open', key: 1}
@@ -35,6 +37,7 @@ export default function CreateRiddle() {
     const [hasMore, setHasMore] = useState(false);
     const [message, setMessage] = useState('');
     const [error,setError]=useState(false)
+    const [isActive,setIsActive]=useState(true)
     const [huntToAdd, setHuntToAdd] = useState({
         name: "",
         description: "",
@@ -121,6 +124,7 @@ export default function CreateRiddle() {
         });
         const addHuntData = {
             ...huntToAdd,
+            isActive,
             riddles: filterRiddlesNew
         };
         console.log('addHunt',addHuntData)
@@ -204,11 +208,11 @@ export default function CreateRiddle() {
                                 name: "",
                                 _id: ""
                             }] as any)}
-                            label="Brewery Name"
+                            label="Location Name"
                             labelPlacement="outside"
                             placeholder="Select a Brewery"
                             isInvalid={huntToAdd.brewery == '' && error}
-                            errorMessage="Please Select Brewery"
+                            errorMessage="Please Select Location"
                             defaultSelectedKey={huntToAdd.brewery}
                             scrollRef={scrollerRef}
                             onInputChange={(e) => {
@@ -234,15 +238,39 @@ export default function CreateRiddle() {
                                 </AutocompleteItem>
                             )}
                         </Autocomplete>
+
+                        <div className="flex flex-col gap-2">
+                            <p className="font-semibold text-sm">Is Hunt Active</p>
+                            <Switch onValueChange={(value)=>setIsActive(value)} defaultSelected/>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-col mt-3 gap-4">
                     <h1 className="font-semibold">Create Riddles</h1>
                     {huntToAdd.riddles.map((e, index: number) =>
                         <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
-                            <div className="flex gap-4">
-
-                                <Input
+                            <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Title</p>
+                            <ReactQuill placeholder="Enter Riddle Title" value={e.title} onChange={(j) => {
+                                        const value = j;
+                                        const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                        find!.title = value;
+                                        const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                            if (index1 == index) {
+                                                return find;
+                                            }
+                                            return k;
+                                        });
+                                        setHuntToAdd((prev: any) => {
+                                            return (
+                                                {
+                                                    ...prev,
+                                                    riddles: newRiddles
+                                                }
+                                            );
+                                        });
+                                    }} theme="snow" />
+                                {/* <Input
                                     value={e.title}
                                     isInvalid={e.title == '' && error}
                                     errorMessage="Please Enter Riddle Title"
@@ -271,16 +299,13 @@ export default function CreateRiddle() {
                                     placeholder="Enter Riddle Title"
                                     labelPlacement="outside"
                                     classNames={{ label: "!font-semibold" }}
-                                />
+                                /> */}
                             </div>
-                            <Textarea
-                                value={e.description}
-                                label="Description"
-                                isInvalid={e.description == '' && error}
-                                errorMessage="Please Enter Riddle Description"
-                                placeholder="Write description..."
-                                onChange={(j) => {
-                                    const value = j.target.value;
+
+                            <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Description</p>
+                            <ReactQuill placeholder="Write description..." value={e.description} onChange={(j) => {
+                                    const value = j;
                                     const find = huntToAdd.riddles.find((e, index1) => index1 == index);
                                     find!.description = value;
                                     const newRiddles = huntToAdd.riddles.map((k, index1) => {
@@ -297,76 +322,60 @@ export default function CreateRiddle() {
                                             }
                                         );
                                     });
-                                }}
-                                className="w-full"
-                                labelPlacement="outside"
-                                size="lg"
-                                minRows={10}
-                                classNames={{ description: "!h-[15rem]", label: "!font-semibold" }}
-                            />
-                            <div className="flex gap-4">
-                                <Textarea
-                                    onChange={(j) => {
-                                        const value = j.target.value;
-                                        const find = huntToAdd.riddles.find((e, index1) => index1 == index);
-                                        find!.reward = value;
-                                        const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                            if (index1 == index) {
-                                                return find;
-                                            }
-                                            return k;
-                                        });
-                                        setHuntToAdd((prev: any) => {
-                                            return (
-                                                {
-                                                    ...prev,
-                                                    riddles: newRiddles
-                                                }
-                                            );
-                                        });
-                                    }}
-                                    value={e.reward}
-                                    isInvalid={e.reward == '' && error}
-                                    errorMessage="Please Enter Riddle Reward"
-                                    label="Reward"
-                                    placeholder="Write Reward..."
-                                    className="w-full"
-                                    labelPlacement="outside"
-                                    size="lg"
-                                    minRows={5}
-                                    classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                /> <Textarea
-                                    value={e.hint}
-                                    isInvalid={e.hint == '' && error}
-                                    errorMessage="Please Enter Riddle Hint"
-                                    label="Hint"
-                                    onChange={(j) => {
-                                        const value = j.target.value;
-                                        const find = huntToAdd.riddles.find((e, index1) => index1 == index);
-                                        find!.hint = value;
-                                        const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                            if (index1 == index) {
-                                                return find;
-                                            }
-                                            return k;
-                                        });
-                                        setHuntToAdd((prev: any) => {
-                                            return (
-                                                {
-                                                    ...prev,
-                                                    riddles: newRiddles
-                                                }
-                                            );
-                                        });
-                                    }}
-                                    placeholder="Write Hint..."
-                                    className="w-full"
-                                    labelPlacement="outside"
-                                    size="lg"
-                                    minRows={5}
-                                    classNames={{ description: "!h-[5rem]", label: "!font-semibold" }}
-                                />
+                                }} theme="snow" />
+                                
                             </div>
+
+                            <div className="flex gap-4">
+                                <div className="flex flex-col gap-2 h-auto">
+                                                        <p className="font-semibold text-sm">Reward</p>
+                                                        <ReactQuill placeholder="Write Reward..." value={e.reward} onChange={(j) => {
+                                                                    const value = j;
+                                                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                                                    find!.reward = value;
+                                                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                                                        if (index1 == index) {
+                                                                            return find;
+                                                                        }
+                                                                        return k;
+                                                                    });
+                                                                    setHuntToAdd((prev: any) => {
+                                                                        return (
+                                                                            {
+                                                                                ...prev,
+                                                                                riddles: newRiddles
+                                                                            }
+                                                                        );
+                                                                    });
+                                                                }} theme="snow" />
+                                                            
+                                </div>
+                                <div className="flex flex-col gap-2 h-auto">
+                                <p className="font-semibold text-sm">Hint</p>
+                                <ReactQuill placeholder="Write Hint..." value={e.hint}  onChange={(j) => {
+                                            const value = j;
+                                            const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                            find!.hint = value;
+                                            const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                                if (index1 == index) {
+                                                    return find;
+                                                }
+                                                return k;
+                                            });
+                                            setHuntToAdd((prev: any) => {
+                                                return (
+                                                    {
+                                                        ...prev,
+                                                        riddles: newRiddles
+                                                    }
+                                                );
+                                            });
+                                        }} theme="snow" />
+                                    
+                                </div>
+                            </div>
+
+                            
                             {index != 0 && <button onClick={() => {
                                 const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != index);
                                 setHuntToAdd((prev) => {

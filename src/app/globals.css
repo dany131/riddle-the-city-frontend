@@ -54,3 +54,8 @@ html {
 .rccs{
     margin: 0 !important;
 }
+
+.ql-container{
+    height: auto !important;
+    background-color: #f4f4f5;
+}

@@ -1,12 +1,15 @@
 'use client';
 
 import axiosInstance from "@/app/utils/axiosInstance";
-import {Input, Textarea} from "@nextui-org/react";
+import {Input, Switch, Textarea} from "@nextui-org/react";
 import {useState} from "react";
 import {useQuery} from "react-query";
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 export default function ViewHunt({searchParams}: any) {
+    const [isActive,setIsActive]=useState(true)
+
     const [huntToView, setHuntToView] = useState<any>(null);
 
     const huntsQuery = useQuery(['individualhunts', searchParams.id], ({queryKey}) => {
@@ -25,6 +28,7 @@ export default function ViewHunt({searchParams}: any) {
                     qrCode: riddle.qrCode
                 }))
             };
+            setIsActive(data.data.data.isActive)
             setHuntToView(huntData);
         },
         onError(err) {
@@ -68,17 +72,45 @@ export default function ViewHunt({searchParams}: any) {
                     value={huntToView?.breweryName || ""}
                     className="w-full"
                     type="text"
-                    label="Brewery Name"
+                    label="Location Name"
                     labelPlacement="outside"
                     classNames={{label: "!font-semibold"}}
                 />
+                <div className="flex flex-col gap-2">
+                            <p className="font-semibold text-sm">Is Hunt Active</p>
+                            <Switch isReadOnly isSelected={isActive} onValueChange={(value)=>setIsActive(value)} defaultSelected/>
+                        </div>
             </div>
 
             <div className="flex flex-col gap-4 mt-6">
                 <p className="font-semibold text-xl">Riddles</p>
                 {huntToView?.riddles?.map((riddle: any, index: number) => (
                     <div key={index} className="w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
-                        <Input
+                        <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Title</p>
+                            <ReactQuill readOnly placeholder="Enter Riddle Title" value={riddle.title}  theme="snow" />
+
+                            </div>
+
+                            <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Description</p>
+                            <ReactQuill readOnly placeholder="Write description..." value={riddle.description}  theme="snow" />
+                                
+                            </div>
+
+                            <div className="flex gap-4">
+                                <div className="flex flex-col gap-2 h-auto">
+                                                        <p className="font-semibold text-sm">Reward</p>
+                                                        <ReactQuill readOnly placeholder="Write Reward..." value={riddle.reward} theme="snow" />
+                                                            
+                                </div>
+                                <div className="flex flex-col gap-2 h-auto">
+                                <p className="font-semibold text-sm">Hint</p>
+                                <ReactQuill readOnly placeholder="Write Hint..." value={riddle.hint}   theme="snow" />
+                                    
+                                </div>
+                            </div>
+                        {/* <Input
                             isReadOnly
                             value={riddle.title || ""}
                             label="Title"
@@ -118,7 +150,7 @@ export default function ViewHunt({searchParams}: any) {
                             size="lg"
                             minRows={3}
                             classNames={{label: "!font-semibold"}}
-                        />
+                        /> */}
                         <div className="flex flex-col items-center mt-4">
                             <img src={riddle.qrCode} alt="QR Code" className="w-40 h-40"/>
                             <button onClick={() => downloadQRCode(riddle.qrCode, riddle.title)}
