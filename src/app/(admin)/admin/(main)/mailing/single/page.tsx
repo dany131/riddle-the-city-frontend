@@ -35,12 +35,13 @@ export default function SingleMail(){
         createAnnouncementMutation.mutate(formData)
     }
 
+    console.log('name',name)
     return (
         <>
         <div className="flex justify-between">
             <p className="text-xl font-semibold">Single Mail</p>
         </div>
-        <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 w-1/2">
+        <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 sm:w-1/2">
         <Autocomplete
                             required
                             label="User Name"
@@ -49,6 +50,7 @@ export default function SingleMail(){
                             // isInvalid={!!locationText == false && error}
                             errorMessage="Please Select User Name"
                             variant="flat"
+                            allowsCustomValue={true}
                             // value={breweryLocationToAdd?breweryLocationToAdd.text:''}
                             // endContent={
                             //     <>
@@ -56,14 +58,15 @@ export default function SingleMail(){
                             //     </>
                             // }
                             // value={name}
-                            inputValue={name}
+                            // inputValue={name}
                             // value={"Rashid Minhas Rd, FB Indus-Area Block 21 Block 21 Gulberg Town, Karachi, Karachi City, Sindh, Pakistan"}
-                            defaultSelectedKey={name}
+                            // defaultSelec}
                             items={getAllUsersQuery.data?.data.data?getAllUsersQuery.data?.data.data:[{_id:"",name:""}]}
                             // defaultItems={[{label:""}]}
                             // classNames={{l}}
                             className="w-full font-semibold"
                             // allowsCustomValue={true}
+                            selectedKey={userId}
                             onSelectionChange={(key:any) => {
                                 console.log('key',key)
                                 setUserid(key)
@@ -83,13 +86,13 @@ export default function SingleMail(){
                             //     console.log(e)
                             // }}
                             onInputChange={(e) => {
-                                // setName(e)
-                                console.log(e)
-                                if (e != '' && e!=name) {
-                                    console.log('im inside')
-                                    setName(e)
-                                    // setLocation(e)
-                                }
+                                setName(e)
+                                console.log('user',e)
+                                // if (e != '' && e!=name) {
+                                //     console.log('im inside')
+                                //     setName(e)
+                                //     // setLocation(e)
+                                // }
                                 // if (locationText!= location) {
                                 // }
                                 console.log('input changed')

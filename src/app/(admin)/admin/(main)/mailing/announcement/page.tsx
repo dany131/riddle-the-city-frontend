@@ -37,7 +37,7 @@ export default function Announcement(){
             <p className="text-xl font-semibold">Announcement</p>
         </div>
         
-        <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 w-1/2">
+        <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 sm:w-1/2">
             <Input errorMessage={errors.subject?.message as any} isInvalid={errors.subject as any} {...register('subject',{required:"Enter Subject"})} type="text" label="Subject" placeholder="Enter Subject" labelPlacement="outside" classNames={{label:"!font-semibold"}}/>
             <Textarea errorMessage={errors.body?.message as any} isInvalid={errors.body as any} {...register('body',{required:"Enter Body"})} label="Body" minRows={10} placeholder="Write Mail Body..." labelPlacement="outside" classNames={{label:"!font-semibold"}}/>
             <div className="relative w-[10rem] flex flex-col gap-2 w-full">

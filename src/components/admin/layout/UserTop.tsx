@@ -10,7 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { RxDashboard } from "react-icons/rx";
 import { ImNewspaper, ImSpinner2 } from "react-icons/im";
 import { FaListCheck } from "react-icons/fa6";
-import { CiLogout } from "react-icons/ci";
+import { CiLogout, CiMail } from "react-icons/ci";
 import { BiSolidBookContent } from "react-icons/bi";
 import { TbSettings } from "react-icons/tb";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -212,6 +212,10 @@ export default function UserTopBar() {
                                 <BiSolidBookContent className="w-1/4" />
                                 <Link className="w-full" href={'/admin/view-bookings'}>View Bookings</Link>
                             </div>
+                            <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/mailing' ? 'bg-[#a922236e]' : ''}`}>
+                        <CiMail className="w-1/4" />
+                        <Link className="w-full" href={'/admin/mailing'}>Mailing</Link>
+                    </div>
                             {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                         <TbSettings className="w-1/4" />
                         <Link className="w-full" href={'/admin/settings'}>Settings</Link>
