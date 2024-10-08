@@ -7,8 +7,10 @@ import { useInfiniteScroll } from "@nextui-org/use-infinite-scroll";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "react-toastify";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill-new';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
+import dynamic from "next/dynamic";
 const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],

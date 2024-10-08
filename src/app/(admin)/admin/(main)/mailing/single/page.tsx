@@ -47,58 +47,19 @@ export default function SingleMail(){
                             label="User Name"
                             placeholder="Enter User Name"
                             labelPlacement="outside"
-                            // isInvalid={!!locationText == false && error}
                             errorMessage="Please Select User Name"
                             variant="flat"
                             allowsCustomValue={true}
-                            // value={breweryLocationToAdd?breweryLocationToAdd.text:''}
-                            // endContent={
-                            //     <>
-                            //         <SiGooglemaps />
-                            //     </>
-                            // }
-                            // value={name}
-                            // inputValue={name}
-                            // value={"Rashid Minhas Rd, FB Indus-Area Block 21 Block 21 Gulberg Town, Karachi, Karachi City, Sindh, Pakistan"}
-                            // defaultSelec}
                             items={getAllUsersQuery.data?.data.data?getAllUsersQuery.data?.data.data:[{_id:"",name:""}]}
-                            // defaultItems={[{label:""}]}
-                            // classNames={{l}}
                             className="w-full font-semibold"
-                            // allowsCustomValue={true}
                             selectedKey={userId}
                             onSelectionChange={(key:any) => {
                                 console.log('key',key)
                                 setUserid(key)
-                                // const finding = googleData.find((e: any) => e.label == key)
-                                // console.log(finding)
-                                // setLocationText(key ? key : '')
-                                // if (finding) {
-                                //     setBreweryLocationToAdd({
-                                //         latitude: `${finding.geometry.location.lat}`,
-                                //         longitude: `${finding.geometry.location.lng}`,
-                                //         text: key
-                                //     }
-                                //     )
-                                // }
                             }}
-                            // onChange={(e) => {
-                            //     console.log(e)
-                            // }}
+                            
                             onInputChange={(e) => {
                                 setName(e)
-                                console.log('user',e)
-                                // if (e != '' && e!=name) {
-                                //     console.log('im inside')
-                                //     setName(e)
-                                //     // setLocation(e)
-                                // }
-                                // if (locationText!= location) {
-                                // }
-                                console.log('input changed')
-                                // if (e!='') {
-
-                                // }
                             }}
                         >
                             {(item:any) => <AutocompleteItem key={item._id}>{item.name}</AutocompleteItem>}

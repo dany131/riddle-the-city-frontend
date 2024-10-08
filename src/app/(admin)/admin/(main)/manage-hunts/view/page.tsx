@@ -2,10 +2,12 @@
 
 import axiosInstance from "@/app/utils/axiosInstance";
 import {Input, Switch, Textarea} from "@nextui-org/react";
+import dynamic from "next/dynamic";
 import {useState} from "react";
 import {useQuery} from "react-query";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+// import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function ViewHunt({searchParams}: any) {
     const [isActive,setIsActive]=useState(true)
