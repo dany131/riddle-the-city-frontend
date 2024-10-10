@@ -1,14 +1,13 @@
 'use client'
 
 import axiosInstance from "@/app/utils/axiosInstance"
+import { DiscountTypes } from "@/app/utils/constant"
 import Link from "next/link"
 import { useState } from "react"
 import { CiEdit } from "react-icons/ci"
 import { ImSpinner2 } from "react-icons/im"
 import { IoEyeOutline } from "react-icons/io5"
 import { useQuery } from "react-query"
-import { DiscountTypes } from "./create/page"
-
 export default function Coupons(){
     const [page, setPage] = useState(1)
     const bookingsQuery = useQuery(['coupons', page], ({ queryKey }) => {

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form"
 import { useMutation, useQueryClient } from "react-query";
-export enum DiscountTypes {  Percentage = 1,  Fixed}
+
 const animals = [
     {key: "1", label: "Percentage"},
     {key: "2", label: "Fixed"},
@@ -58,11 +58,9 @@ export default function CreateCoupon(){
                 label="Discount Type"
                 variant="bordered"
                 placeholder="Select a Discount Type"
-                // selectedKeys={value}
                 labelPlacement="outside"
                 classNames={{label:"!font-semibold"}}
                 className="w-full"
-                // onSelectionChange={setValue}
             >
                 {animals.map((animal) => (
                 <SelectItem key={animal.key}>
@@ -78,8 +76,9 @@ export default function CreateCoupon(){
                             <p className="font-semibold text-sm">Is Active</p>
                             <Switch isSelected={isActive} onValueChange={(j) => {
                                     const value = j;
+                                    setIsActive(value)
                                     
-                                }} defaultSelected/>
+                                }} />
                         </div>
             <Button  type="submit"
                           className="sm:px-16 px-4 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Submit</Button>

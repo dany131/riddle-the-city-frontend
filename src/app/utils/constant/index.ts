@@ -7,3 +7,6 @@ export const RegexConstants = {
     LONGITUDE: /^\s?[+-]?(180(\.0+)?|1[0-7]\d(\.\d+)?|\d{1,2}(\.\d+)?)\)?$/,
   },
 };
+
+
+export enum DiscountTypes {  Percentage = 1,  Fixed}
