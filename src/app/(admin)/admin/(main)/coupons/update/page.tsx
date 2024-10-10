@@ -42,8 +42,6 @@ export default function CreateCoupon(datas:any){
         createCouponMutation.mutate(data)
     }
 
-    console.log(getCoupon.data?.data.data.code)
-    console.log('active',isActive)
 
     return (
         <>
