@@ -5,6 +5,7 @@ import { ImSpinner2 } from "react-icons/im"
 import { useQuery } from "react-query"
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function StartRiddle(datas:any) {
     // console.log('hunt id start riddle', datas.searchParams.id)
@@ -27,9 +28,23 @@ export default function StartRiddle(datas:any) {
                         <p className="text-gray-400 text-sm">Riddle Name</p>
                         <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.title}}></p>
                     </div>
-                    <div className="flex flex-col ">
+                    <div className="flex flex-col sm:w-1/2 w-full">
                         <p className="text-gray-400 text-sm">Riddle Description</p>
-                        <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.description}}></p>
+                        <div className="flex flex-col gap-2 min-h-[10rem] bg-[#f4f4f5] rounded-lg gap-4 p-4">
+                                {
+                                    riddleQuery.data?.data.data.riddle.description.map((k:any,index:number)=>{
+                                        if(k.type==1){
+                                            return <div className="flex gap-4 justify-between">
+                                                <Input disabled value={k.text} />
+                                            </div>
+                                        }
+                                        return <div className="flex gap-4 justify-between items-center">
+                                            <Image src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${k.media}`} alt="riddleImage" width={200} height={200}/>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        {/* <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.description}}></p> */}
                     </div>
                     {/* <p>Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing</p> */}
                     <button
