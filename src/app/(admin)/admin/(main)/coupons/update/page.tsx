@@ -20,7 +20,7 @@ export default function CreateCoupon(datas:any){
     const queryClient=useQueryClient()
     const getCoupon=useQuery(['individualCoupon',datas.searchParams.id],({queryKey})=>axiosInstance.get(`/coupon?couponCodeId=${queryKey[1]}`),{
         onSuccess(data) {
-            setIsActive(data?.data.data.discountType)
+            setIsActive(data?.data.data.isActive)
         },
     })
     const createCouponMutation=useMutation((data:any)=>axiosInstance.put(`/coupon?couponCodeId=${datas.searchParams.id}`,data),{
@@ -43,6 +43,7 @@ export default function CreateCoupon(datas:any){
     }
 
     console.log(getCoupon.data?.data.data.code)
+    console.log('active',isActive)
 
     return (
         <>
