@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { Montserrat } from "next/font/google";
+import { useForm } from "react-hook-form";
 
 const montesserat = Montserrat({
     weight: '600',
@@ -29,12 +30,14 @@ type UserData = {
     id: string
 }
 type PaymentData = {
-    package:string
+    package:string,
+    couponCode:string
 }
 export default function Checkout(datas: any) {
     console.log(datas.searchParams.id)
     const [checkoutPage, setCheckoutPage] = useState(0)
     const navigate=useRouter()
+    const [code,setCode]=useState('')
     let userData: UserData = { name: '', email: '', id: '', phone: '', role: 'User' }
     if (Cookies.get('userData')!) {
         userData = JSON.parse(Cookies.get('userData')!)
@@ -76,6 +79,14 @@ export default function Checkout(datas: any) {
             },
         }
     )
+
+    const couponMutation=useMutation((coupon:string)=>axiosInstance.get(`/package?packageId=${datas.searchParams.id}&couponCode=${coupon}`),{
+        onSuccess(data, variables, context) {
+            console.log('couponeee',data)
+        },
+    })
+    const {handleSubmit,register}=useForm()
+    console.log('data',couponMutation.data?.data.data)
     return (
         <>
             {checkoutPage == 0 && <>
@@ -88,19 +99,28 @@ export default function Checkout(datas: any) {
                             {!packagesQuery.isFetching && <>
                                 <div className="flex flex-col ">
                                     <p className="text-gray-400 text-sm">Package Description</p>
-                                    <p className="font-semibold">{packagesQuery.data?.data.data.description}</p>
+                                    <p className="font-semibold">{packagesQuery.data?.data.data.package.description}</p>
                                 </div>
                                 <div className="flex flex-col ">
                                     <p className="text-gray-400 text-sm">Package Name</p>
-                                    <p className="font-semibold">{packagesQuery.data?.data.data.name}</p>
+                                    <p className="font-semibold">{packagesQuery.data?.data.data.package.name}</p>
                                 </div>
                                 {/* <div className="flex flex-col ">
                                     <p className="text-gray-400 text-sm">For Family</p>
                                     <p className="font-semibold">$20 for a family with 2 adults, for one brewery.</p>
                                 </div> */}
+                                
                                 <div className="flex flex-col ">
                                     <p className="text-gray-400 text-sm">Price</p>
-                                    <p className="font-semibold">${packagesQuery.data?.data.data.price }</p>
+                                    <p className="font-semibold">${packagesQuery.data?.data.data.package.price }</p>
+                                </div>
+                                <div className="flex justify-between gap-4">
+                                    <Input onChange={(e)=>{
+                                        setCode(e.target.value)
+                                    }} className="w-full" label="Coupon" labelPlacement="outside" placeholder="Enter Code..."/>
+                                    <Button onClick={()=>{
+                                        couponMutation.mutate(code)
+                                    }} className=" w-full sm:w-max m-auto mb-0 px-4 flex justify-center py-2 bg-[#A92223]  rounded text-white">Submit Code</Button>
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <p className="font-semibold">Total Amount</p>
@@ -108,7 +128,7 @@ export default function Checkout(datas: any) {
                                         <div className="flex flex-col gap-2">
                                             <div className="flex justify-between border-b-[0.1rem] border-dashed border-[#c9c9c9] pb-4">
                                                 <p className="text-[#c9c9c9] ">Price</p>
-                                                <p className="font-semibold">${packagesQuery.data?.data.data.price}</p>
+                                                <p className="font-semibold">{couponMutation.data?.data.data?`$${couponMutation.data?.data.data.finalAmount}`:`$${packagesQuery.data?.data.data.package.price}`}</p>
                                             </div>
                                             {/* <div className="w-[98%] h-[0.1rem] bg-gray-400 "></div> */}
                                         </div>
@@ -123,7 +143,7 @@ export default function Checkout(datas: any) {
                                             {/* <div className="w-[98%] h-[0.1rem] bg-gray-400"></div> */}
                                             <div className="flex justify-between">
                                                 <p className="text-[#c9c9c9] ">Subtotal (Incl.VAT)</p>
-                                                <p className="font-semibold">${packagesQuery.data?.data.data.price}</p>
+                                                <p className="font-semibold">{couponMutation.data?.data.data?`$${couponMutation.data?.data.data.finalAmount}`:`$${packagesQuery.data?.data.data.package.price}`}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -243,7 +263,8 @@ export default function Checkout(datas: any) {
                             </div>
                             <button onClick={() => {
                                 paymentMutation.mutate({
-                                    package: datas.searchParams.id
+                                    package: datas.searchParams.id,
+                                    couponCode:code
                                 })
                             }} className="m-auto mb-0 px-4 sm:w-max w-full flex justify-center py-2 bg-[#A92223]  rounded text-white">Pay Now</button>
                         </>}

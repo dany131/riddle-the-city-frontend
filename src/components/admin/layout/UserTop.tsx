@@ -19,6 +19,7 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import { toast } from "react-toastify";
 import { BsEyeFill, BsEyeSlash } from "react-icons/bs";
 import { IoIosArrowForward, IoIosLock } from "react-icons/io";
+import { RiCoupon2Fill } from "react-icons/ri";
 type UserData = {
     name: string,
     email: string,
@@ -215,6 +216,11 @@ export default function UserTopBar() {
                             <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/mailing' ? 'bg-[#a922236e]' : ''}`}>
                         <CiMail className="w-1/4" />
                         <Link className="w-full" href={'/admin/mailing'}>Mailing</Link>
+                    </div>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/coupons' ? 'bg-[#a922236e]' : ''}`}>
+                        {/* <CiMail className="w-1/4" /> */}
+                        <RiCoupon2Fill className="w-1/4" />                
+                        <Link className="w-full" href={'/admin/coupons'}>Coupons</Link>
                     </div>
                             {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                         <TbSettings className="w-1/4" />

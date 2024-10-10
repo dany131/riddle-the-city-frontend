@@ -25,6 +25,10 @@ const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 import {Switch} from "@nextui-org/react";
 import dynamic from "next/dynamic";
+import { FaImage } from "react-icons/fa";
+import { IoText } from "react-icons/io5";
+import { AiOutlineDelete } from "react-icons/ai";
+import Image from "next/image";
 
 const selections = [
     {label: 'Open', key: 1}
@@ -40,6 +44,8 @@ export default function CreateRiddle() {
     const [message, setMessage] = useState('');
     const [error,setError]=useState(false)
     const [isActive,setIsActive]=useState(true)
+    // const [displayOptions,setDisplayOptions]=useState(false)
+    const [allImageFiles,setAllImageFiles]=useState<any>([])
     const [huntToAdd, setHuntToAdd] = useState({
         name: "",
         description: "",
@@ -47,9 +53,13 @@ export default function CreateRiddle() {
         riddles: [
             {
                 title: "",
-                description: "",
+                isOpen:false,
+                description: [
+                    
+                ],
                 reward: "",
-                hint: ""
+                hint: "",
+                hasReward:true
             }
         ]
     });
@@ -76,6 +86,8 @@ export default function CreateRiddle() {
         shouldUseLoader: false, // We don't want to show the loader at the bottom of the list
         onLoadMore
     });
+
+    
 
     const queryClient = useQueryClient();
 
@@ -114,20 +126,48 @@ export default function CreateRiddle() {
     });
 
     function buttonSubmit() {
+        // const isAnyDescriptionEmpty=huntToAdd.riddles.filter((e)=>{
+        //     return !e.description.length
+        // })
+        // console.log('any empty',isAnyDescriptionEmpty)
+        
         const filterRiddles = huntToAdd.riddles.filter((e) => {
-            if (e.description=='' || e.hint=='' || e.reward=='' || e.title=='') {
+            if (e.description.length==0 || e.hint=='' || e.reward=='' || e.title=='') {
                 return e;
             }
         });
         const filterRiddlesNew = huntToAdd.riddles.filter((e) => {
-            if (e.description != '' || e.hint != '' || e.reward != '' || e.title != '') {
-                return e;
+            if (e.description.length || e.hint != '' || e.reward != '' || e.title != '') {
+                return e
             }
         });
+
+        
+
+        console.log('filter new ',filterRiddlesNew)
         const addHuntData = {
             ...huntToAdd,
             isActive,
-            riddles: filterRiddlesNew
+            riddles: filterRiddlesNew.map((e)=>{
+                const removeImagesDescription=e.description.filter((f:any)=>{
+                    if(f.type==1){
+                        return {
+                            type:f.type,
+                            text:f.text
+                        }
+                    }
+                    return {type:f.type,media:f.media}
+                })
+                console.log('remove',removeImagesDescription)
+                return {
+                    hint:e.hint,
+                    reward:e.reward,
+                    hasReward:e.hasReward,
+                    title:e.title,
+                    description:removeImagesDescription
+                }
+            }),
+            // files:allImageFiles.map((e:any)=>e.file)
         };
         console.log('addHunt',addHuntData)
         if (filterRiddles.length != 0 || huntToAdd.name=='' || huntToAdd.brewery=='' || huntToAdd.description=='' ) {
@@ -135,8 +175,56 @@ export default function CreateRiddle() {
         }
         else {
             setError(false)
+            console.log('data to upload',addHuntData)
+            // const formData=new FormData()
+            // Object.entries(addHuntData).forEach((e,index)=>{
+            //     if(typeof e[1]=='object'){
+            //         if(e[0]=='files'){
+            //             // e[1].forEach((k:any,indet:number)=>{
+            //             //     formData.append('files',k)
+            //             // })
+            //         }
+            //         else{
+            //             // riddlestarts
+            //             e[1].forEach((k:any,inde:number)=>{
+            //                 Object.entries(k).forEach((j)=>{
+            //                     if(typeof j[1]=='object'){
+            //                         // console.log('j[1]',j[1],j[0])
+            //                         (j[1]! as any).forEach((o:any,indet:number)=>{
+            //                             if(o.text){
+            //                                 formData.append(`riddles[${inde}][description][${indet}][type]`,o.type)
+            //                                 formData.append(`riddles[${inde}][description][${indet}][text]`,o.text)
+            //                             }
+            //                             else{
+            //                                 formData.append(`riddles[${inde}][description][${indet}][type]`,o.type)
+            //                                 formData.append(`riddles[${inde}][description][${indet}][media]`,o.media)
+            //                             }
+            //                         })
+            //                     }
+            //                     else{
+            //                         // console.log('j[1]',j[1],j[0])
+            //                         formData.append(`riddles[${inde}][${j[0]}]`,j[1] as any)
+            //                     }
+            //                 })
+            //             })
+            //         }
+            //     }
+            //     else{
+            //         formData.append(`${e[0]}`,e[1] as any)
+            //     }
+            // })
+
+            // console.log('dataaaa',[...formData.entries()])
+            console.log('dataaa',addHuntData)
             huntAddMutation.mutate(addHuntData);
         }
+
+
+
+
+
+
+
         // if (filterRiddles) {
         //     const addHuntData = {
         //         ...huntToAdd,
@@ -149,7 +237,10 @@ export default function CreateRiddle() {
         // }
     }
 
-    console.log('hunt to add', huntToAdd);
+
+    const deleteFileMutation=useMutation((file:string)=>axiosInstance.delete(`/file?fileName=${file}`))
+    // console.log('hunt to add', huntToAdd);
+    // console.log('all images',allImageFiles)
     return (
         <>
             {/*<div className="flex justify-between">*/}
@@ -249,16 +340,16 @@ export default function CreateRiddle() {
                 </div>
                 <div className="flex flex-col mt-3 gap-4">
                     <h1 className="font-semibold">Create Riddles</h1>
-                    {huntToAdd.riddles.map((e, index: number) =>
+                    {huntToAdd.riddles.map((e, riddleIndex: number) =>
                         <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
                             <div className="flex flex-col gap-2 h-auto">
                             <p className="font-semibold text-sm">Title</p>
                             <ReactQuill placeholder="Enter Riddle Title" value={e.title} onChange={(j) => {
                                         const value = j;
-                                        const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                        const find = huntToAdd.riddles.find((e, index1) => index1 == riddleIndex);
                                         find!.title = value;
                                         const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                            if (index1 == index) {
+                                            if (index1 == riddleIndex) {
                                                 return find;
                                             }
                                             return k;
@@ -272,16 +363,17 @@ export default function CreateRiddle() {
                                             );
                                         });
                                     }} theme="snow" />
+                                    {e.title == '' && error && <p className="text-[#f31260] font-semibold text-sm">Please Enter Title</p>}
                                 {/* <Input
                                     value={e.title}
                                     isInvalid={e.title == '' && error}
                                     errorMessage="Please Enter Riddle Title"
                                     onChange={(j) => {
                                         const value = j.target.value;
-                                        const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                        const find = huntToAdd.riddles.find((e, index1) => index1 == riddleIndex);
                                         find!.title = value;
                                         const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                            if (index1 == index) {
+                                            if (index1 == riddleIndex) {
                                                 return find;
                                             }
                                             return k;
@@ -306,37 +398,187 @@ export default function CreateRiddle() {
 
                             <div className="flex flex-col gap-2 h-auto">
                             <p className="font-semibold text-sm">Description</p>
-                            <ReactQuill placeholder="Write description..." value={e.description} onChange={(j) => {
-                                    const value = j;
-                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index);
-                                    find!.description = value;
-                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                        if (index1 == index) {
-                                            return find;
+                            <div className="flex flex-col gap-2 min-h-[10rem] bg-[#f4f4f5] rounded-lg gap-4 p-4">
+                                {
+                                    e.description.map((k:any,inde)=>{
+                                        console.log('riddleIndex',riddleIndex)
+                                        if(k.type==1){
+                                            return <div className="flex gap-4 justify-between">
+                                                <Input value={k.text} onChange={(l)=>{
+                                                        const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
+                                                        const findDescription=findRiddle?.description.find((k,ind)=>ind==inde) as any
+                                                        findDescription!.text=l.target.value
+                                                        const newDescription=findRiddle?.description.map((k,ind)=>{
+                                                            if(ind==inde){
+                                                                return findDescription
+                                                            }
+                                                            return k
+                                                        })
+                                                        const newRiddles=huntToAdd.riddles.map((j,ind)=>{
+                                                            if(ind==riddleIndex){
+                                                                return {
+                                                                    ...findRiddle,
+                                                                    description:newDescription
+                                                                }
+                                                            }
+                                                            return j
+                                                        })
+                                                        setHuntToAdd((prev:any)=>{
+                                                            return {
+                                                                ...prev,
+                                                                riddles:newRiddles
+                                                            }
+                                                        })
+
+
+                                            }}/>
+                                            <AiOutlineDelete onClick={()=>{
+                                                const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
+                                                const findDescription=findRiddle?.description.filter((k,ind)=>ind!=inde) as any
+                                                const newRiddles=huntToAdd.riddles.map((j,ind)=>{
+                                                    if(ind==riddleIndex){
+                                                        return {
+                                                            ...findRiddle,
+                                                            description:findDescription
+                                                        }
+                                                    }
+                                                    return j
+                                                })
+                                                setHuntToAdd((prev:any)=>{
+                                                    return {
+                                                        ...prev,
+                                                        riddles:newRiddles
+                                                    }
+                                                })
+                                            }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 "/>
+                                            </div>
                                         }
-                                        return k;
-                                    });
-                                    setHuntToAdd((prev: any) => {
-                                        return (
-                                            {
-                                                ...prev,
-                                                riddles: newRiddles
+                                        return <div className="flex gap-4 justify-between items-center">
+                                            <Image src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${k.media}`} alt="riddleImage" width={200} height={200}/>
+                                            <AiOutlineDelete onClick={()=>{
+                                                const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
+                                                const findDescriptionToRemoveFromFiles=findRiddle?.description.find((k,ind)=>ind==inde) as any
+                                                deleteFileMutation.mutate(k.media)
+                                                // console.log(findDescriptionToRemoveFromFiles)
+                                                // setAllImageFiles(allImageFiles.filter((l:any)=>l.blob!=findDescriptionToRemoveFromFiles.text))
+                                                const findDescription=findRiddle?.description.filter((k,ind)=>ind!=inde) as any
+                                                const newRiddles=huntToAdd.riddles.map((j,ind)=>{
+                                                    if(ind==riddleIndex){
+                                                        return {
+                                                            ...findRiddle,
+                                                            description:findDescription
+                                                        }
+                                                    }
+                                                    return j
+                                                })
+                                                setHuntToAdd((prev:any)=>{
+                                                    return {
+                                                        ...prev,
+                                                        riddles:newRiddles
+                                                    }
+                                                })
+                                            }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 "/>
+                                        </div>
+                                    })
+                                }
+                                {e.description.length<5 && <div className="flex gap-2 items-center">
+                                <Button onClick={()=>{
+                                    const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
+                                    const newRiddles=huntToAdd.riddles.map((j,ind)=>{
+                                        if(ind==riddleIndex){
+                                            return {
+                                                ...findRiddle,
+                                                isOpen:!(findRiddle!.isOpen)
+                                                // description:newDescription
                                             }
-                                        );
-                                    });
-                                }} theme="snow" />
+                                        }
+                                        return j
+                                    })
+                                    setHuntToAdd((prev:any)=>{
+                                        return {
+                                            ...prev,
+                                            riddles:newRiddles
+                                        }
+                                    })
+                                }} className="bg-[#A92223] w-max min-w-max h-max px-2 py-1 rounded-full text-white">+</Button>
+                                <div className={`${e.isOpen?"flex":"hidden"} gap-4 bg-white p-2 rounded-full`}>
+                                    <Button onClick={()=>{
+                                        const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
+                                        // console.log('text riddleIndex',riddleIndex)
+                                        const newDescription=[
+                                            ...findRiddle!.description,
+                                            {type:1,text:""}
+                                        ]
+                                        const newRiddles=huntToAdd.riddles.map((j,ind)=>{
+                                            if(ind==riddleIndex){
+                                                return {
+                                                    ...findRiddle,
+                                                    description:newDescription
+                                                }
+                                            }
+                                            return j
+                                        })
+                                        setHuntToAdd((prev:any)=>{
+                                            return {
+                                                ...prev,
+                                                riddles:newRiddles
+                                            }
+                                        })
+                                    }} className=" bg-gray-100 w-max min-w-max h-max px-2 py-1 text-[#A92223]"><IoText /></Button>
+                                    <Button key={riddleIndex} className="bg-gray-100 w-max min-w-max h-max px-2 py-1 text-[#A92223] relative">
+                                    <label htmlFor={`images${riddleIndex}`} ><FaImage /></label>
+                                    <input accept=".jpeg,.png,.jpg" type="file" onChange={async (p)=>{
+                                        if (p.target.files && p.target.files.length > 0) {
+                                            const file = p.target.files[0];
+                                            const formData=new FormData()
+                                            formData.append('file',file)
+                                            // const blob=URL.createObjectURL(file)
+                                            // setAllImageFiles((prev:any)=>[...prev,{file:file,blob}]);
+                                            const findRiddlee=huntToAdd.riddles.find((g,ind)=>ind==riddleIndex)
+                                            const uploadFile=await axiosInstance.postForm('/file',formData)
+                                            // console.log('uploadddd',)
+                                            // console.log(huntToAdd.riddles,'found riddle',findRiddlee,`riddleIndex is ${riddleIndex}`)
+                                        const newDescriptionn=[
+                                            ...findRiddlee!.description,
+                                            {type:2,media:uploadFile.data.data.file}
+                                        ]
+                                        const newRiddless=huntToAdd.riddles.map((j,ind)=>{
+                                            if(ind==riddleIndex){
+                                                return {
+                                                    ...findRiddlee,
+                                                    description:newDescriptionn
+                                                }
+                                            }
+                                            return j
+                                        })
+                                        setHuntToAdd((prev:any)=>{
+                                            return {
+                                                ...prev,
+                                                riddles:newRiddless
+                                            }
+                                        })
+                                        }
+                                    }} className="absolute invisible" id={`images${riddleIndex}`} />
+                                    </Button>
+                                </div>
+                                </div>}
+                                
+                            </div>
+                            {!e.description.length && error && <p className="text-[#f31260] font-semibold text-sm">Please Enter Description</p>}
+
+                          
                                 
                             </div>
 
                             <div className="flex gap-4">
                                 <div className="flex flex-col gap-2 h-auto">
-                                                        <p className="font-semibold text-sm">Reward</p>
+                                                        <p className="font-semibold text-sm">{e.hasReward?"Reward":"Text"}</p>
                                                         <ReactQuill placeholder="Write Reward..." value={e.reward} onChange={(j) => {
                                                                     const value = j;
-                                                                    const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                                                    const find = huntToAdd.riddles.find((e, index1) => index1 == riddleIndex);
                                                                     find!.reward = value;
                                                                     const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                                                        if (index1 == index) {
+                                                                        if (index1 == riddleIndex) {
                                                                             return find;
                                                                         }
                                                                         return k;
@@ -350,16 +592,18 @@ export default function CreateRiddle() {
                                                                         );
                                                                     });
                                                                 }} theme="snow" />
+                            {e.reward=='' && error && <p className="text-[#f31260] font-semibold text-sm">Please Enter {e.hasReward?"Reward":"Text"}</p>}
+
                                                             
                                 </div>
                                 <div className="flex flex-col gap-2 h-auto">
                                 <p className="font-semibold text-sm">Hint</p>
                                 <ReactQuill placeholder="Write Hint..." value={e.hint}  onChange={(j) => {
                                             const value = j;
-                                            const find = huntToAdd.riddles.find((e, index1) => index1 == index);
+                                            const find = huntToAdd.riddles.find((e, index1) => index1 == riddleIndex);
                                             find!.hint = value;
                                             const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                                if (index1 == index) {
+                                                if (index1 == riddleIndex) {
                                                     return find;
                                                 }
                                                 return k;
@@ -373,13 +617,37 @@ export default function CreateRiddle() {
                                                 );
                                             });
                                         }} theme="snow" />
+                            {e.hint=='' && error && <p className="text-[#f31260] font-semibold text-sm">Please Enter Hint</p>}
                                     
                                 </div>
                             </div>
+                            <div className="flex flex-col gap-2">
+                            <p className="font-semibold text-sm">Has Reward</p>
+                            <Switch isSelected={e.hasReward} onValueChange={(j) => {
+                                    const value = j;
+                                    const find = huntToAdd.riddles.find((e, index1) => index1 == riddleIndex);
+                                    find!.hasReward = value;
+                                    const newRiddles = huntToAdd.riddles.map((k, index1) => {
+                                        if (index1 == riddleIndex) {
+                                            return find;
+                                        }
+                                        return k;
+                                    });
+                                    setHuntToAdd((prev: any) => {
+                                        return (
+                                            {
+                                                ...prev,
+                                                riddles: newRiddles
+                                            }
+                                        );
+                                    });
+                                }} defaultSelected/>
+                                
+                        </div>
 
                             
-                            {index != 0 && <button onClick={() => {
-                                const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != index);
+                            {riddleIndex != 0 && <button onClick={() => {
+                                const oldRiddles = huntToAdd.riddles.filter((j, index1) => index1 != riddleIndex);
                                 setHuntToAdd((prev) => {
                                     return (
                                         {
@@ -409,9 +677,11 @@ export default function CreateRiddle() {
                                         ...oldRiddles,
                                         {
                                             title: "",
-                                            description: "",
+                                            description: [],
                                             reward: "",
-                                            hint: ""
+                                            hint: "",
+                                            isOpen:false,
+                                            hasReward:true
                                         }
                                     ]
                                 }

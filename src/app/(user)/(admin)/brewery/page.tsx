@@ -175,12 +175,10 @@ const Dashboard = (datas: any) => {
                 <div className="flex justify-between">
                     <BreweryDetails brewery={breweryQuery.data?.data.data.brewery}/>
                 </div>
-
                 <ScheduleDetails schedule={breweryQuery.data?.data.data.brewery.schedule}/>
-
-                <HuntDetails huntId={huntId} hunts={breweryQuery.data?.data.data.hunts} setHuntId={setHuntId}/>
-
-                <div className="flex flex-col gap-4">
+                {/* <HuntDetails huntId={huntId} hunts={breweryQuery.data?.data.data.hunts} setHuntId={setHuntId}/> */}
+                <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-4">
                     <p className="text-gray-400 text-sm">Location</p>
                     <a
                         href={googleMapUrl}
@@ -191,9 +189,10 @@ const Dashboard = (datas: any) => {
                         <span>{` ${breweryQuery.data?.data.data.brewery.address.text}`}</span>
                     </a>
                     <LocationMap coordinates={breweryQuery.data?.data.data.brewery.address.location.coordinates}/>
-                </div>
-
+                    </div>
+                <HuntDetails huntId={huntId} hunts={breweryQuery.data?.data.data.hunts} setHuntId={setHuntId}/>
                 <StartRiddleButton huntId={huntId} isHuntAvailable={isHuntAvailable} startRiddleMutation={startRiddleMutation}/>
+                </div>
             </div>
 
             <Modal

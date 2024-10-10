@@ -96,6 +96,7 @@ export default function Dashboard() {
                             <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
                             <th className="p-2 text-sm text-left">Location Name</th>
                             <th className="p-2 text-sm text-left">Location</th>
+                            <th className="p-2 text-sm text-left">Location Logo</th>
                             <th className="p-2 text-sm text-left rounded-r-md">Date Of Creation</th>
                         </tr>
                         </thead>
@@ -109,6 +110,7 @@ export default function Dashboard() {
                                 <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
                                 <td className="p-2 text-sm">{e.name}</td>
                                 <td className="p-2 text-sm">{e.address.text}</td>
+                            <td className="p-2 text-sm"><Image className="w-[3rem] h-[3rem] object-contain" src={e.media?e.media.includes('placeholder')?'/images/user/profile/profile.png':`${process.env.NEXT_PUBLIC_MEDIA_URL}/${e.media}`:'/images/user/profile/profile.png'} alt="brewery Logo" width={100} height={100}/></td>
                                 <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
                             </tr>
                         ))}

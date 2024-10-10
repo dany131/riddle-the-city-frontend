@@ -25,11 +25,11 @@ export default function StartRiddle(datas:any) {
                     <p className="text-xl font-semibold">Riddle {riddleQuery.data?.data.data.riddleNumber < 10 ? `0${riddleQuery.data?.data.data.riddleNumber}` : riddleQuery.data?.data.data.riddleNumber}</p>
                     <div className="flex flex-col ">
                         <p className="text-gray-400 text-sm">Riddle Name</p>
-                        <p className="font-semibold">{riddleQuery.data?.data.data.riddle.title}</p>
+                        <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.title}}></p>
                     </div>
                     <div className="flex flex-col ">
                         <p className="text-gray-400 text-sm">Riddle Description</p>
-                        <p className="font-semibold">{riddleQuery.data?.data.data.riddle.description}</p>
+                        <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.description}}></p>
                     </div>
                     {/* <p>Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit amet consectetur adipiscing elit suscipit commodo enim tellus et nascetur at leo accumsan, odio habitan Lorem ipsum dolor sit amet consectetur adipiscing</p> */}
                     <button

@@ -114,14 +114,14 @@ return (
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Reward</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">{riddleQuery.data?.data.data.riddle.hasReward?"Reward":"No Reward For This Riddle"}</ModalHeader>
                             <ModalBody className="pb-4">
                                 <div className="flex flex-col gap-4 pb-8">
 
                                         <>
                                             <div className="flex flex-col gap-2 shadow-lg rounded-lg p-4">
                                                 {/* <p className="text-sm ">Congratulations You successfully solved the riddle. You got Reward:</p> */}
-                                                <p className="font-semibold">{riddleQuery.data?.data.data.riddle.reward}</p>
+                                                <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.reward}}></p>
                                                 {/* <div className="flex w-full gap-4">
                                                 <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Claim Reward</button>
                                             </div> */}
@@ -129,7 +129,7 @@ return (
                                         </>
 
                                 </div>
-                                <div className="flex flex-col items-center gap-2">
+                                {riddleQuery.data?.data.data.riddle.hasReward && <div className="flex flex-col items-center gap-2">
                                     <p className="text-sm font-semibold">Are You Sure You Want To Claim These
                                         Rewards?</p>
                                     <button
@@ -137,7 +137,8 @@ return (
                                         onClick={() => navigate.replace('/rewards')}
                                         className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Yes
                                     </button>
-                                </div>
+                                </div>}
+                                
                             </ModalBody>
                         </>
                     )}

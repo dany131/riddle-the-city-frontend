@@ -11,6 +11,10 @@ import { toast } from "react-toastify";
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 import dynamic from "next/dynamic";
+import { AiOutlineDelete } from "react-icons/ai";
+import Image from "next/image";
+import { IoText } from "react-icons/io5";
+import { FaImage } from "react-icons/fa";
 const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
@@ -98,6 +102,7 @@ export default function EditHunts(data: any) {
             const huntsData = {
                 name: data.data.data.name,
                 description: data.data.data.description,
+                brewery:data.data.data.brewery._id,
                 // brewery: data.data.data.brewery._id,
                 riddles:[]
             }
@@ -107,7 +112,8 @@ export default function EditHunts(data: any) {
                         title: e.title,
                         description: e.description,
                         reward: e.reward,
-                        hint:e.hint
+                        hint:e.hint,
+                        hasReward:e.hasReward
                     }
                 )
             })
@@ -184,25 +190,58 @@ export default function EditHunts(data: any) {
                 // setMessage('')
                 const addHuntData = {
                     ...huntToAdd,
+                    isActive,
                     riddles: [
-                        ...filterRiddlesOld,
+                        ...filterRiddlesOld.map((e:any)=>{
+                            return {
+                                description:e.description,
+                                hint:e.hint,
+                                hasReward:e.hasReward,
+                                reward:e.reward,
+                                title:e.title
+                            }
+                        }),
                     ]
                 }
+                console.log('dataaaa1',addHuntData)
+
                 updateHunts.mutate(addHuntData)
             }
             else {
                 // setMessage('')
                 const addHuntData = {
                     ...huntToAdd,
+                    isActive,
                     riddles: [
-                        ...filterRiddlesOld,
-                        ...filterRiddlesNew
+                        ...filterRiddlesOld.map((e:any)=>{
+                            return {
+                                description:e.description,
+                                hint:e.hint,
+                                hasReward:e.hasReward,
+                                reward:e.reward,
+                                title:e.title
+                            }
+                        }),
+                        ...filterRiddlesNew.map((e:any)=>{
+                            return {
+                                description:e.description,
+                                hint:e.hint,
+                                hasReward:e.hasReward,
+                                reward:e.reward,
+                                title:e.title
+                            }
+                        })
                     ]
                 }
+
+                console.log('dataaaa2',addHuntData)
                 updateHunts.mutate(addHuntData)
             }
         }
     }
+
+    const deleteFileMutation=useMutation((file:string)=>axiosInstance.delete(`/file?fileName=${file}`))
+
     return (
         <>
             {/*<div className="flex justify-between">*/}
@@ -281,7 +320,8 @@ export default function EditHunts(data: any) {
                     <div className="flex flex-col mt-3 gap-4">
                         <h1 className="font-semibold">Edit Riddles</h1>
                         {huntToAdd?.riddles.map((e: any, index: number) =>
-                            <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
+                        <>
+                        <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
                                 <div className="flex flex-col gap-2 h-auto">
                             <p className="font-semibold text-sm">Title</p>
                             <ReactQuill  placeholder="Enter Riddle Title" value={e.title} onChange={(j) => {
@@ -305,7 +345,7 @@ export default function EditHunts(data: any) {
                                         }} theme="snow" />
 
                             </div>
-                            <div className="flex flex-col gap-2 h-auto">
+                            {/* <div className="flex flex-col gap-2 h-auto">
                             <p className="font-semibold text-sm">Description</p>
                             <ReactQuill placeholder="Write description..." value={e.description} onChange={(j) => {
                                         const value = j
@@ -327,10 +367,183 @@ export default function EditHunts(data: any) {
                                         })
                                     }} theme="snow" />
                                 
+                            </div> */}
+                            <div className="flex flex-col gap-2 h-auto">
+                            <p className="font-semibold text-sm">Description</p>
+                            <div className="flex flex-col gap-2 min-h-[10rem] bg-[#f4f4f5] rounded-lg gap-4 p-4">
+                            {
+                                    e.description.map((k:any,inde:number)=>{
+                                        console.log('index',index)
+                                        if(k.type==1){
+                                            return <div className="flex gap-4 justify-between">
+                                                <Input value={k.text} onChange={(l)=>{
+                                                        const findRiddle=huntToAdd.riddles.find((e:any,ind:number)=>ind==index)
+                                                        const findDescription=findRiddle?.description.find((k:any,ind:number)=>ind==inde) as any
+                                                        findDescription!.text=l.target.value
+                                                        const newDescription=findRiddle?.description.map((k:any,ind:number)=>{
+                                                            if(ind==inde){
+                                                                return findDescription
+                                                            }
+                                                            return k
+                                                        })
+                                                        const newRiddles=huntToAdd.riddles.map((j:any,ind:number)=>{
+                                                            if(ind==index){
+                                                                return {
+                                                                    ...findRiddle,
+                                                                    description:newDescription
+                                                                }
+                                                            }
+                                                            return j
+                                                        })
+                                                        setHuntToAdd((prev:any)=>{
+                                                            return {
+                                                                ...prev,
+                                                                riddles:newRiddles
+                                                            }
+                                                        })
+
+
+                                            }}/>
+                                            <AiOutlineDelete onClick={()=>{
+                                                const findRiddle=huntToAdd.riddles.find((e:any,ind:number)=>ind==index)
+                                                const findDescription=findRiddle?.description.filter((k:any,ind:number)=>ind!=inde) as any
+                                                const newRiddles=huntToAdd.riddles.map((j:any,ind:number)=>{
+                                                    if(ind==index){
+                                                        return {
+                                                            ...findRiddle,
+                                                            description:findDescription
+                                                        }
+                                                    }
+                                                    return j
+                                                })
+                                                setHuntToAdd((prev:any)=>{
+                                                    return {
+                                                        ...prev,
+                                                        riddles:newRiddles
+                                                    }
+                                                })
+                                            }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 "/>
+                                            </div>
+                                        }
+                                        return <div className="flex gap-4 justify-between items-center">
+                                            <Image src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${k.media}`} alt="riddleImage" width={200} height={200}/>
+                                            <AiOutlineDelete onClick={()=>{
+                                                const findRiddle=huntToAdd.riddles.find((e:any,ind:number)=>ind==index)
+                                                const findDescriptionToRemoveFromFiles=findRiddle?.description.find((k:any,ind:number)=>ind==inde) as any
+                                                deleteFileMutation.mutate(k.media)
+                                                // console.log(findDescriptionToRemoveFromFiles)
+                                                // setAllImageFiles(allImageFiles.filter((l:any)=>l.blob!=findDescriptionToRemoveFromFiles.text))
+                                                const findDescription=findRiddle?.description.filter((k:any,ind:number)=>ind!=inde) as any
+                                                const newRiddles=huntToAdd.riddles.map((j:any,ind:number)=>{
+                                                    if(ind==index){
+                                                        return {
+                                                            ...findRiddle,
+                                                            description:findDescription
+                                                        }
+                                                    }
+                                                    return j
+                                                })
+                                                setHuntToAdd((prev:any)=>{
+                                                    return {
+                                                        ...prev,
+                                                        riddles:newRiddles
+                                                    }
+                                                })
+                                            }} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 "/>
+                                        </div>
+                                    })
+                                }
+                                {e.description.length<5 && <div className="flex gap-2 items-center">
+                                <Button onClick={()=>{
+                                    const findRiddle=huntToAdd.riddles.find((e:any,ind:number)=>ind==index)
+                                    const newRiddles=huntToAdd.riddles.map((j:any,ind:number)=>{
+                                        if(ind==index){
+                                            return {
+                                                ...findRiddle,
+                                                isOpen:!(findRiddle!.isOpen)
+                                                // description:newDescription
+                                            }
+                                        }
+                                        return j
+                                    })
+                                    setHuntToAdd((prev:any)=>{
+                                        return {
+                                            ...prev,
+                                            riddles:newRiddles
+                                        }
+                                    })
+                                }} className="bg-[#A92223] w-max min-w-max h-max px-2 py-1 rounded-full text-white">+</Button>
+                                <div className={`${e.isOpen?"flex":"hidden"} gap-4 bg-white p-2 rounded-full`}>
+                                    <Button onClick={()=>{
+                                        const findRiddle=huntToAdd.riddles.find((e:any,ind:number)=>ind==index)
+                                        // console.log('text index',index)
+                                        const newDescription=[
+                                            ...findRiddle!.description,
+                                            {type:1,text:""}
+                                        ]
+                                        const newRiddles=huntToAdd.riddles.map((j:any,ind:number)=>{
+                                            if(ind==index){
+                                                return {
+                                                    ...findRiddle,
+                                                    description:newDescription
+                                                }
+                                            }
+                                            return j
+                                        })
+                                        setHuntToAdd((prev:any)=>{
+                                            return {
+                                                ...prev,
+                                                riddles:newRiddles
+                                            }
+                                        })
+                                    }} className=" bg-gray-100 w-max min-w-max h-max px-2 py-1 text-[#A92223]"><IoText /></Button>
+                                    <Button key={index} className="bg-gray-100 w-max min-w-max h-max px-2 py-1 text-[#A92223] relative">
+                                    <label htmlFor={`images${index}`} ><FaImage /></label>
+                                    <input accept=".jpeg,.png,.jpg" type="file" onChange={async (p)=>{
+                                        if (p.target.files && p.target.files.length > 0) {
+                                            const file = p.target.files[0];
+                                            const formData=new FormData()
+                                            formData.append('file',file)
+                                            // const blob=URL.createObjectURL(file)
+                                            // setAllImageFiles((prev:any)=>[...prev,{file:file,blob}]);
+                                            const findRiddlee=huntToAdd.riddles.find((g:any,ind:number)=>ind==index)
+                                            const uploadFile=await axiosInstance.postForm('/file',formData)
+                                            // console.log('uploadddd',)
+                                            // console.log(huntToAdd.riddles,'found riddle',findRiddlee,`index is ${index}`)
+                                        const newDescriptionn=[
+                                            ...findRiddlee!.description,
+                                            {type:2,media:uploadFile.data.data.file}
+                                        ]
+                                        const newRiddless=huntToAdd.riddles.map((j:any,ind:number)=>{
+                                            if(ind==index){
+                                                return {
+                                                    ...findRiddlee,
+                                                    description:newDescriptionn
+                                                }
+                                            }
+                                            return j
+                                        })
+                                        setHuntToAdd((prev:any)=>{
+                                            return {
+                                                ...prev,
+                                                riddles:newRiddless
+                                            }
+                                        })
+                                        }
+                                    }} className="absolute invisible" id={`images${index}`} />
+                                    </Button>
+                                </div>
+                                </div>}
+                                
+                            </div>
+                            {!e.description.length && error && <p className="text-[#f31260] font-semibold text-sm">Please Enter Description</p>}
+
+                          
+                                
                             </div>
                             <div className="flex gap-4">
                                 <div className="flex flex-col gap-2 h-auto">
-                                                        <p className="font-semibold text-sm">Reward</p>
+                                                        <p className="font-semibold text-sm">{e.hasReward?"Reward":"Text"}</p>
                                                         <ReactQuill placeholder="Write Reward..." value={e.reward} onChange={(j) => {
                                             const value = j
                                             const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
@@ -376,6 +589,28 @@ export default function EditHunts(data: any) {
                                     
                                 </div>
                             </div>
+                            <div className="flex flex-col gap-2">
+                            <p className="font-semibold text-sm">Is Hunt Active</p>
+                            <Switch isSelected={e.hasReward} onValueChange={(j) => {
+                                        const value = j
+                                        const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
+                                        find!.hasReward = value
+                                        const newRiddles = huntToAdd.riddles.map((k: any, index1: number) => {
+                                            if (index1 == index) {
+                                                return find
+                                            }
+                                            return k
+                                        })
+                                        setHuntToAdd((prev: any) => {
+                                            return (
+                                                {
+                                                    ...prev,
+                                                    riddles: newRiddles
+                                                }
+                                            )
+                                        })
+                                    }} value={e.hasReward}/>
+                        </div>
                                 
                                 {<button onClick={() => {
                                     const oldRiddles = huntToAdd.riddles.filter((j: any, index1: number) => index1 != index)
@@ -395,6 +630,7 @@ export default function EditHunts(data: any) {
                             // onOpen1()
                         }} className="px-16 py-2 bg-[#A92223] rounded text-white w-max">Save</button> */}
                             </div>
+                        </>
                         )}
                         {newRiddless?.map((e: any, index: number) =>
                             <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">

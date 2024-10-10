@@ -3,6 +3,7 @@
 import axiosInstance from "@/app/utils/axiosInstance";
 import {Input, Switch, Textarea} from "@nextui-org/react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import {useState} from "react";
 import {useQuery} from "react-query";
 // import ReactQuill from 'react-quill-new';
@@ -91,18 +92,30 @@ export default function ViewHunt({searchParams}: any) {
                         <div className="flex flex-col gap-2 h-auto">
                             <p className="font-semibold text-sm">Title</p>
                             <ReactQuill readOnly placeholder="Enter Riddle Title" value={riddle.title}  theme="snow" />
-
                             </div>
-
                             <div className="flex flex-col gap-2 h-auto">
                             <p className="font-semibold text-sm">Description</p>
-                            <ReactQuill readOnly placeholder="Write description..." value={riddle.description}  theme="snow" />
+                            <div className="flex flex-col gap-2 min-h-[10rem] bg-[#f4f4f5] rounded-lg gap-4 p-4">
+                                {
+                                    riddle.description.map((k:any,index:number)=>{
+                                        if(k.type==1){
+                                            return <div className="flex gap-4 justify-between">
+                                                <Input disabled value={k.text} />
+                                            </div>
+                                        }
+                                        return <div className="flex gap-4 justify-between items-center">
+                                            <Image src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${k.media}`} alt="riddleImage" width={200} height={200}/>
+                                        </div>
+                                    })
+                                }
+                            </div>
+                          
                                 
                             </div>
 
                             <div className="flex gap-4">
                                 <div className="flex flex-col gap-2 h-auto">
-                                                        <p className="font-semibold text-sm">Reward</p>
+                                                        <p className="font-semibold text-sm">{riddle.hasReward?"Reward":"Text"}</p>
                                                         <ReactQuill readOnly placeholder="Write Reward..." value={riddle.reward} theme="snow" />
                                                             
                                 </div>

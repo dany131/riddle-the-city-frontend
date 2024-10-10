@@ -254,7 +254,7 @@ export default function CreateBrewery() {
     return (
         <>
             <div className="flex justify-between">
-                <p className="text-xl font-semibold">Add Brewery</p>
+                <p className="text-xl font-semibold">Add Location</p>
             </div>
             {!!message && <p className="text-red-600 text-center">{message}</p>}
             <form onSubmit={handleSubmitt} className="mt-4 p-4 border-[0.1rem] flex flex-col gap-4 rounded-lg">
