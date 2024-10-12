@@ -189,8 +189,8 @@ export default function Profile() {
                                             <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
                                         </div>
                                         <div>
-                                            <p>Starting Point: {e.startingRiddle}</p>
-                                            <p>Ending Point: {e.endingRiddle}</p>
+                                            <p dangerouslySetInnerHTML={{__html:`Starting Point: ${e.startingRiddle}`}}></p>
+                                            <p dangerouslySetInnerHTML={{__html:`Ending Point: ${e.endingRiddle}`}}></p>
                                             <p className="w-full break-all" dangerouslySetInnerHTML={{__html:`Reward ${e.rewards.join(' , ')}`}}></p>
                                         </div>
                                     </div>
