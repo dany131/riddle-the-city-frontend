@@ -191,7 +191,7 @@ export default function Profile() {
                                         <div>
                                             <p>Starting Point: {e.startingRiddle}</p>
                                             <p>Ending Point: {e.endingRiddle}</p>
-                                            <p className="w-full break-all">Reward: {e.rewards.join(' , ')}</p>
+                                            <p className="w-full break-all" dangerouslySetInnerHTML={{__html:`Reward ${e.rewards.join(' , ')}`}}></p>
                                         </div>
                                     </div>
                                 )) : (

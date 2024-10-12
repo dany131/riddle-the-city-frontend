@@ -31,7 +31,7 @@ type UserData = {
 }
 type PaymentData = {
     package:string,
-    couponCode:string
+    couponCode?:string
 }
 export default function Checkout(datas: any) {
     console.log(datas.searchParams.id)
@@ -262,9 +262,16 @@ export default function Checkout(datas: any) {
 
                             </div>
                             <button onClick={() => {
+                                if(code){
+                                    paymentMutation.mutate({
+                                        package: datas.searchParams.id,
+                                        couponCode:code
+                                    })
+                                    return 
+                                }
                                 paymentMutation.mutate({
                                     package: datas.searchParams.id,
-                                    couponCode:code
+                                    // couponCode:code
                                 })
                             }} className="m-auto mb-0 px-4 sm:w-max w-full flex justify-center py-2 bg-[#A92223]  rounded text-white">Pay Now</button>
                         </>}

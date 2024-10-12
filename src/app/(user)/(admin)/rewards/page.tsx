@@ -73,6 +73,7 @@ export default function Rewards() {
         }
     };
 
+    console.log('award to claim',riddleToClaim)
     return (
         <>
             <div className="flex justify-between items-center">
@@ -151,8 +152,8 @@ export default function Rewards() {
                             {riddleToClaim?.riddle.map((riddle: any) => (
                                 <div key={riddle.id}
                                      className={(riddle.claimed) ? "flex flex-col gap-2 shadow-lg rounded-lg p-4  relative" : "flex flex-col gap-2 shadow-lg rounded-lg p-4"}>
-                                    <p>Riddle Name: <span className="font-semibold">{riddle.name}</span></p>
-                                    <p>Riddle Reward: <span className="font-semibold">{riddle.rewards}</span></p>
+                                    <p>Riddle Name: <span className="font-semibold" dangerouslySetInnerHTML={{__html:riddle.name}}></span></p>
+                                    <p>Riddle Reward: <span className="font-semibold" dangerouslySetInnerHTML={{__html:riddle.rewards}}></span></p>
                                     {riddle.claimed && (
                                         <Image src={'/images/layout/claimed.png'} alt="claimed" className="absolute top-0 left-0 w-full h-full object-contain " width={200} height={200}/>
                                         // <p>Claimed Reward: <span className="font-semibold">Yes</span></p>
@@ -188,7 +189,7 @@ export default function Rewards() {
                         Claiming Reward in {countdown} seconds
                     </ModalHeader>
                     <ModalBody className="flex flex-col items-center gap-4 pb-8">
-                        <p>Reward: <span className="font-semibold">{awardToClaim?.rewards}</span></p>
+                        <p>Reward: <span className="font-semibold" dangerouslySetInnerHTML={{__html:awardToClaim?.rewards}}></span></p>
                         <Progress
                             value={countdown}
                             maxValue={60}
