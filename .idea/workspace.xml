@@ -31,7 +31,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;staging&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/danyal/Projects/Personal/Riddle/frontend/riddle-the-city&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -49,8 +49,8 @@
       <recent name="$PROJECT_DIR$/src/_utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/public/images/listings" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/public/images/aboutus" />
       <recent name="$PROJECT_DIR$/public/images" />
       <recent name="$PROJECT_DIR$/public/images/home" />
@@ -69,7 +69,9 @@
       <workItem from="1724966769778" duration="59000" />
       <workItem from="1724968716585" duration="23000" />
       <workItem from="1724969458284" duration="72787000" />
-      <workItem from="1726710016958" duration="27329000" />
+      <workItem from="1726710016958" duration="57141000" />
+      <workItem from="1728520291390" duration="617000" />
+      <workItem from="1728521652548" duration="5402000" />
     </task>
     <servers />
   </component>
