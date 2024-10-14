@@ -364,36 +364,6 @@ export default function CreateRiddle() {
                                         });
                                     }} theme="snow" />
                                     {e.title == '' && error && <p className="text-[#f31260] font-semibold text-sm">Please Enter Title</p>}
-                                {/* <Input
-                                    value={e.title}
-                                    isInvalid={e.title == '' && error}
-                                    errorMessage="Please Enter Riddle Title"
-                                    onChange={(j) => {
-                                        const value = j.target.value;
-                                        const find = huntToAdd.riddles.find((e, index1) => index1 == riddleIndex);
-                                        find!.title = value;
-                                        const newRiddles = huntToAdd.riddles.map((k, index1) => {
-                                            if (index1 == riddleIndex) {
-                                                return find;
-                                            }
-                                            return k;
-                                        });
-                                        setHuntToAdd((prev: any) => {
-                                            return (
-                                                {
-                                                    ...prev,
-                                                    riddles: newRiddles
-                                                }
-                                            );
-                                        });
-                                    }}
-                                    className="w-full"
-                                    type="text"
-                                    label="Title "
-                                    placeholder="Enter Riddle Title"
-                                    labelPlacement="outside"
-                                    classNames={{ label: "!font-semibold" }}
-                                /> */}
                             </div>
 
                             <div className="flex flex-col gap-2 h-auto">

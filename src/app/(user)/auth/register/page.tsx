@@ -16,6 +16,8 @@ import {useMutation} from "react-query";
 import {CiUser} from "react-icons/ci";
 import Cookies from 'js-cookie';
 import {toast} from "react-toastify";
+import GooglePlacesInput from "@/components/common/google-input";
+import { FieldValues, useForm } from "react-hook-form";
 
 
 type LoginData = {
@@ -25,7 +27,8 @@ type LoginData = {
         name: string,
         email: string,
         phone: string,
-        password: string
+        password: string,
+        postalCode:string
     }
 }
 
@@ -40,6 +43,7 @@ export default function Register() {
     const router = useRouter();
     const secretKey = "Admin@1234";
 
+    const {control,handleSubmit,register,formState:{errors},watch}=useForm()
     const registerMutation = useMutation((data: LoginData) => axiosInstance.post('/auth/signup', data), {
         onSuccess(data) {
             console.log('success', data);
@@ -125,13 +129,18 @@ export default function Register() {
         }
     });
 
-    function handleSubmit(e: FormEvent) {
-        e.preventDefault();
+    function handleSubmitt(e: FieldValues) {
+        // e.preventDefault();
+
         const form = e.target as any as HTMLFormElement;
-        const formData = new FormData(form);
-        const password = formData.get('password')! as any as string;
-        const confirmPass = formData.get('confirm-password')! as any as string;
-        const key = formData.get('key') as string; // Get the key value
+        // const formData = new FormData(form);
+        const name=e.name
+        const email=e.email
+        const phone=e.phone
+        const password = e.password as any as string;
+        const confirmPass = e['confirm-password'] as any as string;
+        const key =e.key as string; // Get the key value
+        const code=e.address.postalCode
 
         if (key !== secretKey) {
             setInvalidKey(true); // Set the error for invalid key
@@ -148,10 +157,11 @@ export default function Register() {
             accessType: 1,
             accessToken: '',
             internal: {
-                name: formData.get('name')! as any as string,
-                email: formData.get('email')! as any as string,
+                name,
+                email,
                 password,
-                phone: formData.get('phone')! as any as string
+                phone,
+                postalCode:code
             }
         };
 
@@ -262,15 +272,17 @@ export default function Register() {
         flow: 'implicit'
     });
 
+    console.log(errors?.['confirm-password'])
     return (
         <>
-            <form ref={formRef as any} onSubmit={handleSubmit}
+            <form ref={formRef as any} onSubmit={handleSubmit(handleSubmitt)}
                   className="h-full sm:overflow-visible overflow-auto  hidden w-full items-center  sm:flex flex-col gap-4 p-8 sm:p-8">
                 <h1 className="text-2xl font-bold">Registration</h1>
                 {noMatch && <p className="text-red-600">{message}</p>}
                 <Input
-                    required
-                    name="name"
+                     {...register('name',{required:"Enter Name"})}
+                     isInvalid={errors.name as any}
+                     errorMessage={errors.name?.message as any}
                     className="w-full"
                     type="text"
                     label="Full Name"
@@ -282,8 +294,9 @@ export default function Register() {
                     classNames={{label: 'font-semibold'}}
                 />
                 <Input
-                    name="email"
-                    required
+                     {...register('email',{required:"Enter Email"})}
+                     isInvalid={errors.email as any}
+                     errorMessage={errors.email?.message as any}
                     className="w-full"
                     type="email"
                     label="Email Address"
@@ -295,8 +308,9 @@ export default function Register() {
                     classNames={{label: 'font-semibold'}}
                 />
                 <Input
-                    name="phone"
-                    required
+                     {...register('phone',{required:"Enter Phone"})}
+                     isInvalid={errors.phone as any}
+                     errorMessage={errors.phone?.message as any}
                     className="w-full"
                     type="text"
                     label="Phone Number"
@@ -308,8 +322,9 @@ export default function Register() {
                     classNames={{label: 'font-semibold'}}
                 />
                 <Input
-                    name="password"
-                    required
+                     {...register('password',{required:"Enter Password"})}
+                     isInvalid={errors.password as any}
+                     errorMessage={errors.password?.message as any}
                     label="Password"
                     className={'w-full'}
                     placeholder="Enter your password"
@@ -332,8 +347,13 @@ export default function Register() {
                     type={isVisible1 ? "text" : "password"}
                 />
                 <Input
-                    name="confirm-password"
-                    required
+                    {...register('confirm-password',{required:"Enter Confirm Password",
+
+                        validate:(value, formValues) => value == watch('password')|| 'Passwords Dont Match',
+                        
+                     })}
+                     isInvalid={errors['confirm-password'] as any}
+                     errorMessage={errors['confirm-password']?.message as any}
                     label="Confirm Password"
                     className={'w-full'}
                     placeholder="Enter your password"
@@ -357,8 +377,9 @@ export default function Register() {
                 />
 
                 <Input
-                    name="key"
-                    required
+                {...register('key',{required:"Enter Key"})}
+                isInvalid={errors.key as any}
+                errorMessage={errors.key?.message as any}
                     label="Key"
                     className="w-full"
                     placeholder="Enter the key"
@@ -369,6 +390,16 @@ export default function Register() {
                     // endContent={invalidKey && <span className="text-red-600">Invalid Key</span>}
                     type="text"
                 />
+
+                <GooglePlacesInput
+                      name="address"
+                      control={control}
+                      placeholder="Postcode"
+                      rules={{ required: "Post Code is required" }}
+                      addressKey="postalCode"
+                      radius="sm"
+                    />
+                  {/* </div> */}
 
                 <div className="flex w-full justify-between">
                     <CheckboxGroup onValueChange={(e: any) => {
@@ -396,7 +427,7 @@ export default function Register() {
             </form>
 
 
-            <form onSubmit={handleSubmit}
+            <form onSubmit={handleSubmit(handleSubmitt)}
                   className="h-full sm:overflow-visible overflow-auto  bg-[#160704]  relative sm:hidden w-full ">
                 <Image
                     priority
@@ -420,106 +451,124 @@ export default function Register() {
                     <h1 className="text-2xl font-bold">Registration</h1>
                     {noMatch && <p className="text-red-600">{message}</p>}
                     <Input
-                        required
-                        name="name"
-                        className="w-full"
-                        type="text"
-                        label="Full Name"
-                        placeholder="John Gordon"
-                        labelPlacement="outside"
-                        startContent={
-                            <CiUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
-                        }
-                        classNames={{label: "!text-white font-semibold"}}
-                        // classNames={{ label: 'font-semibold' }}
-                    />
-                    <Input
-                        name="email"
-                        required
-                        className="w-full"
-                        type="email"
-                        label="Email Address"
-                        placeholder="you@example.com"
-                        labelPlacement="outside"
-                        startContent={
-                            <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
-                        }
-                        classNames={{label: "!text-white font-semibold"}}
-                    />
-                    <Input
-                        name="phone"
-                        required
-                        className="w-full"
-                        type="text"
-                        label="Phone Number"
-                        placeholder="+123456789"
-                        labelPlacement="outside"
-                        startContent={
-                            <BiPhone className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
-                        }
-                        classNames={{label: "!text-white font-semibold"}}
-                    />
-                    <Input
-                        name="password"
-                        required
-                        label="Password"
-                        className={'w-full'}
-                        placeholder="Enter your password"
-                        labelPlacement="outside"
-                        startContent={
-                            <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
-                        }
-                        endContent={
-                            <button className="focus:outline-none" type="button" onClick={() => {
-                                toggleVisibility1(!isVisible1);
-                            }}>
-                                {isVisible1 ? (
-                                    <BsEyeSlash className="text-2xl text-default-400 pointer-events-none"/>
-                                ) : (
-                                    <BsEyeFill className="text-2xl text-default-400 pointer-events-none"/>
-                                )}
-                            </button>
-                        }
-                        type={isVisible1 ? "text" : "password"}
-                        classNames={{label: "!text-white font-semibold"}}
-                    />
-                    <Input
-                        name="confirm-password"
-                        required
-                        label="Confirm Password"
-                        className={'w-full'}
-                        placeholder="Enter your password"
-                        labelPlacement="outside"
-                        startContent={
-                            <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
-                        }
-                        classNames={{label: "!text-white font-semibold"}}
-                        endContent={
-                            <button className="focus:outline-none" type="button" onClick={() => {
-                                toggleVisibility2(!isVisible2);
-                            }}>
-                                {isVisible2 ? (
-                                    <BsEyeSlash className="text-2xl text-default-400 pointer-events-none"/>
-                                ) : (
-                                    <BsEyeFill className="text-2xl text-default-400 pointer-events-none"/>
-                                )}
-                            </button>
-                        }
-                        type={isVisible2 ? "text" : "password"}
-                    />
+                     {...register('name',{required:"Enter Name"})}
+                     isInvalid={errors.name as any}
+                     errorMessage={errors.name?.message as any}
+                    className="w-full"
+                    type="text"
+                    label="Full Name"
+                    placeholder="John Gordon"
+                    labelPlacement="outside"
+                    startContent={
+                        <CiUser className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
+                    }
+                    classNames={{label: 'font-semibold'}}
+                />
+                <Input
+                     {...register('email',{required:"Enter Email"})}
+                     isInvalid={errors.email as any}
+                     errorMessage={errors.email?.message as any}
+                    className="w-full"
+                    type="email"
+                    label="Email Address"
+                    placeholder="you@example.com"
+                    labelPlacement="outside"
+                    startContent={
+                        <CiMail className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
+                    }
+                    classNames={{label: 'font-semibold'}}
+                />
+                <Input
+                     {...register('phone',{required:"Enter Phone"})}
+                     isInvalid={errors.phone as any}
+                     errorMessage={errors.phone?.message as any}
+                    className="w-full"
+                    type="text"
+                    label="Phone Number"
+                    placeholder="+123456789"
+                    labelPlacement="outside"
+                    startContent={
+                        <BiPhone className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
+                    }
+                    classNames={{label: 'font-semibold'}}
+                />
+                <Input
+                     {...register('password',{required:"Enter Password"})}
+                     isInvalid={errors.password as any}
+                     errorMessage={errors.password?.message as any}
+                    label="Password"
+                    className={'w-full'}
+                    placeholder="Enter your password"
+                    labelPlacement="outside"
+                    startContent={
+                        <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
+                    }
+                    endContent={
+                        <button className="focus:outline-none" type="button" onClick={() => {
+                            toggleVisibility1(!isVisible1);
+                        }}>
+                            {isVisible1 ? (
+                                <BsEyeSlash className="text-2xl text-default-400 pointer-events-none"/>
+                            ) : (
+                                <BsEyeFill className="text-2xl text-default-400 pointer-events-none"/>
+                            )}
+                        </button>
+                    }
+                    classNames={{label: 'font-semibold'}}
+                    type={isVisible1 ? "text" : "password"}
+                />
+                <Input
+                    {...register('confirm-password',{required:"Enter Confirm Password",
 
-                    <Input
-                        name="key"
-                        required
-                        label="Key"
-                        className="w-full"
-                        placeholder="Enter the key"
-                        labelPlacement="outside"
-                        classNames={{label: 'font-semibold'}}
-                        startContent={<IoIosLock
-                            className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>}
-                        // endContent={invalidKey && <span className="text-red-600">Invalid Key</span>}
-                        type="text"
+                        validate:(value, formValues) => value == watch('password')|| 'Passwords Dont Match',
+                        
+                     })}
+                     isInvalid={errors['confirm-password'] as any}
+                     errorMessage={errors['confirm-password']?.message as any}
+                    label="Confirm Password"
+                    className={'w-full'}
+                    placeholder="Enter your password"
+                    labelPlacement="outside"
+                    classNames={{label: 'font-semibold'}}
+                    startContent={
+                        <IoIosLock className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>
+                    }
+                    endContent={
+                        <button className="focus:outline-none" type="button" onClick={() => {
+                            toggleVisibility2(!isVisible2);
+                        }}>
+                            {isVisible2 ? (
+                                <BsEyeSlash className="text-2xl text-default-400 pointer-events-none"/>
+                            ) : (
+                                <BsEyeFill className="text-2xl text-default-400 pointer-events-none"/>
+                            )}
+                        </button>
+                    }
+                    type={isVisible2 ? "text" : "password"}
+                />
+
+                <Input
+                {...register('key',{required:"Enter Key"})}
+                isInvalid={errors.key as any}
+                errorMessage={errors.key?.message as any}
+                    label="Key"
+                    className="w-full"
+                    placeholder="Enter the key"
+                    labelPlacement="outside"
+                    classNames={{label: 'font-semibold'}}
+                    startContent={<IoIosLock
+                        className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>}
+                    // endContent={invalidKey && <span className="text-red-600">Invalid Key</span>}
+                    type="text"
+                />
+
+                <GooglePlacesInput
+                      name="address"
+                      control={control}
+                      placeholder="Postcode"
+                      rules={{ required: "Post Code is required" }}
+                      addressKey="postalCode"
+                      radius="sm"
                     />
 
                     <div className="flex w-full justify-between">
