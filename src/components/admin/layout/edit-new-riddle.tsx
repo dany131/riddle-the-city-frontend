@@ -2,6 +2,7 @@
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Button, Switch } from "@nextui-org/react";
 import Image from "next/image";
+import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaImage } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
@@ -10,7 +11,7 @@ import { useMutation, useQueryClient } from "react-query";
 import ReactQuill from "react-quill-new";
 import { toast } from "react-toastify";
 
-export default function EditNewRiddle({setNewRiddles,newRiddless,index,error,huntId,item,setHuntToAdd,huntToAdd,setError}:{setNewRiddles:any,newRiddless:any,index:number,error:any,huntId:string,item:any,setHuntToAdd:any,huntToAdd:any,setError:any}){
+export default function EditNewRiddle({setNewRiddles,newRiddless,index,huntId,item,setHuntToAdd,huntToAdd}:{setNewRiddles:any,newRiddless:any,index:number,huntId:string,item:any,setHuntToAdd:any,huntToAdd:any}){
     const deleteFileMutation=useMutation((file:string)=>axiosInstance.delete(`/file?fileName=${file}`))
     const queryClient=useQueryClient()
     const updateHunts = useMutation((datas: any) => axiosInstance.put(`/hunt?huntId=${huntId}`, datas), {
@@ -82,6 +83,7 @@ export default function EditNewRiddle({setNewRiddles,newRiddless,index,error,hun
             }
         },
     })
+    const [error,setError]=useState(false)
 
     return (
         <>
@@ -328,11 +330,12 @@ export default function EditNewRiddle({setNewRiddles,newRiddless,index,error,hun
                                 setError(true)
                                 return 
                             }
+                            setError(false)
                             updateHunts.mutate(data)
                             const oldRiddles = newRiddless.filter((j: any, index1: any) => index1 != index)
                             setNewRiddles(oldRiddles)
                             console.log('new riddle',data)
-                        }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{updateHunts.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Add Riddle"}</Button>
+                        }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Add Riddle</Button>
                                 </div>
                             </div>
         </>

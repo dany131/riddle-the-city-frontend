@@ -364,11 +364,11 @@ export default function EditHunts(data: any) {
                         <h1 className="font-semibold">Edit Riddles</h1>
                         {huntToAdd?.riddles.map((e: any, index: number) =>
                         <>
-                        <EditRiddle setError={setError} index={index} error={error} item={e} setHuntToAdd={setHuntToAdd} huntToAdd={huntToAdd} huntId={data.searchParams.id} />
+                        <EditRiddle  index={index}  item={e} setHuntToAdd={setHuntToAdd} huntToAdd={huntToAdd} huntId={data.searchParams.id} />
                         </>
                         )}
                         {newRiddless?.map((e: any, index: number) =>
-                            <EditNewRiddle setError={setError} setNewRiddles={setNewRiddles} newRiddless={newRiddless} index={index} error={error} item={e} setHuntToAdd={setHuntToAdd} huntToAdd={huntToAdd} huntId={data.searchParams.id}/>
+                            <EditNewRiddle  setNewRiddles={setNewRiddles} newRiddless={newRiddless} index={index}  item={e} setHuntToAdd={setHuntToAdd} huntToAdd={huntToAdd} huntId={data.searchParams.id}/>
                         )}
                     </div>
                     <div className="flex flex-wrap gap-4">

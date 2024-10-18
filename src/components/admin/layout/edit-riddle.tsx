@@ -3,6 +3,7 @@
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Button, Switch } from "@nextui-org/react";
 import Image from "next/image";
+import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaImage } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
@@ -12,7 +13,7 @@ import ReactQuill from "react-quill-new";
 import { toast } from "react-toastify";
 
 
-export default function EditRiddle({setHuntToAdd,huntToAdd,index,error,huntId,item,setError}:{setHuntToAdd:any,huntToAdd:any,index:number,error:any,huntId:string,item:any,setError:any}
+export default function EditRiddle({setHuntToAdd,huntToAdd,index,huntId,item}:{setHuntToAdd:any,huntToAdd:any,index:number,huntId:string,item:any}
 ){
     const deleteFileMutation=useMutation((file:string)=>axiosInstance.delete(`/file?fileName=${file}`))
     const deleteRiddle=useMutation((riddleId:string)=>axiosInstance.delete(`/hunt/riddle?huntId=${huntId}&riddleId=${riddleId}`),{
@@ -53,6 +54,7 @@ export default function EditRiddle({setHuntToAdd,huntToAdd,index,error,huntId,it
             }
         },
     })
+    const [error,setError]=useState(false)
     return (
         <>
          <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
@@ -350,9 +352,10 @@ export default function EditRiddle({setHuntToAdd,huntToAdd,index,error,huntId,it
                                 setError(true)
                                 return 
                             }
+                            
                             console.log('update',data)
                             updateRiddle.mutate(data)
-                        }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{updateRiddle.isLoading ? <ImSpinner2 className="text-xl animate-spin" /> : "Update Riddle"}</Button>
+                        }} className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Update Riddle</Button>
                                 </div>
                                 
                                 {/* <button onClick={() => {
