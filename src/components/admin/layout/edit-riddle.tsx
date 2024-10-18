@@ -2,6 +2,7 @@
 
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Button, Switch } from "@nextui-org/react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -9,8 +10,9 @@ import { FaImage } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { IoText } from "react-icons/io5";
 import { useMutation } from "react-query";
-import ReactQuill from "react-quill-new";
 import { toast } from "react-toastify";
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+
 
 
 export default function EditRiddle({setHuntToAdd,huntToAdd,index,huntId,item}:{setHuntToAdd:any,huntToAdd:any,index:number,huntId:string,item:any}

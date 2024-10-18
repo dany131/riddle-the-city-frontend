@@ -8,13 +8,8 @@ import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { toast } from "react-toastify";
 // import ReactQuill from 'react-quill-new';
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 import dynamic from "next/dynamic";
-import { AiOutlineDelete } from "react-icons/ai";
-import Image from "next/image";
-import { IoText } from "react-icons/io5";
-import { FaImage } from "react-icons/fa";
 import EditRiddle from "@/components/admin/layout/edit-riddle";
 import EditNewRiddle from "@/components/admin/layout/edit-new-riddle";
 const modules = {
@@ -275,9 +270,6 @@ export default function EditHunts(data: any) {
             }
         }
     }
-
-    
-    const deleteFileMutation=useMutation((file:string)=>axiosInstance.delete(`/file?fileName=${file}`))
 
     return (
         <>
