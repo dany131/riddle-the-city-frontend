@@ -30,9 +30,7 @@ import { IoText } from "react-icons/io5";
 import { AiOutlineDelete } from "react-icons/ai";
 import Image from "next/image";
 
-const selections = [
-    {label: 'Open', key: 1}
-];
+
 
 export default function CreateRiddle() {
     const navigate = useRouter();
@@ -374,10 +372,10 @@ export default function CreateRiddle() {
                                         console.log('riddleIndex',riddleIndex)
                                         if(k.type==1){
                                             return <div className="flex gap-4 justify-between">
-                                                <Input value={k.text} onChange={(l)=>{
+                                                <ReactQuill className="w-full" placeholder="" value={k.text} onChange={(l)=>{
                                                         const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
                                                         const findDescription=findRiddle?.description.find((k,ind)=>ind==inde) as any
-                                                        findDescription!.text=l.target.value
+                                                        findDescription!.text=l
                                                         const newDescription=findRiddle?.description.map((k,ind)=>{
                                                             if(ind==inde){
                                                                 return findDescription
@@ -401,7 +399,8 @@ export default function CreateRiddle() {
                                                         })
 
 
-                                            }}/>
+                                            }} theme="snow" />
+                                                
                                             <AiOutlineDelete onClick={()=>{
                                                 const findRiddle=huntToAdd.riddles.find((e,ind)=>ind==riddleIndex)
                                                 const findDescription=findRiddle?.description.filter((k,ind)=>ind!=inde) as any

@@ -100,7 +100,7 @@ export default function ViewHunt({searchParams}: any) {
                                     riddle.description.map((k:any,index:number)=>{
                                         if(k.type==1){
                                             return <div className="flex gap-4 justify-between">
-                                                <Input disabled value={k.text} />
+                                                <ReactQuill className="w-full" readOnly  value={k.text}  theme="snow" />
                                             </div>
                                         }
                                         return <div className="flex gap-4 justify-between items-center">
