@@ -113,8 +113,8 @@ export default function EditBrewery(data: any) {
         onSuccess(data) {
             console.log(data)
             const addressNotAvailable = {
-                "latitude": data.data.data.brewery.address.location.coordinates[0],
-                "longitude": data.data.data.brewery.address.location.coordinates[1],
+                "latitude": data.data.data.brewery.address.location.coordinates[1],
+                "longitude": data.data.data.brewery.address.location.coordinates[0],
                 "text": data.data.data.brewery.address.text
             }
             const scheduleRiddle = data.data.data.brewery.schedule.map((e:any) => {
@@ -219,7 +219,7 @@ export default function EditBrewery(data: any) {
             formData.append(`name`,breweryToAdd.name as any)
             // console.log('fileee',profileImage)
             if(profileImage){
-
+                console.log('profileimage',profileImage)
                 formData.append('file',profileImage as any)
             }
             // formData.append('file',)
@@ -240,7 +240,7 @@ export default function EditBrewery(data: any) {
                 })
             })
             console.log('breweryDataaaa',[...formData.entries()])
-            breweryEditMutation.mutate(breweryToAdd)
+            breweryEditMutation.mutate(formData)
         }
         // if (!filterBrewery && name) {
         //     setMessage('')

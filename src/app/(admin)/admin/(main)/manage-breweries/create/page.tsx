@@ -142,7 +142,7 @@ export default function CreateBrewery() {
                 formData.append(`address[${e[0]}]`,e[1] as any)
             })
             formData.append(`name`,breweryData.name as any)
-            formData.append('file',e.file)
+            formData.append('file',profileImage)
             // formData.append('file',)
             
             breweryData.schedule.forEach((e,index)=>{
