@@ -35,7 +35,8 @@ export default function StartRiddle(datas:any) {
                                     riddleQuery.data?.data.data.riddle.description.map((k:any,index:number)=>{
                                         if(k.type==1){
                                             return <div className="flex gap-4 justify-between">
-                                                <Input disabled value={k.text} />
+                                                {/*<Input disabled value={k.text} />*/}
+                                                <p className="font-semibold" dangerouslySetInnerHTML={{__html:k.text}}></p>
                                             </div>
                                         }
                                         return <div className="flex gap-4 justify-between items-center">
@@ -65,7 +66,8 @@ export default function StartRiddle(datas:any) {
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Hint</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm ">{riddleQuery.data?.data.data.riddle.hint }</p>
+                                <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.hint}}></p>
+                                {/*<p className="text-sm ">{riddleQuery.data?.data.data.riddle.hint }</p>*/}
                                 {/* <div className="flex w-full gap-4">
                                     <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Okay</button>
                                 </div> */}
