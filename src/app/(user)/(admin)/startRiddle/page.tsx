@@ -35,12 +35,8 @@ export default function StartRiddle(datas:any) {
                                     riddleQuery.data?.data.data.riddle.description.map((k:any,index:number)=>{
                                         if(k.type==1){
                                             return <div className="flex gap-4 justify-between">
-<<<<<<< HEAD
-                                                <p  dangerouslySetInnerHTML={{__html:k.text}}/>
-=======
                                                 {/*<Input disabled value={k.text} />*/}
                                                 <p className="font-semibold" dangerouslySetInnerHTML={{__html:k.text}}></p>
->>>>>>> 38a75b5d622b18a8414b8827dfce92558d6485c0
                                             </div>
                                         }
                                         return <div className="flex gap-4 justify-between items-center">
