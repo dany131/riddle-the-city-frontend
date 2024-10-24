@@ -223,7 +223,7 @@ export default function Settings() {
                     {(onClose) => (
                         <>
 
-                            <ModalHeader className="flex flex-col text-xl gap-1">Update Password</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Update Address</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
                                 <form onSubmit={handleSubmit2(addressSubmit)} className="flex flex-col gap-4">
                                     {notMatch && <p className="text-red-600 text-center">{message}</p>}
@@ -235,7 +235,7 @@ export default function Settings() {
                       addressKey="postalCode"
                       radius="sm"
                     />
-                                    <Button type="submit" isLoading={updateProfile.isLoading} isDisabled={updateProfile.isLoading} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Password</Button>
+                                    <Button type="submit" isLoading={updateProfile.isLoading} isDisabled={updateProfile.isLoading} className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Update Address</Button>
                                 </form>
                             </ModalBody>
                         </>
