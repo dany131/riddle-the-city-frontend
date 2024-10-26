@@ -102,6 +102,8 @@ export const config = {
         '/admin/notifications',
         '/admin/settings',
         '/admin/view-bookings',
+        '/admin/coupons',
+        '/admin/levels',
         '/dashboard',
         '/feedback',
         '/help',
