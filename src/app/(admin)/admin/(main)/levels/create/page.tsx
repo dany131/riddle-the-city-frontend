@@ -62,7 +62,7 @@ export default function CreateCoupon(){
 
             {...register('huntsRequired',{required:"Enter Hunts Required"})} type="number" label="Hunts Required" placeholder="Enter Hunts Required..." labelPlacement="outside" classNames={{label:"!font-semibold"}}/>
             <div className="relative min-h-[10rem] w-[10rem] flex flex-col gap-2">
-                            <p className="text-sm font-semibold">Level Logo</p>
+                            <p className="text-sm font-semibold">Badge Logo</p>
                             {fieldState.error && <p className="text-red-500 font-semibold">{fieldState.error.message as any}</p>}
                             <label htmlFor="breweryLogo" className="cursor-pointer block">
                             <Image src={previewImage?previewImage:'/images/user/profile/profile.png'} alt="brewery Logo" width={100} height={100} className="h-full w-full object-contain"/>
