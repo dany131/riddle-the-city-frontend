@@ -25,6 +25,12 @@ type ClaimReward = {
     riddleCompletionId: string;
 };
 
+export enum RiddleCompletionStatus {
+    InProgress = 1,
+    Completed,
+    Expired
+}
+
 export default function Rewards() {
     const {isOpen: isOpen2, onOpen: onOpen2, onClose: onClose2} = useDisclosure();
     const {isOpen: isOpen3, onOpen: onOpen3, onClose: onClose3} = useDisclosure();
@@ -73,7 +79,7 @@ export default function Rewards() {
         }
     };
 
-    console.log('award to claim',riddleToClaim)
+    console.log('award to claim', riddleToClaim);
     return (
         <>
             <div className="flex justify-between items-center">
@@ -109,7 +115,20 @@ export default function Rewards() {
                                         <p className="text-sm">Location: {reward.brewery.address.text}</p>
                                         <p className="text-sm">Hunt Status:
                                             <span
-                                                className={(reward.isCompleted) ? "text-sm text-green-600" : "text-sm text-red-500"}> {(reward.isCompleted) ? "Completed" : "In Progress"}</span>
+                                                className={`text-sm ${
+                                                    reward.status === RiddleCompletionStatus.Completed
+                                                        ? "text-green-600"
+                                                        : reward.status === RiddleCompletionStatus.InProgress
+                                                            ? "text-orange-500"
+                                                            : "text-red-500"
+                                                }`}
+                                            >
+                                              {reward.status === RiddleCompletionStatus.Completed
+                                                  ? " Completed"
+                                                  : reward.status === RiddleCompletionStatus.InProgress
+                                                      ? " In Progress"
+                                                      : " Expired"}
+                                            </span>
                                         </p>
                                     </CardBody>
                                     <CardFooter className="flex justify-center">
@@ -152,10 +171,15 @@ export default function Rewards() {
                             {riddleToClaim?.riddle.map((riddle: any) => (
                                 <div key={riddle.id}
                                      className={(riddle.claimed) ? "flex flex-col gap-2 shadow-lg rounded-lg p-4  relative" : "flex flex-col gap-2 shadow-lg rounded-lg p-4"}>
-                                    <p>Riddle Name: <span className="font-semibold" dangerouslySetInnerHTML={{__html:riddle.name}}></span></p>
-                                    <p>Riddle Reward: <span className="font-semibold" dangerouslySetInnerHTML={{__html:riddle.rewards}}></span></p>
+                                    <p>Riddle Name: <span className="font-semibold"
+                                                          dangerouslySetInnerHTML={{__html: riddle.name}}></span></p>
+                                    <p>Riddle Reward: <span className="font-semibold"
+                                                            dangerouslySetInnerHTML={{__html: riddle.rewards}}></span>
+                                    </p>
                                     {riddle.claimed && (
-                                        <Image src={'/images/layout/claimed.png'} alt="claimed" className="absolute top-0 left-0 w-full h-full object-contain " width={200} height={200}/>
+                                        <Image src={'/images/layout/claimed.png'} alt="claimed"
+                                               className="absolute top-0 left-0 w-full h-full object-contain "
+                                               width={200} height={200}/>
                                         // <p>Claimed Reward: <span className="font-semibold">Yes</span></p>
                                     )}
                                     {!riddle.claimed && (
@@ -189,7 +213,8 @@ export default function Rewards() {
                         Claiming Reward in {countdown} seconds
                     </ModalHeader>
                     <ModalBody className="flex flex-col items-center gap-4 pb-8">
-                        <p>Reward: <span className="font-semibold" dangerouslySetInnerHTML={{__html:awardToClaim?.rewards}}></span></p>
+                        <p>Reward: <span className="font-semibold"
+                                         dangerouslySetInnerHTML={{__html: awardToClaim?.rewards}}></span></p>
                         <Progress
                             value={countdown}
                             maxValue={60}

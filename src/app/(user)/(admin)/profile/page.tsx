@@ -2,12 +2,10 @@
 import Image from "next/image";
 import {CiEdit} from "react-icons/ci";
 import {
-    Button,
     Input,
     Modal,
     ModalBody,
     ModalContent,
-    ModalFooter,
     ModalHeader,
     useDisclosure
 } from "@nextui-org/react";
@@ -27,6 +25,22 @@ type UserData = {
     id: string,
     profile: { url: string, isCompleteUrl: boolean }
 }
+
+type BadgeData = {
+    _id: string;
+    user: string;
+    badge: {
+        _id: string,
+        name: string,
+        description: string,
+        huntsRequired: string,
+        media: string,
+        createdAt: string,
+        updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+};
 
 export default function Profile() {
     const [name, setName] = useState('');
@@ -91,6 +105,7 @@ export default function Profile() {
             });
         }
     });
+    const badgesQuery = useQuery(['badges'], () => axiosInstance.get(`/badge/user?page=1&limit=9999&userId=${userData.id}`));
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -189,9 +204,10 @@ export default function Profile() {
                                             <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
                                         </div>
                                         <div>
-                                            <p dangerouslySetInnerHTML={{__html:`Starting Point: ${e.startingRiddle}`}}></p>
-                                            <p dangerouslySetInnerHTML={{__html:`Ending Point: ${e.endingRiddle}`}}></p>
-                                            <p className="w-full break-all" dangerouslySetInnerHTML={{__html:`Reward ${e.rewards.join(' , ')}`}}></p>
+                                            <p dangerouslySetInnerHTML={{__html: `Starting Point: ${e.startingRiddle}`}}></p>
+                                            <p dangerouslySetInnerHTML={{__html: `Ending Point: ${e.endingRiddle}`}}></p>
+                                            <p className="w-full break-all"
+                                               dangerouslySetInnerHTML={{__html: `Reward ${e.rewards.join(' , ')}`}}></p>
                                         </div>
                                     </div>
                                 )) : (
@@ -202,6 +218,51 @@ export default function Profile() {
                         {/* <div className="flex sm:flex-row flex-col gap-4">
 
                         </div> */}
+                    </div>
+                    {/* Badges Section */}
+                    <div className="flex flex-col gap-4">
+                        <p className="font-semibold text-lg">Badges</p>
+                        {!badgesQuery.isFetching && badgesQuery.data?.data?.data.length > 0 ? (
+                            <Carousel
+                                responsive={{
+                                    desktop: {
+                                        breakpoint: { max: 3000, min: 1024 },
+                                        items: 3,
+                                        partialVisibilityGutter: 40
+                                    },
+                                    tablet: {
+                                        breakpoint: { max: 1024, min: 768 },
+                                        items: 2,
+                                        partialVisibilityGutter: 30
+                                    },
+                                    mobile: {
+                                        breakpoint: { max: 768, min: 0 },
+                                        items: 1,
+                                        partialVisibilityGutter: 20
+                                    },
+                                }}
+                                className="p-4"
+                                infinite={false}
+                                partialVisible
+                            >
+                                {badgesQuery.data?.data.data.map((badgeData: BadgeData) => (
+                                    <div key={badgeData.badge._id}
+                                         style={{ boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
+                                         className="flex flex-col min-h-full gap-2 rounded-lg p-4 items-center bg-white">
+                                        <img
+                                            src={`${process.env.NEXT_PUBLIC_MEDIA_URL}/${badgeData.badge.media}`}
+                                            alt={badgeData.badge.name}
+                                            className="h-24 w-24 object-cover rounded-full"
+                                        />
+                                        <h2 className="font-bold text-lg mt-2">{badgeData.badge.name}</h2>
+                                        <p className="text-sm text-gray-500 text-center px-4">{badgeData.badge.description}</p>
+                                        <p className="text-xs text-gray-400 mt-2">Earned on: {(new Date(badgeData.createdAt)).toLocaleDateString()}</p>
+                                    </div>
+                                ))}
+                            </Carousel>
+                        ) : (
+                            <p className="font-semibold text-red-600">No Badges Earned</p>
+                        )}
                     </div>
                 </div>
             </div>
