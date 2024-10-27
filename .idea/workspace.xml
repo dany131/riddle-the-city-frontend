@@ -7,8 +7,6 @@
     <list default="true" id="46eb10ff-7ba6-4860-990b-87f57089775b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(user)/(admin)/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/(admin)/profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/(admin)/rewards/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/(admin)/rewards/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/utils/constant/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/utils/constant/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +73,7 @@
       <workItem from="1726710016958" duration="57141000" />
       <workItem from="1728520291390" duration="617000" />
       <workItem from="1728521652548" duration="5402000" />
-      <workItem from="1730068056337" duration="3739000" />
+      <workItem from="1730068056337" duration="4421000" />
     </task>
     <servers />
   </component>

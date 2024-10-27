@@ -25,7 +25,7 @@ type ClaimReward = {
     riddleCompletionId: string;
 };
 
-export enum RiddleCompletionStatus {
+enum RiddleCompletionStatus {
     InProgress = 1,
     Completed,
     Expired
