@@ -481,7 +481,7 @@ export default function ManageBreweries() {
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Location Stats</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <form onSubmit={handleSubmit(SubmitForPDf)} className="flex flex-col gap-2">
+                                <form onSubmit={handleSubmit(SubmitForPDf)} className="flex flex-col gap-4">
                                 <Select
             variant={'bordered'}
             label="Date Range" 
