@@ -5,6 +5,7 @@ import {
     Autocomplete,
     AutocompleteItem,
     Button,
+    DateRangePicker,
     Input,
     Modal,
     ModalBody,
@@ -26,7 +27,9 @@ import {Time} from "@internationalized/date";
 import Link from "next/link";
 import {ImSpinner2} from "react-icons/im";
 import Image from "next/image";
-
+import { IoIosStats } from "react-icons/io";
+import { FieldValues, useController, useForm } from "react-hook-form";
+import DatePicker from "@/components/common/date-picker";
 
 const selections = [
     {label: 'Open', key: 1},
@@ -60,6 +63,13 @@ const users = [
     }
 ];
 
+
+const newAnimals=[
+    {key: 1, label: "Week"},
+    {key: 2, label: "Month"},
+    {key: 3, label: "Custom"},
+  ]
+
 type BreweryEditData = {
     name?: string,
     address?: {
@@ -81,7 +91,9 @@ type BreweryEditData = {
 
 export default function ManageBreweries() {
     const navigate = useRouter();
-    console.log('brewery pageee');
+    // console.log('brewery pageee');
+    const [date,setDate]=useState<any>('')
+
     const {isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1, onClose: onClose1} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
 
@@ -89,6 +101,7 @@ export default function ManageBreweries() {
     // const [status, setStatus] = useState<Status>()
     // const [breweryEditId,setBreweryEditId]=useState<null|string>()
     // const [addBrewery, setAddBrewery] = useState(false)
+    const [breweryForPDf,setBreweryForPDF]=useState<any>()
     const [page, setPage] = useState(1);
     const [breweryName, setBreweryName] = useState<any>();
     const [breweryToAdd, setBreweryToAdd] = useState<any>();
@@ -114,7 +127,7 @@ export default function ManageBreweries() {
         return axiosInstance.get(`/brewery/all?page=${queryKey[1]}&limit=10`);
     }, {
         onSuccess(data) {
-            console.log(data);
+            // console.log(data);
         },
         onError(err) {
             console.log(err);
@@ -129,9 +142,41 @@ export default function ManageBreweries() {
         }
     });
 
+    const getLocationPdfMutation=useMutation((data:any)=>axiosInstance({method:"GET",url:`/admin/stats-user?breweryId=${breweryForPDf._id}&dateFilter=${date}${data?`&startDate=${data.start}&endDate=${data.end}`:``}`,responseType:"blob"}),{
+        onSuccess(data, variables, context) {
+            const newUrl=URL.createObjectURL(data.data)
+            console.log('newUrl',newUrl)
+            window.open(newUrl)
+            // console.log('pdfff',d)
+        },
+    })
+
+    const {handleSubmit,control}=useForm()
+    
     // console.log('google',googleData)
     // console.log('edit selection', breweryToEdit)
     // console.log('brewery to edit',breweryName)
+    // console.log('brewery for podf',breweryForPDf)
+
+    async function SubmitForPDf(e:FieldValues){
+        // console.log(e.date)
+        if(e.date){
+            const startDate=`${e.date.start.day}/${e.date.start.month}/${e.date.start.year}`
+            const endDate=`${e.date.end.day}/${e.date.end.month}/${e.date.end.year}`
+            const data={
+                start:startDate,
+                end:endDate
+            }
+            // const newData= await axiosInstance({method:"GET",url:`/admin/stats-user?breweryId=${breweryForPDf._id}&dateFilter=${date}${data?`&startDate=${data.start}&endDate=${data.end}`:``}`,responseType:"blob"})
+            // console.log(newData)
+            getLocationPdfMutation.mutate(data)
+            // console.log(startDate)
+        }
+        else{
+            getLocationPdfMutation.mutate(null)
+            console.log('valuesss',e.date)
+        }
+    }
     return (
         <>
 
@@ -170,7 +215,10 @@ export default function ManageBreweries() {
                                     <Link href={`/admin/manage-breweries/edit?id=${e._id}`}><CiEdit
                                         className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600"/></Link>
 
-                                    {/* <AiOutlineDelete onClick={onOpen2} className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 " /> */}
+                                    <IoIosStats onClick={()=>{
+                                        setBreweryForPDF(e)
+                                        onOpen2()
+                                    }} className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
                                 </div>
                             </td>
                         </tr>)}</tbody>
@@ -431,15 +479,39 @@ export default function ManageBreweries() {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Delete Brewery</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Location Stats</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm text-gray-400">Are you sure you want to delete this Brewery?</p>
-                                <div className="flex w-full gap-4">
-                                    <button className="px-16 w-full py-2 bg-[#A92223]  rounded text-white">No</button>
-                                    <button
-                                        className="px-16 w-full py-2 border-2 border-[#A92223] text-[#A92223]  rounded ">Delete
-                                    </button>
-                                </div>
+                                <form onSubmit={handleSubmit(SubmitForPDf)} className="flex flex-col gap-2">
+                                <Select
+            variant={'bordered'}
+            label="Date Range" 
+            classNames={{label:"font-bold text-[#A92223]",trigger:"border-[#A92223]",selectorIcon:"text-[#A92223]"}}
+            onSelectionChange={(key:any)=>{
+              // console.log(key)
+              setPage(1)
+              if(!key.size){
+                setDate('')
+                return 
+              }
+              // console.log('keyyyy',Number(key.currentKey))
+              setDate(Number(key.currentKey))
+            }}
+            className="w-[10rem]" 
+          >
+            {newAnimals.map((animal) => (
+              <SelectItem key={animal.key}>
+                {animal.label}
+              </SelectItem>
+            ))}
+          </Select>
+
+                                {date==3 &&   <DatePicker control={control}/>}
+
+<Button type="submit" isLoading={getLocationPdfMutation.isLoading} isDisabled={getLocationPdfMutation.isLoading}
+                          className="sm:px-16 px-4 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Get Location Stats</Button>
+
+                                </form>
+                               
                             </ModalBody>
                         </>
                     )}
