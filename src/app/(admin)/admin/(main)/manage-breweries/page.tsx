@@ -142,7 +142,7 @@ export default function ManageBreweries() {
         }
     });
 
-    const getLocationPdfMutation=useMutation((data:any)=>axiosInstance({method:"GET",url:`/admin/stats-user?breweryId=${breweryForPDf._id}&dateFilter=${date}${data?`&startDate=${data.start}&endDate=${data.end}`:``}`,responseType:"blob"}),{
+    const getLocationPdfMutation=useMutation((data:any)=>axiosInstance({method:"GET",url:`/admin/stats-user?breweryId=${breweryForPDf._id}${date?`&dateFilter=${date}`:''}${data && date==3?`&startDate=${data.start}&endDate=${data.end}`:``}`,responseType:"blob"}),{
         onSuccess(data, variables, context) {
             const newUrl=URL.createObjectURL(data.data)
             console.log('newUrl',newUrl)
