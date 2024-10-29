@@ -14,12 +14,15 @@ axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     }
     else {
         if (!config.url?.includes('/auth')) {
+
             if (Cookies.get('accessToken')) {
                 config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}`
             }
-            else {
+            else if(!window.location.href.includes('listing')){
                 window.location.href='/auth/login'
+
             }
+           
         }
         // console.log('token',Cookies.get('accessToken'))
         // else {
