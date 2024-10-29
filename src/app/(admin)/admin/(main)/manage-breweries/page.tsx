@@ -485,7 +485,7 @@ export default function ManageBreweries() {
                                 <Select
             variant={'bordered'}
             label="Date Range" 
-            classNames={{label:"font-bold text-[#A92223]",trigger:"border-[#A92223]",selectorIcon:"text-[#A92223]"}}
+            classNames={{label:"font-bold !text-[#A92223] ",trigger:"!border-[#A92223] ",selectorIcon:"text-[#A92223]",value:"!text-[#A92223]"}}
             onSelectionChange={(key:any)=>{
               // console.log(key)
               setPage(1)
