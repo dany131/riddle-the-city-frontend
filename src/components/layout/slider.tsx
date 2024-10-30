@@ -12,7 +12,7 @@ import 'swiper/css/scrollbar';
 import NextSlide from "./button-test";
 import PreviousSlide from "./previousButton";
 
-export default function HomeSlider({children,length}:{children:React.ReactNode,length:number}){
+export default function HomeSlider({children}:{children:React.ReactNode}){
     return (
         <>
             <div className="px-8 sm:px-28 flex gap-8 sm:justify-between sm:flex-nowrap flex-wrap justify-center">
