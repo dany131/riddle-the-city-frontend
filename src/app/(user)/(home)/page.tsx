@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {Montserrat} from "next/font/google";
 import ModalHomeWithButton from "@/components/layout/home-modal";
-import HomeSlider from "@/components/layout/slider";
 import TestimonialSlider from "@/components/layout/testimonials";
 import HomeHeading from "@/components/layout/home-heading";
 
