@@ -30,7 +30,9 @@ html {
 .slick-track{
     display: flex !important;
     gap: 1rem !important; 
+    margin: 0 !important;
 }
+
 
 #placeholder::placeholder{
     text-align: start;

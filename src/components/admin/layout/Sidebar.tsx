@@ -17,6 +17,7 @@ import Cookies from 'js-cookie'
 import { CiMail } from "react-icons/ci";
 import { RiCoupon2Fill } from "react-icons/ri";
 import { FaIdBadge } from "react-icons/fa";
+import { MdOutlineContentPasteSearch } from "react-icons/md";
 
 export default function Sidebar() {
     const pathname = usePathname()
@@ -80,6 +81,11 @@ export default function Sidebar() {
                         <FaIdBadge className="w-1/4" />                
                         <Link className="w-full" href={'/admin/levels'}>Badges</Link>
                     </div>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/cms' ? 'bg-[#a922236e]' : ''}`}>
+                        {/* <CiMail className="w-1/4" /> */}
+                        <MdOutlineContentPasteSearch className="w-1/4" />                
+                        <Link className="w-full" href={'/admin/cms'}>CMS</Link>
+                    </div>
 
                     {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                         <TbSettings className="w-1/4" />
@@ -125,6 +131,11 @@ export default function Sidebar() {
                         {/* <CiMail className="w-1/4" /> */}
                         <FaIdBadge className="w-1/4" />                
                         <Link className="w-full" href={'/admin/levels'}>Badges</Link>
+                    </div>
+                    <div className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${pathname == '/admin/cms' ? 'bg-[#a922236e]' : ''}`}>
+                        {/* <CiMail className="w-1/4" /> */}
+                        <MdOutlineContentPasteSearch className="w-1/4" />                
+                        <Link className="w-full" href={'/admin/cms'}>CMS</Link>
                     </div>
                             {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
                                 <TbSettings className="w-1/4" />
