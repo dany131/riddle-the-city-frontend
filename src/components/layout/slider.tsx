@@ -86,6 +86,8 @@ export default function HomeSlider({data}:{data:any}){
                             <p>{e.user.name}</p>
                             <p className="Voigante">Customer</p>
                         </div>
+                    </div>
+                    <p className="w-full text-sm min-h-[5rem]">{e.description}</p>
                         <div style={{flex:"0.5"}}>
                         <ReactStars
 count={5}
@@ -94,8 +96,6 @@ edit={false}
 size={24}
 color2={'orange'} />
                         </div>
-                    </div>
-                    <p className="w-full text-sm">{e.description}</p>
                 </div>
             </div>
             </SwiperSlide>
