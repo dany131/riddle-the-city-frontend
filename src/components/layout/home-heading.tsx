@@ -1,6 +1,7 @@
-'use client'
+// 'use client'
 
 import axiosInstance from "@/app/utils/axiosInstance";
+import axios from "axios";
 import { Montserrat } from "next/font/google";
 import Image from "next/image"
 import Link from "next/link"
@@ -11,18 +12,22 @@ const montesserat = Montserrat({
     subsets: ['cyrillic']
 });
 
-export default function HomeHeading(){
-    const getContentQuery=useQuery(['homeHeading'],()=>axiosInstance.get('/cms?page=1'))
+export default async  function HomeHeading(){
+    // const getContentQuery=useQuery(['homeHeading'],()=>axiosInstance.get('/cms?page=1'))
+    const getContentQuery=await fetch(`${process.env.NEXT_PUBLIC_API}/cms?page=1`,{cache:'no-cache'})
+    const data=await getContentQuery.json()
+
+
     return (
         <>
         <div
                         className="pt-[16rem] sm:pt-72 md:pt-56  z-[999] relative relative flex md:flex-nowrap flex-wrap gap-4 px-8 sm:px-28 pb-16 justify-center">
                         <div className="flex flex-col gap-4 w-full md:w-1/2 justify-center">
                             <p className="Voigante sm:text-start text-center text-5xl">
-                                {getContentQuery.data?.data.data.heading}
+                                {data.data.heading}
                             </p>
                             <p className={`${montesserat.className} text-sm font-extralight sm:text-start text-center`}>
-                            {getContentQuery.data?.data.data.description}
+                            {data.data.description}
                             </p>
                             <Link href={`${process.env.NEXT_PUBLIC_BASEURL}/#packages`}
                                   className="relative h-[3rem] sm:self-start  flex justify-center items-center p-8 ">

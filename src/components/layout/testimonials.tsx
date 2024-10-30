@@ -6,13 +6,16 @@ import axiosInstance from "@/app/utils/axiosInstance";
 // import StarRatings from 'react-star-ratings';
 import ReactStars from 'react-stars'
 import { SwiperSlide } from "swiper/react";
-export default function TestimonialSlider(){
-    const getTestimonialsQuery=useQuery(['testimonials'],()=>axiosInstance.get('/platform/feedback?page=1&limit=100000000000'))
+export default async function TestimonialSlider(){
+    // const getTestimonialsQuery=useQuery(['testimonials'],()=>axiosInstance.get('/platform/feedback?page=1&limit=100000000000'))
+    const getTestimonialsQuery=await fetch(`${process.env.NEXT_PUBLIC_API}/platform/feedback?page=1&limit=100000000000`,{cache:'no-cache'})
+    const data=await getTestimonialsQuery.json()
+
     return(
         <>
-        <HomeSlider length={getTestimonialsQuery.data?.data.data.length}>
+        <HomeSlider>
         
-            {getTestimonialsQuery.data?.data.data.map((e:any,i:number)=>        
+            {data.data.map((e:any,i:number)=>        
             <SwiperSlide><div key={i} className=" h-auto max-h-[55rem] w-full relative">
                 <Image
                     
