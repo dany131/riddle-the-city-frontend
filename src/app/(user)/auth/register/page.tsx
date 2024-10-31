@@ -17,7 +17,7 @@ import {CiUser} from "react-icons/ci";
 import Cookies from 'js-cookie';
 import {toast} from "react-toastify";
 import GooglePlacesInput from "@/components/common/google-input";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useController, useForm } from "react-hook-form";
 
 
 type LoginData = {
@@ -166,23 +166,8 @@ export default function Register() {
         };
 
         if (password == confirmPass) {
-            if (selected.length != 1) {
-                toast.error('The Terms & Conditions is not checked', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light"
-                });
-                // setMessage('The Terms & Conditions is not checked')
-                // setNoMatch(true)
-            } else {
-                // setNoMatch(false)
-                registerMutation.mutate(loginData);
-            }
+            registerMutation.mutate(loginData);
+          
         } else {
             toast.error('Passwords Do Not Match', {
                 position: "top-right",
@@ -271,6 +256,12 @@ export default function Register() {
         },
         flow: 'implicit'
     });
+
+    const {field:field1,fieldState:fieldState1}=useController({name:'above21',control,rules:{required:"Is Required"}})
+    const {field,fieldState}=useController({name:'accept',control,rules:{required:"Is Required"}})
+
+
+
 
     console.log(errors?.['confirm-password'])
     return (
@@ -401,11 +392,14 @@ export default function Register() {
                     />
                   {/* </div> */}
 
+                  <div className="flex w-full justify-between">
+                    <CheckboxGroup isInvalid={!!fieldState1.error} errorMessage={fieldState1.error?.message} {...field1}>
+                        <Checkbox value={'yes'}>Above 21</Checkbox>
+
+                    </CheckboxGroup>
+                </div>
                 <div className="flex w-full justify-between">
-                    <CheckboxGroup onValueChange={(e: any) => {
-                        console.log(e);
-                        setSelected(e);
-                    }}>
+                    <CheckboxGroup {...field} isInvalid={!!fieldState.error} errorMessage={fieldState.error?.message}>
                         <Checkbox value={'yes'}>I accept <Link href={'/terms-and-conditions'} className="underline">Terms & Conditions</Link> and <Link href={'/privacy-policy'}
                             className="underline">Privacy Policy</Link></Checkbox>
 
@@ -571,18 +565,19 @@ export default function Register() {
                       radius="sm"
                     />
 
-                    <div className="flex w-full justify-between">
-                        <CheckboxGroup onValueChange={(e: any) => {
-                            console.log(e);
-                            setSelected(e);
-                        }}>
-                            <Checkbox value={'yes'}><span className="text-white">I accept</span> <span
-                                className="underline text-white">Terms & Conditions</span> <span
-                                className="text-white">and</span> <span
-                                className="underline text-white">Privacy Policy</span></Checkbox>
+<div className="flex w-full justify-between">
+                    <CheckboxGroup isInvalid={!!fieldState1.error} errorMessage={fieldState1.error?.message} {...field1}>
+                        <Checkbox value={'yes'}><p className="text-white">Above 21</p></Checkbox>
 
-                        </CheckboxGroup>
-                    </div>
+                    </CheckboxGroup>
+                </div>
+                <div className="flex w-full justify-between">
+                    <CheckboxGroup {...field} isInvalid={!!fieldState.error} errorMessage={fieldState.error?.message}>
+                        <Checkbox value={'yes'}><p className="text-white">I accept <Link href={'/terms-and-conditions'} className="underline">Terms & Conditions</Link> and <Link href={'/privacy-policy'}
+                            className="underline">Privacy Policy</Link></p></Checkbox>
+
+                    </CheckboxGroup>
+                </div>
                     <button type="submit" className="bg-[#A92223] rounded-lg p-4 text-white w-[80%]">SignUp</button>
                     {/*<div className="flex w-full items-center justify-center gap-4 mt-4">*/}
                     {/*    <div className="h-[0.1rem] w-[15%] bg-gray-400 w-full"></div>*/}

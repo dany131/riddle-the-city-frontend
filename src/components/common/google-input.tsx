@@ -148,6 +148,9 @@ console.log('address key',addressKey)
     <BaseInput
       ref={inputRef}
       name={name}
+      extraClass={{
+        input:"text-black"
+      }}
       control={control}
       placeholder={placeholder}
       rules={rules}
