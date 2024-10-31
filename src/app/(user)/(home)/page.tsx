@@ -120,7 +120,7 @@ export default function Home() {
                                 height={300} />
                             <div className="bg-[#1413135e] z-[1] min-w-[50%] p-4 mt-16">
                                 <p className="w-full text-center text-xl">
-                                    Single Person Membership
+                                    Yearly Membership
                                 </p>
                             </div>
                             <div className="flex flex-col z-[1] gap-4 ">
@@ -193,17 +193,17 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col relative  mt-16">
                     <Image
-
-                        className="w-full object-cover h-full absolute" style={{ opacity: '0.1' }}
-                        src={'/images/layout/clientBanner.svg'} alt="mystery" width={500} height={700} />
+                    
+                         className="w-full object-cover h-full absolute" style={{opacity: '0.1'}}
+                        src={'/images/layout/clientBanner.svg'} alt="mystery" width={500} height={700}/>
                     <div className="flex flex-col relative z-[2] sm:pt-36 gap-8">
                         <div className="px-8 sm:px-28 flex items-center gap-4 self-start  justify-center sm:w-auto w-full">
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                             <p>Testimonials</p>
                             <div className="h-[0.5rem] rounded-full w-[5rem] bg-orange-400"></div>
                         </div>
-
-                        <TestimonialSlider />
+                        
+                        <TestimonialSlider/>
                     </div>
                 </div>
             </div>
