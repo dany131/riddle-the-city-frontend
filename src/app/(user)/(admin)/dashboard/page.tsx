@@ -16,18 +16,19 @@ import {
 } from "@nextui-org/react";
 import Link from "next/link";
 import {CiEdit} from "react-icons/ci";
-import {useQuery} from "react-query";
+import {useMutation, useQuery, useQueryClient} from "react-query";
 import axiosInstance from "@/app/utils/axiosInstance";
 import {useRouter} from "next/navigation";
 
 
 export default function Dashboard() {
-    const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
+    const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose} = useDisclosure();
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
     const [nextRiddle, setNextRiddle] = useState(false);
     const [page,setPage]=useState(1)
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useRouter();
+    const queryClient=useQueryClient()
     const breweryQuery = useQuery(['breweries', searchQuery,page], ({queryKey}) => {
         return axiosInstance.get(`/brewery/all?page=${queryKey[2]}&limit=10&searchQuery=${queryKey[1]}`);
     }, {
@@ -40,6 +41,17 @@ export default function Dashboard() {
     });
     const userStatsQuery = useQuery(['stats'], () => axiosInstance.get('/user/stats'));
 
+    const activeHuntQuery=useQuery(['activeHunt',userStatsQuery.data?.data.data.activeHunt._id],({queryKey})=>axiosInstance.get(`/hunt?huntId=${queryKey[1]}`),{
+        enabled:!!userStatsQuery.data?.data.data.activeHunt._id
+    })
+
+    const markRiddleAsCompleted=useMutation(()=>axiosInstance.put('/hunt/expire'),{
+        onSuccess(data, variables, context) {
+            console.log('expireddd')
+            queryClient.invalidateQueries('stats')
+            onClose()
+        },
+    })
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
@@ -57,9 +69,9 @@ export default function Dashboard() {
                             {
                                 label: "Active Hunt",
                                 value: userStatsQuery.data?.data.data.activeHunt.name ? (
-                                    <Link href={"/startRiddle"} className="text-[#A92223] cursor-pointer underline">
+                                    <p onClick={()=>onOpen2()} className="text-[#A92223] cursor-pointer underline">
                                         {userStatsQuery.data?.data.data.activeHunt.name}
-                                    </Link>
+                                    </p>
                                 ) : "None"
                             }
                         ].map((stat, index) => (
@@ -141,13 +153,19 @@ export default function Dashboard() {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col text-xl gap-1">Hint</ModalHeader>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Active Hunt</ModalHeader>
                             <ModalBody className="flex flex-col gap-4 pb-8">
-                                <p className="text-sm">Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit
-                                    commodo enim tellus et nascetur at leo accumsan, odio habitanLorem ipsum dolor sit
-                                    ame</p>
+                            <div className="flex gap-2 items-end">
+                                    <p className="font-semibold">Hunt Name:</p>
+                                <p className="">{activeHuntQuery.data?.data.data.name}</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <p className="font-semibold">Total Riddles:</p>
+                                    <p>{activeHuntQuery.data?.data.data.riddles.length}</p>
+                                </div>
                                 <div className="flex w-full gap-4">
-                                    <button className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Okay</button>
+                                    <Link href={'/startRiddle'} className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Start Riddle</Link>
+                                    <Button isLoading={markRiddleAsCompleted.isLoading} isDisabled={markRiddleAsCompleted.isLoading} onClick={()=>markRiddleAsCompleted.mutate()} className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Withdraw Hunt</Button>
                                 </div>
                             </ModalBody>
                         </>
