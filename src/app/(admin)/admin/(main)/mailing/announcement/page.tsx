@@ -3,18 +3,23 @@
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Button, Input, Textarea } from "@nextui-org/react"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 export default function Announcement(){
     const [allImagesBase64,setAllImagesBase64]=useState<any>([])
     const [allImages,setAllImages]=useState<any>([])
     // console.log('allimages',allImagesBase64)
     const {register,handleSubmit,formState:{errors}}=useForm()
+    const router=useRouter()
+    const queryClient=useQueryClient()
     const createAnnouncementMutation=useMutation((data:FormData)=>axiosInstance.postForm('/mailing/announcement',data),{
         onSuccess(data) {
             console.log('success',data)
+            queryClient.invalidateQueries('mailings')
+            router.push('/admin/mailing')
         },
     })
 

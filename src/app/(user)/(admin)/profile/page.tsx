@@ -2,6 +2,9 @@
 import Image from "next/image";
 import {CiEdit} from "react-icons/ci";
 import {
+    Button,
+    Checkbox,
+    CheckboxGroup,
     Input,
     Modal,
     ModalBody,
@@ -15,6 +18,7 @@ import axiosInstance from "@/app/utils/axiosInstance";
 import {toast} from "react-toastify";
 import {FormEvent, useState} from "react";
 import Carousel from "react-multi-carousel";
+import { FieldValues, useController, useForm } from "react-hook-form";
 
 
 type UserData = {
@@ -63,18 +67,10 @@ export default function Profile() {
         userData = JSON.parse(Cookies.get('userData')!);
         userProfilePicture = (userData.profile.isCompleteUrl) ? userData.profile.url : `${process.env.NEXT_PUBLIC_MEDIA_URL}/${userData.profile.url}`;
     }
-    const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
+    const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2} = useDisclosure();
     const userProfileEditMutation = useMutation((data: any) => {
-        const formData = new FormData();
-        if (data.name) formData.append('name', data.name);
-        if (data.phone) formData.append('phone', data.phone);
-        if (data.file) formData.append('file', data.file);
 
-        return axiosInstance.put(`/user`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
+        return axiosInstance.putForm('/user', data);
     }, {
         onSuccess(data) {
             console.log('data', data);
@@ -88,6 +84,8 @@ export default function Profile() {
                 profile: profilePicture,
                 accessType
             }));
+            onClose2();
+
         },
         onError(error: any) {
             const errorMessage = typeof error.response.data.message === 'string'
@@ -105,23 +103,44 @@ export default function Profile() {
             });
         }
     });
+
+    const getuserQuery=useQuery(['user',userData.id],({queryKey})=>axiosInstance.get(`/user/?userId=${queryKey[1]}`),{
+        enabled:!!userData.id
+    })
     const badgesQuery = useQuery(['badges'], () => axiosInstance.get(`/badge/user?page=1&limit=9999&userId=${userData.id}`));
 
-    function handleSubmit(e: FormEvent) {
-        e.preventDefault();
+    const {handleSubmit,register,control,formState}=useForm()
 
-        let userUpdated: any = {};
-        if (name) userUpdated.name = name;
-        if (phone) userUpdated.phone = phone;
-        if (profileImage) userUpdated.file = profileImage;
+    function handleSubmitt(e: FieldValues) {
 
-        userProfileEditMutation.mutate(userUpdated);
+       if(!e.file){
+        delete e.file
+       }
+
+       if(!e.marketingEmails){
+        e.marketingEmails='0'
+       }
+
+       console.log(e)
+
+    const formData=new FormData()
+    Object.entries(e).forEach((f)=>{
+        formData.append(f[0],f[1])
+    })
+
+        userProfileEditMutation.mutate(formData);
     }
+
+    const {field,fieldState}=useController({name:"file",control})
+    const {field:field1,fieldState:fieldState1}=useController({name:"marketingEmails",control})
+
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
-            setProfileImage(file);
+            // setProfileImage(file);
+            field.onChange(file)
+
             setPreviewImage(URL.createObjectURL(file));
         }
     }
@@ -278,7 +297,7 @@ export default function Profile() {
                         <>
                             <ModalHeader className="flex flex-col text-xl gap-1">Edit Profile</ModalHeader>
                             <ModalBody>
-                                <form className="flex flex-col gap-4 pb-8">
+                                <form onSubmit={handleSubmit(handleSubmitt)} className="flex flex-col gap-4 pb-8">
                                     <Input
                                         className="w-full"
                                         type="text"
@@ -286,10 +305,13 @@ export default function Profile() {
                                         defaultValue={`${userData.name}`}
                                         placeholder="Enter User name"
                                         labelPlacement="outside"
+                                        isInvalid={!!formState.errors.name}
+                                        errorMessage={formState.errors.name?.message as any}
                                         classNames={{label: "font-semibold"}}
-                                        onChange={(e) => {
-                                            setName(e.target.value);
-                                        }}
+                                        {...register('name',{required:'Enter Name'})}
+                                        // onChange={(e) => {
+                                        //     setName(e.target.value);
+                                        // }}
                                     />
                                     <Input
                                         className="w-full"
@@ -298,11 +320,17 @@ export default function Profile() {
                                         defaultValue={`${userData.phone}`}
                                         placeholder="Enter phone number"
                                         labelPlacement="outside"
+                                        isInvalid={!!formState.errors.phone}
+                                        errorMessage={formState.errors.phone?.message as any}
                                         classNames={{label: "font-semibold"}}
-                                        onChange={(e) => {
-                                            setPhone(e.target.value);
-                                        }}
+                                        {...register('phone',{required:'Enter Phone Number'})}
+                                        // onChange={(e) => {
+                                        //     setPhone(e.target.value);
+                                        // }}
                                     />
+                                    <CheckboxGroup {...field1}>
+                                        <Checkbox value={'1'}>Receive Marketing Emails</Checkbox>
+                                    </CheckboxGroup>
                                     <div className="flex flex-col gap-2">
                                         <p className="font-semibold text-sm">Profile Picture</p>
                                         <div className="h-[7rem] w-[7rem] relative">
@@ -314,15 +342,15 @@ export default function Profile() {
                                                 type="file"
                                                 accept="image/*"
                                                 className="absolute inset-0 opacity-0 cursor-pointer"
+                                                {...field}
+                                                value={undefined}
                                                 onChange={handleImageChange}
                                             />
                                         </div>
                                     </div>
-                                    <button onClick={(e) => {
-                                        handleSubmit(e);
-                                        onClose();
-                                    }} className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Update Profile
-                                    </button>
+
+                                    <Button isDisabled={userProfileEditMutation.isLoading} isLoading={userProfileEditMutation.isLoading} type="submit" className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Update Profile
+                                    </Button>
                                 </form>
                             </ModalBody>
                         </>

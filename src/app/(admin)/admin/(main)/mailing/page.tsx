@@ -47,7 +47,7 @@ export default function Mailing(){
                         {bookingsQuery.data?.data.data.map((e: any, index: number) => <tr className="border-b-2 border-solid border-gray-200" key={index + 1}>
                             <td className="p-2 text-sm">{index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</td>
                             <td className="p-2 text-sm">{e.subject}</td>
-                            <td className="p-2 text-sm">{e.body}</td>
+                            <td className="p-2 text-sm" dangerouslySetInnerHTML={{__html:e.body}}></td>
                             <td className="p-2 text-sm">{new Date(e.createdAt).toLocaleDateString()}</td>
                             {/* <td className="p-2 text-sm">{`${e.active?"Active":"Not Active"}` }</td> */}
                             {/* <td className="p-2 text-sm">
