@@ -46,11 +46,11 @@ export default function HomeSlider({data}:{data:any}){
           spaceBetween: 20,
         },
         1024: {
-          slidesPerView: 3,
+          slidesPerView: 4,
           spaceBetween: 20,
         },
         1050: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 20,
           },
     }}
