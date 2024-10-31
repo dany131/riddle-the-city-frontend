@@ -386,7 +386,7 @@ export default function Register() {
                       name="address"
                       control={control}
                       placeholder="Zip Code"
-                      rules={{ required: "Post Code is required" }}
+                      rules={{ required: "Zip Code is required" }}
                       addressKey="postalCode"
                       radius="sm"
                     />
@@ -560,7 +560,7 @@ export default function Register() {
                       name="address"
                       control={control}
                       placeholder="Zip Code"
-                      rules={{ required: "Post Code is required" }}
+                      rules={{ required: "Zip Code is required" }}
                       addressKey="postalCode"
                       radius="sm"
                     />
