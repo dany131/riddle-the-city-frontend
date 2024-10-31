@@ -350,7 +350,7 @@ export default function Register() {
                     {...register('confirm-password',{required:"Enter Confirm Password",
 
                         validate:(value, formValues) => value == watch('password')|| 'Passwords Dont Match',
-                        
+
                      })}
                      isInvalid={errors['confirm-password'] as any}
                      errorMessage={errors['confirm-password']?.message as any}
@@ -394,7 +394,7 @@ export default function Register() {
                 <GooglePlacesInput
                       name="address"
                       control={control}
-                      placeholder="Postcode"
+                      placeholder="Zip Code"
                       rules={{ required: "Post Code is required" }}
                       addressKey="postalCode"
                       radius="sm"
@@ -521,7 +521,7 @@ export default function Register() {
                     {...register('confirm-password',{required:"Enter Confirm Password",
 
                         validate:(value, formValues) => value == watch('password')|| 'Passwords Dont Match',
-                        
+
                      })}
                      isInvalid={errors['confirm-password'] as any}
                      errorMessage={errors['confirm-password']?.message as any}
@@ -565,7 +565,7 @@ export default function Register() {
                 <GooglePlacesInput
                       name="address"
                       control={control}
-                      placeholder="Postcode"
+                      placeholder="Zip Code"
                       rules={{ required: "Post Code is required" }}
                       addressKey="postalCode"
                       radius="sm"

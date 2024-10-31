@@ -33,7 +33,7 @@ export default function Settings() {
     const { isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2,onClose:onClose2 } = useDisclosure();
     const { isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3,onClose:onClose3 } = useDisclosure();
     const {control,handleSubmit:handleSubmit2}=useForm()
-    
+
     const [message, setMessage] = useState<string>('')
     const [notMatch, setNotMatch] = useState(false)
     const [newPass, setNewPass] = useState<string>('')
@@ -230,7 +230,7 @@ export default function Settings() {
                                     <GooglePlacesInput
                       name="address"
                       control={control}
-                      placeholder="Postcode"
+                      placeholder="Zip Code"
                       rules={{ required: "Post Code is required" }}
                       addressKey="postalCode"
                       radius="sm"
