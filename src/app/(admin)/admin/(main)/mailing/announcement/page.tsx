@@ -2,17 +2,21 @@
 
 import axiosInstance from "@/app/utils/axiosInstance";
 import { Button, Input, Textarea } from "@nextui-org/react"
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useController, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
 
 export default function Announcement(){
     const [allImagesBase64,setAllImagesBase64]=useState<any>([])
     const [allImages,setAllImages]=useState<any>([])
     // console.log('allimages',allImagesBase64)
-    const {register,handleSubmit,formState:{errors}}=useForm()
+    const {register,handleSubmit,formState:{errors},control}=useForm()
+    const {field,fieldState}=useController({name:'body',control,rules:{required:"Enter Body"}})
     const router=useRouter()
     const queryClient=useQueryClient()
     const createAnnouncementMutation=useMutation((data:FormData)=>axiosInstance.postForm('/mailing/announcement',data),{
@@ -44,7 +48,18 @@ export default function Announcement(){
         
         <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-4 sm:w-1/2">
             <Input errorMessage={errors.subject?.message as any} isInvalid={errors.subject as any} {...register('subject',{required:"Enter Subject"})} type="text" label="Subject" placeholder="Enter Subject" labelPlacement="outside" classNames={{label:"!font-semibold"}}/>
-            <Textarea errorMessage={errors.body?.message as any} isInvalid={errors.body as any} {...register('body',{required:"Enter Body"})} label="Body" minRows={10} placeholder="Write Mail Body..." labelPlacement="outside" classNames={{label:"!font-semibold"}}/>
+            <div className="flex flex-col gap-2">
+                <p className="font-semibold text-sm">Body</p>
+                <ReactQuill {...field} onChange={(value:string)=>{
+                    if(value=='<p><br></p>'){
+                        field.onChange(undefined)
+                        return
+                    }
+                    field.onChange(value)
+                }} placeholder="Enter Body"  theme="snow" />
+                {fieldState.error && <p className="text-[#f31260] text-xs">Enter Body</p>}
+            </div>
+            {/* <Textarea errorMessage={errors.body?.message as any} isInvalid={errors.body as any} {...register('body',{required:"Enter Body"})} label="Body" minRows={10} placeholder="Write Mail Body..." labelPlacement="outside" classNames={{label:"!font-semibold"}}/> */}
             <div className="relative w-[10rem] flex flex-col gap-2 w-full">
                 <p className="text-sm font-semibold"> Select Mail Files</p>
                 {/* {error && <p className="text-red-500 font-semibold">{error}</p>} */}
