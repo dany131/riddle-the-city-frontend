@@ -85,6 +85,7 @@ export default function Profile() {
                 accessType
             }));
             onClose2();
+            queryClient.invalidateQueries('user')
 
         },
         onError(error: any) {
@@ -113,15 +114,29 @@ export default function Profile() {
 
     function handleSubmitt(e: FieldValues) {
 
+        console.log(e)
        if(!e.file){
         delete e.file
        }
-
+    
        if(!e.marketingEmails){
-        e.marketingEmails='0'
+        e.marketingEmails='2'
+       }
+       else{
+        e.marketingEmails='1'
        }
 
-       console.log(e)
+       if(!e.autoRenewal){
+        e.autoRenewal='2'
+       }
+       else{
+        e.autoRenewal='1'
+       }
+
+  
+
+
+
 
     const formData=new FormData()
     Object.entries(e).forEach((f)=>{
@@ -133,6 +148,8 @@ export default function Profile() {
 
     const {field,fieldState}=useController({name:"file",control})
     const {field:field1,fieldState:fieldState1}=useController({name:"marketingEmails",control})
+    const {field:field2,fieldState:fieldState2}=useController({name:"autoRenewal",control})
+
 
 
     function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -298,6 +315,23 @@ export default function Profile() {
                             <ModalHeader className="flex flex-col text-xl gap-1">Edit Profile</ModalHeader>
                             <ModalBody>
                                 <form onSubmit={handleSubmit(handleSubmitt)} className="flex flex-col gap-4 pb-8">
+                                <div className="flex flex-col gap-2">
+                                        <p className="font-semibold text-sm">Profile Picture</p>
+                                        <div className="h-[7rem] w-[7rem] relative">
+                                            <Image className="h-full w-full"
+                                                   src={previewImage || userProfilePicture}
+                                                   width={200} height={200}
+                                                   alt="Profile Picture"/>
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                className="absolute inset-0 opacity-0 cursor-pointer"
+                                                {...field}
+                                                value={undefined}
+                                                onChange={handleImageChange}
+                                            />
+                                        </div>
+                                    </div>
                                     <Input
                                         className="w-full"
                                         type="text"
@@ -328,26 +362,12 @@ export default function Profile() {
                                         //     setPhone(e.target.value);
                                         // }}
                                     />
-                                    <CheckboxGroup {...field1}>
-                                        <Checkbox value={'1'}>Receive Marketing Emails</Checkbox>
+                                 
+                                        <Checkbox {...field1} defaultSelected={getuserQuery.data?.data.data.user.marketingEmails} >Receive Marketing Emails</Checkbox>
+                                        <Checkbox {...field2} defaultSelected={getuserQuery.data?.data.data.user.autoRenewal}>Auto Renewal</Checkbox>
+                                    {/* <CheckboxGroup {...field2} defaultValue={[getuserQuery.data?.data.data.user.autoRenewal?"1":"0"]}>
                                     </CheckboxGroup>
-                                    <div className="flex flex-col gap-2">
-                                        <p className="font-semibold text-sm">Profile Picture</p>
-                                        <div className="h-[7rem] w-[7rem] relative">
-                                            <Image className="h-full w-full"
-                                                   src={previewImage || userProfilePicture}
-                                                   width={200} height={200}
-                                                   alt="Profile Picture"/>
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                className="absolute inset-0 opacity-0 cursor-pointer"
-                                                {...field}
-                                                value={undefined}
-                                                onChange={handleImageChange}
-                                            />
-                                        </div>
-                                    </div>
+                                    */}
 
                                     <Button isDisabled={userProfileEditMutation.isLoading} isLoading={userProfileEditMutation.isLoading} type="submit" className="px-16 w-max py-2 bg-[#A92223] rounded text-white">Update Profile
                                     </Button>
