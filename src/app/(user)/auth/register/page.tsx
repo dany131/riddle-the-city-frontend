@@ -167,7 +167,7 @@ export default function Register() {
 
         if (password == confirmPass) {
             registerMutation.mutate(loginData);
-          
+
         } else {
             toast.error('Passwords Do Not Match', {
                 position: "top-right",
@@ -394,7 +394,7 @@ export default function Register() {
 
                   <div className="flex w-full justify-between">
                     <CheckboxGroup isInvalid={!!fieldState1.error} errorMessage={fieldState1.error?.message} {...field1}>
-                        <Checkbox value={'yes'}>Above 21</Checkbox>
+                        <Checkbox value={'yes'}>You must be 21 years of age to enter this site</Checkbox>
 
                     </CheckboxGroup>
                 </div>
@@ -567,7 +567,7 @@ export default function Register() {
 
 <div className="flex w-full justify-between">
                     <CheckboxGroup isInvalid={!!fieldState1.error} errorMessage={fieldState1.error?.message} {...field1}>
-                        <Checkbox value={'yes'}><p className="text-white">Above 21</p></Checkbox>
+                        <Checkbox value={'yes'}><p className="text-white">You must be 21 years of age to enter this site</p></Checkbox>
 
                     </CheckboxGroup>
                 </div>
