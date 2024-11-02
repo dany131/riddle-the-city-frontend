@@ -24,15 +24,11 @@ import {useRouter} from "next/navigation";
 export default function Completion(datas: any) {
     const navigate = useRouter();
     console.log(datas);
-    const queryClient = useQueryClient();
-    const [riddleIsCompleted, setRiddleIsCompleted] = useState(false);
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
-    const [scan,setScan]=useState(false)
 
     const scanMutation=useMutation(()=>axiosInstance.post(`/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`),{
         onError(error, variables, context) {
-            setRiddleIsCompleted(true)
         },
     })
     const riddleQuery = useQuery(['getRiddle'], () => axiosInstance.get("/hunt/current-riddle"),
@@ -40,12 +36,9 @@ export default function Completion(datas: any) {
             onError(err) {
                 console.log('im hereee');
                 // navigate.replace('/dashboard')
-                setRiddleIsCompleted(true);
-                setScan(true)
                 
             },
             onSuccess(data) {
-                setScan(true)
             },
             refetchOnWindowFocus:false
             // enabled: !!scanMutation.data?.data
@@ -62,14 +55,7 @@ export default function Completion(datas: any) {
         refetchOnWindowFocus:false
     }
 );
-// console.log('data',riddleQuery.data)
-// const scanMutation = useQuery(['scan'], () => axiosInstance.post(`/hunt/scan?riddleId=${datas.params.ids[1]}&huntId=${datas.params.ids[0]}`), {
-//     onSuccess(data) {
-//         queryClient.invalidateQueries('getRiddle');
-//     },
-//     enabled:scan,
-//     refetchOnWindowFocus:false,
-// });
+
 
 console.log('fetching',riddleQuery.isFetching)
 console.log('scan mutation',scanMutation.data?.data)
@@ -100,8 +86,6 @@ return (
                     }} className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Claim
                         Reward</button>} */}
                 </div>}
-                {/* <p>Scan Start</p> */}
-
             </div>
 
             <Modal

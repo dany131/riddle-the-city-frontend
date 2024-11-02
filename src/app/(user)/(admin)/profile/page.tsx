@@ -106,7 +106,13 @@ export default function Profile() {
     });
 
     const getuserQuery=useQuery(['user',userData.id],({queryKey})=>axiosInstance.get(`/user/?userId=${queryKey[1]}`),{
-        enabled:!!userData.id
+        enabled:!!userData.id,
+        onSuccess(data) {
+            field1.onChange(data?.data.data.user.marketingEmails?'1':'2')
+            field2.onChange(data?.data.data.user.autoRenewal?'1':'2')
+
+        },
+        refetchOnWindowFocus:false
     })
     const badgesQuery = useQuery(['badges'], () => axiosInstance.get(`/badge/user?page=1&limit=9999&userId=${userData.id}`));
 
@@ -114,7 +120,7 @@ export default function Profile() {
 
     function handleSubmitt(e: FieldValues) {
 
-        console.log(e)
+        console.log('old',e)
        if(!e.file){
         delete e.file
        }
@@ -132,6 +138,9 @@ export default function Profile() {
        else{
         e.autoRenewal='1'
        }
+
+       console.log('new',e)
+
 
   
 
@@ -163,6 +172,7 @@ export default function Profile() {
     }
 
     const pastHuntsQuery = useQuery(['pastHunts'], () => axiosInstance.get('/hunt/past?page=1&limit=10000'));
+    console.log(field1.value,field2.value)
     return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
@@ -175,7 +185,7 @@ export default function Profile() {
                                    width={200} height={200}
                                    alt="Profile Picture"/>
                         </div>
-                        <button onClick={onOpen2}
+                        <button disabled={!getuserQuery.data?.data} onClick={onOpen2}
                                 className="px-4 w-max py-2 h-max bg-[#A92223] rounded text-white flex gap-2 items-center">
                             <CiEdit className="text-lg"/> <span className="sm:inline hidden">Edit Profile</span>
                         </button>
@@ -362,9 +372,10 @@ export default function Profile() {
                                         //     setPhone(e.target.value);
                                         // }}
                                     />
+                                    
                                  
-                                        <Checkbox {...field1} defaultSelected={getuserQuery.data?.data.data.user.marketingEmails} >Receive Marketing Emails</Checkbox>
-                                        <Checkbox {...field2} defaultSelected={getuserQuery.data?.data.data.user.autoRenewal}>Auto Renewal</Checkbox>
+                                        <Checkbox  defaultSelected={getuserQuery.data?.data.data.user.marketingEmails} {...field1}>Receive Marketing Emails</Checkbox>
+                                        <Checkbox   defaultSelected={getuserQuery.data?.data.data.user.autoRenewal} {...field2}>Auto Renewal</Checkbox>
                                     {/* <CheckboxGroup {...field2} defaultValue={[getuserQuery.data?.data.data.user.autoRenewal?"1":"0"]}>
                                     </CheckboxGroup>
                                     */}
