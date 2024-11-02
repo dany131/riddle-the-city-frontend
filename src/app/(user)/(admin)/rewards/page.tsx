@@ -167,7 +167,7 @@ export default function Rewards() {
                 <ModalContent>
                     <ModalHeader className="flex flex-col text-xl gap-1">Reward</ModalHeader>
                     <ModalBody className="pb-4">
-                        <div className="flex flex-col gap-4 pb-8">
+                        <div className="flex flex-col gap-4 pb-8 max-h-[15rem] overflow-auto">
                             {riddleToClaim?.riddle.map((riddle: any) => (
                                 <div key={riddle.id}
                                      className={(riddle.claimed) ? "flex flex-col gap-2 shadow-lg rounded-lg p-4  relative" : "flex flex-col gap-2 shadow-lg rounded-lg p-4"}>

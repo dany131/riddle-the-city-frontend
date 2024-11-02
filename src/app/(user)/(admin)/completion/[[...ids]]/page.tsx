@@ -45,6 +45,8 @@ export default function Completion(datas: any) {
         }
     );
 
+    console.log('errorrrrr',scanMutation.error)
+
     const huntQuery = useQuery(['individualHunt'], () => axiosInstance.get(`/hunt?huntId=${datas.params.ids[0]}`),
     {
         onSuccess(data) {
@@ -58,19 +60,19 @@ export default function Completion(datas: any) {
 
 
 console.log('fetching',riddleQuery.isFetching)
-console.log('scan mutation',scanMutation.data?.data)
+console.log('scan mutation',scanMutation.data?.data,scanMutation.status)
 return (
         <>
             <div className="flex flex-col gap-4 px-4 h-full">
-                {riddleQuery.isFetching && <div className="flex justify-center h-full items-center"><ImSpinner2
+                {riddleQuery.isFetching && (!scanMutation.isSuccess || !scanMutation.isError) && <div className="flex justify-center h-full items-center"><ImSpinner2
                     className="text-4xl animate-spin"/></div>}
-                {!riddleQuery.isFetching && <div className="flex items-center flex-col gap-4">
+                {!riddleQuery.isFetching && (scanMutation.isSuccess || (scanMutation.isError && (scanMutation.error as any).response.data.statusCode!=409)) && <div className="flex items-center flex-col gap-4">
                     <div className="w-1/2 h-[15rem]">
                         <Image className="w-full h-full" src={`/images/user/congratulations.gif`} alt="congrats"
                                width={100} height={100}/>
                     </div>
                     <div className="flex gap-4">
-                        {scanMutation.data?.data && !scanMutation.data?.data.data.isCompleted && <Link href={`/startRiddle`}
+                        {scanMutation.data?.data && (scanMutation.data?.data.data.status as any)!=2 && <Link href={`/startRiddle`}
                             className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Next
                             Riddle</Link>}
                         {(!riddleQuery.isLoading) && <button onClick={() => {
@@ -86,6 +88,14 @@ return (
                     }} className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Claim
                         Reward</button>} */}
                 </div>}
+                {!riddleQuery.isFetching && scanMutation.isError && (scanMutation.error as any).response.data.statusCode==409 && <div className="flex items-center flex-col gap-4">
+                    <p className="text-red-500 text-2xl">Riddle Not In Sequence</p>
+                    <div className="flex gap-4">
+                        <Link href={`/startRiddle`}
+                            className="px-16 py-2 bg-[#A92223] w-max rounded flex justify-center text-white">Start Riddle</Link>
+                       
+                    </div>
+                    </div>}
             </div>
 
             <Modal
