@@ -249,7 +249,7 @@ export default function Profile() {
                                             <h1 className="font-black text-lg">Hunt {index + 1 < 10 ? `0${index + 1}` : `${index + 1}`}</h1>
                                             <p className="bg-[#a1ff8a] p-2 text-xs rounded-full">{new Date(e.completionDate).toLocaleDateString()}</p>
                                         </div>
-                                        <div>
+                                        <div className="max-h-[10rem] overflow-auto">
                                             <p dangerouslySetInnerHTML={{__html: `Starting Point: ${e.startingRiddle}`}}></p>
                                             <p dangerouslySetInnerHTML={{__html: `Ending Point: ${e.endingRiddle}`}}></p>
                                             <p className="w-full break-all"
