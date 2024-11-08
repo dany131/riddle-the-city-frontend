@@ -117,7 +117,7 @@ const StartRiddleButton = ({isHuntAvailable, startRiddleMutation,huntId}: {
         </button>
         {!huntId &&  <p className="text-red-500">Select A Hunt To Start Riddle</p>}
         {!isHuntAvailable && (
-            <p className="text-red-500">No hunt created for this brewery</p>
+            <p className="text-red-500">No hunt active for this brewery</p>
         )}
     </div>
 );
