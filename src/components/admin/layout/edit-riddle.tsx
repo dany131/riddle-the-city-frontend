@@ -57,6 +57,7 @@ export default function EditRiddle({setHuntToAdd,huntToAdd,index,huntId,item}:{s
         },
     })
     const [error,setError]=useState(false)
+    // console.log('item',item)
     return (
         <>
          <div className="sm:w-[70%] w-full flex flex-col gap-4 border-[0.1rem] p-4 rounded-lg">
@@ -307,7 +308,7 @@ export default function EditRiddle({setHuntToAdd,huntToAdd,index,huntId,item}:{s
                             </div>
                             <div className="flex flex-col gap-2">
                             <p className="font-semibold text-sm">Has Reward</p>
-                            <Switch isSelected={item.hasReward} onValueChange={(j) => {
+                            <Switch isSelected={item.hasReward}  onValueChange={(j) => {
                                         const value = j
                                         const find = huntToAdd.riddles.find((e: any, index1: number) => index1 == index)
                                         find!.hasReward = value
