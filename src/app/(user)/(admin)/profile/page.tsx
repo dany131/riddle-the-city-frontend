@@ -19,6 +19,7 @@ import {toast} from "react-toastify";
 import {FormEvent, useState} from "react";
 import Carousel from "react-multi-carousel";
 import { FieldValues, useController, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 
 type UserData = {
@@ -51,6 +52,7 @@ export default function Profile() {
     const [phone, setPhone] = useState('');
     const [profileImage, setProfileImage] = useState<File | null>(null);
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const router=useRouter()
 
     const queryClient = useQueryClient();
 
@@ -85,6 +87,7 @@ export default function Profile() {
                 accessType
             }));
             onClose2();
+            router.refresh()
             queryClient.invalidateQueries('user')
 
         },
