@@ -74,7 +74,7 @@
       <workItem from="1728521652548" duration="5402000" />
       <workItem from="1730068056337" duration="6326000" />
       <workItem from="1730131279796" duration="511000" />
-      <workItem from="1730138458623" duration="11607000" />
+      <workItem from="1730138458623" duration="26246000" />
     </task>
     <servers />
   </component>
@@ -89,6 +89,12 @@
           <line>34</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/(user)/(admin)/completion/[[...ids]]/page.tsx</url>
+          <line>65</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
