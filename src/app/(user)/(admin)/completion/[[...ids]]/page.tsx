@@ -114,8 +114,9 @@ return (
 
                                         <>
                                             <div className="flex flex-col gap-2 shadow-lg rounded-lg p-4">
+                                                {riddleQuery.data?.data.data.riddle.hasReward &&  <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.reward}}></p> }
                                                 {/* <p className="text-sm ">Congratulations You successfully solved the riddle. You got Reward:</p> */}
-                                                <p className="font-semibold" dangerouslySetInnerHTML={{__html:riddleQuery.data?.data.data.riddle.reward}}></p>
+                                                {!riddleQuery.data?.data.data.riddle.hasReward && <p className="font-semibold">You're right on track! While there's no treasure here this time, keep exploring. You never know what surprises await after the next riddle.</p>}
                                                 {/* <div className="flex w-full gap-4">
                                                 <button className="px-16 w-max py-2 bg-[#A92223]  rounded text-white">Claim Reward</button>
                                             </div> */}
