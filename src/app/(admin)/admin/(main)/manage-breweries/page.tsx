@@ -98,6 +98,7 @@ export default function ManageBreweries() {
     const {isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1, onClose: onClose1} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
     const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3,onClose:onClose3} = useDisclosure();
+    
 
 
     // const [breweryToEdit,setBreweryToEdit]=useState<null|BreweryEditData>()
@@ -510,6 +511,7 @@ export default function ManageBreweries() {
                     )}
                 </ModalContent>
             </Modal>
+            
             <Modal
                 size={"xl"}
                 isOpen={isOpen2}

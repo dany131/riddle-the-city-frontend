@@ -28,9 +28,7 @@ export default function UpdateCard() {
     const confirmUpdateCard = () => {
         getClientSecret.mutate(); // Fetch clientSecret when user confirms update
     };
-
-    console.log(Object.entries(savedCardQuery.data?.data.data).length)
-
+    
     return (
         <>
             <div className="flex flex-col border rounded-lg gap-4 p-4">
@@ -58,7 +56,7 @@ export default function UpdateCard() {
                                 Update Card
                             </button>
 
-                            {Object.entries(savedCardQuery.data?.data.data).length >0 &&  <Link
+                            {savedCardQuery.data?.data.data && Object.entries(savedCardQuery.data?.data.data).length >0 &&  <Link
                             href={'/packages'}
                                 className="px-16 py-2 bg-[#A92223] rounded text-white">
                                 Buy A Package

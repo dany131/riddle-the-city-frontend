@@ -133,7 +133,7 @@ export default function Rewards() {
                                     </CardBody>
                                     <CardFooter className="flex justify-center">
                                         <p className="text-sm text-orange-500 font-semibold">Rewards
-                                            Claimed: {reward.riddle.filter((e: any) => e.claimed)?.length}</p>
+                                            Claimed: {reward.riddle.filter((e: any) => e.claimed)?.length}/{reward.riddle.length}</p>
                                     </CardFooter>
                                 </Card>
                             ))}
