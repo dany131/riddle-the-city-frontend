@@ -30,6 +30,7 @@ import Image from "next/image";
 import { IoIosStats } from "react-icons/io";
 import { FieldValues, useController, useForm } from "react-hook-form";
 import DatePicker from "@/components/common/date-picker";
+import { toast } from "react-toastify";
 
 const selections = [
     {label: 'Open', key: 1},
@@ -96,6 +97,8 @@ export default function ManageBreweries() {
 
     const {isOpen: isOpen1, onOpen: onOpen1, onOpenChange: onOpenChange1, onClose: onClose1} = useDisclosure();
     const {isOpen: isOpen2, onOpen: onOpen2, onOpenChange: onOpenChange2} = useDisclosure();
+    const {isOpen: isOpen3, onOpen: onOpen3, onOpenChange: onOpenChange3,onClose:onClose3} = useDisclosure();
+
 
     // const [breweryToEdit,setBreweryToEdit]=useState<null|BreweryEditData>()
     // const [status, setStatus] = useState<Status>()
@@ -106,10 +109,43 @@ export default function ManageBreweries() {
     const [breweryName, setBreweryName] = useState<any>();
     const [breweryToAdd, setBreweryToAdd] = useState<any>();
     const [breweryLocationToAdd, setBreweryLocationToAdd] = useState<any>();
+    const [ locationId,setLocationId]=useState<any>()
     // const [breweryToAddDay, setBreweryToAddDay] = useState<any>()
     // const [breweryToAddStartTime, setBreweryToAddStartTime] = useState<any>()
     // const [breweryToAddEndTime, setBreweryToAddEndTime] = useState<any>()
     // const [breweryToAddStatus, setBreweryToAddStatus] = useState<any>()
+    const deleteHunt = useMutation((data: string): any => axiosInstance.delete(`/brewery?breweryId=${data}`), {
+        onSuccess(data: any) {
+            queryClient.invalidateQueries('breweries');
+            console.log('delete', data.data);
+            onClose3();
+        },
+        onError(error: any) {
+            if (Array.isArray(error.response.data.message)) {
+                toast.error(error.response.data.message[0], {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                });
+            } else {
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                });
+            }
+        }
+    });
     const [message, setMessage] = useState('');
     const [googleData, setGoogleData] = useState<any>();
     const [location, setLocation] = useState('');
@@ -219,6 +255,11 @@ export default function ManageBreweries() {
                                         setBreweryForPDF(e)
                                         onOpen2()
                                     }} className=" cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600" />
+                                      <AiOutlineDelete onClick={() => {
+                                                setLocationId(e._id);
+                                                onOpen3();
+                                            }}
+                                                             className="cursor-pointer bg-[#f5d0e1] text-4xl text-red-600 rounded-lg p-2 "/>
                                 </div>
                             </td>
                         </tr>)}</tbody>
@@ -512,6 +553,37 @@ export default function ManageBreweries() {
 
                                 </form>
                                
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
+
+            <Modal
+                size={"xl"}
+                isOpen={isOpen3}
+                backdrop="blur"
+                onOpenChange={onOpenChange3}
+                placement="center"
+            >
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col text-xl gap-1">Delete Entry</ModalHeader>
+                            <ModalBody className="flex flex-col gap-4 pb-8">
+                                <p className="text-sm text-gray-400">Are you sure you want to delete this entry?</p>
+                                <div className="flex w-full gap-4">
+                                    <button onClick={() => {
+                                        onClose3();
+                                    }}
+                                            className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">No
+                                    </button>
+                                    <button onClick={() => {
+                                        deleteHunt.mutate(locationId);
+                                    }}
+                                            className="px-16 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">{deleteHunt.isLoading ?
+                                        <ImSpinner2 className="text-xl animate-spin"/> : "Delete"}</button>
+                                </div>
                             </ModalBody>
                         </>
                     )}
