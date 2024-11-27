@@ -21,16 +21,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const show=cookies().get('comingSoon')?.value
-  console.log('show',show)
+  // const show=cookies().get('comingSoon')?.value
+  // console.log('show',show)
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        {!show && <ComingSoon/>}
+        {/* {!show && <ComingSoon/>}
         {show && <QueryProvider>
           {children}
           <ToastContainer/>
-        </QueryProvider>}
+        </QueryProvider>} */}
+        <QueryProvider>
+          {children}
+          <ToastContainer/>
+        </QueryProvider>
       </body>
     </html>
   );

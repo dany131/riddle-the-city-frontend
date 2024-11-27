@@ -142,15 +142,15 @@ export default function Register() {
         const key =e.key as string; // Get the key value
         const code=e.address.postalCode
 
-        if (key !== secretKey) {
-            setInvalidKey(true); // Set the error for invalid key
-            toast.error('Invalid Key', {
-                position: "top-right",
-                autoClose: 5000,
-                theme: "light"
-            });
-            return;
-        }
+        // if (key !== secretKey) {
+        //     setInvalidKey(true); // Set the error for invalid key
+        //     toast.error('Invalid Key', {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         theme: "light"
+        //     });
+        //     return;
+        // }
 
         setInvalidKey(false);
         const loginData: LoginData = {
@@ -367,7 +367,7 @@ export default function Register() {
                     type={isVisible2 ? "text" : "password"}
                 />
 
-                <Input
+                {/* <Input
                 {...register('key',{required:"Enter Key"})}
                 isInvalid={errors.key as any}
                 errorMessage={errors.key?.message as any}
@@ -380,7 +380,7 @@ export default function Register() {
                         className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>}
                     // endContent={invalidKey && <span className="text-red-600">Invalid Key</span>}
                     type="text"
-                />
+                /> */}
 
                 <GooglePlacesInput
                       name="address"
@@ -541,7 +541,7 @@ export default function Register() {
                     type={isVisible2 ? "text" : "password"}
                 />
 
-                <Input
+                {/* <Input
                 {...register('key',{required:"Enter Key"})}
                 isInvalid={errors.key as any}
                 errorMessage={errors.key?.message as any}
@@ -554,7 +554,7 @@ export default function Register() {
                         className="text-2xl text-default-400 pointer-events-none flex-shrink-0"/>}
                     // endContent={invalidKey && <span className="text-red-600">Invalid Key</span>}
                     type="text"
-                />
+                /> */}
 
                 <GooglePlacesInput
                       name="address"
