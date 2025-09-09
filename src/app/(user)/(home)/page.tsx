@@ -52,7 +52,7 @@ export default function Home() {
                             If purchasing a 3-Day Pass in Nashville please take a look at <a
                                 href="https://www.musiccitybrewhop.com/" target="_blank" rel="noopener noreferrer"
                                 className="text-blue-500">Music City Brew Hop</a>.
-                            Their West Route stops by 4 of our participating breweries.
+                            Their West Route stops by many of our participating breweries.
                         </p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-8 mb-16">
