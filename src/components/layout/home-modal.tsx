@@ -1,14 +1,9 @@
 'use client';
 import {
-    Button,
     Modal,
     ModalBody,
     ModalContent,
-    ModalFooter,
     ModalHeader,
-    Select,
-    SelectItem,
-    Textarea,
     useDisclosure
 } from "@nextui-org/react";
 import Image from "next/image";
@@ -32,7 +27,7 @@ export default function ModalHomeWithButton(){
             className="relative h-[3rem]  flex justify-center items-center px-8 py-4 sm:px-20 sm:py-2 box-border">
             <Image
                 
-                className="w-full h-full absolute top-0 w-full h-full z-[2] sm:object-contain object-cover"
+                className="w-full h-full absolute top-0 z-[2] sm:object-contain object-cover"
                 src={"/images/button/Frame.svg"}
                 alt="button Frame 1"
                 width={50}

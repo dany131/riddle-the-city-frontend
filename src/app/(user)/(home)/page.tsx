@@ -1,15 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Montserrat } from "next/font/google";
 import ModalHomeWithButton from "@/components/layout/home-modal";
 import TestimonialSlider from "@/components/layout/testimonials";
 import HomeHeading from "@/components/layout/home-heading";
 
 
-const montesserat = Montserrat({
-    weight: '400',
-    subsets: ['cyrillic']
-});
 export default function Home() {
 
     return (
@@ -168,7 +163,7 @@ export default function Home() {
                                 className="relative z-[1] h-[3rem] sm:self-start flex justify-center items-center mt-4 p-8">
                                 <Image
 
-                                    className="w-full h-full absolute top-0 w-full h-full z-[-1]"
+                                    className="w-full h-full absolute top-0 z-[-1]"
                                     src={"/images/button/Frame.svg"}
                                     alt="button Frame 1"
                                     width={50}
