@@ -164,7 +164,7 @@ export default function Sidebar() {
           </div>
           <div
             className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
-              pathname == "/admin/cms" ? "bg-[#a922236e]" : ""
+              pathname == "/admin/qr-scans" ? "bg-[#a922236e]" : ""
             }`}
           >
             {/* <CiMail className="w-1/4" /> */}
