@@ -12,7 +12,6 @@ const montesserat = Montserrat({
 export default async function HomeHeading() {
   const getContentQuery = await fetch(
     `${process.env.NEXT_PUBLIC_API}/cms?page=1`,
-    { cache: "no-store" }
   );
   const data = await getContentQuery.json();
   // sss/
