@@ -1,8 +1,9 @@
 "use client";
 
 import { BaseQuillProps } from "@/app/utils/types";
+import dynamic from "next/dynamic";
 import { useController } from "react-hook-form";
-import ReactQuill from "react-quill-new";
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
 
 export default function BaseQuill({

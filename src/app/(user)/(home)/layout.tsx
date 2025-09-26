@@ -1,6 +1,5 @@
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
-import QrScan from "@/components/layout/Qr-Scan";
 export default function UserLayout({
   children,
 }: {
@@ -12,7 +11,6 @@ export default function UserLayout({
         <Navbar />
         {children}
         <Footer />
-        <QrScan />
       </div>
     </>
   );

@@ -59,9 +59,6 @@ export default function CreateCMS() {
     });
   }
 
-  console.log("errors", errors);
-  console.log("values", getValues());
-
   return (
     <>
       <div className="flex justify-between">
