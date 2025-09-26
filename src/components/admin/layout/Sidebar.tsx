@@ -164,13 +164,37 @@ export default function Sidebar() {
           </div>
           <div
             className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
-              pathname == "/admin/qr-scans" ? "bg-[#a922236e]" : ""
+              pathname == "/admin/qr-riddle-scans" ? "bg-[#a922236e]" : ""
             }`}
           >
             {/* <CiMail className="w-1/4" /> */}
             <IoQrCode className="w-1/4" />
-            <Link className="w-full" href={"/admin/qr-scans"}>
-              QR Scans
+            <Link className="w-full" href={"/admin/qr-riddle-scans"}>
+              QR Riddle Scans
+            </Link>
+          </div>
+
+          <div
+            className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
+              pathname == "/admin/qr-code" ? "bg-[#a922236e]" : ""
+            }`}
+          >
+            {/* <CiMail className="w-1/4" /> */}
+            <IoQrCode className="w-1/4" />
+            <Link className="w-full" href={"/admin/qr-code"}>
+              QR Codes
+            </Link>
+          </div>
+
+          <div
+            className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
+              pathname == "/admin/qr-code-scans" ? "bg-[#a922236e]" : ""
+            }`}
+          >
+            {/* <CiMail className="w-1/4" /> */}
+            <IoQrCode className="w-1/4" />
+            <Link className="w-full" href={"/admin/qr-code-scans"}>
+              QR Code Scans
             </Link>
           </div>
 

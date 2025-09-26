@@ -2,19 +2,27 @@
 
 import axiosInstance from "@/app/utils/axiosInstance";
 import { DiscountTypes } from "@/app/utils/constant";
-import Image from "next/image";
+import { parseDate } from "@internationalized/date";
+import { Button, DatePicker, DateValue } from "@nextui-org/react";
 import Link from "next/link";
 import { useState } from "react";
+import { BsEye } from "react-icons/bs";
 import { CiEdit } from "react-icons/ci";
 import { ImSpinner2 } from "react-icons/im";
 import { IoEyeOutline } from "react-icons/io5";
-import { useQuery } from "react-query";
-export default function CMS() {
+import { MdDelete } from "react-icons/md";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import moment from "moment";
+export default function QrScans() {
   const [page, setPage] = useState(1);
+  const queryClient = useQueryClient();
+  const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const bookingsQuery = useQuery(
-    ["cms", page],
+    ["riddle-scans", page, date],
     ({ queryKey }) => {
-      return axiosInstance.get(`/cms/all?page=${queryKey[1]}&limit=10`);
+      return axiosInstance.get(
+        `/qr-code/scans?page=${queryKey[1]}&limit=10&date=${queryKey[2]}`
+      );
     },
     {
       onSuccess(data) {
@@ -25,21 +33,21 @@ export default function CMS() {
       },
     }
   );
+
+  const { mutate } = useMutation(
+    (data: any) => axiosInstance.delete(`/coupon?id=${data.id}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("coupons");
+      },
+    }
+  );
   return (
     <>
       <div className="flex justify-between">
-        <p className="text-xl font-semibold">CMS</p>
+        <p className="text-xl font-semibold">QR Code Scans</p>
       </div>
-      <div className="flex justify-end gap-4">
-        <Link
-          href={"/admin/cms/create"}
-          className="sm:px-16 px-4 py-2 bg-[#A92223] flex justify-center rounded text-white w-max "
-        >
-          Create
-        </Link>
-        {/* <Link href={'/admin/mailing/announcement'}
-                          className="sm:px-16 px-4 py-2 bg-[#A92223] flex justify-center rounded text-white w-max ">Create Announcements</Link> */}
-      </div>
+
       {bookingsQuery.isFetching && (
         <div className="flex justify-center h-full items-center">
           <ImSpinner2 className="text-4xl animate-spin" />
@@ -48,17 +56,30 @@ export default function CMS() {
       {/* {bookingsQuery.data?.data.data.length == 0 && !bookingsQuery.isFetching && <p className="text-center">No Data Exists</p>} */}
       {!bookingsQuery.isFetching && (
         <>
+          <div className="flex flex-wrap gap-4 items-center">
+            <p>Filter By Date :</p>
+            <DatePicker
+              showMonthAndYearPickers
+              className="max-w-[284px]"
+              value={parseDate(date) as any}
+              onChange={(value: any) => {
+                if (value) {
+                  setDate(value.toString());
+                }
+              }}
+            />
+          </div>
           <table className="p-4 mt-4 w-full block sm:table overflow-auto">
             <thead>
               <tr className="bg-gray-200">
                 <th className="p-2 rounded-l-md text-left text-sm">S.No</th>
                 <th className="p-2 text-sm text-left">Name</th>
-                <th className="p-2 text-sm text-left">Description</th>
-                {/* <th className="p-2 text-sm text-left">Hunts Required</th> */}
-                {/* <th className="p-2 text-sm text-left">Logo</th> */}
-                <th className="p-2 text-sm text-left">Created At</th>
+                <th className="p-2 text-sm text-left">Total Scanned</th>
+
+                <th className="p-2 text-sm text-left rounded-r-md">
+                  Scanned At
+                </th>
                 {/* <th className="p-2 text-sm text-left">Is Active</th> */}
-                <th className="p-2 text-sm text-left rounded-r-md">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -72,31 +93,14 @@ export default function CMS() {
                   </td>
                   <td
                     className="p-2 text-sm"
-                    dangerouslySetInnerHTML={{ __html: e.heading }}
+                    dangerouslySetInnerHTML={{ __html: e.qrCodeInfo.name }}
                   />
-                  <td
-                    className="p-2 text-sm"
-                    dangerouslySetInnerHTML={{ __html: e.description }}
-                  />
-                  {/* <td className="p-2 text-sm">{e.huntsRequired}</td> */}
-                  {/* <td className="p-2 text-sm"><Image className="w-[3rem] h-[3rem] object-contain" src={e.media?e.media.includes('placeholder')?'/images/user/profile/profile.png':`${process.env.NEXT_PUBLIC_MEDIA_URL}/${e.media}`:'/images/user/profile/profile.png'} alt="brewery Logo" width={100} height={100}/></td> */}
+
+                  <td className="p-2 text-sm">{e.totalScanned}</td>
                   <td className="p-2 text-sm">
-                    {new Date(e.createdAt).toLocaleDateString()}
+                    {new Date(e.qrCodeInfo.createdAt).toLocaleDateString()}
                   </td>
                   {/* <td className="p-2 text-sm">{`${e.active?"Active":"Not Active"}` }</td> */}
-                  <td className="p-2 text-sm">
-                    <div className="flex gap-2">
-                      <Link href={`/admin/cms/update?id=${e._id}`}>
-                        <CiEdit
-                          // onClick={() => {
-                          // setEditRiddle(!editRiddle)
-                          // setRiddleToEdit(e)
-                          // }}
-                          className="cursor-pointer border-[0.15rem] text-4xl text-red-600 rounded-lg p-2 border-red-600"
-                        />
-                      </Link>
-                    </div>
-                  </td>
                 </tr>
               ))}
             </tbody>

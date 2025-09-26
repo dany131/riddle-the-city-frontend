@@ -103,8 +103,11 @@ export const config = {
         '/admin/settings',
         '/admin/view-bookings',
         '/admin/coupons/:path*',
-        '/admin/qr-scans/:path*',
+        '/admin/qr-riddle-scans/:path*',
+        '/admin/qr-code-scans/:path*',
         '/admin/levels',
+        '/admin/qr-code/:path*',
+
         '/dashboard',
         '/feedback',
         '/help',
