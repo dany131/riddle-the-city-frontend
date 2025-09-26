@@ -54,8 +54,6 @@ jobs:
             # Unpack the source code
             sudo tar -xzf /tmp/build-source.tar.gz -C .
 
-            sudo rm package-lock.json 
-            
             # Install dependencies if package.json is included
             sudo npm install
 
