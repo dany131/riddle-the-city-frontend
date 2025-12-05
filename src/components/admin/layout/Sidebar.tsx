@@ -162,17 +162,16 @@ export default function Sidebar() {
               CMS
             </Link>
           </div>
-          <div
+          {/* <div
             className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
               pathname == "/admin/qr-riddle-scans" ? "bg-[#a922236e]" : ""
             }`}
           >
-            {/* <CiMail className="w-1/4" /> */}
             <IoQrCode className="w-1/4" />
             <Link className="w-full" href={"/admin/qr-riddle-scans"}>
               QR Riddle Scans
             </Link>
-          </div>
+          </div> */}
 
           <div
             className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
@@ -182,7 +181,7 @@ export default function Sidebar() {
             {/* <CiMail className="w-1/4" /> */}
             <IoQrCode className="w-1/4" />
             <Link className="w-full" href={"/admin/qr-code"}>
-              QR Codes
+              Trackable QR Codes
             </Link>
           </div>
 
@@ -194,7 +193,7 @@ export default function Sidebar() {
             {/* <CiMail className="w-1/4" /> */}
             <IoQrCode className="w-1/4" />
             <Link className="w-full" href={"/admin/qr-code-scans"}>
-              QR Code Scans
+              Trackable QR Code Scans
             </Link>
           </div>
 
@@ -299,6 +298,30 @@ export default function Sidebar() {
                 <MdOutlineContentPasteSearch className="w-1/4" />
                 <Link className="w-full" href={"/admin/cms"}>
                   CMS
+                </Link>
+              </div>
+
+              <div
+                className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
+                  pathname == "/admin/qr-code" ? "bg-[#a922236e]" : ""
+                }`}
+              >
+                {/* <CiMail className="w-1/4" /> */}
+                <IoQrCode className="w-1/4" />
+                <Link className="w-full" href={"/admin/qr-code"}>
+                  Trackable QR Codes
+                </Link>
+              </div>
+
+              <div
+                className={`flex gap-4 hover:bg-[#a922236e] p-2 items-center ${
+                  pathname == "/admin/qr-code-scans" ? "bg-[#a922236e]" : ""
+                }`}
+              >
+                {/* <CiMail className="w-1/4" /> */}
+                <IoQrCode className="w-1/4" />
+                <Link className="w-full" href={"/admin/qr-code-scans"}>
+                  Trackable QR Code Scans
                 </Link>
               </div>
               {/* <div className={`flex gap-4  p-2 items-center ${pathname == '/admin/settings' ? 'bg-[#a922236e]' : ''}`}>
