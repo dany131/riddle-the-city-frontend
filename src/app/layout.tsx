@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import QueryProvider from "./providers/QueryProvider";
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "react-multi-carousel/lib/styles.css";
-import ComingSoon from "@/components/ComingSoon";
-import { cookies } from "next/headers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -33,7 +29,7 @@ export default function RootLayout({
         </QueryProvider>} */}
         <QueryProvider>
           {children}
-          <ToastContainer/>
+          <ToastContainer />
         </QueryProvider>
       </body>
     </html>
