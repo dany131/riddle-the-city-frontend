@@ -78,6 +78,9 @@ export default function Checkout(datas: any) {
     {
       onSuccess(data) {
         onOpen2();
+        (window as any).fbq("track", "PurchaseComplete", {
+          page: window.location.pathname,
+        });
       },
       onError(error: any) {
         if (typeof error.response.data.message == "string") {

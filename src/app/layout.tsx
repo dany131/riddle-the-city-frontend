@@ -5,6 +5,7 @@ import QueryProvider from "./providers/QueryProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-multi-carousel/lib/styles.css";
+import Tracker from "@/components/layout/tracker";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
           {children}
           <ToastContainer />
         </QueryProvider>
+        <Tracker />
       </body>
     </html>
   );
